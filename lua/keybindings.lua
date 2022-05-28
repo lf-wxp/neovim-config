@@ -123,6 +123,8 @@ pluginKeys.telescopeList = {
 	},
 }
 
+map("n", "==", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opt)
+
 -- lsp 回调函数快捷键设置
 pluginKeys.mapLSP = function(mapbuf)
 	-- rename
@@ -148,7 +150,7 @@ pluginKeys.mapLSP = function(mapbuf)
 	mapbuf("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", opt)
 	mapbuf("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opt)
 	-- mapbuf("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opt)
-	mapbuf("n", "==", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opt)
+	-- mapbuf("n", "==", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opt)
 	-- mapbuf("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
 	-- mapbuf("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
 	-- mapbuf("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)

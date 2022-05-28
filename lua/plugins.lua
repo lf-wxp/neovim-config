@@ -46,7 +46,7 @@ packer.startup({
     -- nvim-tree
     use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
     -- bufferline
-    use({ "akinsho/bufferline.nvim", requires = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" }})
+    use({ "akinsho/bufferline.nvim", requires = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" } })
     -- lualine
     use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
     use("arkav/lualine-lsp-progress")
@@ -63,7 +63,7 @@ packer.startup({
     use("ahmedkhalf/project.nvim")
     -- treesitter
     use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-    use "lukas-reineke/indent-blankline.nvim"
+    use("lukas-reineke/indent-blankline.nvim")
     --------------------- LSP --------------------
     use { "williamboman/nvim-lsp-installer", "neovim/nvim-lspconfig" }
 
@@ -84,7 +84,7 @@ packer.startup({
     -- ui
     use("onsails/lspkind-nvim")
 
-    use("tami5/lspsaga.nvim" )
+    use("tami5/lspsaga.nvim")
 
     -- 代码格式化
     -- use("mhartington/formatter.nvim")
@@ -123,7 +123,7 @@ packer.startup({
     },
     display = {
       open_fn = function()
-          return require("packer.util").float({ border = "single" })
+        return require("packer.util").float({ border = "single" })
       end,
     },
   },
