@@ -5,16 +5,16 @@ local lsp_installer = require("nvim-lsp-installer")
 -- key 必须为下列网址列出的名称
 -- https://github.com/williamboman/nvim-lsp-installer#available-lsps
 local servers = {
-  sumneko_lua = require("lsp.config.lua"), -- lua/lsp/config/lua.lua
-  rust_analyzer = require("lsp.config.rust"), -- lua/lsp/config/lua.lua
-  denols = require("lsp.config.deno"), -- lua/lsp/config/lua.lua
-  jsonls = require("lsp.config.json"), -- lua/lsp/config/lua.lua
-  html = require("lsp.config.html"), -- lua/lsp/config/lua.lua
-  volar = require("lsp.config.vue"), -- lua/lsp/config/lua.lua
-  tsserver = require("lsp.config.ts"), -- lua/lsp/config/lua.lua
-  cssls = require("lsp.config.css"), -- lua/lsp/config/lua.lua
-  zk = require("lsp.config.markdown"), -- lua/lsp/config/lua.lua
-  taplo = require("lsp.config.toml"), -- lua/lsp/config/lua.lua
+  sumneko_lua = require("lsp.config.lua"),
+  rust_analyzer = require("lsp.config.rust"),
+  -- denols = require("lsp.config.deno"),
+  jsonls = require("lsp.config.json"),
+  html = require("lsp.config.html"),
+  volar = require("lsp.config.vue"),
+  tsserver = require("lsp.config.ts"),
+  cssls = require("lsp.config.css"),
+  zk = require("lsp.config.markdown"),
+  taplo = require("lsp.config.toml"),
 }
 -- 自动安装 Language Servers
 for name, _ in pairs(servers) do
