@@ -34,7 +34,7 @@ end
 packer.startup({
   function(use)
     -- Packer 可以管理自己本身
-    use "wbthomason/packer.nvim"
+    use("wbthomason/packer.nvim")
     --------------------- colorschemes --------------------
     -- tokyonight
     use("folke/tokyonight.nvim")
@@ -110,6 +110,32 @@ packer.startup({
 
     use({ "lewis6991/gitsigns.nvim" })
 
+    -- use("rmagatti/auto-session")
+
+    use("xiyaowong/nvim-transparent")
+
+    use({
+      "nvim-pack/nvim-spectre",
+      requires = {
+        "nvim-lua/plenary.nvim", -- Lua 开发模块
+        "BurntSushi/ripgrep" -- 文字查找
+      }
+    })
+    use("mg979/vim-visual-multi")
+
+    use("norcalli/nvim-colorizer.lua")
+
+    use("folke/which-key.nvim")
+
+    use("kdheepak/lazygit.nvim")
+
+    use { "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" }
+
+    use("karb94/neoscroll.nvim")
+
+    use { "phaazon/hop.nvim",
+      branch = 'v1', -- optional but strongly recommended
+    }
   end,
   config = {
     -- 并发数限制

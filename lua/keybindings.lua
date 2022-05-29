@@ -39,13 +39,13 @@ map("n", "<C-Up>", ":resize -2<CR>", opt)
 map("n", "s=", "<C-w>=", opt)
 
 -- Terminal相关
-map("n", "<leader>t", ":sp | terminal<CR>", opt)
-map("n", "<leader>vt", ":vsp | terminal<CR>", opt)
-map("t", "<Esc>", "<C-\\><C-n>", opt)
-map("t", "<C-h>", [[ <C-\><C-N><C-w>h ]], opt)
-map("t", "<C-j>", [[ <C-\><C-N><C-w>j ]], opt)
-map("t", "<C-k>", [[ <C-\><C-N><C-w>k ]], opt)
-map("t", "<C-l>", [[ <C-\><C-N><C-w>l ]], opt)
+-- map("n", "<leader>t", ":sp | terminal<CR>", opt)
+-- map("n", "<leader>vt", ":vsp | terminal<CR>", opt)
+-- map("t", "<Esc>", "<C-\\><C-n>", opt)
+-- map("t", "<C-h>", [[ <C-\><C-N><C-w>h ]], opt)
+-- map("t", "<C-j>", [[ <C-\><C-N><C-w>j ]], opt)
+-- map("t", "<C-k>", [[ <C-\><C-N><C-w>k ]], opt)
+-- map("t", "<C-l>", [[ <C-\><C-N><C-w>l ]], opt)
 
 -- visual模式下缩进代码
 map("v", "<", "<gv", opt)
@@ -163,6 +163,15 @@ pluginKeys.mapLSP = function(mapbuf)
 	-- mapbuf('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opt)
 	-- mapbuf('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opt)
 end
+
+
+-- spectre 
+-- 全项目替换
+map("n", "<leader>rp", "<cmd>lua require('spectre').open()<CR>", opt)
+-- 只替换当前文件
+map("n", "<leader>rf", "viw:lua require('spectre').open_file_search()<CR>", opt)
+-- 全项目中搜索当前单词
+map("n", "<leader>rw", "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", opt)
 
 -- nvim-cmp 自动补全
 pluginKeys.cmp = function(cmp)
@@ -321,5 +330,19 @@ pluginKeys.gitsigns_on_attach = function(bufnr)
   -- Text object
   map({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>")
 end
+
+-- lazyGit
+map("n", "<leader>gg", ":LazyGit<CR>", opt)
+
+-- hop
+map('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
+map('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", opt)
+map('o', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", opt)
+map('o', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", opt)
+map('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", opt)
+map('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", opt)
+map('n', '<leader>e', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", opt)
+map('v', '<leader>e', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", opt)
+map('o', '<leader>e', "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>", opt)
 
 return pluginKeys
