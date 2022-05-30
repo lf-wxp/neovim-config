@@ -38,6 +38,8 @@ packer.startup({
     --------------------- colorschemes --------------------
     -- tokyonight
     use("folke/tokyonight.nvim")
+    -- OceanicNext
+    use("mhartington/oceanic-next")
     use({
       "ellisonleao/gruvbox.nvim",
       requires = { "rktjmp/lush.nvim" },
@@ -112,7 +114,7 @@ packer.startup({
 
     -- use("rmagatti/auto-session")
 
-    use("xiyaowong/nvim-transparent")
+    -- use("xiyaowong/nvim-transparent")
 
     use({
       "nvim-pack/nvim-spectre",
