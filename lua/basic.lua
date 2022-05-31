@@ -78,3 +78,12 @@ vim.o.pumheight = 10
 vim.o.showtabline = 2
 -- 使用增强状态栏插件后不再需要 vim 的模式提示
 vim.o.showmode = false
+
+-- neovide
+vim.g.neovide_transparency = 0.97
+vim.g.neovide_profiler = "v:true"
+vim.g.neovide_remember_window_size = "v:true"
+vim.g.neovide_no_idle= "v:true"
+vim.g.neovide_cursor_animation_length = 0.05
+vim.g.neovide_cursor_trail_length = 0.5
+vim.g.neovide_cursor_vfx_mode = "pixiedust"
