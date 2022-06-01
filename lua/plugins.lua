@@ -113,9 +113,9 @@ packer.startup({
     -- nvim-autopairs
     use("windwp/nvim-autopairs")
 
-    use({ "akinsho/toggleterm.nvim" })
+    use("akinsho/toggleterm.nvim")
 
-    use({ "lewis6991/gitsigns.nvim" })
+    use("lewis6991/gitsigns.nvim")
 
     -- use("rmagatti/auto-session")
 
@@ -143,6 +143,18 @@ packer.startup({
     use { "phaazon/hop.nvim",
       branch = 'v1', -- optional but strongly recommended
     }
+
+    use("lewis6991/spellsitter.nvim")
+
+    use("rmagatti/goto-preview")
+
+    use("simrat39/symbols-outline.nvim")
+
+    -- use("weilbith/nvim-code-action-menu")
+
+    use("stevearc/dressing.nvim")
+
+    -- use("petertriho/nvim-scrollbar")
   end,
   config = {
     -- 并发数限制

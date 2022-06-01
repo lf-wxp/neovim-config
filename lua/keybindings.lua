@@ -132,7 +132,6 @@ pluginKeys.mapLSP = function(mapbuf)
   -- mapbuf("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
   mapbuf("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
   -- go xx
-  -- mapbuf("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
   mapbuf("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
 
   -- mapbuf("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
@@ -352,5 +351,12 @@ map("n", "<leader>hwk", ":HopWordBC<CR>", opt)
 map("n", "<leader>p", '"+p', opt)
 -- Copy to clipboard
 map("n", "<leader>y", '"+y', opt)
+
+
+-- goto-preview
+map("n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", opt)
+map("n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", opt)
+map("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>", opt)
+map("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", opt)
 
 return pluginKeys
