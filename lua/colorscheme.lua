@@ -1,4 +1,4 @@
-vim.o.background = "dark"
+-- vim.o.background = "dark"
 -- vim.g.tokyonight_style = "storm" -- day / night
 -- 半透明
 vim.g.gruvbox_transparent = true

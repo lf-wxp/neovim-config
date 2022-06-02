@@ -20,10 +20,10 @@ map("n", "so", "<C-w>o", opt)
 -- map("n", "<C-k>", "<C-w>k", opt)
 -- map("n", "<C-l>", "<C-w>l", opt)
 -- Alt + hjkl  窗口之间跳转
-map("n", "wh", "<C-w>h", opt)
-map("n", "wj", "<C-w>j", opt)
-map("n", "wk", "<C-w>k", opt)
-map("n", "wl", "<C-w>l", opt)
+map("n", "<leader>wh", "<C-w>h", opt)
+map("n", "<leader>wj", "<C-w>j", opt)
+map("n", "<leader>wk", "<C-w>k", opt)
+map("n", "<leader>wl", "<C-w>l", opt)
 
 -- 左右比例控制
 map("n", "<C-Left>", ":vertical resize -2<CR>", opt)
