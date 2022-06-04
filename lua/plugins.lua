@@ -49,6 +49,7 @@ packer.startup({
     use("catppuccin/nvim")
     use("navarasu/onedark.nvim")
     use("shaunsingh/nord.nvim")
+    use("sainnhe/edge")
 
     -- nvim-tree
     use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
