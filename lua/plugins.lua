@@ -155,6 +155,10 @@ packer.startup({
     use("stevearc/dressing.nvim")
 
     -- use("petertriho/nvim-scrollbar")
+
+    use("chentoast/marks.nvim")
+
+    use("ThePrimeagen/harpoon")
   end,
   config = {
     -- 并发数限制

@@ -359,4 +359,17 @@ map("n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<
 map("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>", opt)
 map("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", opt)
 
+-- harpoon
+map("n", "<leader>na", "<cmd>lua require('harpoon.mark').add_file()<CR>", opt)
+map("n", "<leader>nt", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", opt)
+map("n", "<leader>nn", "<cmd>lua require('harpoon.ui').nav_next()<CR>", opt)
+map("n", "<leader>np", "<cmd>lua require('harpoon.ui').nav_prev()<CR>", opt)
+map("n", "<leader>n1", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", opt)
+map("n", "<leader>n2", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", opt)
+map("n", "<leader>n3", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", opt)
+map("n", "<leader>n4", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", opt)
+map("n", "<leader>n5", "<cmd>lua require('harpoon.ui').nav_file(5)<CR>", opt)
+map("n", "<leader>n6", "<cmd>lua require('harpoon.ui').nav_file(6)<CR>", opt)
+
+
 return pluginKeys
