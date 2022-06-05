@@ -72,6 +72,8 @@ packer.startup({
     -- treesitter
     use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
     use("lukas-reineke/indent-blankline.nvim")
+    use("p00f/nvim-ts-rainbow")
+
     --------------------- LSP --------------------
     use { "williamboman/nvim-lsp-installer", "neovim/nvim-lspconfig" }
 
@@ -160,6 +162,8 @@ packer.startup({
     use("chentoast/marks.nvim")
 
     use("ThePrimeagen/harpoon")
+
+    use("j-hui/fidget.nvim")
   end,
   config = {
     -- 并发数限制
