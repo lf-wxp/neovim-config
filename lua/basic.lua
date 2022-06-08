@@ -82,7 +82,7 @@ vim.o.showmode = false
 vim.o.guifont="Hack Nerd Font Mono"
 
 -- neovide
-vim.g.neovide_transparency = 0.97
+vim.g.neovide_transparency = 0.95
 vim.g.neovide_profiler = "v:true"
 vim.g.neovide_remember_window_size = "v:true"
 vim.g.neovide_no_idle= "v:true"

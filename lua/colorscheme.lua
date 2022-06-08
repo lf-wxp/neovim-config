@@ -1,5 +1,4 @@
--- vim.o.background = "dark"
-local colorscheme = "edge"
+colorscheme = "gruvbox-material"
 -- tokyonight
 -- OceanicNext
 -- gruvbox
@@ -13,12 +12,16 @@ if not status_ok then
   return
 end
 
+-- grubox-material
+vim.g.gruvbox_material_transparent_background = 1
+
 -- gruvbox 
 vim.g.gruvbox_transparent = true
 vim.g.gruvbox_transparent_sidebar = true
+vim.g.gruvbox_contrast_dark = "soft"
 
 -- edge
-vim.g.edge_style = "aura"
+vim.g.edge_style = "neon"
 vim.g.edge_enable_italic = 1
 vim.g.edge_disable_italic_comment = 1
 vim.g.edge_show_eob = 1
