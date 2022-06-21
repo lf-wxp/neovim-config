@@ -163,6 +163,8 @@ packer.startup({
     use("ThePrimeagen/harpoon")
 
     use("j-hui/fidget.nvim")
+
+    use("folke/trouble.nvim")
   end,
   config = {
     -- 并发数限制
