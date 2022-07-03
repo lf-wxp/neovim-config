@@ -81,6 +81,8 @@ vim.o.showmode = false
 
 vim.o.guifont = "Hack Nerd Font Mono"
 
+vim.g.rust_recommended_style = 0
+
 -- neovide
 vim.g.neovide_transparency = 0.95
 vim.g.neovide_profiler = "v:true"
