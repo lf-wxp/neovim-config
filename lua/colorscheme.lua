@@ -1,4 +1,4 @@
-colorscheme = "gruvbox-material"
+colorscheme = "zephyr"
 -- tokyonight
 -- OceanicNext
 -- gruvbox
@@ -6,6 +6,7 @@ colorscheme = "gruvbox-material"
 -- nord
 -- onedark
 -- nightfox
+-- gruvbox-material
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not status_ok then
   vim.notify("colorscheme: " .. colorscheme .. " 没有找到！")

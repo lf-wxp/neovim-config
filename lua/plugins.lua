@@ -49,6 +49,7 @@ packer.startup({
     use("sainnhe/edge")
     use("marko-cerovac/material.nvim")
     use("sainnhe/gruvbox-material")
+    use("glepnir/zephyr-nvim")
 
     -- nvim-tree
     use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
@@ -165,6 +166,16 @@ packer.startup({
     use("j-hui/fidget.nvim")
 
     use("folke/trouble.nvim")
+
+    use {
+      "saecki/crates.nvim",
+      event = { "BufRead Cargo.toml" },
+      requires = { { "nvim-lua/plenary.nvim" } },
+      config = function()
+        require('crates').setup()
+      end,
+    }
+    use {"kevinhwang91/nvim-hlslens"}
   end,
   config = {
     -- 并发数限制

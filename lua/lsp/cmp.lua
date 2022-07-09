@@ -31,6 +31,7 @@ cmp.setup({
 
     -- -- For snippy users.
     -- { name = 'snippy' },
+    { name = "crates" }
   }, { { name = "buffer" }, { name = "path" } }),
 
   -- 快捷键设置

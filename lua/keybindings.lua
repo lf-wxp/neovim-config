@@ -332,15 +332,31 @@ end
 map("n", "<leader>gg", ":LazyGit<CR>", opt)
 
 -- hop
-map("n", "f", "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
-map("n", "F", "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", opt)
-map("o", "f", "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", opt)
-map("o", "F", "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>", opt)
-map("", "t", "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", opt)
-map("", "T", "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", opt)
-map("n", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", opt)
-map("v", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", opt)
-map("o", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>", opt)
+map("n", "f",
+  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
+  , {})
+map("n", "F",
+  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
+  , opt)
+map("o", "f",
+  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>"
+  , opt)
+map("o", "F",
+  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>"
+  , opt)
+map("", "t",
+  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
+  , opt)
+map("", "T",
+  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
+  , opt)
+map("n", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>",
+  opt)
+map("v", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>",
+  opt)
+map("o", "<leader>e",
+  "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>"
+  , opt)
 map("n", "<leader>hlj", ":HopLineAC<CR>", opt)
 map("n", "<leader>hlk", ":HopLineBC<CR>", opt)
 map("n", "<leader>hw", ":HopWord<CR>", opt)
@@ -371,5 +387,30 @@ map("n", "<leader>n4", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", opt)
 map("n", "<leader>n5", "<cmd>lua require('harpoon.ui').nav_file(5)<CR>", opt)
 map("n", "<leader>n6", "<cmd>lua require('harpoon.ui').nav_file(6)<CR>", opt)
 
+-- crates
+map("n", "<leader>ct", "<cmd>lua require('crates').toggle()<CR>", opt)
+map("n", "<leader>cr", "<cmd>lua require('crates').reload()<CR>", opt)
+map("n", "<leader>cv", "<cmd>lua require('crates').show_versions_popup()<CR>", opt)
+map("n", "<leader>cf", "<cmd>lua require('crates').show_features_popup()<CR>", opt)
+map("n", "<leader>cd", "<cmd>lua require('crates').show_dependencies_popup()<CR>", opt)
+map("n", "<leader>cu", "<cmd>lua require('crates').update_crate()<CR>", opt)
+map("n", "<leader>cu", "<cmd>lua require('crates').update_crates()<CR>", opt)
+-- map("n", "<leader>ca", "<cmd>lua require('crates').update_all_crates()<CR>", opt)
+map("n", "<leader>cU", "<cmd>lua require('crates').upgrade_crate()<CR>", opt)
+map("n", "<leader>cU", "<cmd>lua require('crates').upgrade_crates()<CR>", opt)
+map("n", "<leader>cA", "<cmd>lua require('crates').upgrade_all_crates()<CR>", opt)
+map("n", "<leader>cH", "<cmd>lua require('crates').open_homepage()<CR>", opt)
+map("n", "<leader>cR", "<cmd>lua require('crates').open_repository()<CR>", opt)
+map("n", "<leader>cD", "<cmd>lua require('crates').open_documentation()<CR>", opt)
+map("n", "<leader>cC", "<cmd>lua require('crates').open_crates_io()<CR>", opt)
+
+--hlslens
+map("n", "n", [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], opt)
+map("n", "N", [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], opt)
+map("n", "*", [[*<Cmd>lua require('hlslens').start()<CR>]], opt)
+map("n", "#", [[#<Cmd>lua require('hlslens').start()<CR>]], opt)
+map("n", "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], opt)
+map("n", "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], opt)
+map("n", "<leader>l", ":noh<CR>", opt)
 
 return pluginKeys
