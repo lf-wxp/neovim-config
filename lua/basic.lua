@@ -79,7 +79,7 @@ vim.o.showtabline = 2
 -- 使用增强状态栏插件后不再需要 vim 的模式提示
 vim.o.showmode = false
 
-vim.o.guifont = "Hack Nerd Font Mono"
+vim.o.guifont = "JetBrainsMono Nerd Font Mono"
 
 vim.g.rust_recommended_style = 0
 
