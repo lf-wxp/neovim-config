@@ -6,19 +6,13 @@ local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
 -- 取消 s 默认功能
-map("n", "s", "", opt)
 -- windows 分屏快捷键
-map("n", "sv", ":vsp<CR>", opt)
-map("n", "sh", ":sp<CR>", opt)
+map("n", "<leader>sv", ":vsp<CR>", opt)
+map("n", "<leader>sh", ":sp<CR>", opt)
 -- 关闭当前
-map("n", "sc", "<C-w>c", opt)
+map("n", "<leader>sc", "<C-w>c", opt)
 -- 关闭其他
-map("n", "so", "<C-w>o", opt)
--- -- Alt + hjkl  窗口之间跳转
--- map("n", "<C-h>", "<C-w>h", opt)
--- map("n", "<C-j>", "<C-w>j", opt)
--- map("n", "<C-k>", "<C-w>k", opt)
--- map("n", "<C-l>", "<C-w>l", opt)
+map("n", "<leader>so", "<C-w>o", opt)
 -- Alt + hjkl  窗口之间跳转
 map("n", "<leader>wh", "<C-w>h", opt)
 map("n", "<leader>wj", "<C-w>j", opt)
@@ -26,17 +20,13 @@ map("n", "<leader>wk", "<C-w>k", opt)
 map("n", "<leader>wl", "<C-w>l", opt)
 
 -- 左右比例控制
-map("n", "<C-Left>", ":vertical resize -2<CR>", opt)
-map("n", "<C-Right>", ":vertical resize +2<CR>", opt)
-map("n", "shh", ":vertical resize -20<CR>", opt)
-map("n", "sll", ":vertical resize +20<CR>", opt)
+map("n", "<leader>shh", ":vertical resize -10<CR>", opt)
+map("n", "<leader>sll", ":vertical resize +10<CR>", opt)
 -- 上下比例
-map("n", "sjj", ":resize +10<CR>", opt)
-map("n", "skk", ":resize -10<CR>", opt)
-map("n", "<C-Down>", ":resize +2<CR>", opt)
-map("n", "<C-Up>", ":resize -2<CR>", opt)
+map("n", "<leader>sjj", ":resize +10<CR>", opt)
+map("n", "<leader>skk", ":resize -10<CR>", opt)
 -- 等比例
-map("n", "s=", "<C-w>=", opt)
+map("n", "<leader>s=", "<C-w>=", opt)
 
 -- Terminal相关
 -- map("n", "<leader>t", ":sp | terminal<CR>", opt)
@@ -48,8 +38,8 @@ map("n", "s=", "<C-w>=", opt)
 -- map("t", "<C-l>", [[ <C-\><C-N><C-w>l ]], opt)
 
 -- visual模式下缩进代码
-map("v", "<", "<gv", opt)
-map("v", ">", ">gv", opt)
+-- map("v", "<", "<gv", opt)
+-- map("v", ">", ">gv", opt)
 -- 上下移动选中文本
 map("v", "J", ":move '>+1<CR>gv-gv", opt)
 map("v", "K", ":move '<-2<CR>gv-gv", opt)
@@ -58,15 +48,14 @@ map("v", "K", ":move '<-2<CR>gv-gv", opt)
 -- map("n", "<C-j>", "4j", opt)
 -- map("n", "<C-k>", "4k", opt)
 -- ctrl u / ctrl + d  只移动9行，默认移动半屏
-map("n", "<C-u>", "9k", opt)
-map("n", "<C-d>", "9j", opt)
+map("n", "<leader>u", "9k", opt)
+map("n", "<leader>d", "9j", opt)
 
 -- 插件快捷键
 local pluginKeys = {}
 
 -- nvim-tree
--- alt + m 键打开关闭tree
-map("n", "<leader>m", ":NvimTreeToggle<CR>", opt)
+map("n", "<leader>tt", ":NvimTreeToggle<CR>", opt)
 -- 列表快捷键
 pluginKeys.nvimTreeList = {
   -- 打开文件或文件夹
@@ -90,64 +79,63 @@ pluginKeys.nvimTreeList = {
 
 -- bufferline
 -- 左右Tab切换
-map("n", "<C-h>", ":BufferLineCyclePrev<CR>", opt)
-map("n", "<C-l>", ":BufferLineCycleNext<CR>", opt)
+map("n", "<leader>h", ":BufferLineCyclePrev<CR>", opt)
+map("n", "<leader>l", ":BufferLineCycleNext<CR>", opt)
 -- 关闭
 --"moll/vim-bbye"
-map("n", "tc", ":Bdelete!<CR>", opt)
-map("n", "<leader>bl", ":BufferLineCloseRight<CR>", opt)
-map("n", "<leader>bh", ":BufferLineCloseLeft<CR>", opt)
+map("n", "<leader>tc", ":Bdelete!<CR>", opt)
+map("n", "<leader>bcl", ":BufferLineCloseRight<CR>", opt)
+map("n", "<leader>bch", ":BufferLineCloseLeft<CR>", opt)
 map("n", "<leader>bc", ":BufferLinePickClose<CR>", opt)
 
 -- Telescope
 -- 查找文件
-map("n", "<C-p>", ":Telescope find_files<CR>", opt)
+map("n", "<leader><leader>f", ":Telescope find_files<CR>", opt)
 -- 全局搜索
-map("n", "<C-f>", ":Telescope live_grep<CR>", opt)
+map("n", "<leader><leader>t", ":Telescope live_grep<CR>", opt)
 -- Telescope 列表中 插入模式快捷键
 pluginKeys.telescopeList = {
-  i = {
-    -- 上下移动
-    ["<C-j>"] = "move_selection_next",
-    ["<C-k>"] = "move_selection_previous",
-    ["<Down>"] = "move_selection_next",
-    ["<Up>"] = "move_selection_previous",
-    -- 历史记录
-    ["<C-n>"] = "cycle_history_next",
-    ["<C-p>"] = "cycle_history_prev",
-    -- 关闭窗口
-    ["<C-c>"] = "close",
-    -- 预览窗口上下滚动
-    ["<C-u>"] = "preview_scrolling_up",
-    ["<C-d>"] = "preview_scrolling_down",
-  },
+i = {
+  -- 上下移动
+  ["<C-j>"] = "move_selection_next",
+  ["<C-k>"] = "move_selection_previous",
+  ["<Down>"] = "move_selection_next",
+  ["<Up>"] = "move_selection_previous",
+  -- 历史记录
+  ["<C-n>"] = "cycle_history_next",
+  ["<C-p>"] = "cycle_history_prev",
+  -- 关闭窗口
+  ["<C-c>"] = "close",
+  -- 预览窗口上下滚动
+  ["<C-u>"] = "preview_scrolling_up",
+  ["<C-d>"] = "preview_scrolling_down",
+},
 }
 
 -- lsp 回调函数快捷键设置
 pluginKeys.mapLSP = function(mapbuf)
-  -- rename
-  -- mapbuf("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
-  mapbuf("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
-  -- code action
-  -- mapbuf("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
-  mapbuf("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
-  -- go xx
-  mapbuf("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
+-- rename
+-- mapbuf("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
+mapbuf("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
+-- code action
+-- mapbuf("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
+mapbuf("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
+-- go xx
+mapbuf("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
 
-  -- mapbuf("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
-  mapbuf("n", "gh", "<cmd>Lspsaga hover_doc<cr>", opt)
+-- mapbuf("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
+mapbuf("n", "gh", "<cmd>Lspsaga hover_doc<cr>", opt)
 
-  mapbuf("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
-  mapbuf("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
+mapbuf("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
+mapbuf("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
 
-  -- mapbuf("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
-  mapbuf("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opt)
-  -- diagnostic
-  mapbuf("n", "gp", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
-  mapbuf("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", opt)
-  mapbuf("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opt)
-  -- mapbuf("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opt)
-  mapbuf("n", "==", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opt)
+-- mapbuf("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
+mapbuf("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opt)
+-- diagnostic
+mapbuf("n", "gp", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
+mapbuf("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", opt)
+mapbuf("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opt)
+mapbuf("n", "==", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opt)
   -- mapbuf("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
   -- mapbuf("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
   -- mapbuf("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
@@ -265,16 +253,15 @@ pluginKeys.comment = {
 }
 
 -- 自定义 toggleterm 3个不同类型的命令行窗口
--- <leader>ta 浮动
--- <leader>tb 右侧
--- <leader>tc 下方
+-- <leader>tf 浮动
+-- <leader>tr 右侧
+-- <leader>td 下方
 -- 特殊lazygit 窗口，需要安装lazygit
 -- <leader>tg lazygit
 pluginKeys.mapToggleTerm = function(toggleterm)
-  vim.keymap.set({ "n", "t" }, "<leader>ta", toggleterm.toggleA)
-  vim.keymap.set({ "n", "t" }, "<leader>tb", toggleterm.toggleB)
-  vim.keymap.set({ "n", "t" }, "<leader>tc", toggleterm.toggleC)
-  vim.keymap.set({ "n", "t" }, "<leader>tg", toggleterm.toggleG)
+  vim.keymap.set({ "n", "t" }, "<leader>tf", toggleterm.toggleA)
+  vim.keymap.set({ "n", "t" }, "<leader>tr", toggleterm.toggleB)
+  vim.keymap.set({ "n", "t" }, "<leader>td", toggleterm.toggleC)
 end
 
 -- gitsigns
@@ -341,12 +328,12 @@ map("", "T", "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.H
 map("n", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", opt)
 map("v", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", opt)
 map("o", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>" , opt)
-map("n", "<leader>hl", ":HopLine<CR>", opt)
-map("n", "<leader>hlj", ":HopLineAC<CR>", opt)
-map("n", "<leader>hlk", ":HopLineBC<CR>", opt)
-map("n", "<leader>hw", ":HopWord<CR>", opt)
-map("n", "<leader>hwj", ":HopWordAC<CR>", opt)
-map("n", "<leader>hwk", ":HopWordBC<CR>", opt)
+map("n", "<leader>ml", ":HopLine<CR>", opt)
+map("n", "<leader>mlj", ":HopLineAC<CR>", opt)
+map("n", "<leader>mlk", ":HopLineBC<CR>", opt)
+map("n", "<leader>mw", ":HopWord<CR>", opt)
+map("n", "<leader>mwj", ":HopWordAC<CR>", opt)
+map("n", "<leader>mwk", ":HopWordBC<CR>", opt)
 
 -- Paste from clipboard
 map("n", "<leader>p", '"+p', opt)
@@ -380,7 +367,6 @@ map("n", "<leader>cf", "<cmd>lua require('crates').show_features_popup()<CR>", o
 map("n", "<leader>cd", "<cmd>lua require('crates').show_dependencies_popup()<CR>", opt)
 map("n", "<leader>cu", "<cmd>lua require('crates').update_crate()<CR>", opt)
 map("n", "<leader>cu", "<cmd>lua require('crates').update_crates()<CR>", opt)
--- map("n", "<leader>ca", "<cmd>lua require('crates').update_all_crates()<CR>", opt)
 map("n", "<leader>cU", "<cmd>lua require('crates').upgrade_crate()<CR>", opt)
 map("n", "<leader>cU", "<cmd>lua require('crates').upgrade_crates()<CR>", opt)
 map("n", "<leader>cA", "<cmd>lua require('crates').upgrade_all_crates()<CR>", opt)
@@ -396,6 +382,6 @@ map("n", "*", [[*<Cmd>lua require('hlslens').start()<CR>]], opt)
 map("n", "#", [[#<Cmd>lua require('hlslens').start()<CR>]], opt)
 map("n", "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], opt)
 map("n", "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], opt)
-map("n", "<leader>l", ":noh<CR>", opt)
+map("n", "<leader>k", ":noh<CR>", opt)
 
 return pluginKeys
