@@ -262,6 +262,7 @@ pluginKeys.mapToggleTerm = function(toggleterm)
   vim.keymap.set({ "n", "t" }, "<leader>tf", toggleterm.toggleA)
   vim.keymap.set({ "n", "t" }, "<leader>tr", toggleterm.toggleB)
   vim.keymap.set({ "n", "t" }, "<leader>td", toggleterm.toggleC)
+  map("t", "<Esc>", "<C-\\><C-n>", opt)
 end
 
 -- gitsigns
