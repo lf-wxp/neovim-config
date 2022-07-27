@@ -48,8 +48,8 @@ map("v", "K", ":move '<-2<CR>gv-gv", opt)
 -- map("n", "<C-j>", "4j", opt)
 -- map("n", "<C-k>", "4k", opt)
 -- ctrl u / ctrl + d  只移动9行，默认移动半屏
-map("n", "<leader>u", "9k", opt)
-map("n", "<leader>d", "9j", opt)
+-- map("n", "<leader>u", "<C-u>", opt)
+-- map("n", "<leader>d", "<C-d>", opt)
 
 -- 插件快捷键
 local pluginKeys = {}
