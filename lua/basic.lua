@@ -98,3 +98,22 @@ vim.g.neovide_floating_blur_amount_y = 2.0
 vim.g.neovide_cursor_antialiasing = "v:true"
 vim.g.neovide_cursor_unfocused_outline_width=0.125
 
+
+-- barbar 
+-- vim.api.nvim_create_autocmd('BufWinEnter', {
+--   pattern = '*',
+--   callback = function()
+--     if vim.bo.filetype == 'NvimTree' then
+--       require'bufferline.state'.set_offset(31, 'FileTree')
+--     end
+--   end
+-- })
+
+-- vim.api.nvim_create_autocmd('BufWinLeave', {
+--   pattern = '*',
+--   callback = function()
+--     if vim.fn.expand('<afile>'):match('NvimTree') then
+--       require'bufferline.state'.set_offset(10)
+--     end
+--   end
+-- })

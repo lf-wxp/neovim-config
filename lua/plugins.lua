@@ -120,7 +120,7 @@ packer.startup({
 
     use("lewis6991/gitsigns.nvim")
 
-    -- use("rmagatti/auto-session")
+    use("rmagatti/auto-session")
 
     -- use("xiyaowong/nvim-transparent")
 
@@ -176,6 +176,11 @@ packer.startup({
       end,
     }
     use {"kevinhwang91/nvim-hlslens"}
+
+    -- use {
+    --   'romgrk/barbar.nvim',
+    --   requires = {'kyazdani42/nvim-web-devicons'}
+    -- }
   end,
   config = {
     -- 并发数限制

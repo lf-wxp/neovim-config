@@ -81,6 +81,9 @@ pluginKeys.nvimTreeList = {
 -- 左右Tab切换
 map("n", "<leader>h", ":BufferLineCyclePrev<CR>", opt)
 map("n", "<leader>l", ":BufferLineCycleNext<CR>", opt)
+map("n", "<leader><", ":BufferLineMovePrev<CR>", opt)
+map("n", "<leader>>", ":BufferLineMoveNext<CR>", opt)
+map("n", "<leader>tp", ":BufferLinePick<CR>", opt)
 -- 关闭
 --"moll/vim-bbye"
 map("n", "<leader>tc", ":Bdelete!<CR>", opt)
@@ -384,5 +387,16 @@ map("n", "#", [[#<Cmd>lua require('hlslens').start()<CR>]], opt)
 map("n", "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], opt)
 map("n", "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], opt)
 map("n", "<leader>k", ":noh<CR>", opt)
+
+-- barbar
+-- map("n", "<leader>h", ":BufferPrevious<CR>", opt)
+-- map("n", "<leader>l", ":BufferNext<CR>", opt)
+-- map("n", "<leader><", ":BufferMovePrevious<CR>", opt)
+-- map("n", "<leader>>", ":BufferMoveNext<CR>", opt)
+-- map("n", "<leader>tp", ":BufferPick<CR>", opt)
+-- map("n", "<leader>th", ":BufferScrollLeft 50<CR>", opt)
+-- map("n", "<leader>tl", ":BufferScrollRight 50<CR>", opt)
+-- -- 关闭
+-- map("n", "<leader>tc", ":BufferClose<CR>", opt)
 
 return pluginKeys
