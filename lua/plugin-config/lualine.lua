@@ -21,6 +21,7 @@ lualine.setup({
         "lsp_progress",
         spinner_symbols = { " ", " ", " ", " ", " ", " " },
       },
+      require('auto-session-library').current_session_name,
     },
     lualine_x = {
       "filesize",

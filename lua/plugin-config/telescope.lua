@@ -25,6 +25,7 @@ telescope.setup({
         -- even more opts
       }),
     },
+    
      -- 扩展插件配置
   },
 })
@@ -32,3 +33,9 @@ telescope.setup({
 pcall(telescope.load_extension, "env")
 
 pcall(telescope.load_extension, "ui-select")
+
+pcall(telescope.load_extension, "session-lens")
+
+pcall(telescope.load_extension, "symbols")
+
+pcall(telescope.load_extension, "hop")

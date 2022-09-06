@@ -122,6 +122,11 @@ packer.startup({
 
     use("rmagatti/auto-session")
 
+    use {
+      'rmagatti/session-lens',
+      requires = { 'rmagatti/auto-session', 'nvim-telescope/telescope.nvim' },
+    }
+
     -- use("xiyaowong/nvim-transparent")
 
     use({
@@ -175,12 +180,15 @@ packer.startup({
         require('crates').setup()
       end,
     }
-    use {"kevinhwang91/nvim-hlslens"}
+    use { "kevinhwang91/nvim-hlslens" }
 
     -- use {
     --   'romgrk/barbar.nvim',
     --   requires = {'kyazdani42/nvim-web-devicons'}
     -- }
+    use { "nvim-telescope/telescope-symbols.nvim" }
+
+    use { "nvim-telescope/telescope-hop.nvim" }
   end,
   config = {
     -- 并发数限制

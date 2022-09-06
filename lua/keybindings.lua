@@ -98,47 +98,56 @@ map("n", "<leader><leader>f", ":Telescope find_files<CR>", opt)
 map("n", "<leader><leader>t", ":Telescope live_grep<CR>", opt)
 -- Telescope 列表中 插入模式快捷键
 pluginKeys.telescopeList = {
-i = {
-  -- 上下移动
-  ["<C-j>"] = "move_selection_next",
-  ["<C-k>"] = "move_selection_previous",
-  ["<Down>"] = "move_selection_next",
-  ["<Up>"] = "move_selection_previous",
-  -- 历史记录
-  ["<C-n>"] = "cycle_history_next",
-  ["<C-p>"] = "cycle_history_prev",
-  -- 关闭窗口
-  ["<C-c>"] = "close",
-  -- 预览窗口上下滚动
-  ["<C-u>"] = "preview_scrolling_up",
-  ["<C-d>"] = "preview_scrolling_down",
-},
+  i = {
+    -- 上下移动
+    ["<Down>"] = "move_selection_next",
+    ["<Up>"] = "move_selection_previous",
+    -- 历史记录
+    ["<C-n>"] = "cycle_history_next",
+    ["<C-p>"] = "cycle_history_prev",
+    -- 关闭窗口
+    ["<C-c>"] = "close",
+    -- 预览窗口上下滚动
+    ["<C-u>"] = "preview_scrolling_up",
+    ["<C-d>"] = "preview_scrolling_down",
+
+    -- either hot-reloaded or `function(prompt_bufnr) telescope.extensions.hop.hop end`
+    ["<leader>h"] = require("telescope").extensions.hop.hop,  -- hop.hop_toggle_selection
+    -- custom hop loop to multi selects and sending selected entries to quickfix list 
+    ["<C-space>"] = function(prompt_bufnr)
+      local opts = {
+        callback = actions.toggle_selection,
+        loop_callback = actions.send_selected_to_qflist,
+      }
+      require("telescope").extensions.hop._hop_loop(prompt_bufnr, opts)
+    end,
+  },
 }
 
 -- lsp 回调函数快捷键设置
 pluginKeys.mapLSP = function(mapbuf)
--- rename
--- mapbuf("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
-mapbuf("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
--- code action
--- mapbuf("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
-mapbuf("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
--- go xx
-mapbuf("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
+  -- rename
+  -- mapbuf("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
+  mapbuf("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
+  -- code action
+  -- mapbuf("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
+  mapbuf("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
+  -- go xx
+  mapbuf("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
 
--- mapbuf("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
-mapbuf("n", "gh", "<cmd>Lspsaga hover_doc<cr>", opt)
+  -- mapbuf("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
+  mapbuf("n", "gh", "<cmd>Lspsaga hover_doc<cr>", opt)
 
-mapbuf("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
-mapbuf("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
+  mapbuf("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
+  mapbuf("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
 
--- mapbuf("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
-mapbuf("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opt)
--- diagnostic
-mapbuf("n", "gp", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
-mapbuf("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", opt)
-mapbuf("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opt)
-mapbuf("n", "==", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opt)
+  -- mapbuf("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
+  mapbuf("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opt)
+  -- diagnostic
+  mapbuf("n", "gp", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
+  mapbuf("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", opt)
+  mapbuf("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opt)
+  mapbuf("n", "==", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opt)
   -- mapbuf("n", "gp", "<cmd>lua vim.diagnostic.open_float()<CR>", opt)
   -- mapbuf("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
   -- mapbuf("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opt)
@@ -323,15 +332,31 @@ end
 map("n", "<leader>gg", ":LazyGit<CR>", opt)
 
 -- hop
-map("n", "f", "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>" , {})
-map("n", "F", "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>" , opt)
-map("o", "f", "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>" , opt)
-map("o", "F", "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>" , opt)
-map("", "t", "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>" , opt)
-map("", "T", "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>" , opt)
-map("n", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", opt)
-map("v", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>", opt)
-map("o", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>" , opt)
+map("n", "f",
+  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
+  , {})
+map("n", "F",
+  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
+  , opt)
+map("o", "f",
+  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>"
+  , opt)
+map("o", "F",
+  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>"
+  , opt)
+map("", "t",
+  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
+  , opt)
+map("", "T",
+  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
+  , opt)
+map("n", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>",
+  opt)
+map("v", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END })<cr>",
+  opt)
+map("o", "<leader>e",
+  "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>"
+  , opt)
 map("n", "<leader>ml", ":HopLine<CR>", opt)
 map("n", "<leader>mlj", ":HopLineAC<CR>", opt)
 map("n", "<leader>mlk", ":HopLineBC<CR>", opt)
