@@ -424,4 +424,7 @@ map("n", "<leader>k", ":noh<CR>", opt)
 -- -- 关闭
 -- map("n", "<leader>tc", ":BufferClose<CR>", opt)
 
+map("n", "<leader>o", "<C-o>", opt)
+map("n", "<leader>i", "<C-i>", opt)
+
 return pluginKeys

@@ -7,5 +7,5 @@ end
 marks.setup({
   -- default_mappings = false,
   builtin_marks = { ".", "<", ">", "^" },
-  excluded_filetypes = {'LspsagaHover'}
+  excluded_filetypes = {'LspsagaHover', 'LspsagaCodeAction', 'LspsagaHoverDoc'}
 })
