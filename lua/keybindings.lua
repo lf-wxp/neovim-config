@@ -183,9 +183,9 @@ pluginKeys.cmp = function(cmp)
 
   return {
     -- 出现补全
-    ["<C-.>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    ["<leader>."] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     -- 取消
-    ["<C-,>"] = cmp.mapping({
+    ["<leader>,"] = cmp.mapping({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
@@ -201,8 +201,8 @@ pluginKeys.cmp = function(cmp)
       behavior = cmp.ConfirmBehavior.Replace,
     }),
     -- 如果窗口内容太多，可以滚动
-    ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+    ["<leader>u"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+    ["<leader>d"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 
     -- 自定义代码段跳转到下一个参数
     ["<C-l>"] = cmp.mapping(function(_)
@@ -244,9 +244,9 @@ end
 
 -- typescript 快捷键
 pluginKeys.mapTsLSP = function(mapbuf)
-  mapbuf("n", "gs", ":TSLspOrganize<CR>", opt)
-  mapbuf("n", "gr", ":TSLspRenameFile<CR>", opt)
-  mapbuf("n", "gi", ":TSLspImportAll<CR>", opt)
+  mapbuf("n", "<leader>to", ":TSLspOrganize<CR>", opt)
+  mapbuf("n", "<leader>tr", ":TSLspRenameFile<CR>", opt)
+  mapbuf("n", "<leader>ti", ":TSLspImportAll<CR>", opt)
 end
 
 -- 代码注释插件
