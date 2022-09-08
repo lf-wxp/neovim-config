@@ -96,10 +96,10 @@ vim.g.neovide_scroll_animation_length = 0.3
 vim.g.neovide_floating_blur_amount_x = 2.0
 vim.g.neovide_floating_blur_amount_y = 2.0
 vim.g.neovide_cursor_antialiasing = "v:true"
-vim.g.neovide_cursor_unfocused_outline_width=0.125
+vim.g.neovide_cursor_unfocused_outline_width = 0.125
 
 
--- barbar 
+-- barbar
 -- vim.api.nvim_create_autocmd('BufWinEnter', {
 --   pattern = '*',
 --   callback = function()

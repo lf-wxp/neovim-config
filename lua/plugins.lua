@@ -189,6 +189,10 @@ packer.startup({
     use { "nvim-telescope/telescope-symbols.nvim" }
 
     use { "nvim-telescope/telescope-hop.nvim" }
+
+    -- winbar
+    use({ "fgheng/winbar.nvim", requires = "SmiteshP/nvim-gps" })
+
   end,
   config = {
     -- 并发数限制
