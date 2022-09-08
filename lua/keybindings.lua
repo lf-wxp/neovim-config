@@ -183,12 +183,13 @@ pluginKeys.cmp = function(cmp)
 
   return {
     -- 出现补全
-    ["<leader>."] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    ["<C-i>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     -- 取消
-    ["<leader>,"] = cmp.mapping({
+    ["<C-o>"] = cmp.mapping({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
+    
     -- 上一个
     -- ["<C-k>"] = cmp.mapping.select_prev_item(),
     ["<Up>"] = cmp.mapping.select_prev_item(),
@@ -201,8 +202,8 @@ pluginKeys.cmp = function(cmp)
       behavior = cmp.ConfirmBehavior.Replace,
     }),
     -- 如果窗口内容太多，可以滚动
-    ["<leader>u"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-    ["<leader>d"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+    ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 
     -- 自定义代码段跳转到下一个参数
     ["<C-l>"] = cmp.mapping(function(_)
