@@ -1,6 +1,6 @@
 require('basic')
-require('keybindings')
 require('plugins')
+require('keybindings')
 require('colorscheme')
 require("plugin-config.nvim-tree")
 require("plugin-config.bufferline")
