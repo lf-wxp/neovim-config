@@ -1,5 +1,6 @@
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
 local runtime_path = vim.split(package.path, ';')
+local navic = require("nvim-navic")
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
@@ -36,7 +37,7 @@ local opts = {
     -- client.resolved_capabilities.document_range_formatting = false
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
-
+    navic.attach(client, bufnr)
     local function buf_set_keymap(...)
       vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
@@ -51,6 +52,6 @@ local opts = {
 -- 查看目录等信息
 return {
   on_setup = function(server)
-    server:setup(opts)
+    server.setup(opts)
   end,
 }

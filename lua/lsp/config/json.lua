@@ -1,6 +1,7 @@
+local navic = require("nvim-navic")
 return {
-  on_setup = function(server)
-    server:setup({
+  on_setup = function(server, bufnr)
+    server.setup({
       settings = {
         json = {
           schemas = require("schemastore").json.schemas(),
@@ -16,6 +17,7 @@ return {
         -- client.resolved_capabilities.document_range_formatting = false
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
+        navic.attach(client, bufnr)
       end,
     })
   end,

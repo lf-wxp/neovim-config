@@ -20,9 +20,10 @@ cmp.setup({
   -- 补全源
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
+    { name = "nvim_lsp_signature_help" },
     -- For vsnip users.
     { name = "vsnip" },
-
+    { name = "buffer" },
     -- For luasnip users.
     -- { name = 'luasnip' },
 
@@ -32,7 +33,7 @@ cmp.setup({
     -- -- For snippy users.
     -- { name = 'snippy' },
     { name = "crates" }
-  }, { { name = "buffer" }, { name = "path" } }),
+  }, { { name = "path" } }),
 
   -- 快捷键设置
   mapping = require("keybindings").cmp(cmp),

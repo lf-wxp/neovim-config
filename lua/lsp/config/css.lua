@@ -1,6 +1,7 @@
+local navic = require("nvim-navic")
 return {
-  on_setup = function(server)
-    server:setup({
+  on_setup = function(server, bufnr)
+    server.setup({
       capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
       settings = {
         css = {
@@ -22,6 +23,7 @@ return {
         -- client.resolved_capabilities.document_range_formatting = false
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
+        navic.attach(client, bufnr)
         local function buf_set_keymap(...)
           vim.api.nvim_buf_set_keymap(bufnr, ...)
         end
