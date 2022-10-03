@@ -25,7 +25,9 @@ autocmd("TermOpen", {
 autocmd("BufWritePre", {
   group = myAutoGroup,
   pattern = { "*.lua", "*.py", "*.sh", "*.vue", "*.ts", "*.tsx" },
-  callback = vim.lsp.buf.formatting,
+  callback = function()
+    vim.lsp.buf.format()
+  end,
 })
 
 -- 修改lua/plugins.lua 自动更新插件
