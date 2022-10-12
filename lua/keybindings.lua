@@ -183,7 +183,8 @@ pluginKeys.cmp = function(cmp)
 
   return {
     -- 出现补全
-    ["<C-i>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    -- 可能是<C-i> 有bug导致在i模式tab使用有问题,所以换了快捷键 
+    ["<A-i>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     -- 取消
     ["<C-o>"] = cmp.mapping({
       i = cmp.mapping.abort(),
