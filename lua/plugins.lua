@@ -197,6 +197,8 @@ packer.startup({
       requires = "neovim/nvim-lspconfig"
     }
 
+    use { "sunjon/shade.nvim" }
+
   end,
   config = {
     -- 并发数限制
