@@ -51,7 +51,13 @@ cmp.setup.cmdline("/", {
 
 -- : 命令行模式中使用 path 和 cmdline 源.
 cmp.setup.cmdline(":", {
-  mapping = cmp.mapping.preset.cmdline(),
+  -- mapping = cmp.mapping.preset.cmdline(),
+  mapping = { 
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
+    ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
+    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
+  },
   sources = cmp.config.sources({
     { name = "path" },
   }, {
