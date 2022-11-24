@@ -43,7 +43,13 @@ cmp.setup({
 
 -- / 查找模式使用 buffer 源
 cmp.setup.cmdline("/", {
-  mapping = cmp.mapping.preset.cmdline(),
+  -- mapping = cmp.mapping.preset.cmdline(),
+  mapping = { 
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
+    ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
+    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
+  },
   sources = {
     { name = "buffer" },
   },
