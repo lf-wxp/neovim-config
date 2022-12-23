@@ -75,7 +75,9 @@ packer.startup({
     use("p00f/nvim-ts-rainbow")
 
     --------------------- LSP --------------------
-    use { "williamboman/nvim-lsp-installer", "neovim/nvim-lspconfig" }
+    use { "williamboman/mason.nvim" }
+    use { "williamboman/mason-lspconfig.nvim" }
+    use { "neovim/nvim-lspconfig" }
 
     -- 补全引擎
     use("hrsh7th/nvim-cmp")

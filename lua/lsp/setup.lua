@@ -1,7 +1,28 @@
-require("nvim-lsp-installer").setup({
-  -- 自动安装 Language Servers
-  automatic_installation = true,
+require("mason").setup({
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗",
+    },
+  },
 })
+
+require("mason-lspconfig").setup({
+  -- 确保安装，根据需要填写
+  ensure_installed = {
+    "cssls",
+    "tsserver",
+    "html",
+    "jsonls",
+    "rust_analyzer",
+    "taplo",
+    "volar",
+    "sumneko_lua",
+    "zk"
+  },
+})
+
 local lspconfig = require("lspconfig")
 
 -- 安装列表
