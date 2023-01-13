@@ -50,6 +50,7 @@ packer.startup({
     use("marko-cerovac/material.nvim")
     use("sainnhe/gruvbox-material")
     use("glepnir/zephyr-nvim")
+    use("rebelot/kanagawa.nvim")
 
     -- nvim-tree
     use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
@@ -152,7 +153,7 @@ packer.startup({
     use("karb94/neoscroll.nvim")
 
     use { "phaazon/hop.nvim",
-      branch = 'v1', -- optional but strongly recommended
+      branch = 'v2', -- optional but strongly recommended
     }
 
     use("lewis6991/spellsitter.nvim")
