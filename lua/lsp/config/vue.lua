@@ -17,11 +17,6 @@ return {
         -- 绑定快捷键
         require("keybindings").mapLSP(buf_set_keymap)
       end,
-      -- init_options = {
-      --   typescript = {
-      --     tsdk = '/Users/franciscowu/.nvm/versions/node/v17.6.0/lib/node_modules/typescript/lib'
-      --   }
-      -- }
     })
   end,
 }
