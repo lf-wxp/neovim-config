@@ -276,6 +276,7 @@ pluginKeys.mapToggleTerm = function(toggleterm)
   vim.keymap.set({ "n", "t" }, "<leader>tf", toggleterm.toggleA)
   vim.keymap.set({ "n", "t" }, "<leader>tr", toggleterm.toggleB)
   vim.keymap.set({ "n", "t" }, "<leader>td", toggleterm.toggleC)
+  vim.keymap.set({ "n", "t" }, "<leader>tg", toggleterm.toggleG)
   map("t", "<Esc>", "<C-\\><C-n>", opt)
 end
 
@@ -331,7 +332,7 @@ pluginKeys.gitsigns_on_attach = function(bufnr)
 end
 
 -- lazyGit
-map("n", "<leader>gg", ":LazyGit<CR>", opt)
+-- map("n", "<leader>gg", ":LazyGit<CR>", opt)
 
 -- hop
 map("n", "f",

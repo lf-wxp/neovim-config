@@ -20,9 +20,10 @@ gui:
     optionsTextColor:
     - blue
     selectedLineBgColor:
-    - default
+    - #ff00ff
+    - bold
     selectedRangeBgColor:
-    - blue
+    - default
     cherryPickedCommitBgColor:
     - blue
     cherryPickedCommitFgColor:

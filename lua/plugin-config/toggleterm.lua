@@ -23,7 +23,7 @@ local lazygit = Terminal:new({
   dir = "git_dir",
   direction = "float",
   float_opts = {
-    border = "double",
+    border = "single",
   },
   on_open = function(term)
     vim.cmd("startinsert!")
@@ -89,6 +89,10 @@ M.toggleC = function()
   ta:close()
   tb:close()
   tc:open()
+end
+
+M.toggleG = function()
+  lazygit:toggle()
 end
 
 require("keybindings").mapToggleTerm(M)
