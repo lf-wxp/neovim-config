@@ -96,6 +96,10 @@ map("n", "<leader>bc", ":BufferLinePickClose<CR>", opt)
 map("n", "<leader><leader>f", ":Telescope find_files<CR>", opt)
 -- 全局搜索
 map("n", "<leader><leader>t", ":Telescope live_grep<CR>", opt)
+-- 全局session
+map("n", "<leader><leader>s", ":Telescope session-lens search_session<CR>", opt)
+-- 全局project
+map("n", "<leader><leader>p", ":Telescope projects<CR>", opt)
 -- Telescope 列表中 插入模式快捷键
 pluginKeys.telescopeList = {
   i = {

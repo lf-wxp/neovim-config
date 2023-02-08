@@ -37,6 +37,7 @@ db.setup({
     mru = { limit = 10, icon = ' ', label = 'Recently', },
     shortcut = {
       { desc = ' Update', group = '@property', action = 'PackerSync', key = 'u' },
+      { desc = ' Session', group = '@property', action = 'Telescope session-lens search_session', key = 's' },
       {
         desc = " Keybindings",
         group = "Number",

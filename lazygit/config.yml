@@ -23,7 +23,8 @@ gui:
     - #ff00ff
     - bold
     selectedRangeBgColor:
-    - default
+    - #ff00ff
+    - bold
     cherryPickedCommitBgColor:
     - blue
     cherryPickedCommitFgColor:

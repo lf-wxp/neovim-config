@@ -15,6 +15,9 @@ lualine.setup({
   },
   extensions = { "nvim-tree", "toggleterm" },
   sections = {
+    lualine_a = {
+      "mode"
+    },
     lualine_b = {
       "branch",
       {
@@ -30,7 +33,7 @@ lualine.setup({
       "diagnostics"
     },
     lualine_c = {
-      "filename",
+      { "filename", path = 1, file_status  = true },
       {
         "lsp_progress",
         spinner_symbols = { " ", " ", " ", " ", " ", " " },
