@@ -202,6 +202,12 @@ packer.startup({
 
     use { "sunjon/shade.nvim" }
 
+    use {
+      "tanvirtin/vgit.nvim",
+      requires = {
+        "nvim-lua/plenary.nvim"
+      }
+    }
   end,
   config = {
     -- 并发数限制

@@ -1,4 +1,4 @@
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#lua_ls
 local runtime_path = vim.split(package.path, ';')
 local navic = require("nvim-navic")
 table.insert(runtime_path, 'lua/?.lua')

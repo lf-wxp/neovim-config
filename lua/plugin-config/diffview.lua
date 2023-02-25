@@ -35,13 +35,15 @@ diffview.setup({
   },
   file_history_panel = {
     log_options = {
-      single_file ={
-        max_count = 256, -- Limit the number of commits
-        follow = false, -- Follow renames (only for single file)
-        all = false, -- Include all refs under 'refs/' including HEAD
-        merges = false, -- List only merge commits
-        no_merges = false, -- List no merge commits
-        reverse = false, -- List commits in reverse order
+      git = {
+        single_file = {
+          max_count = 256, -- Limit the number of commits
+          follow = false, -- Follow renames (only for single file)
+          all = false, -- Include all refs under 'refs/' including HEAD
+          merges = false, -- List only merge commits
+          no_merges = false, -- List no merge commits
+          reverse = false, -- List commits in reverse order
+        }
       }
     },
     win_config = { -- See ':h diffview-config-win_config'
@@ -84,7 +86,7 @@ diffview.setup({
       ["X"]             = actions.restore_entry, -- Restore entry to the state on the left side.
       ["R"]             = actions.refresh_files, -- Update stats and entries in the file list.
       ["L"]             = actions.open_commit_log, -- Open the commit log panel.
-      ["<c-b>"]         = actions.scroll_view(-0.25), -- Scroll the view up
+      ["<c-b>"]         = actions.scroll_view( -0.25), -- Scroll the view up
       ["<c-f>"]         = actions.scroll_view(0.25), -- Scroll the view down
       ["<tab>"]         = actions.select_next_entry,
       ["<s-tab>"]       = actions.select_prev_entry,
@@ -110,7 +112,7 @@ diffview.setup({
       ["<cr>"]          = actions.select_entry,
       ["o"]             = actions.select_entry,
       ["<2-LeftMouse>"] = actions.select_entry,
-      ["<c-b>"]         = actions.scroll_view(-0.25),
+      ["<c-b>"]         = actions.scroll_view( -0.25),
       ["<c-f>"]         = actions.scroll_view(0.25),
       ["<tab>"]         = actions.select_next_entry,
       ["<s-tab>"]       = actions.select_prev_entry,
