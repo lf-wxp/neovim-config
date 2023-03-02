@@ -364,12 +364,16 @@ map("v", "<leader>e", "<cmd> lua require'hop'.hint_words({ hint_position = requi
 map("o", "<leader>e",
   "<cmd> lua require'hop'.hint_words({ hint_position = require'hop.hint'.HintPosition.END, inclusive_jump = true })<cr>"
   , opt)
-map("n", "<leader>ml", ":HopLine<CR>", opt)
-map("n", "<leader>mlj", ":HopLineAC<CR>", opt)
-map("n", "<leader>mlk", ":HopLineBC<CR>", opt)
-map("n", "<leader>mw", ":HopWord<CR>", opt)
-map("n", "<leader>mwj", ":HopWordAC<CR>", opt)
-map("n", "<leader>mwk", ":HopWordBC<CR>", opt)
+map("n", "<leader>Ml", ":HopLineMW<CR>", opt)
+map("n", "<leader>Mw", ":HopWordMW<CR>", opt)
+map("n", "<leader>Mf", ":HopChar2MW<CR>", opt)
+
+map("n", "<leader>ml", ":HopLineAC<CR>", opt)
+map("n", "<leader>mL", ":HopLineBC<CR>", opt)
+map("n", "<leader>mw", ":HopWordAC<CR>", opt)
+map("n", "<leader>mW", ":HopWordBC<CR>", opt)
+map("n", "<leader>mf", ":HopChar2AC<CR>", opt)
+map("n", "<leader>mF", ":HopChar2BC<CR>", opt)
 
 -- Paste from clipboard
 map("n", "<leader>p", '"+p', opt)
