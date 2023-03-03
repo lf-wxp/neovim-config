@@ -131,8 +131,10 @@ require("lazy").setup({
   "karb94/neoscroll.nvim",
 
   {
-    "phaazon/hop.nvim",
-    branch = 'v2', -- optional but strongly recommended
+    -- "phaazon/hop.nvim",
+    -- branch = 'v2', -- optional but strongly recommended
+    "aznhe21/hop.nvim",
+    branch = 'fix-some-bugs',
   },
 
   "lewis6991/spellsitter.nvim",
