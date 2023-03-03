@@ -366,14 +366,17 @@ map("o", "<leader>e",
   , opt)
 map("n", "<leader>Ml", ":HopLineMW<CR>", opt)
 map("n", "<leader>Mw", ":HopWordMW<CR>", opt)
-map("n", "<leader>Mf", ":HopChar2MW<CR>", opt)
+map("n", "<leader>Mf", ":HopChar1MW<CR>", opt)
+map("n", "<leader>Mv", ":HopChar2MW<CR>", opt)
 
 map("n", "<leader>ml", ":HopLineAC<CR>", opt)
 map("n", "<leader>mL", ":HopLineBC<CR>", opt)
 map("n", "<leader>mw", ":HopWordAC<CR>", opt)
 map("n", "<leader>mW", ":HopWordBC<CR>", opt)
-map("n", "<leader>f", ":HopChar2AC<CR>", opt)
-map("n", "<leader>F", ":HopChar2BC<CR>", opt)
+map("n", "<leader>f", ":HopChar1AC<CR>", opt)
+map("n", "<leader>F", ":HopChar1BC<CR>", opt)
+map("n", "<leader>v", ":HopChar2AC<CR>", opt)
+map("n", "<leader>V", ":HopChar2BC<CR>", opt)
 
 -- Paste from clipboard
 map("n", "<leader>p", '"+p', opt)
