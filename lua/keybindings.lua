@@ -372,8 +372,8 @@ map("n", "<leader>ml", ":HopLineAC<CR>", opt)
 map("n", "<leader>mL", ":HopLineBC<CR>", opt)
 map("n", "<leader>mw", ":HopWordAC<CR>", opt)
 map("n", "<leader>mW", ":HopWordBC<CR>", opt)
-map("n", "<leader>mf", ":HopChar2AC<CR>", opt)
-map("n", "<leader>mF", ":HopChar2BC<CR>", opt)
+map("n", "<leader>f", ":HopChar2AC<CR>", opt)
+map("n", "<leader>F", ":HopChar2BC<CR>", opt)
 
 -- Paste from clipboard
 map("n", "<leader>p", '"+p', opt)

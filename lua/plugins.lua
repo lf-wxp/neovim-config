@@ -163,7 +163,11 @@ require("lazy").setup({
       require('crates').setup()
     end,
   },
-  "kevinhwang91/nvim-hlslens",
+  { "kevinhwang91/nvim-hlslens",
+    config = function()
+      require('hlslens').setup()
+    end,
+  },
 
   "nvim-telescope/telescope-symbols.nvim",
 
