@@ -141,6 +141,10 @@ pluginKeys.mapLSP = function(mapbuf)
 
   -- mapbuf("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
   mapbuf("n", "gh", "<cmd>Lspsaga hover_doc<cr>", opt)
+  -- scroll down hover doc or scroll in definition preview
+  mapbuf("n", "su", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>", opt)
+ -- scroll up hover doc
+  mapbuf("n", "sd", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>", opt)
 
   mapbuf("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
   mapbuf("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
