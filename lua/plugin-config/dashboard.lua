@@ -36,7 +36,7 @@ db.setup({
     project = { limit = 8, icon = ' ', label = 'Projects', action = 'Telescope projects cwd=' },
     mru = { limit = 10, icon = ' ', label = 'Recently', },
     shortcut = {
-      { desc = ' Update', group = '@property', action = 'Lazy sync', key = 'u' },
+      { desc = ' Update',  group = '@property', action = 'Lazy sync',                             key = 'u' },
       { desc = ' Session', group = '@property', action = 'Telescope session-lens search_session', key = 's' },
       {
         desc = " Keybindings",
@@ -57,11 +57,15 @@ db.setup({
         key = 't',
       },
     },
-    footer = {
-      "",
-      "🎉 love you leonora",
-      "",
-      "Have fun with neovim"
-    },
+    footer = function()
+      return {
+        "",
+        string.format("Startup time: %s ms", require 'lazy'.stats().startuptime),
+        "",
+        "🎉 love you leonora",
+        "",
+        "Have fun with neovim"
+      }
+    end,
   },
 })
