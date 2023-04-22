@@ -21,22 +21,25 @@ null_ls.setup({
     -- npm install -g @fsouza/prettierd
     -- brew install fsouza/prettierd/prettierd
     -- formatting.prettier_d,
-    formatting.prettier.with({ -- 比默认少了 markdown
-      filetypes = {
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "vue",
-        "css",
-        "scss",
-        "less",
-        "html",
-        "json",
-        "yaml",
-        "graphql",
-      },
-      timeout = 10000,
+    -- formatting.prettier.with({ -- 比默认少了 markdown
+    --   filetypes = {
+    --     "javascript",
+    --     "javascriptreact",
+    --     "typescript",
+    --     "typescriptreact",
+    --     "vue",
+    --     "css",
+    --     "scss",
+    --     "less",
+    --     "html",
+    --     "json",
+    --     "yaml",
+    --     "graphql",
+    --   },
+    --   timeout = 10000,
+    --   prefer_local = "node_modules/.bin",
+    -- }),
+    formatting.eslint.with({
       prefer_local = "node_modules/.bin",
     }),
     -- rustfmt
