@@ -1,4 +1,22 @@
-require("mason").setup({
+local status, mason = pcall(require, "mason")
+if not status then
+  vim.notify("没有找到 mason")
+  return
+end
+
+local status, mason_config = pcall(require, "mason-lspconfig")
+if not status then
+  vim.notify("没有找到 mason-lspconfig")
+  return
+end
+
+local status, lspconfig = pcall(require, "lspconfig")
+if not status then
+  vim.notify("没有找到 lspconfig")
+  return
+end
+
+mason.setup({
   ui = {
     icons = {
       package_installed = "✓",
@@ -8,7 +26,7 @@ require("mason").setup({
   },
 })
 
-require("mason-lspconfig").setup({
+mason_config.setup({
   -- 确保安装，根据需要填写
   ensure_installed = {
     "cssls",
@@ -22,8 +40,6 @@ require("mason-lspconfig").setup({
     "zk"
   },
 })
-
-local lspconfig = require("lspconfig")
 
 -- 安装列表
 -- { key: 语言 value: 配置文件 }
@@ -51,3 +67,5 @@ for name, config in pairs(servers) do
     lspconfig[name].setup({})
   end
 end
+
+require("lsp.ui")

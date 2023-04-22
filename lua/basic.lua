@@ -67,7 +67,7 @@ vim.o.termguicolors = true
 vim.opt.termguicolors = true
 -- 不可见字符的显示，这里只把空格显示为一个点
 vim.o.list = true
-vim.o.listchars = "space:·"
+vim.o.listchars = "space:·,tab:··"
 -- 补全增强
 vim.o.wildmenu = true
 -- Dont' pass messages to |ins-completin menu|
@@ -79,9 +79,12 @@ vim.o.showtabline = 2
 -- 使用增强状态栏插件后不再需要 vim 的模式提示
 vim.o.showmode = false
 
-vim.o.guifont = "JetBrainsMono Nerd Font Mono"
+-- 配置剪切板
+vim.opt.clipboard = "unnamedplus"
+vim.opt.foldtext = "v:lua.require('utils.simple_fold').simple_fold()"
 
 vim.g.rust_recommended_style = 0
+vim.o.guifont = "JetBrainsMono Nerd Font Mono"
 
 -- neovide
 vim.g.neovide_transparency = 0.95

@@ -39,7 +39,7 @@ require("lazy").setup({
   "arkav/lualine-lsp-progress",
 
   -- telescope
-  { 'nvim-telescope/telescope.nvim',   dependencies = { "nvim-lua/plenary.nvim" } },
+  { "nvim-telescope/telescope.nvim",   dependencies = { "nvim-lua/plenary.nvim" } },
   -- telescope extensions
   "LinArcX/telescope-env.nvim",
   "nvim-telescope/telescope-ui-select.nvim",
@@ -49,9 +49,16 @@ require("lazy").setup({
   -- project
   "ahmedkhalf/project.nvim",
   -- treesitter
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    dependencies = {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+      "p00f/nvim-ts-rainbow",
+      "windwp/nvim-ts-autotag"
+    },
+  },
   "lukas-reineke/indent-blankline.nvim",
-  "p00f/nvim-ts-rainbow",
 
   --------------------- LSP --------------------
   "williamboman/mason.nvim",
@@ -61,14 +68,15 @@ require("lazy").setup({
   -- 补全引擎
   "hrsh7th/nvim-cmp",
   -- snippet 引擎
-  "hrsh7th/vim-vsnip",
+  "L3MON4D3/LuaSnip",
+  "saadparwaiz1/cmp_luasnip",
   -- 补全源
   "hrsh7th/cmp-vsnip",
-  "hrsh7th/cmp-nvim-lsp", -- { name = nvim_lsp }
-  "hrsh7th/cmp-buffer", -- { name = 'buffer' },
-  "hrsh7th/cmp-path", -- { name = 'path' }
-  "hrsh7th/cmp-cmdline", -- { name = 'cmdline' }
-  "hrsh7th/cmp-nvim-lsp-signature-help", -- { name = 'nvim_lsp_signature_help' }
+  "hrsh7th/cmp-nvim-lsp",                -- { name = nvim_lsp }
+  "hrsh7th/cmp-buffer",                  -- { name = "buffer" },
+  "hrsh7th/cmp-path",                    -- { name = "path" }
+  "hrsh7th/cmp-cmdline",                 -- { name = "cmdline" }
+  "hrsh7th/cmp-nvim-lsp-signature-help", -- { name = "nvim_lsp_signature_help" }
 
   -- 常见编程语言代码段
   "rafamadriz/friendly-snippets",
@@ -80,19 +88,19 @@ require("lazy").setup({
 
   -- 代码格式化
   -- "mhartington/formatter.nvim",
-  { "jose-elias-alvarez/null-ls.nvim",      dependencies = "nvim-lua/plenary.nvim" },
+  { "jose-elias-alvarez/null-ls.nvim", dependencies = "nvim-lua/plenary.nvim" },
 
   -- JSON 增强
   "b0o/schemastore.nvim",
 
   -- typescript 增强
-  { "jose-elias-alvarez/nvim-lsp-ts-utils", dependencies = "nvim-lua/plenary.nvim" },
+  "jose-elias-alvarez/typescript.nvim",
 
   -- Rust 增强
   "simrat39/rust-tools.nvim",
 
   -- surround
-  "ur4ltz/surround.nvim",
+  "kylechui/nvim-surround",
   -- Comment
   "numToStr/Comment.nvim",
   -- nvim-autopairs
@@ -105,17 +113,15 @@ require("lazy").setup({
   "rmagatti/auto-session",
 
   {
-    'rmagatti/session-lens',
-    dependencies = { 'rmagatti/auto-session', 'nvim-telescope/telescope.nvim' },
+    "rmagatti/session-lens",
+    dependencies = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
   },
-
-  -- "xiyaowong/nvim-transparent",
 
   {
     "nvim-pack/nvim-spectre",
     dependencies = {
       "nvim-lua/plenary.nvim", -- Lua 开发模块
-      "BurntSushi/ripgrep" -- 文字查找
+      "BurntSushi/ripgrep"     -- 文字查找
     }
   },
   "mg979/vim-visual-multi",
@@ -132,9 +138,9 @@ require("lazy").setup({
 
   {
     -- "phaazon/hop.nvim",
-    -- branch = 'v2', -- optional but strongly recommended
+    -- branch = "v2", -- optional but strongly recommended
     "aznhe21/hop.nvim",
-    branch = 'fix-some-bugs',
+    branch = "fix-some-bugs",
   },
 
   "lewis6991/spellsitter.nvim",
@@ -162,12 +168,13 @@ require("lazy").setup({
     event = { "BufRead Cargo.toml" },
     dependencies = { { "nvim-lua/plenary.nvim" } },
     config = function()
-      require('crates').setup()
+      require("crates").setup()
     end,
   },
-  { "kevinhwang91/nvim-hlslens",
+  {
+    "kevinhwang91/nvim-hlslens",
     config = function()
-      require('hlslens').setup()
+      require("hlslens").setup()
     end,
   },
 
@@ -180,6 +187,9 @@ require("lazy").setup({
     "SmiteshP/nvim-navic",
     dependencies = "neovim/nvim-lspconfig"
   },
+
+  -- Lua 增强
+  "folke/neodev.nvim",
 
   {
     "tanvirtin/vgit.nvim",

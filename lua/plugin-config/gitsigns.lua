@@ -1,3 +1,4 @@
+local keys = require("keybindings")
 -- https://github.com/lewis6991/gitsigns.nvim
 local status, gitsigns = pcall(require, "gitsigns")
 if not status then
@@ -6,7 +7,6 @@ if not status then
 end
 
 gitsigns.setup({
-
   -- 字母图标 A 增加，C修改，D 删除
   signs = {
     add = { hl = "GitSignsAdd", text = "A|", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
@@ -18,10 +18,9 @@ gitsigns.setup({
   -- 显示图标
   signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
   -- 行数高亮
-  numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
-  linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
-  word_diff = true, -- Toggle with `:Gitsigns toggle_word_diff`
-  keymaps = require("keybindings").gitsigns,
+  numhl = false,     -- Toggle with `:Gitsigns toggle_numhl`
+  linehl = false,    -- Toggle with `:Gitsigns toggle_linehl`
+  word_diff = true,  -- Toggle with `:Gitsigns toggle_word_diff`
   watch_gitdir = {
     interval = 1000,
     follow_files = true,
@@ -52,5 +51,53 @@ gitsigns.setup({
   yadm = {
     enable = false,
   },
-  on_attach = require("keybindings").gitsigns_on_attach,
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    map("n", keys.gitsigns.next_hunk, function()
+      if vim.wo.diff then
+        return "]c"
+      end
+      vim.schedule(function()
+        gs.next_hunk()
+      end)
+      return "<Ignore>"
+    end, { expr = true })
+
+    map("n", keys.gitsigns.prev_hunk, function()
+      if vim.wo.diff then
+        return "[c"
+      end
+      vim.schedule(function()
+        gs.prev_hunk()
+      end)
+      return "<Ignore>"
+    end, { expr = true })
+
+    map({ "n", "v" }, keys.gitsigns.stage_hunk, ":Gitsigns stage_hunk<CR>")
+    map("n", keys.gitsigns.stage_buffer, gs.stage_buffer)
+    map("n", keys.gitsigns.undo_stage_hunk, gs.undo_stage_hunk)
+    map({ "n", "v" }, keys.gitsigns.reset_hunk, ":Gitsigns reset_hunk<CR>")
+    map("n", keys.gitsigns.reset_buffer, gs.reset_buffer)
+    map("n", keys.gitsigns.prev_hunk, gs.preview_hunk)
+    map("n", keys.gitsigns.blame_line, function()
+      gs.blame_line({ full = true })
+    end)
+    map("n", keys.gitsigns.diffthis, gs.diffthis)
+    map("n", keys.gitsigns.diff, function()
+      gs.diffthis("~")
+    end)
+    -- toggle
+    map("n", keys.gitsigns.toggle_deleted, gs.toggle_deleted)
+    map("n", keys.gitsigns.toggle_current_line_blame, gs.toggle_current_line_blame)
+    -- Text object
+    map({ "o", "x" }, keys.gitsigns.select_hunk, ":<C-U>Gitsigns select_hunk<CR>")
+  end
 })

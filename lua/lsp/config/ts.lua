@@ -1,62 +1,46 @@
-local keybindings = require("keybindings")
-local ts_utils = require("nvim-lsp-ts-utils")
-local navic = require("nvim-navic")
-local opts = {
-  flags = {
-    debounce_text_changes = 150,
-  },
-  capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-  on_attach = function(client, bufnr)
-    -- 禁用格式化功能，交给专门插件插件处理
-    -- client.resolved_capabilities.document_formatting = false
-    -- client.resolved_capabilities.document_range_formatting = false
-    client.server_capabilities.documentFormattingProvider = false
-    client.server_capabilities.documentRangeFormattingProvider = false
-    navic.attach(client, bufnr)
-    local function buf_set_keymap(...)
-      vim.api.nvim_buf_set_keymap(bufnr, ...)
-    end
+local keys = require("keybindings")
+local status, typescript = pcall(require, "typescript")
+if not status then
+  vim.notify("没有找到 typescript")
+  return
+end
 
-    -- 绑定快捷键
-    keybindings.mapLSP(buf_set_keymap)
-    -- TypeScript 增强
-    ts_utils.setup({
-      debug = false,
-      disable_commands = false,
-      enable_import_on_completion = false,
-      -- import all
-      import_all_timeout = 5000, -- ms
-      -- lower numbers = higher priority
-      import_all_priorities = {
-        same_file = 1, -- add to existing import statement
-        local_files = 2, -- git files or files with relative path markers
-        buffer_content = 3, -- loaded buffer content
-        buffers = 4, -- loaded buffer names
-      },
-      import_all_scan_buffers = 100,
-      import_all_select_source = false,
-      -- if false will avoid organizing imports
-      always_organize_imports = true,
-      -- filter diagnostics
-      filter_out_diagnostics_by_severity = {},
-      filter_out_diagnostics_by_code = {},
-      -- inlay hints
-      auto_inlay_hints = true,
-      inlay_hints_highlight = "Comment",
-      -- update imports on file move
-      update_imports_on_move = false,
-      require_confirmation_on_move = false,
-      watch_dir = nil,
-    })
-    -- required to fix code action ranges and filter diagnostics
-    ts_utils.setup_client(client)
-    -- 绑定增强插件快捷键
-    keybindings.mapTsLSP(buf_set_keymap)
+local common = require("lsp.common-config")
+local opts = {
+  capabilities = common.capabilities,
+  flags = common.flags,
+  on_attach = function(client, bufnr)
+    -- common.disableFormat(client)
+    common.keyAttach(bufnr)
+    common.navic(client, bufnr)
+
+    --[[ 
+        :TypescriptOrganizeImports
+        :TypescriptRenameFile
+        :TypescriptAddMissingImports
+        :TypescriptRemoveUnused
+        :TypescriptFixAll
+        :TypescriptGoToSourceDefinition 
+    ]]
+
+    local function map(mode, lhs, rhs)
+      vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, buffer = bufnr })
+    end
+    map("n", keys.ts.organize_import, ":TypescriptOrganizeImports<CR>")
+    map("n", keys.ts.rename_file, ":TypescriptRenameFile<CR>")
+    map("n", keys.ts.add_missing_import, ":TypescriptAddMissingImports<CR>")
+    map("n", keys.ts.remove_unused, ":TypescriptRemoveUnused<CR>")
   end,
 }
-
 return {
-  on_setup = function(server)
-    server.setup(opts)
+  on_setup = function(_)
+    typescript.setup({
+      disable_commands = false, -- prevent the plugin from creating Vim commands
+      debug = false, -- enable debug logging for commands
+      go_to_source_definition = {
+        fallback = true, -- fall back to standard LSP definition on failure
+      },
+      server = opts,
+    })
   end,
 }

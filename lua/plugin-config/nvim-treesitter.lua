@@ -7,7 +7,7 @@ end
 treesitter.setup({
   -- 安装 language parser
   -- :TSInstallInfo 命令查看支持的语言
-  ensure_installed = { "json", "html", "css", "vim", "lua", "javascript", "typescript", "tsx", "vue", "rust" },
+  ensure_installed = { "json", "html", "css", "vim", "lua", "javascript", "typescript", "tsx", "vue", "rust", "scss" },
   -- 启用代码高亮模块
   highlight = {
     enable = true,
@@ -34,6 +34,15 @@ treesitter.setup({
     max_file_lines = 1000, -- Do not enable for files with more than n lines, int
     -- colors = {}, -- table of hex strings
     -- termcolors = {} -- table of colour name strings
+  },
+  -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring
+  context_commentstring = {
+    enable = true,
+    enable_autocmd = false,
+  },
+  -- https://github.com/windwp/nvim-ts-autotag
+  autotag = {
+    enable = true,
   },
 })
 

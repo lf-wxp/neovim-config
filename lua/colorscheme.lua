@@ -1,4 +1,4 @@
-colorscheme = "zephyr"
+local colorscheme = "zephyr"
 -- tokyonight
 -- OceanicNext
 -- gruvbox

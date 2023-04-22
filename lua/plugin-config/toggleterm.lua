@@ -1,4 +1,4 @@
----@diagnostic disable: missing-parameter
+local keys = require("keybindings")
 local status, toggleterm = pcall(require, "toggleterm")
 if not status then
   vim.notify("没有找到 toggleterm")
@@ -59,9 +59,8 @@ local tc = Terminal:new({
   close_on_exit = true,
 })
 
-local M = {}
 
-M.toggleA = function()
+local toggleA = function()
   if ta:is_open() then
     ta:close()
     return
@@ -71,7 +70,7 @@ M.toggleA = function()
   ta:open()
 end
 
-M.toggleB = function()
+local toggleB = function()
   if tb:is_open() then
     tb:close()
     return
@@ -81,7 +80,7 @@ M.toggleB = function()
   tb:open()
 end
 
-M.toggleC = function()
+local toggleC = function()
   if tc:is_open() then
     tc:close()
     return
@@ -91,8 +90,12 @@ M.toggleC = function()
   tc:open()
 end
 
-M.toggleG = function()
+local toggleG = function()
   lazygit:toggle()
 end
 
-require("keybindings").mapToggleTerm(M)
+vim.keymap.set({ "n", "t" }, keys.toggleTerm.float, toggleA)
+vim.keymap.set({ "n", "t" }, keys.toggleTerm.right, toggleB)
+vim.keymap.set({ "n", "t" }, keys.toggleTerm.bottom, toggleC)
+vim.keymap.set({ "n", "t" }, keys.toggleTerm.lazygit, toggleG)
+vim.keymap.set("t", keys.toggleTerm.switch, "<C-\\><C-n>")

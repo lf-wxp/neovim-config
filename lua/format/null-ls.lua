@@ -15,8 +15,12 @@ null_ls.setup({
     --  brew install shfmt
     formatting.shfmt,
     -- StyLua
+    -- brew install stylua
     formatting.stylua,
     -- frontend
+    -- npm install -g @fsouza/prettierd
+    -- brew install fsouza/prettierd/prettierd
+    -- formatting.prettier_d,
     formatting.prettier.with({ -- 比默认少了 markdown
       filetypes = {
         "javascript",
@@ -32,24 +36,24 @@ null_ls.setup({
         "yaml",
         "graphql",
       },
+      timeout = 10000,
       prefer_local = "node_modules/.bin",
     }),
     -- rustfmt
     formatting.rustfmt,
-    -- Python
-    -- pip install black
-    -- asdf reshim python
-    formatting.black.with({ extra_args = { "--fast" } }),
     -----------------------------------------------------
-    -- Ruby
-    -- gem install rubocop
-    formatting.rubocop,
+    -- json
+    -- npm install -g fixjson
+    formatting.fixjson,
     -----------------------------------------------------
     -- Diagnostics  ---------------------
     diagnostics.eslint.with({
       prefer_local = "node_modules/.bin",
     }),
+    -- npm install -g cspell@latest
+    diagnostics.cspell,
     -- code actions ---------------------
+    code_actions.cspell,
     code_actions.gitsigns,
     code_actions.eslint.with({
       prefer_local = "node_modules/.bin",
@@ -59,7 +63,7 @@ null_ls.setup({
   -- #{s}: source name (defaults to null-ls if not specified)
   -- #{c}: code (if available)
   diagnostics_format = "[#{s}] #{m}",
-  on_attach = function(client)
-    vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()']])
+  on_attach = function(_)
+    vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format()']])
   end,
 })
