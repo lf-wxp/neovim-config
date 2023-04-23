@@ -39,9 +39,7 @@ null_ls.setup({
     --   timeout = 10000,
     --   prefer_local = "node_modules/.bin",
     -- }),
-    formatting.eslint.with({
-      prefer_local = "node_modules/.bin",
-    }),
+    formatting.eslint_d,
     -- rustfmt
     formatting.rustfmt,
     -----------------------------------------------------
@@ -50,17 +48,13 @@ null_ls.setup({
     formatting.fixjson,
     -----------------------------------------------------
     -- Diagnostics  ---------------------
-    diagnostics.eslint.with({
-      prefer_local = "node_modules/.bin",
-    }),
+    diagnostics.eslint_d,
     -- npm install -g cspell@latest
     diagnostics.cspell,
     -- code actions ---------------------
     code_actions.cspell,
     code_actions.gitsigns,
-    code_actions.eslint.with({
-      prefer_local = "node_modules/.bin",
-    }),
+    code_actions.eslint_d,
   },
   -- #{m}: message
   -- #{s}: source name (defaults to null-ls if not specified)

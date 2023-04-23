@@ -16,6 +16,7 @@ local feedkey = function(key, mode)
 end
 
 local has_words_before = function()
+  unpack = unpack or table.unpack
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
@@ -56,37 +57,27 @@ cmp.setup({
     -- 如果窗口内容太多，可以滚动
     ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
     ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-    -- 自定义代码段跳转到下一个参数
-    ["<C-l>"] = cmp.mapping(function(_)
-      if vim.fn["vsnip#available"](1) == 1 then
-        feedkey("<Plug>(vsnip-expand-or-jump)", "")
-      end
-    end, { "i", "s" }),
-    -- 自定义代码段跳转到上一个参数
-    ["<C-h>"] = cmp.mapping(function()
-      if vim.fn["vsnip#jumpable"](-1) == 1 then
-        feedkey("<Plug>(vsnip-jump-prev)", "")
-      end
-    end, { "i", "s" }),
-
+    
     -- Super Tab
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif vim.fn["vsnip#available"](1) == 1 then
-        feedkey("<Plug>(vsnip-expand-or-jump)", "")
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
       elseif has_words_before() then
         cmp.complete()
       else
-        fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+        fallback()
       end
     end, { "i", "s" }),
 
-    ["<S-Tab>"] = cmp.mapping(function()
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-        feedkey("<Plug>(vsnip-jump-prev)", "")
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
       end
     end, { "i", "s" }),
     -- end of super Tab

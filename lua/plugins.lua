@@ -14,9 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   --------------------- colorschemes --------------------
-  -- tokyonight
   "folke/tokyonight.nvim",
-  -- OceanicNext
   "mhartington/oceanic-next",
   {
     "ellisonleao/gruvbox.nvim",
@@ -30,25 +28,55 @@ require("lazy").setup({
   "glepnir/zephyr-nvim",
   "rebelot/kanagawa.nvim",
 
-  -- nvim-tree
-  { "kyazdani42/nvim-tree.lua",  dependencies = "kyazdani42/nvim-web-devicons" },
-  -- bufferline
-  { "akinsho/bufferline.nvim",   dependencies = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" } },
-  -- lualine
-  { "nvim-lualine/lualine.nvim", dependencies = { "kyazdani42/nvim-web-devicons" } },
+  {
+    "kyazdani42/nvim-tree.lua",
+    dependencies = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("plugin-config.nvim-tree")
+    end
+  },
+  {
+    "akinsho/bufferline.nvim",
+    dependencies = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" },
+    config = function()
+      require("plugin-config.bufferline")
+    end
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "kyazdani42/nvim-web-devicons" },
+    config = function()
+      require("plugin-config.lualine")
+    end
+  },
   "arkav/lualine-lsp-progress",
 
   -- telescope
-  { "nvim-telescope/telescope.nvim",   dependencies = { "nvim-lua/plenary.nvim" } },
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("plugin-config.telescope")
+    end
+  },
   -- telescope extensions
   "LinArcX/telescope-env.nvim",
   "nvim-telescope/telescope-ui-select.nvim",
+  "nvim-telescope/telescope-symbols.nvim",
+  "nvim-telescope/telescope-hop.nvim",
 
-  -- dashboard-nvim
-  "glepnir/dashboard-nvim",
-  -- project
-  "ahmedkhalf/project.nvim",
-  -- treesitter
+  {
+    "glepnir/dashboard-nvim",
+    config = function()
+      require("plugin-config.dashboard")
+    end
+  },
+  {
+    "ahmedkhalf/project.nvim",
+    config = function()
+      require("plugin-config.project")
+    end
+  },
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -57,8 +85,16 @@ require("lazy").setup({
       "p00f/nvim-ts-rainbow",
       "windwp/nvim-ts-autotag"
     },
+    config = function()
+      require("plugin-config.nvim-treesitter")
+    end
   },
-  "lukas-reineke/indent-blankline.nvim",
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require("plugin-config.indent-blankline")
+    end
+  },
 
   --------------------- LSP --------------------
   "williamboman/mason.nvim",
@@ -83,7 +119,6 @@ require("lazy").setup({
 
   -- ui
   "onsails/lspkind-nvim",
-
   "tami5/lspsaga.nvim",
 
   -- 代码格式化
@@ -99,22 +134,51 @@ require("lazy").setup({
   -- Rust 增强
   "simrat39/rust-tools.nvim",
 
-  -- surround
-  "kylechui/nvim-surround",
-  -- Comment
-  "numToStr/Comment.nvim",
-  -- nvim-autopairs
-  "windwp/nvim-autopairs",
+  -- Lua 增强
+  "folke/neodev.nvim",
 
-  "akinsho/toggleterm.nvim",
-
-  "lewis6991/gitsigns.nvim",
-
-  "rmagatti/auto-session",
-
+  {
+    "kylechui/nvim-surround",
+    config = function()
+      require("plugin-config.nvim-surround")
+    end
+  },
+  {
+    "numToStr/Comment.nvim",
+    config = function()
+      require("plugin-config.comment")
+    end
+  },
+  {
+    "windwp/nvim-autopairs",
+    config = function()
+      require("plugin-config.nvim-autopairs")
+    end
+  },
+  {
+    "akinsho/toggleterm.nvim",
+    config = function()
+      require("plugin-config.toggleterm")
+    end
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("plugin-config.gitsigns")
+    end
+  },
+  {
+    "rmagatti/auto-session",
+    config = function()
+      require("plugin-config.auto-session")
+    end
+  },
   {
     "rmagatti/session-lens",
     dependencies = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("session-lens").setup()
+    end
   },
 
   {
@@ -122,46 +186,104 @@ require("lazy").setup({
     dependencies = {
       "nvim-lua/plenary.nvim", -- Lua 开发模块
       "BurntSushi/ripgrep"     -- 文字查找
-    }
+    },
+    config = function()
+      require("plugin-config.nvim-spectre")
+    end
   },
-  "mg979/vim-visual-multi",
+  {
+    "mg979/vim-visual-multi",
+  },
 
-  "norcalli/nvim-colorizer.lua",
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup()
+    end
+  },
 
-  "folke/which-key.nvim",
+  {
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup()
+    end
+  },
 
   "kdheepak/lazygit.nvim",
 
-  { "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
+  {
+    "sindrets/diffview.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
+    config = function()
+      require("plugin-config.diffview")
+    end
+  },
 
-  "karb94/neoscroll.nvim",
+  {
+    "karb94/neoscroll.nvim",
+    config = function()
+      require("plugin-config.neoscroll")
+    end
+  },
 
   {
     -- "phaazon/hop.nvim",
     -- branch = "v2", -- optional but strongly recommended
     "aznhe21/hop.nvim",
     branch = "fix-some-bugs",
+    config = function()
+      require("plugin-config.hop")
+    end
   },
 
-  "lewis6991/spellsitter.nvim",
+  {
+    "rmagatti/goto-preview",
+    config = function()
+      require("plugin-config.goto-preview")
+    end
+  },
 
-  "rmagatti/goto-preview",
+  {
+    "simrat39/symbols-outline.nvim",
+    config = function()
+      require("symbols-outline").setup()
+    end
+  },
 
-  "simrat39/symbols-outline.nvim",
+  {
+    "stevearc/dressing.nvim",
+    config = function()
+      require("dressing").setup()
+    end
+  },
 
-  -- "weilbith/nvim-code-action-menu",
+  {
+    "chentoast/marks.nvim",
+    config = function()
+      require("plugin-config.marks")
+    end
+  },
 
-  "stevearc/dressing.nvim",
+  {
+    "ThePrimeagen/harpoon",
+    config = function()
+      require("plugin-config.harpoon")
+    end
+  },
 
-  -- "petertriho/nvim-scrollbar",
+  {
+    "j-hui/fidget.nvim",
+    config = function()
+      require("plugin-config.fidget")
+    end
+  },
 
-  "chentoast/marks.nvim",
-
-  "ThePrimeagen/harpoon",
-
-  "j-hui/fidget.nvim",
-
-  "folke/trouble.nvim",
+  {
+    "folke/trouble.nvim",
+    config = function()
+      require("plugin-config.trouble")
+    end
+  },
 
   {
     "saecki/crates.nvim",
@@ -178,23 +300,19 @@ require("lazy").setup({
     end,
   },
 
-  "nvim-telescope/telescope-symbols.nvim",
-
-  "nvim-telescope/telescope-hop.nvim",
-
   -- winbar
   {
     "SmiteshP/nvim-navic",
     dependencies = "neovim/nvim-lspconfig"
   },
 
-  -- Lua 增强
-  "folke/neodev.nvim",
-
   {
     "tanvirtin/vgit.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim"
     },
+    config = function()
+      require("vgit").setup()
+    end,
   } }
 )
