@@ -55,6 +55,7 @@ null_ls.setup({
     code_actions.cspell,
     code_actions.gitsigns,
     code_actions.eslint_d,
+    require("typescript.extensions.null-ls.code-actions"),
   },
   -- #{m}: message
   -- #{s}: source name (defaults to null-ls if not specified)
