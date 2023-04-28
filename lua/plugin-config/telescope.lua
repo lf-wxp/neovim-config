@@ -57,8 +57,6 @@ pcall(telescope.load_extension, "env")
 
 pcall(telescope.load_extension, "ui-select")
 
-pcall(telescope.load_extension, "session-lens")
-
 pcall(telescope.load_extension, "symbols")
 
 pcall(telescope.load_extension, "hop")

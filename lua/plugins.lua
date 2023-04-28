@@ -174,14 +174,6 @@ require("lazy").setup({
     end
   },
   {
-    "rmagatti/session-lens",
-    dependencies = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
-    config = function()
-      require("session-lens").setup()
-    end
-  },
-
-  {
     "nvim-pack/nvim-spectre",
     dependencies = {
       "nvim-lua/plenary.nvim", -- Lua 开发模块
