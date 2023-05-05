@@ -29,22 +29,22 @@ require("lazy").setup({
   "rebelot/kanagawa.nvim",
 
   {
-    "kyazdani42/nvim-tree.lua",
-    dependencies = "kyazdani42/nvim-web-devicons",
+    "nvim-tree/nvim-tree.lua",
+    dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
       require("plugin-config.nvim-tree")
     end
   },
   {
     "akinsho/bufferline.nvim",
-    dependencies = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" },
+    dependencies = { "nvim-tree/nvim-web-devicons", "moll/vim-bbye" },
     config = function()
       require("plugin-config.bufferline")
     end
   },
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "kyazdani42/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("plugin-config.lualine")
     end
