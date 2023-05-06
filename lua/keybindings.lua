@@ -65,7 +65,7 @@ map("n", "<leader><leader>f", ":Telescope find_files<CR>", opt)
 -- 全局搜索
 map("n", "<leader><leader>t", ":Telescope live_grep<CR>", opt)
 -- 全局session
-map("n", "<leader><leader>s", ":Autosession session<CR>", opt)
+map("n", "<leader><leader>s", ":Autosession search<CR>", opt)
 -- 全局project
 map("n", "<leader><leader>p", ":Telescope projects<CR>", opt)
 
