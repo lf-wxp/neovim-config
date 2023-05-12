@@ -64,6 +64,7 @@ require("lazy").setup({
   "nvim-telescope/telescope-ui-select.nvim",
   "nvim-telescope/telescope-symbols.nvim",
   "nvim-telescope/telescope-hop.nvim",
+  "nvim-telescope/telescope-live-grep-args.nvim",
 
   {
     "glepnir/dashboard-nvim",

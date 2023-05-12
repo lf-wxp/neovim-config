@@ -63,7 +63,7 @@ map("n", "<leader>bc", ":BufferLinePickClose<CR>", opt)
 -- 查找文件
 map("n", "<leader><leader>f", ":Telescope find_files<CR>", opt)
 -- 全局搜索
-map("n", "<leader><leader>t", ":Telescope live_grep<CR>", opt)
+map("n", "<leader><leader>t", ":Telescope live_grep_args<CR>", opt)
 -- 全局session
 map("n", "<leader><leader>s", ":Autosession search<CR>", opt)
 -- 全局project

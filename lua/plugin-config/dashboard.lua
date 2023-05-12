@@ -53,7 +53,7 @@ db.setup({
       {
         desc = ' Search',
         group = 'Label',
-        action = 'Telescope live_grep',
+        action = 'Telescope live_grep_args',
         key = 't',
       },
     },

@@ -60,3 +60,5 @@ pcall(telescope.load_extension, "ui-select")
 pcall(telescope.load_extension, "symbols")
 
 pcall(telescope.load_extension, "hop")
+
+pcall(telescope.load_extension, "live_grep_args")
