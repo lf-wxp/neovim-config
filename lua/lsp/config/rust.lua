@@ -3,7 +3,7 @@ local opts = {
   capabilities = common.capabilities,
   flags = common.flags,
   on_attach = function(client, bufnr)
-    common.disableFormat(client)
+    -- common.disableFormat(client)
     common.keyAttach(bufnr)
     common.navic(client, bufnr)
   end,
@@ -27,6 +27,7 @@ return {
       server.setup(opts)
     else
       -- We don't want to call lspconfig.rust_analyzer.setup() when using rust-tools
+      print("loading rust tools")
       rust_tools.setup({
         server = opts,
         -- dap = require("dap.nvim-dap.config.rust"),
