@@ -220,10 +220,7 @@ require("lazy").setup({
   },
 
   {
-    -- "phaazon/hop.nvim",
-    -- branch = "v2", -- optional but strongly recommended
-    "aznhe21/hop.nvim",
-    branch = "fix-some-bugs",
+    "phaazon/hop.nvim",
     config = function()
       require("plugin-config.hop")
     end
