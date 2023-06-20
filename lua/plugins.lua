@@ -290,10 +290,24 @@ require("lazy").setup({
     end,
   },
 
-  -- winbar
   {
     "SmiteshP/nvim-navic",
     dependencies = "neovim/nvim-lspconfig"
+  },
+
+  {
+    "anuvyklack/pretty-fold.nvim",
+    config = function()
+      require("pretty-fold").setup()
+    end,
+  },
+
+  {
+    "anuvyklack/fold-preview.nvim",
+    dependencies = "anuvyklack/keymap-amend.nvim",
+    config = function()
+      require("plugin-config.fold-preview")
+    end,
   },
 
   {
