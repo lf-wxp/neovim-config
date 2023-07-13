@@ -49,7 +49,7 @@ require("lazy").setup({
       require("plugin-config.lualine")
     end
   },
-  "arkav/lualine-lsp-progress",
+  -- "arkav/lualine-lsp-progress",
 
   -- telescope
   {
@@ -263,6 +263,7 @@ require("lazy").setup({
 
   {
     "j-hui/fidget.nvim",
+    tag = "legacy",
     config = function()
       require("plugin-config.fidget")
     end

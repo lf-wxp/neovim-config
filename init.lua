@@ -1,5 +1,5 @@
-require('basic')
 require('plugins')
+require('basic')
 require('colorscheme')
 require('autocmds')
 require('keybindings')
