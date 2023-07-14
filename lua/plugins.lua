@@ -84,7 +84,9 @@ require("lazy").setup({
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
       "p00f/nvim-ts-rainbow",
-      "windwp/nvim-ts-autotag"
+      "windwp/nvim-ts-autotag",
+      "nvim-treesitter/nvim-treesitter-refactor",
+      "nvim-treesitter/nvim-treesitter-textobjects",
     },
     config = function()
       require("plugin-config.nvim-treesitter")
@@ -96,7 +98,7 @@ require("lazy").setup({
       require("plugin-config.indent-blankline")
     end
   },
-
+  
   --------------------- LSP --------------------
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",

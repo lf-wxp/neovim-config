@@ -102,5 +102,7 @@ vim.g.neovide_cursor_antialiasing = "v:true"
 vim.g.neovide_cursor_unfocused_outline_width = 0.125
 vim.g.neovide_scroll_animation_length = 0.3
 
-
 vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+
+vim.cmd.filetype("on")
+vim.cmd.filetype("plugin on")
