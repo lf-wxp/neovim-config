@@ -98,7 +98,7 @@ require("lazy").setup({
       require("plugin-config.indent-blankline")
     end
   },
-  
+
   --------------------- LSP --------------------
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
@@ -191,7 +191,7 @@ require("lazy").setup({
   },
 
   {
-    "norcalli/nvim-colorizer.lua",
+    "NvChad/nvim-colorizer.lua",
     config = function()
       require("colorizer").setup()
     end
@@ -321,5 +321,5 @@ require("lazy").setup({
     config = function()
       require("vgit").setup()
     end,
-  } }
-)
+  }
+})
