@@ -63,7 +63,6 @@ require("lazy").setup({
   "LinArcX/telescope-env.nvim",
   "nvim-telescope/telescope-ui-select.nvim",
   "nvim-telescope/telescope-symbols.nvim",
-  "nvim-telescope/telescope-hop.nvim",
   "nvim-telescope/telescope-live-grep-args.nvim",
 
   {
@@ -222,9 +221,10 @@ require("lazy").setup({
   },
 
   {
-    "phaazon/hop.nvim",
+    "folke/flash.nvim",
+    event = "VeryLazy",
     config = function()
-      require("plugin-config.hop")
+      require("plugin-config.flash")
     end
   },
 
@@ -284,12 +284,6 @@ require("lazy").setup({
     dependencies = { { "nvim-lua/plenary.nvim" } },
     config = function()
       require("crates").setup()
-    end,
-  },
-  {
-    "kevinhwang91/nvim-hlslens",
-    config = function()
-      require("hlslens").setup()
     end,
   },
 

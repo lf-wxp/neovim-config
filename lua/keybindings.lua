@@ -2,6 +2,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 local map = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 -- 复用 opt 参数
 local opt = { noremap = true, silent = true }
 
@@ -167,21 +168,11 @@ pluginKeys.gitsigns = {
   toggle_current_line_blame = "<leader>gtb",
   select_hunk = "<leader>ig",
 }
-
--- hop
-map("n", "<leader>Ml", ":HopLineMW<CR>", opt)
-map("n", "<leader>Mw", ":HopWordMW<CR>", opt)
-map("n", "<leader>Mf", ":HopChar1MW<CR>", opt)
-map("n", "<leader>Mv", ":HopChar2MW<CR>", opt)
-
-map("n", "<leader>ml", ":HopLineAC<CR>", opt)
-map("n", "<leader>mL", ":HopLineBC<CR>", opt)
-map("n", "<leader>mw", ":HopWordAC<CR>", opt)
-map("n", "<leader>mW", ":HopWordBC<CR>", opt)
-map("n", "<leader>f", ":HopChar1AC<CR>", opt)
-map("n", "<leader>F", ":HopChar1BC<CR>", opt)
-map("n", "<leader>v", ":HopChar2AC<CR>", opt)
-map("n", "<leader>V", ":HopChar2BC<CR>", opt)
+-- flash
+keymap({ "n", "x", "o" }, "<leader>f", "<cmd>lua require('flash').jump()<CR>", opt)
+keymap({ "n", "x", "o" }, "<leader>F", "<cmd>lua require('flash').treesitter()<CR>", opt)
+keymap("o", "<leader>r", "<cmd>lua require('flash').remote()<CR>", opt)
+-- keymap({ "x", "o" }, "<leader>Fs", "<cmd>lua require('flash').treesitter_search()<CR>", opt)
 
 -- Paste from clipboard
 map("n", "<leader>p", '"+p', opt)
@@ -223,13 +214,6 @@ map("n", "<leader>cR", "<cmd>lua require('crates').open_repository()<CR>", opt)
 map("n", "<leader>cD", "<cmd>lua require('crates').open_documentation()<CR>", opt)
 map("n", "<leader>cC", "<cmd>lua require('crates').open_crates_io()<CR>", opt)
 
---hlslens
-map("n", "n", [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], opt)
-map("n", "N", [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], opt)
-map("n", "*", [[*<Cmd>lua require('hlslens').start()<CR>]], opt)
-map("n", "#", [[#<Cmd>lua require('hlslens').start()<CR>]], opt)
-map("n", "g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], opt)
-map("n", "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], opt)
 map("n", "<leader>k", ":noh<CR>", opt)
 
 
