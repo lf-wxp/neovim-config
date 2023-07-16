@@ -95,9 +95,9 @@ flash.setup({
     -- Enable this to use rainbow colors to highlight labels
     -- Can be useful for visualizing Treesitter ranges.
     rainbow = {
-      enabled = false,
+      enabled = true,
       -- number between 1 and 9
-      shade = 5,
+      shade = 9,
     },
     -- With `format`, you can change how the label is rendered.
     -- Should return a list of `[text, highlight]` tuples.
