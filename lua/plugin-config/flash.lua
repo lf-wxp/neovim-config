@@ -58,9 +58,9 @@ flash.setup({
     -- add pattern to search register
     register = false,
     -- clear highlight after jump
-    nohlsearch = false,
+    nohlsearch = true,
     -- automatically jump when there is only one match
-    autojump = false,
+    autojump = true,
     -- You can force inclusive/exclusive jumps by setting the
     -- `inclusive` option. By default it will be automatically
     -- set based on the mode.
@@ -79,9 +79,9 @@ flash.setup({
     -- you can always jump to the first match with `<CR>`
     current = true,
     -- show the label after the match
-    after = true, ---@type boolean|number[]
+    after = false, ---@type boolean|number[]
     -- show the label before the match
-    before = false, ---@type boolean|number[]
+    before = true, ---@type boolean|number[]
     -- position of the label extmark
     style = "overlay", ---@type "eol" | "overlay" | "right_align" | "inline"
     -- flash tries to re-use labels that were already assigned to a position,
