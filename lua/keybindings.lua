@@ -70,6 +70,8 @@ map("n", "<leader><leader>s", ":Autosession search<CR>", opt)
 -- 全局project
 map("n", "<leader><leader>p", ":Telescope projects<CR>", opt)
 
+map("n", "<leader><leader>c", ":Telescope colorscheme<CR>", opt)
+
 -- lsp 捷键设置
 pluginKeys.lsp = {
   -- rename

@@ -14,18 +14,13 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   --------------------- colorschemes --------------------
-  "folke/tokyonight.nvim",
-  "mhartington/oceanic-next",
   {
     "ellisonleao/gruvbox.nvim",
     dependencies = { "rktjmp/lush.nvim" },
   },
   "olimorris/onedarkpro.nvim",
-  "catppuccin/nvim",
-  "sainnhe/edge",
-  "marko-cerovac/material.nvim",
-  "sainnhe/gruvbox-material",
   "glepnir/zephyr-nvim",
+  "sainnhe/gruvbox-material",
   "rebelot/kanagawa.nvim",
 
   {
