@@ -177,9 +177,9 @@ keymap("o", "<leader>r", "<cmd>lua require('flash').remote()<CR>", opt)
 -- keymap({ "x", "o" }, "<leader>Fs", "<cmd>lua require('flash').treesitter_search()<CR>", opt)
 
 -- Paste from clipboard
-map("n", "<leader>p", '"+p', opt)
+keymap({ "n", "v" }, "<leader>p", '"+p', opt)
 -- Copy to clipboard
-map("n", "<leader>y", '"+y', opt)
+keymap({ "n", "v" }, "<leader>y", '"+y', opt)
 
 
 -- goto-preview

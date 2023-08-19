@@ -310,5 +310,9 @@ require("lazy").setup({
     config = function()
       require("vgit").setup()
     end,
+  },
+  {
+    "michaelb/sniprun",
+    build = "sh ./install.sh"
   }
 })
