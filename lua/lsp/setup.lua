@@ -37,7 +37,8 @@ mason_config.setup({
     "taplo",
     "volar",
     "lua_ls",
-    "zk"
+    "zk",
+    -- "eslint"
   },
 })
 
@@ -56,6 +57,7 @@ local servers = {
   cssls = require("lsp.config.css"),
   zk = require("lsp.config.markdown"),
   taplo = require("lsp.config.toml"),
+  eslint = require("lsp.config.eslint"),
 }
 -- 自动安装 Language Servers
 for name, config in pairs(servers) do
