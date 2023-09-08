@@ -314,5 +314,37 @@ require("lazy").setup({
   {
     "michaelb/sniprun",
     build = "sh ./install.sh"
-  }
+  },
+  {
+    "m4xshen/hardtime.nvim",
+    dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+    opts = {
+      disabled_filetypes = { "qf", "netrw", "NvimTree", "lazy", "mason", "oil" },
+    },
+  },
+  {
+    "roobert/surround-ui.nvim",
+    dependencies = {
+      "kylechui/nvim-surround",
+      "folke/which-key.nvim",
+    },
+    config = function()
+      require("surround-ui").setup({
+        root_key = "S"
+      })
+    end,
+  },
+  {
+    "tamton-aquib/zone.nvim",
+    config = function()
+      require("zone").setup()
+    end,
+  },
+  -- {
+  --   "giusgad/pets.nvim",
+  --   dependencies = { "MunifTanjim/nui.nvim", "giusgad/hologram.nvim" },
+  --   config = function()
+  --     require("pets").setup()
+  --   end,
+  -- }
 })
