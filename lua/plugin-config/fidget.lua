@@ -22,7 +22,7 @@ fidget.setup({
   },
   window = {
     relative = "win", -- where to anchor, either "win" or "editor"
-    blend = 50,       -- &winblend for the window
+    blend = 20,       -- &winblend for the window
     zindex = nil,     -- the zindex value for the window
     border = "none",  -- style of border for the fidget window
   },

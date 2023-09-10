@@ -10,7 +10,7 @@ noice.setup({
     view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
     opts = {
       win_options = {
-        winblend = 30,
+        winblend = 20,
       },
     },              -- global options for the cmdline. See section on views
     ---@type table<string, CmdlineFormat>
