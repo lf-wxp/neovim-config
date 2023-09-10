@@ -194,7 +194,7 @@ require("lazy").setup({
   {
     "folke/which-key.nvim",
     config = function()
-      require("which-key").setup()
+      require("plugin-config.which-key")
     end
   },
 
@@ -326,7 +326,6 @@ require("lazy").setup({
     "roobert/surround-ui.nvim",
     dependencies = {
       "kylechui/nvim-surround",
-      "folke/which-key.nvim",
     },
     config = function()
       require("surround-ui").setup({
@@ -337,9 +336,6 @@ require("lazy").setup({
   {
     "folke/noice.nvim",
     event = "VeryLazy",
-    opts = {
-      -- add any options here
-    },
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
@@ -348,7 +344,10 @@ require("lazy").setup({
       --   If not available, we use `mini` as the fallback
       -- "rcarriga/nvim-notify",
     },
-  }
+    config = function()
+      require("plugin-config.noice")
+    end,
+  },
   -- {
   --   "tamton-aquib/zone.nvim",
   --   config = function()
