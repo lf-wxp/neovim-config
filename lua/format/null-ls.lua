@@ -50,7 +50,23 @@ null_ls.setup({
     -- Diagnostics  ---------------------
     diagnostics.eslint_d,
     -- npm install -g cspell@latest
-    diagnostics.cspell,
+    diagnostics.cspell.with({
+      filetypes = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "vue",
+        "css",
+        "scss",
+        "less",
+        "html",
+        "json",
+        "yaml",
+        "graphql",
+        "rust",
+      },
+    }),
     -- code actions ---------------------
     code_actions.cspell,
     code_actions.gitsigns,
