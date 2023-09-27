@@ -27,8 +27,6 @@ nvim_tree.setup({
     width = 30,
     -- 也可以 'right'
     side = 'left',
-    -- 隐藏根目录
-    hide_root_folder = false,
     -- 不显示行数
     number = false,
     relativenumber = false,
@@ -61,6 +59,8 @@ nvim_tree.setup({
       webdev_colors = true,
       git_placement = "after",
     },
+    -- 隐藏根目录
+    root_folder_label = false,
   },
 })
 -- 自动关闭
