@@ -21,20 +21,17 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
 end)
 
 vim.g.rainbow_delimiters = { highlight = highlight }
+
 require("ibl").setup({
   scope = { highlight = highlight },
   exclude = {
     filetypes = {
-      "lspinfo",
       "packer",
       "checkhealth",
-      "help",
       "man",
       "gitcommit",
-      "TelescopePrompt",
       "TelescopeResults",
       "dashboard",
-      "packer",
       "terminal",
       "help",
       "log",
@@ -43,7 +40,6 @@ require("ibl").setup({
       "lsp-installer",
       "lspinfo",
       "toggleterm",
-      "",
     }
   }
 })

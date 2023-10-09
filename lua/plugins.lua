@@ -77,7 +77,6 @@ require("lazy").setup({
     build = ":TSUpdate",
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
-      "p00f/nvim-ts-rainbow",
       "windwp/nvim-ts-autotag",
       "nvim-treesitter/nvim-treesitter-refactor",
       "nvim-treesitter/nvim-treesitter-textobjects",
