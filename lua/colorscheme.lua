@@ -1,4 +1,4 @@
-local colorscheme = "bamboo"
+local colorscheme = "zephyr"
 -- gruvbox
 -- zephyr
 -- nord

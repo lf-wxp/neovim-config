@@ -88,8 +88,9 @@ require("lazy").setup({
   },
   {
     "lukas-reineke/indent-blankline.nvim",
+    opts = {},
     config = function()
-      require("plugin-config.indent-blankline")
+      require("ibl").setup()
     end
   },
 
@@ -320,7 +321,7 @@ require("lazy").setup({
     dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
     opts = {
       restriction_mode = 'hint',
-      disabled_filetypes = { "qf", "netrw", "NvimTree", "lazy", "mason", "oil",  },
+      disabled_filetypes = { "qf", "netrw", "NvimTree", "lazy", "mason", "oil", },
       disabled_keys = {
         ["<Up>"] = {},
         ["<Down>"] = {},
