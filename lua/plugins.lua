@@ -88,9 +88,10 @@ require("lazy").setup({
   },
   {
     "lukas-reineke/indent-blankline.nvim",
+    dependencies = { "HiPhish/rainbow-delimiters.nvim" },
     opts = {},
     config = function()
-      require("ibl").setup()
+      require("plugin-config.indent-blankline")
     end
   },
 
