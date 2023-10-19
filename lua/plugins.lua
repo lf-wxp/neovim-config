@@ -121,7 +121,7 @@ require("lazy").setup({
 
   -- 代码格式化
   -- "mhartington/formatter.nvim",
-  { "jose-elias-alvarez/null-ls.nvim", dependencies = "nvim-lua/plenary.nvim" },
+  { "nvimtools/none-ls.nvim", dependencies = "nvim-lua/plenary.nvim" },
 
   -- JSON 增强
   "b0o/schemastore.nvim",
@@ -366,7 +366,7 @@ require("lazy").setup({
       }
       require('bamboo').load()
     end,
-  }
+  },
   -- {
   --   "tamton-aquib/zone.nvim",
   --   config = function()
