@@ -367,17 +367,29 @@ require("lazy").setup({
       require('bamboo').load()
     end,
   },
-  -- {
-  --   "tamton-aquib/zone.nvim",
-  --   config = function()
-  --     require("plugin-config.zone")
-  --   end,
-  -- },
+  {
+    "tamton-aquib/zone.nvim",
+    config = function()
+      require("plugin-config.zone")
+    end,
+  },
   -- {
   --   "giusgad/pets.nvim",
   --   dependencies = { "MunifTanjim/nui.nvim", "giusgad/hologram.nvim" },
   --   config = function()
   --     require("pets").setup()
   --   end,
-  -- }
+  -- },
+  {
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons", -- optional dependency
+    },
+    opts = {
+      -- configurations go here
+    },
+  }
 })
