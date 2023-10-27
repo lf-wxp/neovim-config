@@ -97,7 +97,19 @@ require("lazy").setup({
   --------------------- LSP --------------------
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
-  "neovim/nvim-lspconfig",
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      {
+        "SmiteshP/nvim-navbuddy",
+        dependencies = {
+          "SmiteshP/nvim-navic",
+          "MunifTanjim/nui.nvim"
+        },
+        opts = { lsp = { auto_attach = true } }
+      }
+    },
+  },
 
   -- 补全引擎
   "hrsh7th/nvim-cmp",
@@ -231,12 +243,12 @@ require("lazy").setup({
     end
   },
 
-  {
-    "simrat39/symbols-outline.nvim",
-    config = function()
-      require("symbols-outline").setup()
-    end
-  },
+  -- {
+  --   "simrat39/symbols-outline.nvim",
+  --   config = function()
+  --     require("symbols-outline").setup()
+  --   end
+  -- },
 
   {
     "stevearc/dressing.nvim",
