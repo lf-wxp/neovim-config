@@ -403,5 +403,14 @@ require("lazy").setup({
     opts = {
       -- configurations go here
     },
+  },
+  {
+    "j-morano/buffer_manager.nvim",
+    config = function()
+      require("buffer_manager").setup({
+        width = 100,
+        height = 20,
+      })
+    end,
   }
 })

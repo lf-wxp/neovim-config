@@ -222,4 +222,7 @@ map("n", "<leader>k", ":noh<CR>", opt)
 map("n", "<leader>o", "<C-o>", opt)
 map("n", "<leader>i", "<C-i>", opt)
 
+-- buffer_manager
+map("n", "<leader><leader>b", "<cmd>lua require('buffer_manager.ui').toggle_quick_menu()<CR>", opt)
+
 return pluginKeys
