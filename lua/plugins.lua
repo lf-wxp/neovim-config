@@ -185,13 +185,10 @@ require("lazy").setup({
   },
   {
     "nvim-pack/nvim-spectre",
+    event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim", -- Lua 开发模块
-      "BurntSushi/ripgrep"     -- 文字查找
     },
-    config = function()
-      require("plugin-config.nvim-spectre")
-    end
   },
   {
     "mg979/vim-visual-multi",
