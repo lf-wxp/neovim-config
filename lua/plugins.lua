@@ -270,7 +270,7 @@ require("lazy").setup({
 
   {
     "j-hui/fidget.nvim",
-    tag = "legacy",
+    -- tag = "legacy",
     config = function()
       require("plugin-config.fidget")
     end
