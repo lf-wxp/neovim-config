@@ -142,7 +142,11 @@ require("lazy").setup({
   "jose-elias-alvarez/typescript.nvim",
 
   -- Rust 增强
-  "simrat39/rust-tools.nvim",
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^3', -- Recommended
+    ft = { 'rust' },
+  },
 
   -- Lua 增强
   "folke/neodev.nvim",
