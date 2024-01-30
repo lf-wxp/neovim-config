@@ -399,7 +399,7 @@ require("lazy").setup({
     'rasulomaroff/reactive.nvim',
     config = function()
       require("reactive").setup({
-        buildin = {
+        builtin = {
           cursorline = true,
           cursor = true,
           modemsg = true
