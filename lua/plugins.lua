@@ -243,14 +243,6 @@ require("lazy").setup({
       require("plugin-config.goto-preview")
     end
   },
-
-  -- {
-  --   "simrat39/symbols-outline.nvim",
-  --   config = function()
-  --     require("symbols-outline").setup()
-  --   end
-  -- },
-
   {
     "stevearc/dressing.nvim",
     config = function()
@@ -369,17 +361,6 @@ require("lazy").setup({
       require("plugin-config.noice")
     end,
   },
-  {
-    'ribru17/bamboo.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('bamboo').setup {
-        -- optional configuration here
-      }
-      require('bamboo').load()
-    end,
-  },
   -- {
   --   "tamton-aquib/zone.nvim",
   --   config = function()
@@ -411,6 +392,18 @@ require("lazy").setup({
       require("buffer_manager").setup({
         width = 100,
         height = 20,
+      })
+    end,
+  },
+  {
+    'rasulomaroff/reactive.nvim',
+    config = function()
+      require("reactive").setup({
+        buildin = {
+          cursorline = true,
+          cursor = true,
+          modemsg = true
+        }
       })
     end,
   }
