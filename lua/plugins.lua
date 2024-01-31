@@ -400,11 +400,14 @@ require("lazy").setup({
     config = function()
       require("reactive").setup({
         builtin = {
-          cursorline = true,
+          -- cursorline = true,
           cursor = true,
           modemsg = true
         }
       })
     end,
+  },
+  {
+    "aznhe21/actions-preview.nvim",
   }
 })

@@ -41,8 +41,8 @@ telescope.setup({
         -- 关闭窗口
         ["<C-c>"] = "close",
         -- 预览窗口上下滚动
-        ["<C-u>"] = "preview_scrolling_up",
-        ["<C-d>"] = "preview_scrolling_down",
+        ["<leader>u"] = "preview_scrolling_up",
+        ["<leader>d"] = "preview_scrolling_down",
 
         ["<leader>s"] = flash,
       },

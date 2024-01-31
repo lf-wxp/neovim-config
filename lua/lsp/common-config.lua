@@ -10,7 +10,7 @@ M.keyAttach     = function(bufnr)
   -- 绑定快捷键
   map("n", keys.lsp.rename, "<cmd>Lspsaga rename<CR>")
   -- code action
-  map("n", keys.lsp.code_action, "<cmd>Lspsaga code_action<CR>")
+  -- map("n", keys.lsp.code_action, "<cmd>Lspsaga code_action<CR>")
   -- go xx
   map("n", keys.lsp.go_definitiion, "<cmd>lua vim.lsp.buf.definition()<CR>")
 
