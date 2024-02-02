@@ -18,11 +18,9 @@ require("lazy").setup({
     "ellisonleao/gruvbox.nvim",
     dependencies = { "rktjmp/lush.nvim" },
   },
-  "olimorris/onedarkpro.nvim",
   "glepnir/zephyr-nvim",
   "sainnhe/gruvbox-material",
   "rebelot/kanagawa.nvim",
-
   {
     "nvim-tree/nvim-tree.lua",
     dependencies = "nvim-tree/nvim-web-devicons",

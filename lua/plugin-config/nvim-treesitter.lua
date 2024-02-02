@@ -21,7 +21,8 @@ treesitter.setup({
     "tsx",
     "vue",
     "rust",
-    "scss"
+    "scss",
+    "vimdoc"
   },
   -- 启用代码高亮模块
   highlight = {

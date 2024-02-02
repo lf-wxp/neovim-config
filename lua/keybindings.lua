@@ -226,6 +226,6 @@ map("n", "<leader>i", "<C-i>", opt)
 map("n", "<leader><leader>b", "<cmd>lua require('buffer_manager.ui').toggle_quick_menu()<CR>", opt)
 
 -- codeaction preview
-keymap({ "v", "n" }, "<leader>ca", require("actions-preview").code_actions, opt)
+keymap({ "v", "n" }, "<leader>ca", "<cmd>lua require('actions-preview').code_actions()<CR>", opt)
 
 return pluginKeys
