@@ -14,10 +14,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   --------------------- colorschemes --------------------
-  {
-    "ellisonleao/gruvbox.nvim",
-    dependencies = { "rktjmp/lush.nvim" },
-  },
   "glepnir/zephyr-nvim",
   "sainnhe/gruvbox-material",
   "rebelot/kanagawa.nvim",
@@ -78,6 +74,7 @@ require("lazy").setup({
       "windwp/nvim-ts-autotag",
       "nvim-treesitter/nvim-treesitter-refactor",
       "nvim-treesitter/nvim-treesitter-textobjects",
+      "nvim-treesitter/nvim-treesitter-context",
     },
     config = function()
       require("plugin-config.nvim-treesitter")
@@ -407,5 +404,10 @@ require("lazy").setup({
   },
   {
     "aznhe21/actions-preview.nvim",
-  }
+  },
+  -- {
+  --   'mawkler/modicator.nvim',
+  --   dependencies = 'glepnir/zephyr-nvim',
+  --   opts = {}
+  -- }
 })
