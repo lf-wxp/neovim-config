@@ -33,7 +33,7 @@ require("lazy").setup({
   },
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
       require("plugin-config.lualine")
     end
@@ -43,7 +43,7 @@ require("lazy").setup({
   -- telescope
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("plugin-config.telescope")
     end
@@ -82,7 +82,7 @@ require("lazy").setup({
   },
   {
     "lukas-reineke/indent-blankline.nvim",
-    dependencies = { "HiPhish/rainbow-delimiters.nvim" },
+    dependencies = "HiPhish/rainbow-delimiters.nvim",
     opts = {},
     config = function()
       require("plugin-config.indent-blankline")
@@ -128,7 +128,10 @@ require("lazy").setup({
 
   -- 代码格式化
   -- "mhartington/formatter.nvim",
-  { "nvimtools/none-ls.nvim", dependencies = "nvim-lua/plenary.nvim" },
+  {
+    "nvimtools/none-ls.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "nvimtools/none-ls-extras.nvim" }
+  },
 
   -- JSON 增强
   "b0o/schemastore.nvim",
@@ -277,7 +280,7 @@ require("lazy").setup({
   {
     "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
-    dependencies = { { "nvim-lua/plenary.nvim" } },
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("crates").setup()
     end,
@@ -332,9 +335,8 @@ require("lazy").setup({
   },
   {
     "roobert/surround-ui.nvim",
-    dependencies = {
-      "kylechui/nvim-surround",
-    },
+    dependencies =
+    "kylechui/nvim-surround",
     config = function()
       require("surround-ui").setup({
         root_key = "S"
