@@ -62,10 +62,10 @@ treesitter.setup({
     -- termcolors = {} -- table of colour name strings
   },
   -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-  },
+  -- context_commentstring = {
+  --   enable = true,
+  --   enable_autocmd = false,
+  -- },
   -- https://github.com/windwp/nvim-ts-autotag
   autotag = {
     enable = true,
