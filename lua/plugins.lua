@@ -106,6 +106,7 @@ require("lazy").setup({
     },
   },
 
+
   -- 补全引擎
   "hrsh7th/nvim-cmp",
   -- snippet 引擎
@@ -131,6 +132,17 @@ require("lazy").setup({
   {
     "nvimtools/none-ls.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "nvimtools/none-ls-extras.nvim" }
+  },
+  {
+    "jay-babu/mason-null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    -- dependencies = {
+    --   "williamboman/mason.nvim",
+    --   "nvimtools/none-ls.nvim",
+    -- },
+    config = function()
+      require("mason-null-ls").setup() -- require your null-ls config here (example below)
+    end,
   },
 
   -- JSON 增强
