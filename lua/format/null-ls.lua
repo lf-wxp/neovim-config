@@ -4,74 +4,18 @@ if not status then
   return
 end
 
-local formatting = null_ls.builtins.formatting
-local diagnostics = null_ls.builtins.diagnostics
-local code_actions = null_ls.builtins.code_actions
-
 null_ls.setup({
   debug = false,
   sources = {
-    -- Formatting ---------------------
-    --  brew install shfmt
-    formatting.shfmt,
-    -- StyLua
-    -- brew install stylua
-    formatting.stylua,
-    -- frontend
-    -- npm install -g @fsouza/prettierd
-    -- brew install fsouza/prettierd/prettierd
-    -- formatting.prettier_d,
-    -- formatting.prettier.with({ -- 比默认少了 markdown
-    --   filetypes = {
-    --     "javascript",
-    --     "javascriptreact",
-    --     "typescript",
-    --     "typescriptreact",
-    --     "vue",
-    --     "css",
-    --     "scss",
-    --     "less",
-    --     "html",
-    --     "json",
-    --     "yaml",
-    --     "graphql",
-    --   },
-    --   timeout = 10000,
-    --   prefer_local = "node_modules/.bin",
-    -- }),
-    formatting.eslint_d,
-    -- rustfmt
-    formatting.rustfmt,
-    -----------------------------------------------------
-    -- json
-    -- npm install -g fixjson
-    formatting.fixjson,
-    -----------------------------------------------------
-    -- Diagnostics  ---------------------
-    diagnostics.eslint_d,
-    -- npm install -g cspell@latest
-    diagnostics.cspell.with({
-      filetypes = {
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "vue",
-        "css",
-        "scss",
-        "less",
-        "html",
-        "json",
-        "yaml",
-        "graphql",
-        "rust",
-      },
-    }),
-    -- code actions ---------------------
-    code_actions.cspell,
-    code_actions.gitsigns,
-    code_actions.eslint_d,
     require("typescript.extensions.null-ls.code-actions"),
+    require("none-ls.diagnostics.eslint_d"),
+    require("none-ls.diagnostics.yamllint"),
+    require("none-ls.code_actions.eslint_d"),
+    require("none-ls.formatting.eslint_d"),
+    require("none-ls.formatting.rustfmt"),
+    require("none-ls.formatting.beautysh"),
+    require("cspell.diagnostics"),
+    require("cspell.code_actions")
   },
   -- #{m}: message
   -- #{s}: source name (defaults to null-ls if not specified)

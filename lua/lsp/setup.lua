@@ -57,7 +57,7 @@ local servers = {
   cssls = require("lsp.config.css"),
   zk = require("lsp.config.markdown"),
   taplo = require("lsp.config.toml"),
-  eslint = require("lsp.config.eslint"),
+  -- eslint = require("lsp.config.eslint"),
 }
 -- 自动安装 Language Servers
 for name, config in pairs(servers) do
