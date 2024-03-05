@@ -75,7 +75,7 @@ map("n", "<leader><leader>c", ":Telescope colorscheme<CR>", opt)
 -- lsp 捷键设置
 pluginKeys.lsp = {
   -- rename
-  rename = "<leader>rn",
+  -- rename = "<leader>rn",
   -- code action
   code_action = "<leader>ca",
   -- go xx
@@ -227,5 +227,13 @@ map("n", "<leader><leader>b", "<cmd>lua require('buffer_manager.ui').toggle_quic
 
 -- codeaction preview
 keymap({ "v", "n" }, "<leader>ca", "<cmd>lua require('actions-preview').code_actions()<CR>", opt)
+
+-- lsp signature
+keymap("n", "<leader>ls", "<cmd>lua require('lsp_signature').toggle_float_win()<CR>", opt)
+
+--- inc rename
+keymap("n", "<leader>rn", function()
+  return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
 
 return pluginKeys

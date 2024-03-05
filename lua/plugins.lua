@@ -420,4 +420,18 @@ require("lazy").setup({
   --   dependencies = 'glepnir/zephyr-nvim',
   --   opts = {}
   -- }
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy",
+    opts = {},
+    config = function()
+      require("lsp_signature").setup();
+    end
+  },
+  {
+    "smjonas/inc-rename.nvim",
+    config = function()
+      require("inc_rename").setup()
+    end,
+  }
 })
