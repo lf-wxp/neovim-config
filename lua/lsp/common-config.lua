@@ -8,7 +8,7 @@ M.keyAttach     = function(bufnr)
     vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, buffer = bufnr })
   end
   -- 绑定快捷键
-  map("n", keys.lsp.rename, "<cmd>Lspsaga rename<CR>")
+  -- map("n", keys.lsp.rename, "<cmd>Lspsaga rename<CR>")
   -- code action
   -- map("n", keys.lsp.code_action, "<cmd>Lspsaga code_action<CR>")
   -- go xx
