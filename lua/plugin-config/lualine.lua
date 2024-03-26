@@ -5,6 +5,11 @@ if not status then
   return
 end
 
+local Harpoonline = require("harpoonline")
+Harpoonline.setup({
+  on_update = function() require("lualine").refresh() end,
+})
+
 lualine.setup({
   options = {
     -- theme = "edge",
@@ -33,6 +38,7 @@ lualine.setup({
       "diagnostics"
     },
     lualine_c = {
+      Harpoonline.format,
       { "filename", path = 1, file_status  = true },
       {
         "lsp_progress",

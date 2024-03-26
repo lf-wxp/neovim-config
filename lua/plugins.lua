@@ -33,7 +33,7 @@ require("lazy").setup({
   },
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = "nvim-tree/nvim-web-devicons",
+    dependencies = { "nvim-tree/nvim-web-devicons", "abeldekat/harpoonline" },
     config = function()
       require("plugin-config.lualine")
     end
@@ -265,6 +265,7 @@ require("lazy").setup({
 
   {
     "ThePrimeagen/harpoon",
+    branch = "harpoon2",
     config = function()
       require("plugin-config.harpoon")
     end
