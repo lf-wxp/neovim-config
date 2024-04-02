@@ -189,16 +189,18 @@ map("n", "gpc", "<cmd>lua require('goto-preview').close_all_win()<CR>", opt)
 map("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", opt)
 
 -- harpoon
-map("n", "<leader>na", "<cmd>lua require('harpoon'):list():append()<CR>", opt)
-map("n", "<leader>nt", "<cmd>lua require('harpoon.ui'):toggle_quick_menu(require('harpoon'):list())<CR>", opt)
-map("n", "<leader>nn", "<cmd>lua require('harpoon'):list():next()<CR>", opt)
-map("n", "<leader>np", "<cmd>lua require('harpoon'):list():prev()<CR>", opt)
-map("n", "<leader>n1", "<cmd>lua require('harpoon'):list():select(1)<CR>", opt)
-map("n", "<leader>n2", "<cmd>lua require('harpoon'):list():select(2)<CR>", opt)
-map("n", "<leader>n3", "<cmd>lua require('harpoon'):list().select(3)<CR>", opt)
-map("n", "<leader>n4", "<cmd>lua require('harpoon'):list().select(4)<CR>", opt)
-map("n", "<leader>n5", "<cmd>lua require('harpoon'):list().select(5)<CR>", opt)
-map("n", "<leader>n6", "<cmd>lua require('harpoon'):list().select(6)<CR>", opt)
+pluginKeys.harpoon = {
+  append =  "<leader>na",
+  toggle =  "<leader>nt",
+  next =  "<leader>nn",
+  prev =  "<leader>np",
+  n1 =  "<leader>n1",
+  n2 =  "<leader>n2",
+  n3 =  "<leader>n3",
+  n4 =  "<leader>n4",
+  n5 =  "<leader>n5",
+  n6 =  "<leader>n6",
+}
 
 -- crates
 map("n", "<leader>ct", "<cmd>lua require('crates').toggle()<CR>", opt)
