@@ -9,7 +9,12 @@ local function map(mode, lhs, rhs)
 end
 
 local keys = require("keybindings")
-harpoon:setup({})
+harpoon:setup({
+  settings = {
+    save_on_toggle = true,
+    sync_on_ui_close = true,
+  }
+})
 
 map("n", keys.harpoon.append, function() harpoon:list():append() end)
 map("n", keys.harpoon.toggle, function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
