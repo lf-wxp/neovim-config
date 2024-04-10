@@ -125,7 +125,7 @@ require("lazy").setup({
 
   -- ui
   "onsails/lspkind-nvim",
-  "tami5/lspsaga.nvim",
+  "nvimdev/lspsaga.nvim",
 
   -- 代码格式化
   -- "mhartington/formatter.nvim",
