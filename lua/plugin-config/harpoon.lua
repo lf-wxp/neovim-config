@@ -16,7 +16,7 @@ harpoon:setup({
   }
 })
 
-map("n", keys.harpoon.append, function() harpoon:list():append() end)
+map("n", keys.harpoon.append, function() harpoon:list():add() end)
 map("n", keys.harpoon.toggle, function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 map("n", keys.harpoon.prev, function() harpoon:list():prev() end)
 map("n", keys.harpoon.next, function() harpoon:list():next() end)
