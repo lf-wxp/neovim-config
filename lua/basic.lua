@@ -89,20 +89,20 @@ vim.g.rust_recommended_style = 0
 vim.o.guifont = "FiraCode Nerd Font Mono"
 
 -- neovide
-vim.g.neovide_transparency = 0.95
-vim.g.neovide_profiler = "v:true"
-vim.g.neovide_remember_window_size = "v:true"
-vim.g.neovide_fullscreen = "v:true"
-vim.g.neovide_no_idle = "v:true"
+vim.g.neovide_transparency = 0.8
+vim.g.neovide_remember_window_size = true
+vim.g.neovide_no_idle = true
+vim.g.neovide_cursor_smooth_blink = true
 vim.g.neovide_cursor_animation_length = 0.05
 vim.g.neovide_cursor_trail_length = 0.5
 vim.g.neovide_cursor_vfx_mode = "railgun"
+vim.g.neovide_cursor_antialiasing = true
+vim.g.neovide_cursor_unfocused_outline_width = 0.125
 vim.g.neovide_scroll_animation_length = 0.3
 vim.g.neovide_floating_blur_amount_x = 2.0
 vim.g.neovide_floating_blur_amount_y = 2.0
-vim.g.neovide_cursor_antialiasing = "v:true"
-vim.g.neovide_cursor_unfocused_outline_width = 0.125
 vim.g.neovide_scroll_animation_length = 0.3
+vim.g.neovide_window_blurred = true
 
 -- vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
 
