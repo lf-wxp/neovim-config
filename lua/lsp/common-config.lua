@@ -15,10 +15,6 @@ M.keyAttach     = function(bufnr)
   map("n", keys.lsp.go_definitiion, "<cmd>lua vim.lsp.buf.definition()<CR>")
 
   map("n", keys.lsp.hover_doc, "<cmd>Lspsaga hover_doc<cr>")
-  -- scroll down hover doc or scroll in definition preview
-  map("n", keys.lsp.hover_definition_scroll_up, "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>")
-  -- scroll up hover doc
-  map("n", keys.lsp.hover_definition_scroll_down, "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>")
 
   map("n", keys.lsp.go_declaration, "<cmd>lua vim.lsp.buf.declaration()<CR>")
   map("n", keys.lsp.go_implementation, "<cmd>lua vim.lsp.buf.implementation()<CR>")

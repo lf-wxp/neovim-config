@@ -4,4 +4,9 @@ if not status then
   return
 end
 
-lspsaga.setup({})
+lspsaga.setup({
+  scroll_preview = {
+    scroll_down = 'sd',
+    scroll_up = 'su',
+  }
+})
