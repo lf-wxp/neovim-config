@@ -205,7 +205,7 @@ require("lazy").setup({
   },
 
   {
-    "NvChad/nvim-colorizer.lua",
+    "norcalli/nvim-colorizer.lua",
     config = function()
       require("colorizer").setup()
     end
@@ -435,5 +435,5 @@ require("lazy").setup({
     config = function()
       require("inc_rename").setup()
     end,
-  }
+  },
 })
