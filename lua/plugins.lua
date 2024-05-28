@@ -204,10 +204,19 @@ require("lazy").setup({
     "mg979/vim-visual-multi",
   },
 
+  -- {
+  --   "norcalli/nvim-colorizer.lua",
+  --   config = function()
+  --     require("colorizer").setup()
+  --   end
+  -- },
   {
-    "norcalli/nvim-colorizer.lua",
+    'brenoprata10/nvim-highlight-colors',
     config = function()
-      require("colorizer").setup()
+      require("nvim-highlight-colors").setup({
+        render = 'virtual',
+        virtual_symbol = '▣',
+      })
     end
   },
 
