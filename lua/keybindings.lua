@@ -233,6 +233,9 @@ keymap({ "v", "n" }, "<leader>ca", "<cmd>lua require('actions-preview').code_act
 -- lsp signature
 keymap("n", "<leader>ls", "<cmd>lua require('lsp_signature').toggle_float_win()<CR>", opt)
 
+-- lsp restart
+keymap("n", "<leader>lr", "<cmd>LspRestart<CR>", opt)
+
 --- inc rename
 keymap("n", "<leader>rn", function()
   return ":IncRename " .. vim.fn.expand("<cword>")
