@@ -8,5 +8,11 @@ lspsaga.setup({
   scroll_preview = {
     scroll_down = 'sd',
     scroll_up = 'su',
+  },
+  finder = {
+    keys = {
+      vsplit = 'v',
+      shuttle = '<leader>ww'
+    }
   }
 })

@@ -19,7 +19,7 @@ M.keyAttach     = function(bufnr)
   map("n", keys.lsp.go_declaration, "<cmd>lua vim.lsp.buf.declaration()<CR>")
   map("n", keys.lsp.go_implementation, "<cmd>lua vim.lsp.buf.implementation()<CR>")
 
-  map("n", keys.lsp.references, "<cmd>Lspsaga lsp_finder<CR>")
+  map("n", keys.lsp.references, "<cmd>Lspsaga finder<CR>")
   -- diagnostic
   map("n", keys.lsp.line_diagnostics, "<cmd>Lspsaga show_line_diagnostics<CR>")
   map("n", keys.lsp.next_diagnostics, "<cmd>Lspsaga diagnostic_jump_next<cr>")
