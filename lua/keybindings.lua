@@ -98,13 +98,14 @@ pluginKeys.lsp = {
 }
 
 
--- spectre
+-- grug-far
 -- 全项目替换
-map("n", "<leader>rp", "<cmd>lua require('spectre').open()<CR>", opt)
+map("n", "<leader>rp", "<cmd>GrugFar<CR>", opt)
 -- 只替换当前文件
-map("n", "<leader>rf", "viw:lua require('spectre').open_file_search()<CR>", opt)
+map("n", "<leader>rf", "<cmd>lua require('grug-far').grug_far({ prefills = { flags = vim.fn.expand('%') } })<CR>", opt)
 -- 全项目中搜索当前单词
-map("n", "<leader>rw", "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", opt)
+map("n", "<leader>rw", "<cmd>lua require('grug-far').grug_far({ prefills = { search = vim.fn.expand('<cword>') }})<CR>",
+  opt)
 
 
 -- luasnip
@@ -190,16 +191,16 @@ map("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>"
 
 -- harpoon
 pluginKeys.harpoon = {
-  append =  "<leader>na",
-  toggle =  "<leader>nt",
-  next =  "<leader>nn",
-  prev =  "<leader>np",
-  n1 =  "<leader>n1",
-  n2 =  "<leader>n2",
-  n3 =  "<leader>n3",
-  n4 =  "<leader>n4",
-  n5 =  "<leader>n5",
-  n6 =  "<leader>n6",
+  append = "<leader>na",
+  toggle = "<leader>nt",
+  next = "<leader>nn",
+  prev = "<leader>np",
+  n1 = "<leader>n1",
+  n2 = "<leader>n2",
+  n3 = "<leader>n3",
+  n4 = "<leader>n4",
+  n5 = "<leader>n5",
+  n6 = "<leader>n6",
 }
 
 -- crates

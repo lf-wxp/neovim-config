@@ -193,13 +193,13 @@ require("lazy").setup({
       require("plugin-config.auto-session")
     end
   },
-  {
-    "nvim-pack/nvim-spectre",
-    event = "VeryLazy",
-    dependencies = {
-      "nvim-lua/plenary.nvim", -- Lua 开发模块
-    },
-  },
+  -- {
+  --   "nvim-pack/nvim-spectre",
+  --   event = "VeryLazy",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim", -- Lua 开发模块
+  --   },
+  -- },
   {
     "mg979/vim-visual-multi",
   },
@@ -444,4 +444,12 @@ require("lazy").setup({
       require("inc_rename").setup()
     end,
   },
+  {
+    'MagicDuck/grug-far.nvim',
+    event = "VeryLazy",
+    config = function()
+      require('grug-far').setup();
+    end
+  },
+
 })
