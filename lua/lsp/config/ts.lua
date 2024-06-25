@@ -6,21 +6,33 @@ if not status then
 end
 
 local common = require("lsp.common-config")
+local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
+local volar_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
+
 local opts = {
   capabilities = common.capabilities,
   flags = common.flags,
+  init_options = {
+    plugins = {
+      {
+        name = "@vue/typescript-plugin",
+        location = volar_path,
+        languages = { "vue" },
+      },
+    },
+  },
   on_attach = function(client, bufnr)
     -- common.disableFormat(client)
     common.keyAttach(bufnr)
     common.navic(client, bufnr)
 
-    --[[ 
+    --[[
         :TypescriptOrganizeImports
         :TypescriptRenameFile
         :TypescriptAddMissingImports
         :TypescriptRemoveUnused
         :TypescriptFixAll
-        :TypescriptGoToSourceDefinition 
+        :TypescriptGoToSourceDefinition
     ]]
 
     local function map(mode, lhs, rhs)
@@ -36,9 +48,9 @@ return {
   on_setup = function(_)
     typescript.setup({
       disable_commands = false, -- prevent the plugin from creating Vim commands
-      debug = false, -- enable debug logging for commands
+      debug = false,            -- enable debug logging for commands
       go_to_source_definition = {
-        fallback = true, -- fall back to standard LSP definition on failure
+        fallback = true,        -- fall back to standard LSP definition on failure
       },
       server = opts,
     })

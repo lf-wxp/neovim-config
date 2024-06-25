@@ -7,9 +7,9 @@ local opts = {
     vue = {
       hybridMode = false,
     },
-    typescript = {
-      tsdk = vim.fn.getcwd() .. "node_modules/typescript",
-    },
+    -- typescript = {
+    --   tsdk = vim.fn.getcwd() .. "node_modules/typescript",
+    -- },
   },
   on_attach = function(client, bufnr)
     common.navic(client, bufnr)
