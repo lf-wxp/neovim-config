@@ -222,9 +222,11 @@ require("lazy").setup({
 
   {
     "folke/which-key.nvim",
-    config = function()
-      require("plugin-config.which-key")
-    end
+    event = "VeryLazy",
+    opts = {},
+    -- config = function()
+    --   require("plugin-config.which-key")
+    -- end
   },
 
   "kdheepak/lazygit.nvim",
@@ -451,5 +453,5 @@ require("lazy").setup({
       require('grug-far').setup();
     end
   },
-
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 }
 })
