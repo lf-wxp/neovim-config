@@ -10,7 +10,7 @@ treesitter.setup({
   sync_install = false,
   -- 安装 language parser
   -- :TSInstallInfo 命令查看支持的语言
-  ensure_installed = { 
+  ensure_installed = {
     "json",
     "html",
     "css",
@@ -38,8 +38,8 @@ treesitter.setup({
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "<CR>",
-      node_incremental = "<CR>",
+      init_selection = "<cr>",
+      node_incremental = "<cr>",
       node_decremental = "<BS>",
       scope_incremental = "<TAB>",
     },

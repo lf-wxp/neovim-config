@@ -1,41 +1,40 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-local map = vim.api.nvim_set_keymap
-local keymap = vim.keymap.set
--- 复用 opt 参数
-local opt = { noremap = true, silent = true }
+local function keymap(mode, lhs, rhs, desc)
+  vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, desc = desc })
+end
 
 -- 插件快捷键
 local pluginKeys = {}
 
 -- 取消 s 默认功能
 -- windows 分屏快捷键
-map("n", "<leader>sv", ":vsp<CR>", opt)
-map("n", "<leader>sh", ":sp<CR>", opt)
+keymap("n", "<leader>sv", ":vsp<cr>", "windows split vertical")
+keymap("n", "<leader>sh", ":sp<cr>", "windows split horizontal")
 -- 关闭当前
-map("n", "<leader>sc", "<C-w>c", opt)
+keymap("n", "<leader>sc", "<C-w>c", "windows close")
 -- 关闭其他
-map("n", "<leader>so", "<C-w>o", opt)
+keymap("n", "<leader>so", "<C-w>o", "windows close other")
 -- Alt + hjkl  窗口之间跳转
-map("n", "<leader>wh", "<C-w>h", opt)
-map("n", "<leader>wj", "<C-w>j", opt)
-map("n", "<leader>wk", "<C-w>k", opt)
-map("n", "<leader>wl", "<C-w>l", opt)
+keymap("n", "<leader>wh", "<C-w>h", "windows pop left")
+keymap("n", "<leader>wj", "<C-w>j", "windows pop up")
+keymap("n", "<leader>wk", "<C-w>k", "windows pop down")
+keymap("n", "<leader>wl", "<C-w>l", "windows pop left")
 
 -- 左右比例控制
-map("n", "<leader>shh", ":vertical resize -10<CR>", opt)
-map("n", "<leader>sll", ":vertical resize +10<CR>", opt)
+keymap("n", "<leader>shh", ":vertical resize -10<cr>", "resize vertical -10")
+keymap("n", "<leader>sll", ":vertical resize +10<cr>", "resize vertical +10")
 -- 上下比例
-map("n", "<leader>sjj", ":resize +10<CR>", opt)
-map("n", "<leader>skk", ":resize -10<CR>", opt)
+keymap("n", "<leader>sjj", ":resize +10<cr>", "resize horizontal +10")
+keymap("n", "<leader>skk", ":resize -10<cr>", "resize horizontal -10")
 -- 等比例
-map("n", "<leader>s=", "<C-w>=", opt)
+keymap("n", "<leader>s=", "<C-w>=", "resize even")
 
 -- visual模式下缩进代码
 -- 上下移动选中文本
-map("v", "J", ":move '>+1<CR>gv-gv", opt)
-map("v", "K", ":move '<-2<CR>gv-gv", opt)
+keymap("v", "J", ":move '>+1<cr>gv-gv", "visual move down")
+keymap("v", "K", ":move '<-2<cr>gv-gv", "visual move up")
 
 -- 上下滚动浏览
 pluginKeys.neoscroll = {
@@ -44,33 +43,34 @@ pluginKeys.neoscroll = {
 }
 
 -- nvim-tree
-map("n", "<leader>tt", ":NvimTreeToggle<CR>", opt)
+keymap("n", "<leader>tt", ":NvimTreeToggle<cr>", "tree")
 
 -- bufferline
 -- 左右Tab切换
-map("n", "<leader>h", ":BufferLineCyclePrev<CR>", opt)
-map("n", "<leader>l", ":BufferLineCycleNext<CR>", opt)
-map("n", "<leader><", ":BufferLineMovePrev<CR>", opt)
-map("n", "<leader>>", ":BufferLineMoveNext<CR>", opt)
-map("n", "<leader>tp", ":BufferLinePick<CR>", opt)
+keymap("n", "<leader>h", ":BufferLineCyclePrev<cr>", "tab left")
+keymap("n", "<leader>l", ":BufferLineCycleNext<cr>", "tab right")
+keymap("n", "<leader><", ":BufferLineMovePrev<cr>", "tab move left")
+keymap("n", "<leader>>", ":BufferLineMoveNext<cr>", "tab move right")
+keymap("n", "<leader>tp", ":BufferLinePick<cr>", "tab pick")
 -- 关闭
 --"moll/vim-bbye"
-map("n", "<leader>tc", ":Bdelete!<CR>", opt)
-map("n", "<leader>bcl", ":BufferLineCloseRight<CR>", opt)
-map("n", "<leader>bch", ":BufferLineCloseLeft<CR>", opt)
-map("n", "<leader>bc", ":BufferLinePickClose<CR>", opt)
+keymap("n", "<leader>tc", ":Bdelete!<cr>", "tab close")
+keymap("n", "<leader>bcl", ":BufferLineCloseRight<cr>", "tab close right")
+keymap("n", "<leader>bch", ":BufferLineCloseLeft<cr>", "tab close left")
+keymap("n", "<leader>bc", ":BufferLinePickClose<cr>", "tab close pick")
 
 -- Telescope
 -- 查找文件
-map("n", "<leader><leader>f", ":Telescope find_files<CR>", opt)
+-- keymap("n", "<leader><leader>f", ":Telescope find_files<cr>", opt)
+keymap("n", "<leader><leader>f", ":Telescope find_files<cr>", "find file")
 -- 全局搜索
-map("n", "<leader><leader>t", ":Telescope live_grep_args<CR>", opt)
+keymap("n", "<leader><leader>t", ":Telescope live_grep_args<cr>", "search text")
 -- 全局session
-map("n", "<leader><leader>s", ":Autosession search<CR>", opt)
+keymap("n", "<leader><leader>s", ":Autosession search<cr>", "find session")
 -- 全局project
-map("n", "<leader><leader>p", ":Telescope projects<CR>", opt)
+keymap("n", "<leader><leader>p", ":Telescope projects<cr>", "find project")
 
-map("n", "<leader><leader>c", ":Telescope colorscheme<CR>", opt)
+keymap("n", "<leader><leader>c", ":Telescope colorscheme<cr>", "find colorscheme")
 
 -- lsp 捷键设置
 pluginKeys.lsp = {
@@ -100,12 +100,14 @@ pluginKeys.lsp = {
 
 -- grug-far
 -- 全项目替换
-map("n", "<leader>rp", "<cmd>GrugFar<CR>", opt)
+keymap("n", "<leader>rp", "<cmd>GrugFar<cr>", "find replace")
 -- 只替换当前文件
-map("n", "<leader>rf", "<cmd>lua require('grug-far').grug_far({ prefills = { flags = vim.fn.expand('%') } })<CR>", opt)
+keymap("n", "<leader>rf", "<cmd>lua require('grug-far').grug_far({ prefills = { flags = vim.fn.expand('%') } })<cr>",
+  "find current")
 -- 全项目中搜索当前单词
-map("n", "<leader>rw", "<cmd>lua require('grug-far').grug_far({ prefills = { search = vim.fn.expand('<cword>') }})<CR>",
-  opt)
+keymap("n", "<leader>rw",
+  "<cmd>lua require('grug-far').grug_far({ prefills = { search = vim.fn.expand('<cword>') }})<cr>",
+  "find current word")
 
 
 -- luasnip
@@ -172,22 +174,22 @@ pluginKeys.gitsigns = {
   select_hunk = "<leader>ig",
 }
 -- flash
-keymap({ "n", "x", "o" }, "<leader>f", "<cmd>lua require('flash').jump()<CR>", opt)
-keymap({ "n", "x", "o" }, "<leader>F", "<cmd>lua require('flash').treesitter()<CR>", opt)
-keymap("o", "<leader>r", "<cmd>lua require('flash').remote()<CR>", opt)
--- keymap({ "x", "o" }, "<leader>Fs", "<cmd>lua require('flash').treesitter_search()<CR>", opt)
+keymap({ "n", "x", "o" }, "<leader>f", "<cmd>lua require('flash').jump()<cr>", "flash whole")
+keymap({ "n", "x", "o" }, "<leader>F", "<cmd>lua require('flash').treesitter()<cr>", "flash treesitter")
+keymap("o", "<leader>r", "<cmd>lua require('flash').remote()<cr>", "flash remote")
+-- keymap({ "x", "o" }, "<leader>Fs", "<cmd>lua require('flash').treesitter_search()<cr>", opt)
 
 -- Paste from clipboard
-keymap({ "n", "v" }, "<leader>p", '"+p', opt)
+keymap({ "n", "v" }, "<leader>p", '"+p', "paste")
 -- Copy to clipboard
-keymap({ "n", "v" }, "<leader>y", '"+y', opt)
+keymap({ "n", "v" }, "<leader>y", '"+y', "copy")
 
 
 -- goto-preview
-map("n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", opt)
-map("n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", opt)
-map("n", "gpc", "<cmd>lua require('goto-preview').close_all_win()<CR>", opt)
-map("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", opt)
+keymap("n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "preview definition")
+keymap("n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<cr>", "preview implementation")
+keymap("n", "gpc", "<cmd>lua require('goto-preview').close_all_win()<cr>", "preview close all")
+keymap("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<cr>", "preview references")
 
 -- harpoon
 pluginKeys.harpoon = {
@@ -204,42 +206,40 @@ pluginKeys.harpoon = {
 }
 
 -- crates
-map("n", "<leader>ct", "<cmd>lua require('crates').toggle()<CR>", opt)
-map("n", "<leader>cr", "<cmd>lua require('crates').reload()<CR>", opt)
-map("n", "<leader>cv", "<cmd>lua require('crates').show_versions_popup()<CR>", opt)
-map("n", "<leader>cf", "<cmd>lua require('crates').show_features_popup()<CR>", opt)
-map("n", "<leader>cd", "<cmd>lua require('crates').show_dependencies_popup()<CR>", opt)
-map("n", "<leader>cu", "<cmd>lua require('crates').update_crate()<CR>", opt)
-map("n", "<leader>cu", "<cmd>lua require('crates').update_crates()<CR>", opt)
-map("n", "<leader>cU", "<cmd>lua require('crates').upgrade_crate()<CR>", opt)
-map("n", "<leader>cU", "<cmd>lua require('crates').upgrade_crates()<CR>", opt)
-map("n", "<leader>cA", "<cmd>lua require('crates').upgrade_all_crates()<CR>", opt)
-map("n", "<leader>cH", "<cmd>lua require('crates').open_homepage()<CR>", opt)
-map("n", "<leader>cR", "<cmd>lua require('crates').open_repository()<CR>", opt)
-map("n", "<leader>cD", "<cmd>lua require('crates').open_documentation()<CR>", opt)
-map("n", "<leader>cC", "<cmd>lua require('crates').open_crates_io()<CR>", opt)
+keymap("n", "<leader>ct", "<cmd>lua require('crates').toggle()<cr>", "crate toggle")
+keymap("n", "<leader>cr", "<cmd>lua require('crates').reload()<cr>", "crate reload")
+keymap("n", "<leader>cv", "<cmd>lua require('crates').show_versions_popup()<cr>", "crate vresion")
+keymap("n", "<leader>cf", "<cmd>lua require('crates').show_features_popup()<cr>", "crate features")
+keymap("n", "<leader>cd", "<cmd>lua require('crates').show_dependencies_popup()<cr>", "crate dependencies")
+keymap("n", "<leader>cu", "<cmd>lua require('crates').update_crate()<cr>", "crate update")
+keymap("n", "<leader>cU", "<cmd>lua require('crates').upgrade_crate()<cr>", "crate upgrade")
+keymap("n", "<leader>cA", "<cmd>lua require('crates').upgrade_all_crates()<cr>", "crate upgrade all")
+keymap("n", "<leader>cH", "<cmd>lua require('crates').open_homepage()<cr>", "crate homepage")
+keymap("n", "<leader>cR", "<cmd>lua require('crates').open_repository()<cr>", "crate respository")
+keymap("n", "<leader>cD", "<cmd>lua require('crates').open_documentation()<cr>", "crate document")
+keymap("n", "<leader>cC", "<cmd>lua require('crates').open_crates_io()<cr>", "crate open io")
 
-map("n", "<leader>k", ":noh<CR>", opt)
+keymap("n", "<leader>k", ":noh<cr>", "dismiss highlight")
 
 
-map("n", "<leader>o", "<C-o>", opt)
-map("n", "<leader>i", "<C-i>", opt)
+keymap("n", "<leader>o", "<C-o>", "navigate backward")
+keymap("n", "<leader>i", "<C-i>", "navigate forward")
 
 -- buffer_manager
-map("n", "<leader><leader>b", "<cmd>lua require('buffer_manager.ui').toggle_quick_menu()<CR>", opt)
+keymap("n", "<leader><leader>b", "<cmd>lua require('buffer_manager.ui').toggle_quick_menu()<cr>", "buffer manager")
 
 -- codeaction preview
-keymap({ "v", "n" }, "<leader>ca", "<cmd>lua require('actions-preview').code_actions()<CR>", opt)
+keymap({ "v", "n" }, "<leader>ca", "<cmd>lua require('actions-preview').code_actions()<cr>", "code action")
 
 -- lsp signature
-keymap("n", "<leader>ls", "<cmd>lua require('lsp_signature').toggle_float_win()<CR>", opt)
+keymap("n", "<leader>ls", "<cmd>lua require('lsp_signature').toggle_float_win()<cr>", "lsp signature")
 
 -- lsp restart
-keymap("n", "<leader>lr", "<cmd>LspRestart<CR>", opt)
+keymap("n", "<leader>lr", "<cmd>LspRestart<cr>", "restart lsp")
 
 --- inc rename
-keymap("n", "<leader>rn", function()
+vim.keymap.set("n", "<leader>rn", function()
   return ":IncRename " .. vim.fn.expand("<cword>")
-end, { expr = true })
+end, { expr = true, desc = "rename" })
 
 return pluginKeys

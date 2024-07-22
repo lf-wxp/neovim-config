@@ -50,14 +50,14 @@ cmp.setup({
     -- ["<C-j>"] = cmp.mapping.select_next_item(),
     ["<Down>"] = cmp.mapping.select_next_item(),
     -- 确认
-    ["<CR>"] = cmp.mapping.confirm({
+    ["<cr>"] = cmp.mapping.confirm({
       select = true,
       behavior = cmp.ConfirmBehavior.Replace,
     }),
     -- 如果窗口内容太多，可以滚动
     ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
     ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-    
+
     -- Super Tab
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -112,7 +112,7 @@ cmp.setup({
 -- Use buffer source for `/`.
 cmp.setup.cmdline("/", {
   mapping = {
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<cr>'] = cmp.mapping.confirm({ select = true }),
     ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
     ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
     ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
@@ -125,7 +125,7 @@ cmp.setup.cmdline("/", {
 -- Use cmdline & path source for ':'.
 cmp.setup.cmdline(":", {
   mapping = {
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<cr>'] = cmp.mapping.confirm({ select = true }),
     ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
     ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
     ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),

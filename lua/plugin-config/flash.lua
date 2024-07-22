@@ -76,7 +76,7 @@ flash.setup({
     -- add any labels with the correct case here, that you want to exclude
     exclude = "",
     -- add a label for the first match in the current window.
-    -- you can always jump to the first match with `<CR>`
+    -- you can always jump to the first match with `<cr>`
     current = true,
     -- show the label after the match
     after = false, ---@type boolean|number[]

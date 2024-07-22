@@ -28,8 +28,8 @@ local lazygit = Terminal:new({
   on_open = function(term)
     vim.cmd("startinsert!")
     -- q / <leader>tg 关闭 terminal
-    vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
-    vim.api.nvim_buf_set_keymap(term.bufnr, "n", "<leader>tg", "<cmd>close<CR>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<cr>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(term.bufnr, "n", "<leader>tg", "<cmd>close<cr>", { noremap = true, silent = true })
     -- ESC 键取消，留给lazygit
     if vim.fn.mapcheck("<Esc>", "t") ~= "" then
       vim.api.nvim_del_keymap("t", "<Esc>")
@@ -94,8 +94,8 @@ local toggleG = function()
   lazygit:toggle()
 end
 
-vim.keymap.set({ "n", "t" }, keys.toggleTerm.float, toggleA)
-vim.keymap.set({ "n", "t" }, keys.toggleTerm.right, toggleB)
-vim.keymap.set({ "n", "t" }, keys.toggleTerm.bottom, toggleC)
-vim.keymap.set({ "n", "t" }, keys.toggleTerm.lazygit, toggleG)
-vim.keymap.set("t", keys.toggleTerm.switch, "<C-\\><C-n>")
+vim.keymap.set({ "n", "t" }, keys.toggleTerm.float, toggleA, { desc = "terminal float" })
+vim.keymap.set({ "n", "t" }, keys.toggleTerm.right, toggleB, { desc = "terminal right" })
+vim.keymap.set({ "n", "t" }, keys.toggleTerm.bottom, toggleC, { desc = " terminal bottom" })
+vim.keymap.set({ "n", "t" }, keys.toggleTerm.lazygit, toggleG, { desc = " terminal lazygit" })
+vim.keymap.set("t", keys.toggleTerm.switch, "<C-\\><C-n>", { desc = "terminal switch" })

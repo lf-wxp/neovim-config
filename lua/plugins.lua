@@ -223,10 +223,10 @@ require("lazy").setup({
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    opts = {},
-    -- config = function()
-    --   require("plugin-config.which-key")
-    -- end
+    dependencies = { 'echasnovski/mini.icons', version = false },
+    config = function()
+      require("plugin-config.which-key")
+    end
   },
 
   "kdheepak/lazygit.nvim",

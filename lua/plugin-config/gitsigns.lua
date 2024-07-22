@@ -69,7 +69,7 @@ gitsigns.setup({
         gs.next_hunk()
       end)
       return "<Ignore>"
-    end, { expr = true })
+    end, { expr = true, desc = "git next hunk" })
 
     map("n", keys.gitsigns.prev_hunk, function()
       if vim.wo.diff then
@@ -79,25 +79,26 @@ gitsigns.setup({
         gs.prev_hunk()
       end)
       return "<Ignore>"
-    end, { expr = true })
+    end, { expr = true, desc = "git prev hunk" })
 
-    map({ "n", "v" }, keys.gitsigns.stage_hunk, ":Gitsigns stage_hunk<CR>")
-    map("n", keys.gitsigns.stage_buffer, gs.stage_buffer)
-    map("n", keys.gitsigns.undo_stage_hunk, gs.undo_stage_hunk)
-    map({ "n", "v" }, keys.gitsigns.reset_hunk, ":Gitsigns reset_hunk<CR>")
-    map("n", keys.gitsigns.reset_buffer, gs.reset_buffer)
-    map("n", keys.gitsigns.prev_hunk, gs.preview_hunk)
+    map({ "n", "v" }, keys.gitsigns.stage_hunk, ":Gitsigns stage_hunk<cr>", { desc = "git stage hunk" })
+    map("n", keys.gitsigns.stage_buffer, gs.stage_buffer, { desc = "git stage buffer" })
+    map("n", keys.gitsigns.undo_stage_hunk, gs.undo_stage_hunk, { desc = "git undo stage" })
+    map({ "n", "v" }, keys.gitsigns.reset_hunk, ":Gitsigns reset_hunk<cr>", { desc = "git reset hunk" })
+    map("n", keys.gitsigns.reset_buffer, gs.reset_buffer, { desc = "git reset buffer" })
+    map("n", keys.gitsigns.prev_hunk, gs.preview_hunk, { desc = "git preview hunk" })
     map("n", keys.gitsigns.blame_line, function()
       gs.blame_line({ full = true })
-    end)
-    map("n", keys.gitsigns.diffthis, gs.diffthis)
+    end, { desc = "git blame line" })
+    map("n", keys.gitsigns.diffthis, gs.diffthis, { desc = "git diff this" })
     map("n", keys.gitsigns.diff, function()
       gs.diffthis("~")
-    end)
+    end, { desc = "git diff" })
     -- toggle
-    map("n", keys.gitsigns.toggle_deleted, gs.toggle_deleted)
-    map("n", keys.gitsigns.toggle_current_line_blame, gs.toggle_current_line_blame)
+    map("n", keys.gitsigns.toggle_deleted, gs.toggle_deleted, { desc = "git toggle deleted" })
+    map("n", keys.gitsigns.toggle_current_line_blame, gs.toggle_current_line_blame,
+      { desc = "git toggle current line blame" })
     -- Text object
-    map({ "o", "x" }, keys.gitsigns.select_hunk, ":<C-U>Gitsigns select_hunk<CR>")
+    map({ "o", "x" }, keys.gitsigns.select_hunk, ":<C-U>Gitsigns select_hunk<cr>", { desc = "git select hunk" })
   end
 })

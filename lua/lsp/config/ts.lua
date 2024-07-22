@@ -35,13 +35,13 @@ local opts = {
         :TypescriptGoToSourceDefinition
     ]]
 
-    local function map(mode, lhs, rhs)
-      vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, buffer = bufnr })
+    local function map(mode, lhs, rhs, desc)
+      vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, buffer = bufnr, desc = desc })
     end
-    map("n", keys.ts.organize_import, ":TypescriptOrganizeImports<CR>")
-    map("n", keys.ts.rename_file, ":TypescriptRenameFile<CR>")
-    map("n", keys.ts.add_missing_import, ":TypescriptAddMissingImports<CR>")
-    map("n", keys.ts.remove_unused, ":TypescriptRemoveUnused<CR>")
+    map("n", keys.ts.organize_import, ":TypescriptOrganizeImports<cr>", "ts organize import")
+    map("n", keys.ts.rename_file, ":TypescriptRenameFile<cr>", "ts rename file")
+    map("n", keys.ts.add_missing_import, ":TypescriptAddMissingImports<cr>", "ts add missing import")
+    map("n", keys.ts.remove_unused, ":TypescriptRemoveUnused<cr>", "ts remove unused")
   end,
 }
 return {
