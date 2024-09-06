@@ -453,5 +453,12 @@ require("lazy").setup({
       require('grug-far').setup();
     end
   },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 }
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  {
+    "OXY2DEV/helpview.nvim",
+    lazy = false, -- Recommended
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter"
+    }
+  }
 })
