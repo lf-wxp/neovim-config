@@ -237,6 +237,14 @@ keymap("n", "<leader>ls", "<cmd>lua require('lsp_signature').toggle_float_win()<
 -- lsp restart
 keymap("n", "<leader>lr", "<cmd>LspRestart<cr>", "restart lsp")
 
+-- multiple-cursors
+keymap( {"n", "x"}, "<C-j>", "<Cmd>MultipleCursorsAddDown<CR>", "Add cursor and move down")
+keymap( {"n", "x"}, "<C-k>", "<Cmd>MultipleCursorsAddUp<CR>", "Add cursor and move up")
+keymap( {"n", "i"}, "<C-LeftMouse>", "<Cmd>MultipleCursorsMouseAddDelete<CR>", "Add or remove cursor")
+keymap( {"n", "x"}, "<leader>g", "<Cmd>MultipleCursorsAddMatches<CR>", "Add cursor to move down")
+keymap( {"n", "x"}, "<leader>G", "<Cmd>MultipleCursorsAddMatchesV<CR>", "Add cursors to cword in previous area")
+keymap( {"n", "x"}, "<leader>m", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", "Add cursor and jump to next cword")
+
 --- inc rename
 vim.keymap.set("n", "<leader>rn", function()
   return ":IncRename " .. vim.fn.expand("<cword>")
