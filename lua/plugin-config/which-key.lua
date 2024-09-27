@@ -23,6 +23,7 @@ which_key.setup({
       { pattern = "git", icon = "", color = "purple" },
       { pattern = "toggler", icon = "󰨚", color = "cyan" },
       { pattern = "harpoon", icon = "󱋡", color = "purple" },
+      { pattern = "cursor", icon = "󰳽", color = "red" },
     },
   }
 })
