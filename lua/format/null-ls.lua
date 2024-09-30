@@ -11,9 +11,9 @@ null_ls.setup({
     require("none-ls.diagnostics.eslint_d"),
     require("none-ls.diagnostics.yamllint"),
     require("none-ls.code_actions.eslint_d"),
-    require("none-ls.formatting.eslint_d"),
-    require("none-ls.formatting.rustfmt"),
-    require("none-ls.formatting.beautysh"),
+    -- require("none-ls.formatting.eslint_d"),
+    -- require("none-ls.formatting.rustfmt"),
+    -- require("none-ls.formatting.beautysh"),
     require("cspell.diagnostics"),
     require("cspell.code_actions")
   },

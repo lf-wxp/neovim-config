@@ -140,6 +140,9 @@ require("lazy").setup({
       require("mason-null-ls").setup() -- require your null-ls config here (example below)
     end,
   },
+  {
+    'stevearc/conform.nvim',
+  },
 
   -- JSON 增强
   "b0o/schemastore.nvim",

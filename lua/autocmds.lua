@@ -24,9 +24,10 @@ autocmd("TermOpen", {
 -- 保存时自动格式化
 autocmd("BufWritePre", {
   group = myAutoGroup,
-  pattern = { "*.lua", "*.py", "*.sh", "*.vue", "*.ts", "*.tsx" },
-  callback = function()
-    vim.lsp.buf.format()
+  pattern = "*",
+  callback = function(args)
+    -- vim.lsp.buf.format()
+    require("conform").format({ bufnr = args.buf })
   end,
 })
 

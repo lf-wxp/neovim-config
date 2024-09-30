@@ -24,7 +24,8 @@ M.keyAttach     = function(bufnr)
   map("n", keys.lsp.line_diagnostics, "<cmd>Lspsaga show_line_diagnostics<cr>", "lsp diagnostic")
   map("n", keys.lsp.next_diagnostics, "<cmd>Lspsaga diagnostic_jump_next<cr>", "lsp diagnostic nextg")
   map("n", keys.lsp.prev_diagnostics, "<cmd>Lspsaga diagnostic_jump_prev<cr>", "lsp diagnostic prev")
-  map("n", keys.lsp.format, "<cmd>lua vim.lsp.buf.format()<cr>", "lsp format")
+  -- map("n", keys.lsp.format, "<cmd>lua vim.lsp.buf.format()<cr>", "lsp format")
+  map("n", keys.lsp.format, "<cmd>lua require('conform').format()<cr>", "lsp format")
 end
 
 -- 禁用格式化功能，交给专门插件插件处理

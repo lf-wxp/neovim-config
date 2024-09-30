@@ -1,2 +1,2 @@
--- require("format.formatter")
+require("format.conform")
 require("format.null-ls")
