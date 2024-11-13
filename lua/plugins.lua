@@ -465,5 +465,10 @@ require("lazy").setup({
     dependencies = {
       "nvim-treesitter/nvim-treesitter"
     }
+  },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    event = "VeryLazy",
+    opts = {},
   }
 })
