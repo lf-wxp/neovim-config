@@ -17,7 +17,11 @@ harpoon:setup({
 })
 
 map("n", keys.harpoon.append, function() harpoon:list():add() end, "harpoon add")
-map("n", keys.harpoon.toggle, function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "harpoon toggler")
+map("n", keys.harpoon.toggle, function()
+  harpoon.ui:toggle_quick_menu(harpoon:list(), {
+    height_in_lines = 20,
+  })
+end, "harpoon toggler")
 map("n", keys.harpoon.prev, function() harpoon:list():prev() end, "harpoon prev")
 map("n", keys.harpoon.next, function() harpoon:list():next() end, "harpoon next")
 map("n", keys.harpoon.n1, function() harpoon:list():select(1) end, "harpoon file 1")
