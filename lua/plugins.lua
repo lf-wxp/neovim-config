@@ -72,7 +72,7 @@ require("lazy").setup({
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
       "windwp/nvim-ts-autotag",
-      "nvim-treesitter/nvim-treesitter-refactor",
+      -- "nvim-treesitter/nvim-treesitter-refactor", // cause crush 
       "nvim-treesitter/nvim-treesitter-textobjects",
       "nvim-treesitter/nvim-treesitter-context",
     },

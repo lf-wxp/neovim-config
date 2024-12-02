@@ -30,7 +30,7 @@ mason_config.setup({
   -- 确保安装，根据需要填写
   ensure_installed = {
     "cssls",
-    "tsserver",
+    "ts_ls",
     "html",
     "jsonls",
     "rust_analyzer",
