@@ -470,5 +470,13 @@ require("lazy").setup({
     'MeanderingProgrammer/render-markdown.nvim',
     event = "VeryLazy",
     opts = {},
+  },
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("plugin-config.copilot")
+    end,
   }
 })
