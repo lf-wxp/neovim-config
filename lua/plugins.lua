@@ -19,7 +19,7 @@ require("lazy").setup({
   "rebelot/kanagawa.nvim",
   {
     "nvim-tree/nvim-tree.lua",
-    dependencies = "nvim-tree/nvim-web-devicons",
+    dependencies = { "nvim-tree/nvim-web-devicons", 'b0o/nvim-tree-preview.lua' },
     config = function()
       require("plugin-config.nvim-tree")
     end
@@ -72,7 +72,7 @@ require("lazy").setup({
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
       "windwp/nvim-ts-autotag",
-      -- "nvim-treesitter/nvim-treesitter-refactor", // cause crush 
+      -- "nvim-treesitter/nvim-treesitter-refactor", // cause crush
       "nvim-treesitter/nvim-treesitter-textobjects",
       "nvim-treesitter/nvim-treesitter-context",
     },
@@ -478,5 +478,9 @@ require("lazy").setup({
     config = function()
       require("plugin-config.copilot")
     end,
+  },
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   }
 })

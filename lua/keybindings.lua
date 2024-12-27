@@ -72,6 +72,8 @@ keymap("n", "<leader><leader>p", ":Telescope projects<cr>", "find project")
 
 keymap("n", "<leader><leader>c", ":Telescope colorscheme<cr>", "find colorscheme")
 
+keymap("n", "<leader><leader>fb", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", "file browser")
+
 -- lsp 捷键设置
 pluginKeys.lsp = {
   -- rename

@@ -30,7 +30,7 @@ telescope.setup({
     initial_mode = "insert",
     -- 窗口内快捷键
     mappings = {
-      n = { s = flash},
+      n = { s = flash },
       i = {
         -- 上下移动
         ["<Down>"] = "move_selection_next",
@@ -63,6 +63,19 @@ telescope.setup({
       }),
     },
     -- 扩展插件配置
+    file_browser = {
+      theme = "ivy",
+      -- disables netrw and use telescope-file-browser in its place
+      hijack_netrw = true,
+      mappings = {
+        ["i"] = {
+          -- your custom insert mode mappings
+        },
+        ["n"] = {
+          -- your custom normal mode mappings
+        },
+      },
+    },
   },
 })
 -- telescope extensions
@@ -73,3 +86,5 @@ pcall(telescope.load_extension, "ui-select")
 pcall(telescope.load_extension, "symbols")
 
 pcall(telescope.load_extension, "live_grep_args")
+
+pcall(telescope.load_extension, "file_browser")
