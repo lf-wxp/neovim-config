@@ -72,7 +72,7 @@ keymap("n", "<leader><leader>p", ":Telescope projects<cr>", "find project")
 
 keymap("n", "<leader><leader>c", ":Telescope colorscheme<cr>", "find colorscheme")
 
-keymap("n", "<leader><leader>fb", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", "file browser")
+keymap("n", "<leader><leader>e", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", "file browser")
 
 -- lsp 捷键设置
 pluginKeys.lsp = {
@@ -243,9 +243,9 @@ keymap("n", "<leader>lr", "<cmd>LspRestart<cr>", "restart lsp")
 keymap( {"n", "x"}, "<C-j>", "<Cmd>MultipleCursorsAddDown<CR>", "add cursor and move down")
 keymap( {"n", "x"}, "<C-k>", "<Cmd>MultipleCursorsAddUp<CR>", "add cursor and move up")
 keymap( {"n", "i"}, "<C-LeftMouse>", "<Cmd>MultipleCursorsMouseAddDelete<CR>", "add or remove cursor")
-keymap( {"n", "x"}, "<leader>g", "<Cmd>MultipleCursorsAddMatches<CR>", "add cursor to move down")
-keymap( {"n", "x"}, "<leader>G", "<Cmd>MultipleCursorsAddMatchesV<CR>", "add cursors to cword in previous area")
-keymap( {"n", "x"}, "<leader>m", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", "add cursor and jump to next cword")
+keymap( {"n", "x"}, "<leader>mg", "<Cmd>MultipleCursorsAddMatches<CR>", "add cursor to move down")
+keymap( {"n", "x"}, "<leader>mG", "<Cmd>MultipleCursorsAddMatchesV<CR>", "add cursors to cword in previous area")
+keymap( {"n", "x"}, "<leader>mm", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", "add cursor and jump to next cword")
 
 --- inc rename
 vim.keymap.set("n", "<leader>rn", function()
