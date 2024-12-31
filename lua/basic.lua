@@ -89,7 +89,7 @@ vim.g.rust_recommended_style = 0
 vim.o.guifont = "FiraCode Nerd Font Mono"
 
 -- neovide
-vim.g.neovide_transparency = 0.95
+vim.g.neovide_transparency = 0.7
 vim.g.neovide_remember_window_size = true
 vim.g.neovide_no_idle = true
 vim.g.neovide_cursor_smooth_blink = true
