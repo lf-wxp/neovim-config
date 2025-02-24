@@ -441,10 +441,12 @@ require("lazy").setup({
   {
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
-    opts = {},
-    config = function()
-      require("lsp_signature").setup();
-    end
+    opts = {
+      bind = true,
+      handler_opts = {
+        border = "solid"
+      }
+    },
   },
   {
     "smjonas/inc-rename.nvim",
