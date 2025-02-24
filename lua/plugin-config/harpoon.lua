@@ -13,13 +13,16 @@ harpoon:setup({
   settings = {
     save_on_toggle = true,
     sync_on_ui_close = true,
-  }
+  },
 })
 
 map("n", keys.harpoon.append, function() harpoon:list():add() end, "harpoon add")
 map("n", keys.harpoon.toggle, function()
   harpoon.ui:toggle_quick_menu(harpoon:list(), {
     height_in_lines = 20,
+    border = "solid",
+    title_pos = "center",
+    ui_width_ratio = 0.40,
   })
 end, "harpoon toggler")
 map("n", keys.harpoon.prev, function() harpoon:list():prev() end, "harpoon prev")

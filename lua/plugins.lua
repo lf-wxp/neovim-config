@@ -414,6 +414,7 @@ require("lazy").setup({
       require("buffer_manager").setup({
         width = 100,
         height = 20,
+        borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
       })
     end,
   },

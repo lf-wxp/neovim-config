@@ -14,6 +14,9 @@ toggleterm.setup({
     end
   end,
   start_in_insert = true,
+  float_opts = {
+    border = "solid",
+  },
 })
 
 local Terminal = require("toggleterm.terminal").Terminal
@@ -23,7 +26,7 @@ local lazygit = Terminal:new({
   dir = "git_dir",
   direction = "float",
   float_opts = {
-    border = "single",
+    border = "solid",
   },
   on_open = function(term)
     vim.cmd("startinsert!")

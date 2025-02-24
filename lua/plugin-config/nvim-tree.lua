@@ -45,7 +45,7 @@ nvim_tree.setup({
         local center_y = ((vim.opt.lines:get() - window_h) / 2)
             - vim.opt.cmdheight:get()
         return {
-          border = 'rounded',
+          border = 'solid',
           relative = 'editor',
           row = center_y,
           col = center_x,
