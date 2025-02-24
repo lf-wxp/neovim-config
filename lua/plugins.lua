@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   --------------------- colorschemes --------------------
   "glepnir/zephyr-nvim",
-  { "ellisonleao/gruvbox.nvim", priority = 1000  },
+  { "ellisonleao/gruvbox.nvim", priority = 1000 },
   "rebelot/kanagawa.nvim",
   {
     "nvim-tree/nvim-tree.lua",
@@ -377,7 +377,7 @@ require("lazy").setup({
       -- OPTIONAL:
       --   `nvim-notify` is only needed, if you want to use the notification view.
       --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
+      -- "rcarriga/nvim-notify",
     },
     config = function()
       require("plugin-config.noice")
@@ -458,7 +458,7 @@ require("lazy").setup({
       require('grug-far').setup();
     end
   },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  { "catppuccin/nvim",          name = "catppuccin", priority = 1000 },
   {
     "OXY2DEV/helpview.nvim",
     lazy = false, -- Recommended
@@ -482,5 +482,5 @@ require("lazy").setup({
   {
     "nvim-telescope/telescope-file-browser.nvim",
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
-  }
+  },
 })

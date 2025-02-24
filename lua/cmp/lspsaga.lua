@@ -9,6 +9,9 @@ lspsaga.setup({
     scroll_down = 'sd',
     scroll_up = 'su',
   },
+  ui = {
+    border = 'solid',
+  },
   finder = {
     keys = {
       vsplit = 'v',

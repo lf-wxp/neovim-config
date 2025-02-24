@@ -29,8 +29,17 @@ cmp.setup({
     end,
   },
   window = {
-    completion = cmp.config.window.bordered(),
+    -- completion = cmp.config.window.bordered(),
     -- documentation = cmp.config.window.bordered(),
+    completion = {
+      border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+      winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
+      winblend = 20,
+      scrolloff = 0,
+      col_offset = 0,
+      side_padding = 1,
+      scrollbar = true,
+    },
   },
   -- 快捷键
   -- mapping = mapping,
