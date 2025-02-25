@@ -467,9 +467,8 @@ require("lazy").setup({
     }
   },
   {
-    'MeanderingProgrammer/render-markdown.nvim',
-    event = "VeryLazy",
-    opts = {},
+    "OXY2DEV/markview.nvim",
+    lazy = false
   },
   {
     "zbirenbaum/copilot.lua",

@@ -4,8 +4,8 @@ if not status then
   return
 end
 
-local HEIGHT_RATIO = 0.8  -- You can change this
-local WIDTH_RATIO = 0.3   -- You can change this too
+local HEIGHT_RATIO = 0.8 -- You can change this
+local WIDTH_RATIO = 0.3  -- You can change this too
 
 -- 列表操作快捷键
 nvim_tree.setup({
@@ -100,6 +100,10 @@ nvim_tree.setup({
     end
 
     local preview = require('nvim-tree-preview')
+
+    preview.setup({
+      border = 'solid',
+    });
 
     vim.keymap.set('n', 'P', preview.watch, opts 'Preview (Watch)')
     vim.keymap.set('n', '<Esc>', preview.unwatch, opts 'Close Preview/Unwatch')
