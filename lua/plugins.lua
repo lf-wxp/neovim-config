@@ -233,9 +233,6 @@ require("lazy").setup({
       require("plugin-config.which-key")
     end
   },
-
-  "kdheepak/lazygit.nvim",
-
   {
     "sindrets/diffview.nvim",
     dependencies = "nvim-lua/plenary.nvim",

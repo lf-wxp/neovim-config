@@ -72,7 +72,7 @@ keymap("n", "<leader><leader>p", ":Telescope projects<cr>", "find project")
 
 keymap("n", "<leader><leader>c", ":Telescope colorscheme<cr>", "find colorscheme")
 
-keymap("n", "<leader><leader>e", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", "file browser")
+keymap("n", "<leader><leader>e", ":Telescope file_browser path=%:p:h select_buffer=true<cr>", "file browser")
 
 -- lsp 捷键设置
 pluginKeys.lsp = {
@@ -151,9 +151,6 @@ pluginKeys.toggleTerm = {
   right = "<leader>tr",
   -- <leader>td 下方
   bottom = "<leader>td",
-  -- 特殊lazygit 窗口，需要安装lazygit
-  -- <leader>tg lazygit
-  lazygit = "<leader>tg",
 
   switch = "<Esc>"
 }
@@ -240,12 +237,15 @@ keymap("n", "<leader>ls", "<cmd>lua require('lsp_signature').toggle_float_win()<
 keymap("n", "<leader>lr", "<cmd>LspRestart<cr>", "restart lsp")
 
 -- multiple-cursors
-keymap( {"n", "x"}, "<C-j>", "<Cmd>MultipleCursorsAddDown<CR>", "add cursor and move down")
-keymap( {"n", "x"}, "<C-k>", "<Cmd>MultipleCursorsAddUp<CR>", "add cursor and move up")
-keymap( {"n", "i"}, "<C-LeftMouse>", "<Cmd>MultipleCursorsMouseAddDelete<CR>", "add or remove cursor")
-keymap( {"n", "x"}, "<leader>mg", "<Cmd>MultipleCursorsAddMatches<CR>", "add cursor to move down")
-keymap( {"n", "x"}, "<leader>mG", "<Cmd>MultipleCursorsAddMatchesV<CR>", "add cursors to cword in previous area")
-keymap( {"n", "x"}, "<leader>mm", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", "add cursor and jump to next cword")
+keymap( {"n", "x"}, "<C-j>", "<cmg>MultipleCursorsAddDown<cr>", "add cursor and move down")
+keymap( {"n", "x"}, "<C-k>", "<cmg>MultipleCursorsAddUp<cr>", "add cursor and move up")
+keymap( {"n", "i"}, "<C-LeftMouse>", "<cmg>MultipleCursorsMouseAddDelete<cr>", "add or remove cursor")
+keymap( {"n", "x"}, "<leader>mg", "<cmg>MultipleCursorsAddMatches<cr>", "add cursor to move down")
+keymap( {"n", "x"}, "<leader>mG", "<cmg>MultipleCursorsAddMatchesV<cr>", "add cursors to cword in previous area")
+keymap( {"n", "x"}, "<leader>mm", "<cmg>MultipleCursorsAddJumpNextMatch<cr>", "add cursor and jump to next cword")
+
+-- neogit
+keymap( {"n"}, "<leader>gg", "<cmd>Neogit<cr>", "open neogit")
 
 --- inc rename
 vim.keymap.set("n", "<leader>rn", function()
