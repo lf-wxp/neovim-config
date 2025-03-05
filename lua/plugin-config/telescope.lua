@@ -46,7 +46,12 @@ telescope.setup({
 
         ["<leader>s"] = flash,
       },
-    }
+    },
+    borderchars = {
+      prompt  = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+      results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+      preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+    },
   },
   pickers = {
     -- 内置 pickers 配置
@@ -55,6 +60,11 @@ telescope.setup({
       -- theme = "ivy",
     },
     marks = {},
+    borderchars = {
+      prompt  = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+      results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+      preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+    },
   },
   extensions = {
     ["ui-select"] = {
@@ -74,6 +84,11 @@ telescope.setup({
         ["n"] = {
           -- your custom normal mode mappings
         },
+      },
+      borderchars = {
+        prompt  = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+        results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+        preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
       },
     },
   },

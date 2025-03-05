@@ -429,6 +429,9 @@ require("lazy").setup({
   },
   {
     "aznhe21/actions-preview.nvim",
+    config = function()
+      require("plugin-config.actions-preview")
+    end,
   },
   -- {
   --   'mawkler/modicator.nvim',
@@ -471,14 +474,6 @@ require("lazy").setup({
     lazy = false
   },
   {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("plugin-config.copilot")
-    end,
-  },
-  {
     "nvim-telescope/telescope-file-browser.nvim",
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
   },
@@ -492,5 +487,15 @@ require("lazy").setup({
       "nvim-telescope/telescope.nvim", -- optional
     },
     config = true
+  },
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("plugin-config.codecompanion")
+    end,
   }
 })
