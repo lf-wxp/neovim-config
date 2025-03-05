@@ -486,7 +486,9 @@ require("lazy").setup({
       -- Only one of these is needed.
       "nvim-telescope/telescope.nvim", -- optional
     },
-    config = true
+    config = function()
+      require("plugin-config.neogit")
+    end,
   },
   {
     "olimorris/codecompanion.nvim",
