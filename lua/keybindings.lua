@@ -237,15 +237,18 @@ keymap("n", "<leader>ls", "<cmd>lua require('lsp_signature').toggle_float_win()<
 keymap("n", "<leader>lr", "<cmd>LspRestart<cr>", "restart lsp")
 
 -- multiple-cursors
-keymap( {"n", "x"}, "<C-j>", "<cmg>MultipleCursorsAddDown<cr>", "add cursor and move down")
-keymap( {"n", "x"}, "<C-k>", "<cmg>MultipleCursorsAddUp<cr>", "add cursor and move up")
-keymap( {"n", "i"}, "<C-LeftMouse>", "<cmg>MultipleCursorsMouseAddDelete<cr>", "add or remove cursor")
-keymap( {"n", "x"}, "<leader>mg", "<cmg>MultipleCursorsAddMatches<cr>", "add cursor to move down")
-keymap( {"n", "x"}, "<leader>mG", "<cmg>MultipleCursorsAddMatchesV<cr>", "add cursors to cword in previous area")
-keymap( {"n", "x"}, "<leader>mm", "<cmg>MultipleCursorsAddJumpNextMatch<cr>", "add cursor and jump to next cword")
+keymap({ "n", "x" }, "<C-j>", "<cmd>MultipleCursorsAddDown<cr>", "add cursor and move down")
+keymap({ "n", "x" }, "<C-k>", "<cmd>MultipleCursorsAddUp<cr>", "add cursor and move up")
+keymap({ "n", "i" }, "<C-LeftMouse>", "<cmd>MultipleCursorsMouseAddDelete<cr>", "add or remove cursor")
+keymap({ "n", "x" }, "<leader>mg", "<cmd>MultipleCursorsAddMatches<cr>", "add cursor to move down")
+keymap({ "n", "x" }, "<leader>mG", "<cmd>MultipleCursorsAddMatchesV<cr>", "add cursors to cword in previous area")
+keymap({ "n", "x" }, "<leader>mm", "<cmd>MultipleCursorsAddJumpNextMatch<cr>", "add cursor and jump to next cword")
 
 -- neogit
-keymap( {"n"}, "<leader>gg", "<cmd>Neogit<cr>", "open neogit")
+keymap({ "n" }, "<leader>gg", "<cmd>Neogit<cr>", "open neogit")
+
+-- treesj
+keymap({ "n" }, "<leader>e", "<cmd>lua require('treesj').toggle()<cr>", "Split or Join code block with autodetect")
 
 --- inc rename
 vim.keymap.set("n", "<leader>rn", function()
