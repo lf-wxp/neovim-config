@@ -35,21 +35,21 @@ lualine.setup({
           removed = { fg = "#ec5f67" },
         },
       },
-      "diagnostics"
+      { "diagnostics", color = "Error" }
     },
     lualine_c = {
-      Harpoonline.format,
-      { "filename", path = 1, file_status = true },
+      { Harpoonline.format, color = "Operator" },
+      { "filename", path = 1, file_status = true, color = "Boolean" },
       {
         "lsp_progress",
         spinner_symbols = { " ", " ", " ", " ", " ", " " },
       },
-      require("auto-session.lib").current_session_name,
-      { require("recorder").displaySlots, color = "Todo" },
-      { require("recorder").recordingStatus, color = "Tag" }, 
+      { require("auto-session.lib").current_session_name, color = "Constant" },
+      { require("recorder").displaySlots,    color = "Todo" },
+      { require("recorder").recordingStatus, color = "Tag" },
     },
     lualine_x = {
-      "filesize",
+      { "filesize", color = "Operator" },
       {
         "fileformat",
         -- symbols = {
@@ -62,9 +62,10 @@ lualine.setup({
           dos = "CRLF",
           mac = "CR",
         },
+        color = "Special",
       },
-      "encoding",
-      "filetype",
+      { "encoding", color = "Type" },
+      { "filetype", color = "String" },
     },
   },
 })
