@@ -39,12 +39,14 @@ lualine.setup({
     },
     lualine_c = {
       Harpoonline.format,
-      { "filename", path = 1, file_status  = true },
+      { "filename", path = 1, file_status = true },
       {
         "lsp_progress",
         spinner_symbols = { " ", " ", " ", " ", " ", " " },
       },
       require("auto-session.lib").current_session_name,
+      { require("recorder").displaySlots, color = "Todo" },
+      { require("recorder").recordingStatus, color = "Tag" }, 
     },
     lualine_x = {
       "filesize",

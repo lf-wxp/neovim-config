@@ -19,7 +19,7 @@ require("lazy").setup({
   "rebelot/kanagawa.nvim",
   {
     "nvim-tree/nvim-tree.lua",
-    dependencies = { "nvim-tree/nvim-web-devicons", 'b0o/nvim-tree-preview.lua' },
+    dependencies = { "nvim-tree/nvim-web-devicons", "b0o/nvim-tree-preview.lua" },
     config = function()
       require("plugin-config.nvim-tree")
     end
@@ -141,7 +141,7 @@ require("lazy").setup({
     end,
   },
   {
-    'stevearc/conform.nvim',
+    "stevearc/conform.nvim",
   },
 
   -- JSON 增强
@@ -152,9 +152,9 @@ require("lazy").setup({
 
   -- Rust 增强
   {
-    'mrcjkb/rustaceanvim',
-    version = '^3', -- Recommended
-    ft = { 'rust' },
+    "mrcjkb/rustaceanvim",
+    version = "^3", -- Recommended
+    ft = { "rust" },
   },
 
   -- Lua 增强
@@ -216,11 +216,11 @@ require("lazy").setup({
   --   end
   -- },
   {
-    'brenoprata10/nvim-highlight-colors',
+    "brenoprata10/nvim-highlight-colors",
     config = function()
       require("nvim-highlight-colors").setup({
-        render = 'virtual',
-        virtual_symbol = '▣',
+        render = "virtual",
+        virtual_symbol = "▣",
       })
     end
   },
@@ -228,7 +228,7 @@ require("lazy").setup({
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    dependencies = { 'echasnovski/mini.icons', version = false },
+    dependencies = { "echasnovski/mini.icons", version = false },
     config = function()
       require("plugin-config.which-key")
     end
@@ -345,7 +345,7 @@ require("lazy").setup({
   --   "m4xshen/hardtime.nvim",
   --   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
   --   opts = {
-  --     restriction_mode = 'hint',
+  --     restriction_mode = "hint",
   --     disabled_filetypes = { "qf", "netrw", "NvimTree", "lazy", "mason", "oil", },
   --     disabled_keys = {
   --       ["<Up>"] = {},
@@ -416,7 +416,7 @@ require("lazy").setup({
     end,
   },
   {
-    'rasulomaroff/reactive.nvim',
+    "rasulomaroff/reactive.nvim",
     config = function()
       require("reactive").setup({
         builtin = {
@@ -434,8 +434,8 @@ require("lazy").setup({
     end,
   },
   -- {
-  --   'mawkler/modicator.nvim',
-  --   dependencies = 'glepnir/zephyr-nvim',
+  --   "mawkler/modicator.nvim",
+  --   dependencies = "glepnir/zephyr-nvim",
   --   opts = {}
   -- }
   {
@@ -455,10 +455,10 @@ require("lazy").setup({
     end,
   },
   {
-    'MagicDuck/grug-far.nvim',
+    "MagicDuck/grug-far.nvim",
     event = "VeryLazy",
     config = function()
-      require('grug-far').setup();
+      require("grug-far").setup();
     end
   },
   { "catppuccin/nvim",          name = "catppuccin", priority = 1000 },
@@ -501,12 +501,16 @@ require("lazy").setup({
     end,
   },
   {
-    'Wansmer/treesj',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' }, -- if you install parsers with `nvim-treesitter`
+    "Wansmer/treesj",
+    dependencies = { "nvim-treesitter/nvim-treesitter" }, -- if you install parsers with `nvim-treesitter`
     config = function()
-      require('treesj').setup({ 
+      require("treesj").setup({
         use_default_keymaps = false,
       })
     end,
+  },
+  {
+    "chrisgrieser/nvim-recorder",
+    opts = { },
   }
 })
