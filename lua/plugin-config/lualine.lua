@@ -14,6 +14,7 @@ lualine.setup({
   options = {
     -- theme = "edge",
     theme = "auto",
+    globalstatus = true,
     component_separators = { left = "/", right = "/" },
     -- https://github.com/ryanoasis/powerline-extra-symbols
     section_separators = { left = " ", right = "" },
@@ -39,14 +40,14 @@ lualine.setup({
     },
     lualine_c = {
       { Harpoonline.format, color = "Operator" },
-      { "filename", path = 1, file_status = true, color = "Boolean" },
+      { "filename",         path = 1,          file_status = true, color = "Boolean" },
       {
         "lsp_progress",
         spinner_symbols = { " ", " ", " ", " ", " ", " " },
       },
       { require("auto-session.lib").current_session_name, color = "Constant" },
-      { require("recorder").displaySlots,    color = "Todo" },
-      { require("recorder").recordingStatus, color = "Tag" },
+      { require("recorder").displaySlots,                 color = "Todo" },
+      { require("recorder").recordingStatus,              color = "Tag" },
     },
     lualine_x = {
       { "filesize", color = "Operator" },
