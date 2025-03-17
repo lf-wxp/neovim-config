@@ -511,6 +511,14 @@ require("lazy").setup({
   },
   {
     "chrisgrieser/nvim-recorder",
-    opts = { },
+    opts = {},
+  },
+  {
+    "rachartier/tiny-glimmer.nvim",
+    event = "VeryLazy",
+    priority = 10, -- Needs to be a really low priority, to catch others plugins keybindings.
+    config = function()
+      require("plugin-config.tiny-glimmer")
+    end,
   }
 })
