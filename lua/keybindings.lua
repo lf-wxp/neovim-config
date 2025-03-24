@@ -104,11 +104,11 @@ pluginKeys.lsp = {
 -- 全项目替换
 keymap("n", "<leader>rp", "<cmd>GrugFar<cr>", "find replace")
 -- 只替换当前文件
-keymap("n", "<leader>rf", "<cmd>lua require('grug-far').grug_far({ prefills = { flags = vim.fn.expand('%') } })<cr>",
+keymap("n", "<leader>rf", "<cmd>lua require('grug-far').open({ prefills = { flags = vim.fn.expand('%') } })<cr>",
   "find current")
 -- 全项目中搜索当前单词
 keymap("n", "<leader>rw",
-  "<cmd>lua require('grug-far').grug_far({ prefills = { search = vim.fn.expand('<cword>') }})<cr>",
+  "<cmd>lua require('grug-far').open({ prefills = { search = vim.fn.expand('<cword>') }})<cr>",
   "find current word")
 
 
