@@ -380,6 +380,9 @@ require("lazy").setup({
       require("plugin-config.noice")
     end,
   },
+  {
+    'eandrju/cellular-automaton.nvim'
+  },
   -- {
   --   "tamton-aquib/zone.nvim",
   --   config = function()
