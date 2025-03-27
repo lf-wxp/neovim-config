@@ -120,14 +120,6 @@ pluginKeys.snip = {
   choice_active_up = "<C-k>",
 }
 
--- typescript 快捷键
-pluginKeys.ts = {
-  organize_import = "<leader>to",
-  rename_file = "<leader>tr",
-  add_missing_import = "<leader>ti",
-  remove_unused = "<leader>tu",
-}
-
 -- 代码注释插件
 pluginKeys.comment = {
   -- Normal 模式快捷键

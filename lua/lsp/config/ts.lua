@@ -1,10 +1,3 @@
-local keys = require("keybindings")
-local status, typescript = pcall(require, "typescript")
-if not status then
-  vim.notify("没有找到 typescript")
-  return
-end
-
 local common = require("lsp.common-config")
 local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
 local volar_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
@@ -25,34 +18,10 @@ local opts = {
     -- common.disableFormat(client)
     common.keyAttach(bufnr)
     common.navic(client, bufnr)
-
-    --[[
-        :TypescriptOrganizeImports
-        :TypescriptRenameFile
-        :TypescriptAddMissingImports
-        :TypescriptRemoveUnused
-        :TypescriptFixAll
-        :TypescriptGoToSourceDefinition
-    ]]
-
-    local function map(mode, lhs, rhs, desc)
-      vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, buffer = bufnr, desc = desc })
-    end
-    map("n", keys.ts.organize_import, ":TypescriptOrganizeImports<cr>", "ts organize import")
-    map("n", keys.ts.rename_file, ":TypescriptRenameFile<cr>", "ts rename file")
-    map("n", keys.ts.add_missing_import, ":TypescriptAddMissingImports<cr>", "ts add missing import")
-    map("n", keys.ts.remove_unused, ":TypescriptRemoveUnused<cr>", "ts remove unused")
   end,
 }
 return {
-  on_setup = function(_)
-    typescript.setup({
-      disable_commands = false, -- prevent the plugin from creating Vim commands
-      debug = false,            -- enable debug logging for commands
-      go_to_source_definition = {
-        fallback = true,        -- fall back to standard LSP definition on failure
-      },
-      server = opts,
-    })
+  on_setup = function(server)
+    server.setup(opts)
   end,
 }

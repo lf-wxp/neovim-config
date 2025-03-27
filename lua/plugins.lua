@@ -147,9 +147,6 @@ require("lazy").setup({
   -- JSON 增强
   "b0o/schemastore.nvim",
 
-  -- typescript 增强
-  "jose-elias-alvarez/typescript.nvim",
-
   -- Rust 增强
   {
     "mrcjkb/rustaceanvim",
@@ -523,5 +520,10 @@ require("lazy").setup({
     config = function()
       require("plugin-config.tiny-glimmer")
     end,
+  },
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
   }
 })

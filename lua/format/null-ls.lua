@@ -7,7 +7,7 @@ end
 null_ls.setup({
   debug = false,
   sources = {
-    require("typescript.extensions.null-ls.code-actions"),
+    -- require("typescript.extensions.null-ls.code-actions"),
     require("none-ls.diagnostics.eslint_d"),
     require("none-ls.diagnostics.yamllint"),
     require("none-ls.code_actions.eslint_d"),
