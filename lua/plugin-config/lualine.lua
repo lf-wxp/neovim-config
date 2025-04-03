@@ -22,12 +22,13 @@ lualine.setup({
   extensions = { "nvim-tree", "toggleterm" },
   sections = {
     lualine_a = {
-      "mode"
+      "mode",
     },
     lualine_b = {
       "branch",
       {
         "diff",
+        colored = true, -- displays a colored diff status if set to true
         -- Is it me or the symbol for modified us really weird
         symbols = { added = " ", modified = "柳", removed = " " },
         diff_color = {
