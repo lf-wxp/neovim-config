@@ -1,5 +1,6 @@
 require('plugins')
 require('basic')
+require('neovide')
 require('colorscheme')
 require('autocmds')
 require('keybindings')
