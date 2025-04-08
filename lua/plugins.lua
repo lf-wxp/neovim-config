@@ -458,7 +458,11 @@ require("lazy").setup({
     "MagicDuck/grug-far.nvim",
     event = "VeryLazy",
     config = function()
-      require("grug-far").setup();
+      require("grug-far").setup({
+        keymaps = {
+          toggleShowCommand = { n = '<localleader>m' },
+        },
+      });
     end
   },
   { "catppuccin/nvim",          name = "catppuccin", priority = 1000 },
