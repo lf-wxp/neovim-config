@@ -166,7 +166,7 @@ pluginKeys.gitsigns = {
 }
 -- flash
 keymap({ "n", "x", "o" }, "<leader>f", "<cmd>lua require('flash').jump()<cr>", "flash whole")
-keymap({ "n", "x", "o" }, "<leader>F", "<cmd>lua require('flash').treesitter()<cr>", "flash treesitter")
+keymap({ "n", "x", "o" }, "<leader>F", "<cmd>lua require('flash').treesitter_search()<cr>", "flash treesitter")
 keymap("o", "<leader>r", "<cmd>lua require('flash').remote()<cr>", "flash remote")
 -- keymap({ "x", "o" }, "<leader>Fs", "<cmd>lua require('flash').treesitter_search()<cr>", opt)
 
