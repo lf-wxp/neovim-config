@@ -1,12 +1,7 @@
-local common = require("lsp.common-config")
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 local opts = {
-  capabilities = common.capabilities,
-  flags = common.flags,
-  on_attach = function(client, bufnr)
-    common.disableFormat(client)
-    common.keyAttach(bufnr)
-    -- common.navic(client, bufnr)
-  end,
+  capabilities = capabilities,
   settings = {
     css = {
       validate = true,
@@ -30,8 +25,4 @@ local opts = {
   },
 }
 
-return {
-  on_setup = function(server)
-    server.setup(opts)
-  end,
-}
+return opts

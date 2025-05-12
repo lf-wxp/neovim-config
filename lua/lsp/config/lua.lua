@@ -2,17 +2,7 @@
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
-
-local common = require("lsp.common-config")
-
 local opts = {
-  capabilities = common.capabilities,
-  flags = common.flags,
-  on_attach = function(client, bufnr)
-    common.disableFormat(client)
-    common.keyAttach(bufnr)
-    -- common.navic(client, bufnr)
-  end,
   settings = {
     Lua = {
       runtime = {
@@ -36,21 +26,6 @@ local opts = {
       },
     },
   },
-
-  -- custom handler
-  -- handlers = {
-  --   ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  --     virtual_text = false,
-  --     signs = true,
-  --     underline = true,
-  --     update_in_insert = false,
-  --   }),
-  -- },
 }
 
-return {
-  on_setup = function(server)
-    require("neodev").setup()
-    server.setup(opts)
-  end,
-}
+return opts

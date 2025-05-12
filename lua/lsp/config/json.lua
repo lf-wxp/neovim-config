@@ -1,23 +1,14 @@
-local common = require("lsp.common-config")
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 local opts = {
-  capabilities = common.capabilities,
-  flags = common.flags,
-  on_attach = function(client, bufnr)
-    -- use fixjson to format
-    -- https://github.com/rhysd/fixjson
-    common.disableFormat(client)
-    common.keyAttach(bufnr)
-    -- common.navic(client, bufnr)
-  end,
+  capabilities = capabilities,
   settings = {
     json = {
       schemas = require("schemastore").json.schemas(),
+      validate = { enable = true },
     },
   },
 }
 
-return {
-  on_setup = function(server)
-    server.setup(opts)
-  end,
-}
+return opts

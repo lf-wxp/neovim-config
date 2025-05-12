@@ -378,7 +378,7 @@ require("lazy").setup({
     end,
   },
   {
-    'eandrju/cellular-automaton.nvim'
+    "eandrju/cellular-automaton.nvim"
   },
   -- {
   --   "tamton-aquib/zone.nvim",
@@ -456,7 +456,7 @@ require("lazy").setup({
     config = function()
       require("grug-far").setup({
         keymaps = {
-          toggleShowCommand = { n = '<localleader>m' },
+          toggleShowCommand = { n = "<localleader>m" },
         },
       });
     end
@@ -521,9 +521,10 @@ require("lazy").setup({
       require("plugin-config.tiny-glimmer")
     end,
   },
-  -- {
-  --   "pmizio/typescript-tools.nvim",
-  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  --   opts = {},
-  -- },
+  { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
 })
