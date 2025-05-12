@@ -17,5 +17,11 @@ lspsaga.setup({
       vsplit = 'v',
       shuttle = '<leader>ww'
     }
+  },
+  definition = {
+    keys = {
+      vsplit = 'v',
+      shuttle = '<leader>ww'
+    }
   }
 })

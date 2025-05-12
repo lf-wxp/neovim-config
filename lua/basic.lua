@@ -88,8 +88,6 @@ vim.o.showmode = false
 vim.g.rust_recommended_style = 0
 vim.o.guifont = "FiraCode Nerd Font Mono"
 
--- vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
-
 vim.cmd.filetype("on")
 vim.cmd.filetype("plugin on")
 

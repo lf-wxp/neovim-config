@@ -1,4 +1,4 @@
-local navic     = require("nvim-navic")
+-- local navic     = require("nvim-navic")
 local keys      = require("keybindings")
 
 local M         = {}
@@ -12,11 +12,13 @@ M.keyAttach     = function(bufnr)
   -- code action
   -- map("n", keys.lsp.code_action, "<cmd>Lspsaga code_action<cr>")
   -- go xx
-  map("n", keys.lsp.go_definitiion, "<cmd>lua vim.lsp.buf.definition()<cr>", "lsp definition")
+  -- map("n", keys.lsp.go_definitiion, "<cmd>lua vim.lsp.buf.definition()<cr>", "lsp definition")
+  map("n", keys.lsp.go_definitiion, "<cmd>Lspsaga goto_definition<cr>", "lsp definition")
 
-  map("n", keys.lsp.hover_doc, "<cmd>Lspsaga hover_doc<cr>", "lst hover doc")
+  map("n", keys.lsp.hover_doc, "<cmd>Lspsaga hover_doc<cr>", "lsp hover doc")
 
-  map("n", keys.lsp.go_declaration, "<cmd>lua vim.lsp.buf.declaration()<cr>", "lsp declaration")
+  map("n", keys.lsp.go_declaration, "<cmd>Lspsaga peek_definition<cr>", "lsp declaration")
+  -- map("n", keys.lsp.go_declaration, "<cmd>lua vim.lsp.buf.declaration()<cr>", "lsp declaration")
   map("n", keys.lsp.go_implementation, "<cmd>lua vim.lsp.buf.implementation()<cr>", "lsp implementation")
 
   map("n", keys.lsp.references, "<cmd>Lspsaga finder<cr>", "lsp references")
@@ -46,7 +48,7 @@ M.flags         = {
 }
 
 M.navic         = function(client, bufnr)
-  navic.attach(client, bufnr)
+  -- navic.attach(client, bufnr)
 end
 
 return M

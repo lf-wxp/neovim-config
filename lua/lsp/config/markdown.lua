@@ -4,7 +4,7 @@ local opts = {
   flags = common.flags,
   on_attach = function(client, bufnr)
     common.keyAttach(bufnr)
-    common.navic(client, bufnr)
+    -- common.navic(client, bufnr)
   end,
 }
 

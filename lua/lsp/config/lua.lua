@@ -11,7 +11,7 @@ local opts = {
   on_attach = function(client, bufnr)
     common.disableFormat(client)
     common.keyAttach(bufnr)
-    common.navic(client, bufnr)
+    -- common.navic(client, bufnr)
   end,
   settings = {
     Lua = {

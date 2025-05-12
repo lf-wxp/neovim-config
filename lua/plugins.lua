@@ -305,10 +305,10 @@ require("lazy").setup({
     end,
   },
 
-  {
-    "SmiteshP/nvim-navic",
-    dependencies = "neovim/nvim-lspconfig"
-  },
+  -- {
+  --   "SmiteshP/nvim-navic",
+  --   dependencies = "neovim/nvim-lspconfig"
+  -- },
 
   {
     "anuvyklack/pretty-fold.nvim",
@@ -396,14 +396,10 @@ require("lazy").setup({
   {
     "utilyre/barbecue.nvim",
     name = "barbecue",
-    version = "*",
     dependencies = {
-      "SmiteshP/nvim-navic",
       "nvim-tree/nvim-web-devicons", -- optional dependency
     },
-    opts = {
-      -- configurations go here
-    },
+    opts = {},
   },
   {
     "j-morano/buffer_manager.nvim",
@@ -525,9 +521,9 @@ require("lazy").setup({
       require("plugin-config.tiny-glimmer")
     end,
   },
-  {
-    "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    opts = {},
-  }
+  -- {
+  --   "pmizio/typescript-tools.nvim",
+  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  --   opts = {},
+  -- },
 })

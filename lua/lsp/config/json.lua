@@ -7,7 +7,7 @@ local opts = {
     -- https://github.com/rhysd/fixjson
     common.disableFormat(client)
     common.keyAttach(bufnr)
-    common.navic(client, bufnr)
+    -- common.navic(client, bufnr)
   end,
   settings = {
     json = {

@@ -10,14 +10,19 @@ local opts = {
       {
         name = "@vue/typescript-plugin",
         location = volar_path,
-        languages = { "vue" },
+        languages = { "javascript", "typescript", "vue" },
       },
     },
+  },
+  filetypes = {
+    "javascript",
+    "typescript",
+    "vue",
   },
   on_attach = function(client, bufnr)
     -- common.disableFormat(client)
     common.keyAttach(bufnr)
-    common.navic(client, bufnr)
+    -- common.navic(client, bufnr)
   end,
 }
 return {
