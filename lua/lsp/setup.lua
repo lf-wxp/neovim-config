@@ -32,7 +32,7 @@ mason_config.setup({
     "jsonls",
     "rust_analyzer",
     "taplo",
-    "volar",
+    "vue_ls",
     "lua_ls",
     "zk",
     -- "eslint"
@@ -44,7 +44,7 @@ mason_config.setup({
 -- key 必须为下列网址列出的名称
 -- https://github.com/williamboman/nvim-lsp-installer#available-lsps
 local servers = {
-  volar = require("lsp.config.vue"),
+  vue_ls = require("lsp.config.vue"),
   lua_ls = require("lsp.config.lua"),
   rust_analyzer = require("lsp.config.rust"),
   jsonls = require("lsp.config.json"),

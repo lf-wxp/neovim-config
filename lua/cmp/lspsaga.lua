@@ -22,6 +22,8 @@ lspsaga.setup({
     keys = {
       vsplit = 'v',
       shuttle = '<leader>ww'
-    }
+    },
+    width = 0.9,
+    height = 0.8,
   }
 })
