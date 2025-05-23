@@ -13,8 +13,9 @@ noice.setup({
         winblend = 20,
       },
       border = {
-        style = "none",
-        padding = { 1, 1 },
+        style = "solid",
+        -- style = "none",
+        padding = { 0, 0 },
       }
     },              -- global options for the cmdline. See section on views
     ---@type table<string, CmdlineFormat>
