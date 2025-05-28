@@ -247,4 +247,12 @@ vim.keymap.set("n", "<leader>rn", function()
   return ":IncRename " .. vim.fn.expand("<cword>")
 end, { expr = true, desc = "rename" })
 
+
+-- surround
+keymap("o", "ir", "i[")
+keymap("o", "ar", "a[")
+keymap("o", "ia", "i<")
+keymap("o", "aa", "a<")
+
+
 return pluginKeys
