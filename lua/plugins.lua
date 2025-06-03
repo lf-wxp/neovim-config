@@ -527,4 +527,18 @@ require("lazy").setup({
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     opts = {},
   },
+  {
+    'm-demare/hlargs.nvim',
+    config = function()
+      require("hlargs").setup({
+        color = Hlargs,  -- You can change this to any color you like
+        hl_priority = 1000, -- Set the highlight priority
+      })
+    end,
+  },
+  {
+    "nvim-zh/colorful-winsep.nvim",
+    config = true,
+    event = { "WinLeave" },
+  }
 })
