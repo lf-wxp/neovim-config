@@ -531,7 +531,7 @@ require("lazy").setup({
     'm-demare/hlargs.nvim',
     config = function()
       require("hlargs").setup({
-        color = Hlargs,  -- You can change this to any color you like
+        color = Hlargs,     -- You can change this to any color you like
         hl_priority = 1000, -- Set the highlight priority
       })
     end,
@@ -540,5 +540,12 @@ require("lazy").setup({
     "nvim-zh/colorful-winsep.nvim",
     config = true,
     event = { "WinLeave" },
+  },
+  {
+    "Wansmer/symbol-usage.nvim",
+    event = "LspAttach", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
+    config = function()
+      require("plugin-config.symbol-usage")
+    end
   }
 })

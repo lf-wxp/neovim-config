@@ -225,9 +225,6 @@ keymap({ "v", "n" }, "<leader>ca", "<cmd>lua require('actions-preview').code_act
 -- lsp signature
 keymap("n", "<leader>ls", "<cmd>lua require('lsp_signature').toggle_float_win()<cr>", "lsp signature")
 
--- lsp restart
-keymap("n", "<leader>lr", "<cmd>LspRestart<cr>", "restart lsp")
-
 -- multiple-cursors
 keymap({ "n", "x" }, "<C-j>", "<cmd>MultipleCursorsAddDown<cr>", "add cursor and move down")
 keymap({ "n", "x" }, "<C-k>", "<cmd>MultipleCursorsAddUp<cr>", "add cursor and move up")
