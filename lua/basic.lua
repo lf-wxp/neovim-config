@@ -86,7 +86,8 @@ vim.o.showmode = false
 -- vim.opt.foldtext = "v:lua.require('utils.simple_fold').simple_fold()"
 
 vim.g.rust_recommended_style = 0
-vim.o.guifont = "FiraCode Nerd Font Mono"
+-- vim.o.guifont = "FiraCode Nerd Font Mono"
+vim.o.guifont = "Maple Mono NF CN"
 
 vim.cmd.filetype("on")
 vim.cmd.filetype("plugin on")
