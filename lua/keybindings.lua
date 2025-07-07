@@ -222,9 +222,6 @@ keymap("n", "<leader><leader>b", "<cmd>lua require('buffer_manager.ui').toggle_q
 -- codeaction preview
 keymap({ "v", "n" }, "<leader>ca", "<cmd>lua require('actions-preview').code_actions()<cr>", "code action")
 
--- lsp signature
-keymap("n", "<leader>ls", "<cmd>lua require('lsp_signature').toggle_float_win()<cr>", "lsp signature")
-
 -- multiple-cursors
 keymap({ "n", "x" }, "<C-j>", "<cmd>MultipleCursorsAddDown<cr>", "add cursor and move down")
 keymap({ "n", "x" }, "<C-k>", "<cmd>MultipleCursorsAddUp<cr>", "add cursor and move up")

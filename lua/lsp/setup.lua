@@ -27,15 +27,14 @@ mason_config.setup({
   -- 确保安装，根据需要填写
   ensure_installed = {
     "cssls",
-    -- "ts_ls",
     "html",
     "jsonls",
     "rust_analyzer",
     "taplo",
     "vue_ls",
     "lua_ls",
+    "vtsls",
     "zk",
-    -- "eslint"
   },
 })
 
@@ -45,10 +44,10 @@ mason_config.setup({
 -- https://github.com/williamboman/nvim-lsp-installer#available-lsps
 local servers = {
   vue_ls = require("lsp.config.vue"),
+  vtsls = require("lsp.config.ts"),
   lua_ls = require("lsp.config.lua"),
   rust_analyzer = require("lsp.config.rust"),
   jsonls = require("lsp.config.json"),
-  -- ts_ls = require("lsp.config.ts"),
   cssls = require("lsp.config.css"),
   zk = nil,
   taplo = nil,

@@ -1,21 +1,21 @@
-local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
-local volar_path = mason_packages .. "/vue-language-server/node_modules/@vue/language-server"
-
+local vue_language_server_path = vim.fn.stdpath('data') .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+local vue_plugin = {
+  name = '@vue/typescript-plugin',
+  location = vue_language_server_path,
+  languages = { 'vue' },
+  configNamespace = 'typescript',
+}
 local opts = {
-  init_options = {
-    plugins = {
-      {
-        name = "@vue/typescript-plugin",
-        location = volar_path,
-        languages = { "javascript", "typescript", "vue" },
+  settings = {
+    vtsls = {
+      tsserver = {
+        globalPlugins = {
+          vue_plugin,
+        },
       },
     },
   },
-  filetypes = {
-    "javascript",
-    "typescript",
-    "vue",
-  },
+  filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
 }
 
-return opts;
+return opts

@@ -255,6 +255,8 @@ require("lazy").setup({
 
   {
     "rmagatti/goto-preview",
+    dependencies = { "rmagatti/logger.nvim" },
+    event = "BufEnter",
     config = function()
       require("plugin-config.goto-preview")
     end
@@ -436,7 +438,7 @@ require("lazy").setup({
   -- }
   {
     "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
+    event = "LspAttach",
     opts = {
       bind = true,
       handler_opts = {
@@ -522,11 +524,11 @@ require("lazy").setup({
     end,
   },
   { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
-  {
-    "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    opts = {},
-  },
+  -- {
+  --   "pmizio/typescript-tools.nvim",
+  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  --   opts = {},
+  -- },
   {
     'm-demare/hlargs.nvim',
     config = function()
