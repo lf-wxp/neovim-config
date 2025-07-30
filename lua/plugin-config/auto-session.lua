@@ -6,7 +6,7 @@ if not status then
   return
 end
 
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 auto_session.setup(
   {
@@ -15,7 +15,9 @@ auto_session.setup(
     -- 保存会话时自动关闭 nvim-tree
     -- 这是因为 nvim-tree 如果处于开启
     -- 状态，会破坏会话的保存
-    pre_save_cmds = { "tabdo NvimTreeClose" }
+    pre_save_cmds = { "tabdo NvimTreeClose" },
+    bypass_save_filetypes = { 'alpha', 'dashboard' }, -- or whatever dashboard you use
+    auto_restore_last_session = true,
   }
 )
 

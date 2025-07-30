@@ -187,12 +187,13 @@ require("lazy").setup({
       require("plugin-config.gitsigns")
     end
   },
-  {
-    "rmagatti/auto-session",
-    config = function()
-      require("plugin-config.auto-session")
-    end
-  },
+  -- {
+  --   "rmagatti/auto-session",
+  --   lazy = false,
+  --   config = function()
+  --     require("plugin-config.auto-session")
+  --   end
+  -- },
   -- {
   --   "nvim-pack/nvim-spectre",
   --   event = "VeryLazy",
@@ -523,7 +524,7 @@ require("lazy").setup({
       require("plugin-config.tiny-glimmer")
     end,
   },
-  { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
+  { "kevinhwang91/nvim-ufo",            dependencies = "kevinhwang91/promise-async" },
   -- {
   --   "pmizio/typescript-tools.nvim",
   --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
@@ -548,6 +549,12 @@ require("lazy").setup({
     event = "LspAttach", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
     config = function()
       require("plugin-config.symbol-usage")
+    end
+  },
+  {
+    'stevearc/resession.nvim',
+    config = function()
+      require("plugin-config.resession")
     end
   }
 })

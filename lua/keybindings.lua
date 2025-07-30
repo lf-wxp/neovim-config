@@ -66,7 +66,7 @@ keymap("n", "<leader><leader>f", ":Telescope find_files<cr>", "find file")
 -- 全局搜索
 keymap("n", "<leader><leader>t", ":Telescope live_grep_args<cr>", "search text")
 -- 全局session
-keymap("n", "<leader><leader>s", ":Autosession search<cr>", "find session")
+-- keymap("n", "<leader><leader>s", ":Autosession search<cr>", "find session")
 -- 全局project
 keymap("n", "<leader><leader>p", ":Telescope projects<cr>", "find project")
 

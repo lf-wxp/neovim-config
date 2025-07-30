@@ -46,7 +46,7 @@ lualine.setup({
         "lsp_progress",
         spinner_symbols = { " ", " ", " ", " ", " ", " " },
       },
-      { require("auto-session.lib").current_session_name, color = "Constant" },
+      -- { require("auto-session.lib").current_session_name, color = "Constant" },
       { require("recorder").displaySlots,                 color = "Todo" },
       { require("recorder").recordingStatus,              color = "Tag" },
     },
