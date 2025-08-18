@@ -524,7 +524,7 @@ require("lazy").setup({
       require("plugin-config.tiny-glimmer")
     end,
   },
-  { "kevinhwang91/nvim-ufo",            dependencies = "kevinhwang91/promise-async" },
+  { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
   -- {
   --   "pmizio/typescript-tools.nvim",
   --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
@@ -556,5 +556,19 @@ require("lazy").setup({
     config = function()
       require("plugin-config.resession")
     end
-  }
+  },
+  {
+    'fei6409/log-highlight.nvim',
+    opts = {},
+  },
+  {
+    "dmtrKovalenko/fold-imports.nvim",
+    opts = {},
+    event = "BufRead"
+  },
+  {
+    "alex-popov-tech/store.nvim",
+    dependencies = { "OXY2DEV/markview.nvim" },
+    cmd = "Store"
+  },
 })
