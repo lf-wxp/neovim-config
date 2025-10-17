@@ -339,7 +339,10 @@ require("lazy").setup({
   },
   {
     "michaelb/sniprun",
-    build = "sh ./install.sh"
+    build = "sh ./install.sh",
+    config = function()
+      require("plugin-config.sniprun")
+    end,
   },
   -- {
   --   "m4xshen/hardtime.nvim",
