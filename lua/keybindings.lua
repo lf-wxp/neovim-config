@@ -167,7 +167,7 @@ pluginKeys.gitsigns = {
 -- flash
 keymap({ "n", "x", "o" }, "<leader>f", "<cmd>lua require('flash').jump()<cr>", "flash whole")
 keymap({ "n", "x", "o" }, "<leader>F", "<cmd>lua require('flash').treesitter_search()<cr>", "flash treesitter")
-keymap("o", "<leader>r", "<cmd>lua require('flash').remote()<cr>", "flash remote")
+-- keymap("o", "<leader><leader>F", "<cmd>lua require('flash').remote()<cr>", "flash remote")
 -- keymap({ "x", "o" }, "<leader>Fs", "<cmd>lua require('flash').treesitter_search()<cr>", opt)
 
 -- Paste from clipboard
@@ -248,5 +248,8 @@ keymap("o", "ar", "a[")
 keymap("o", "ia", "i<")
 keymap("o", "aa", "a<")
 
+-- sniprun
+-- keymap({ "n", "v",  }, "<leader>Rr", "<Plug>SnipRun", "sniprun")
+keymap({ "n" }, "<leader>R", "<cmd>lua require('sniprun').run('n')<cr>", "sniprun operator")
 
 return pluginKeys

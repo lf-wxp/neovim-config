@@ -24,6 +24,7 @@ which_key.setup({
       { pattern = "toggler", icon = "󰨚", color = "cyan" },
       { pattern = "harpoon", icon = "󱋡", color = "purple" },
       { pattern = "cursor", icon = "󰳽", color = "red" },
+      { pattern = "sniprun", icon = "", color = "blue" },
     },
   }
 })
