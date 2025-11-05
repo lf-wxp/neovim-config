@@ -574,4 +574,9 @@ require("lazy").setup({
     dependencies = { "OXY2DEV/markview.nvim" },
     cmd = "Store"
   },
+  {
+    "XXiaoA/atone.nvim",
+    cmd = "Atone",
+    opts = {}, -- your configuration here
+  } 
 })
