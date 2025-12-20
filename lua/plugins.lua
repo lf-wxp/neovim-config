@@ -467,7 +467,7 @@ require("lazy").setup({
       });
     end
   },
-  { "catppuccin/nvim",          name = "catppuccin", priority = 1000 },
+  { "catppuccin/nvim",  name = "catppuccin", priority = 1000 },
   {
     "OXY2DEV/helpview.nvim",
     lazy = false, -- Recommended
@@ -586,9 +586,16 @@ require("lazy").setup({
     opts = {
       keymap = "<leader><leader>k", -- Set a keymap for Rust buffers (default: false)
       float_win = {
-        border = "none", -- Border style: "none", "single", "double", "rounded", "solid", "shadow"
-        auto_focus = false, -- Auto-focus float (default: false)
+        border = "none",            -- Border style: "none", "single", "double", "rounded", "solid", "shadow"
+        auto_focus = false,         -- Auto-focus float (default: false)
       },
     },
+  },
+  {
+    name = "CodeBuddy",
+    url = "git@git.woa.com:felikszhou/gongfeng-operation-platform.git",
+    lazy = true,
+    event = "InsertEnter",
+    cmd = "CodeBuddy",
   }
 })
