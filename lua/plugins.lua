@@ -467,7 +467,7 @@ require("lazy").setup({
       });
     end
   },
-  { "catppuccin/nvim",  name = "catppuccin", priority = 1000 },
+  { "catppuccin/nvim",          name = "catppuccin", priority = 1000 },
   {
     "OXY2DEV/helpview.nvim",
     lazy = false, -- Recommended
@@ -597,5 +597,13 @@ require("lazy").setup({
     lazy = true,
     event = "InsertEnter",
     cmd = "CodeBuddy",
+  },
+  {
+    "declancm/cinnamon.nvim",
+    version = "*", -- use latest release
+    opts = {
+      basic = true,
+      extra = true,
+    }
   }
 })
