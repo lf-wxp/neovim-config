@@ -602,8 +602,10 @@ require("lazy").setup({
     "declancm/cinnamon.nvim",
     version = "*", -- use latest release
     opts = {
-      basic = true,
-      extra = true,
+      keymaps = {
+        basic = true,
+        extra = true,
+      }
     }
   }
 })
