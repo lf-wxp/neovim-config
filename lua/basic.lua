@@ -93,3 +93,5 @@ vim.cmd.filetype("on")
 vim.cmd.filetype("plugin on")
 
 vim.api.nvim_set_hl(0, "BufferManagerModified", { fg = "#0000af" })
+
+vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
