@@ -252,4 +252,7 @@ keymap("o", "aa", "a<")
 -- keymap({ "n", "v",  }, "<leader>Rr", "<Plug>SnipRun", "sniprun")
 keymap({ "n" }, "<leader>R", "<cmd>lua require('sniprun').run('n')<cr>", "sniprun operator")
 
+-- codebuddy
+vim.api.nvim_set_keymap('i', '<Right>', 'copilot#Accept()', {silent = true, noremap = true, expr = true})
+
 return pluginKeys
