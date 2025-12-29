@@ -598,14 +598,14 @@ require("lazy").setup({
     event = "InsertEnter",
     cmd = "CodeBuddy",
   },
-  {
-    "declancm/cinnamon.nvim",
-    version = "*", -- use latest release
-    opts = {
-      keymaps = {
-        basic = true,
-        extra = true,
-      }
-    }
-  }
+  -- {
+  --   "declancm/cinnamon.nvim",
+  --   version = "*", -- use latest release
+  --   opts = {
+  --     keymaps = {
+  --       basic = true,
+  --       extra = true,
+  --     }
+  --   }
+  -- }
 })
