@@ -527,7 +527,7 @@ require("lazy").setup({
       require("plugin-config.tiny-glimmer")
     end,
   },
-  { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
+  { "kevinhwang91/nvim-ufo",        dependencies = "kevinhwang91/promise-async" },
   -- {
   --   "pmizio/typescript-tools.nvim",
   --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
@@ -608,4 +608,12 @@ require("lazy").setup({
   --     }
   --   }
   -- }
+  { "andersevenrud/nvim_context_vt" },
+  {
+    "tris203/precognition.nvim",
+    event = "VeryLazy",
+    opts = {
+      startVisible = true,
+    }
+  }
 })
