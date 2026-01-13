@@ -187,13 +187,13 @@ require("lazy").setup({
       require("plugin-config.gitsigns")
     end
   },
-  -- {
-  --   "rmagatti/auto-session",
-  --   lazy = false,
-  --   config = function()
-  --     require("plugin-config.auto-session")
-  --   end
-  -- },
+  {
+    "rmagatti/auto-session",
+    lazy = false,
+    config = function()
+      require("plugin-config.auto-session")
+    end
+  },
   -- {
   --   "nvim-pack/nvim-spectre",
   --   event = "VeryLazy",
@@ -554,12 +554,12 @@ require("lazy").setup({
       require("plugin-config.symbol-usage")
     end
   },
-  {
-    'stevearc/resession.nvim',
-    config = function()
-      require("plugin-config.resession")
-    end
-  },
+  -- {
+  --   'stevearc/resession.nvim',
+  --   config = function()
+  --     require("plugin-config.resession")
+  --   end
+  -- },
   {
     'fei6409/log-highlight.nvim',
     opts = {},
@@ -609,11 +609,11 @@ require("lazy").setup({
   --   }
   -- }
   { "andersevenrud/nvim_context_vt" },
-  {
-    "tris203/precognition.nvim",
-    event = "VeryLazy",
-    opts = {
-      startVisible = true,
-    }
-  }
+  -- {
+  --   "tris203/precognition.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     startVisible = true,
+  --   }
+  -- }
 })
