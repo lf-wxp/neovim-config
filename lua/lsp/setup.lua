@@ -35,7 +35,8 @@ mason_config.setup({
     "lua_ls",
     "vtsls",
     "zk",
-    "oxlint"
+    "oxlint",
+    "tailwindcss"
   },
 })
 
@@ -54,6 +55,7 @@ local servers = {
   taplo = nil,
   html = nil,
   oxlint = nil,
+  tailwindcss = nil,
 }
 -- 自动安装 Language Servers
 for name, config in pairs(servers) do
