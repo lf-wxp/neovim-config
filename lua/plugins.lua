@@ -627,5 +627,9 @@ require("lazy").setup({
       "neovim/nvim-lspconfig",         -- optional
     },
     opts = {}                          -- your configuration
+  },
+  {
+    "gregorias/coerce.nvim",
+    config = true,
   }
 })
