@@ -74,6 +74,9 @@ keymap("n", "<leader><leader>c", ":Telescope colorscheme<cr>", "find colorscheme
 
 keymap("n", "<leader><leader>e", ":Telescope file_browser path=%:p:h select_buffer=true<cr>", "file browser")
 
+-- 查看所有快捷键（支持通过描述搜索）
+keymap("n", "<leader><leader>k", ":Telescope keymaps<cr>", "search keymaps")
+
 -- lsp 捷键设置
 pluginKeys.lsp = {
   -- rename
@@ -234,7 +237,7 @@ keymap({ "n", "x" }, "<leader>mm", "<cmd>MultipleCursorsAddJumpNextMatch<cr>", "
 keymap({ "n" }, "<leader>gg", "<cmd>Neogit<cr>", "open neogit")
 
 -- treesj
-keymap({ "n" }, "<leader>e", "<cmd>lua require('treesj').toggle()<cr>", "Split or Join code block with autodetect")
+keymap({ "n" }, "<leader>e", "<cmd>lua require('treesj').toggle()<cr>", "split or join code block with autodetect")
 
 --- inc rename
 vim.keymap.set("n", "<leader>rn", function()

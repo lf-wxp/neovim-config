@@ -231,6 +231,7 @@ require("lazy").setup({
       require("plugin-config.which-key")
     end
   },
+
   {
     "sindrets/diffview.nvim",
     dependencies = "nvim-lua/plenary.nvim",
@@ -584,7 +585,7 @@ require("lazy").setup({
     "alexpasmantier/krust.nvim",
     ft = "rust",
     opts = {
-      keymap = "<leader><leader>k", -- Set a keymap for Rust buffers (default: false)
+      keymap = "<leader><leader>r", -- Set a keymap for Rust buffers (default: false)
       float_win = {
         border = "none",            -- Border style: "none", "single", "double", "rounded", "solid", "shadow"
         auto_focus = false,         -- Auto-focus float (default: false)
@@ -631,5 +632,6 @@ require("lazy").setup({
   {
     "gregorias/coerce.nvim",
     config = true,
-  }
+  },
+
 })
