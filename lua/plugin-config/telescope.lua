@@ -59,6 +59,7 @@ telescope.setup({
       -- 查找文件换皮肤，支持的参数有： dropdown, cursor, ivy
       -- theme = "ivy",
     },
+    live_grep = {},
     marks = {},
     borderchars = {
       prompt  = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },

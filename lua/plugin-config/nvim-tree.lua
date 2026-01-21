@@ -16,11 +16,13 @@ nvim_tree.setup({
   git = {
     enable = true,
   },
-  -- project plugin 需要这样设置
-  update_cwd = true,
+  -- 与 project.nvim 集成配置
+  -- 让 nvim-tree 同步到 project.nvim 检测的项目根目录
+  sync_root_with_cwd = true,
+  respect_buf_cwd = true,
   update_focused_file = {
     enable = true,
-    update_cwd = true,
+    update_root = true,
   },
   -- 隐藏 .文件 和 node_modules 文件夹
   filters = {

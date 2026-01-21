@@ -6,7 +6,9 @@ if not status then
   return
 end
 
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+-- 注意：移除了 curdir，让 project.nvim 来管理工作目录
+-- 这样 Telescope 等工具会从项目根目录开始搜索
+vim.o.sessionoptions="blank,buffers,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 auto_session.setup(
   {
