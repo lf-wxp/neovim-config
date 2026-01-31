@@ -104,3 +104,5 @@ pcall(telescope.load_extension, "symbols")
 pcall(telescope.load_extension, "live_grep_args")
 
 pcall(telescope.load_extension, "file_browser")
+
+pcall(telescope.load_extension, "projects")

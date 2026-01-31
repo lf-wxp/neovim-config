@@ -1,6 +1,6 @@
 -- ~/.local/share/nvim/lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -38,7 +38,6 @@ require("lazy").setup({
       require("plugin-config.lualine")
     end
   },
-  -- "arkav/lualine-lsp-progress",
 
   -- telescope
   {
@@ -54,23 +53,25 @@ require("lazy").setup({
   "nvim-telescope/telescope-symbols.nvim",
   "nvim-telescope/telescope-live-grep-args.nvim",
 
-  {
-    "glepnir/dashboard-nvim",
-    config = function()
-      require("plugin-config.dashboard")
-    end
-  },
+  -- project.nvim - 项目管理
   {
     "ahmedkhalf/project.nvim",
     config = function()
       require("plugin-config.project")
-    end
+    end,
   },
+
+  -- ts-comments.nvim - 更好的注释支持
+  {
+    "folke/ts-comments.nvim",
+    opts = {},
+    event = "VeryLazy",
+  },
+
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     dependencies = {
-      "JoosepAlviste/nvim-ts-context-commentstring",
       "windwp/nvim-ts-autotag",
       -- "nvim-treesitter/nvim-treesitter-refactor", // cause crush
       "nvim-treesitter/nvim-treesitter-textobjects",
@@ -92,19 +93,7 @@ require("lazy").setup({
   --------------------- LSP --------------------
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
-  {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      {
-        "SmiteshP/nvim-navbuddy",
-        dependencies = {
-          "SmiteshP/nvim-navic",
-          "MunifTanjim/nui.nvim"
-        },
-        opts = { lsp = { auto_attach = true } }
-      }
-    },
-  },
 
 
   -- 补全引擎
@@ -113,7 +102,7 @@ require("lazy").setup({
   "L3MON4D3/LuaSnip",
   "saadparwaiz1/cmp_luasnip",
   -- 补全源
-  "hrsh7th/cmp-vsnip",
+  -- "hrsh7th/cmp-vsnip",
   "hrsh7th/cmp-nvim-lsp",                -- { name = nvim_lsp }
   "hrsh7th/cmp-buffer",                  -- { name = "buffer" },
   "hrsh7th/cmp-path",                    -- { name = "path" }
@@ -155,18 +144,20 @@ require("lazy").setup({
   },
 
   -- Lua 增强
-  "folke/neodev.nvim",
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
+  },
 
   {
     "kylechui/nvim-surround",
     config = function()
       require("plugin-config.nvim-surround")
-    end
-  },
-  {
-    "numToStr/Comment.nvim",
-    config = function()
-      require("plugin-config.comment")
     end
   },
   {
@@ -194,25 +185,6 @@ require("lazy").setup({
       require("plugin-config.auto-session")
     end
   },
-  -- {
-  --   "nvim-pack/nvim-spectre",
-  --   event = "VeryLazy",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim", -- Lua 开发模块
-  --   },
-  -- },
-  {
-    "brenton-leighton/multiple-cursors.nvim",
-    version = "*", -- Use the latest tagged version
-    opts = {},     -- This causes the plugin setup function to be called
-  },
-
-  -- {
-  --   "norcalli/nvim-colorizer.lua",
-  --   config = function()
-  --     require("colorizer").setup()
-  --   end
-  -- },
   {
     "brenoprata10/nvim-highlight-colors",
     config = function()
@@ -234,16 +206,10 @@ require("lazy").setup({
 
   {
     "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFileHistory" },  -- 懒加载
     dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("plugin-config.diffview")
-    end
-  },
-
-  {
-    "karb94/neoscroll.nvim",
-    config = function()
-      require("plugin-config.neoscroll")
     end
   },
 
@@ -256,22 +222,8 @@ require("lazy").setup({
   },
 
   {
-    "rmagatti/goto-preview",
-    dependencies = { "rmagatti/logger.nvim" },
-    event = "BufEnter",
-    config = function()
-      require("plugin-config.goto-preview")
-    end
-  },
-  {
-    "stevearc/dressing.nvim",
-    config = function()
-      require("dressing").setup()
-    end
-  },
-
-  {
     "chentoast/marks.nvim",
+    event = "BufReadPost",  -- 懒加载，读取文件后加载
     config = function()
       require("plugin-config.marks")
     end
@@ -280,6 +232,7 @@ require("lazy").setup({
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
+    event = "VeryLazy",  -- 懒加载
     config = function()
       require("plugin-config.harpoon")
     end
@@ -295,6 +248,7 @@ require("lazy").setup({
 
   {
     "folke/trouble.nvim",
+    cmd = "Trouble",  -- 懒加载
     config = function()
       require("trouble").setup()
     end
@@ -302,63 +256,41 @@ require("lazy").setup({
 
   {
     "saecki/crates.nvim",
-    event = { "BufRead Cargo.toml" },
-    dependencies = { "nvim-lua/plenary.nvim" },
+    event = "BufRead Cargo.toml",
+    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("crates").setup()
     end,
   },
 
-  -- {
-  --   "SmiteshP/nvim-navic",
-  --   dependencies = "neovim/nvim-lspconfig"
-  -- },
-
-  {
-    "anuvyklack/pretty-fold.nvim",
-    config = function()
-      require("pretty-fold").setup()
-    end,
-  },
-
-  {
-    "anuvyklack/fold-preview.nvim",
-    dependencies = "anuvyklack/keymap-amend.nvim",
-    config = function()
-      require("plugin-config.fold-preview")
-    end,
-  },
-
-  {
-    "tanvirtin/vgit.nvim",
+    {
+    "SmiteshP/nvim-navbuddy",
     dependencies = {
-      "nvim-lua/plenary.nvim"
+      "MunifTanjim/nui.nvim",
+      "SmiteshP/nvim-navic",
     },
+    opts = {
+      lsp = { auto_attach = true },
+      window = { border = "none" },
+    },
+  },
+
+  {
+    "chrisgrieser/nvim-origami",
+    event = "BufReadPost",
     config = function()
-      require("vgit").setup()
+      require("plugin-config.origami")
     end,
   },
+
   {
     "michaelb/sniprun",
     build = "sh ./install.sh",
+    cmd = { "SnipRun", "SnipRunOperator", "SnipInfo" },  -- 懒加载
     config = function()
       require("plugin-config.sniprun")
     end,
   },
-  -- {
-  --   "m4xshen/hardtime.nvim",
-  --   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-  --   opts = {
-  --     restriction_mode = "hint",
-  --     disabled_filetypes = { "qf", "netrw", "NvimTree", "lazy", "mason", "oil", },
-  --     disabled_keys = {
-  --       ["<Up>"] = {},
-  --       ["<Down>"] = {},
-  --       ["<Left>"] = {},
-  --       ["<Right>"] = {},
-  --     },
-  --   },
-  -- },
   {
     "roobert/surround-ui.nvim",
     dependencies =
@@ -384,101 +316,29 @@ require("lazy").setup({
       require("plugin-config.noice")
     end,
   },
-  {
-    "eandrju/cellular-automaton.nvim"
-  },
-  -- {
-  --   "tamton-aquib/zone.nvim",
-  --   config = function()
-  --     require("plugin-config.zone")
-  --   end,
-  -- },
-  -- {
-  --   "giusgad/pets.nvim",
-  --   dependencies = { "MunifTanjim/nui.nvim", "giusgad/hologram.nvim" },
-  --   config = function()
-  --     require("pets").setup()
-  --   end,
-  -- },
-  {
-    "utilyre/barbecue.nvim",
-    name = "barbecue",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons", -- optional dependency
-    },
-    opts = {},
-  },
-  {
-    "j-morano/buffer_manager.nvim",
-    config = function()
-      require("buffer_manager").setup({
-        width = 100,
-        height = 20,
-        borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
-      })
-    end,
-  },
-  {
-    "rasulomaroff/reactive.nvim",
-    config = function()
-      require("reactive").setup({
-        builtin = {
-          -- cursorline = true,
-          cursor = true,
-          modemsg = true
-        }
-      })
-    end,
-  },
-  {
-    "aznhe21/actions-preview.nvim",
-    config = function()
-      require("plugin-config.actions-preview")
-    end,
-  },
-  -- {
-  --   "mawkler/modicator.nvim",
-  --   dependencies = "glepnir/zephyr-nvim",
-  --   opts = {}
-  -- }
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "LspAttach",
-    opts = {
-      bind = true,
-      handler_opts = {
-        border = "solid"
-      }
-    },
-  },
-  {
-    "smjonas/inc-rename.nvim",
-    config = function()
-      require("inc_rename").setup()
-    end,
-  },
+  -- cellular-automaton.nvim 娱乐插件已移除
   {
     "MagicDuck/grug-far.nvim",
-    event = "VeryLazy",
+    cmd = "GrugFar",  -- 仅在调用命令时加载
     config = function()
       require("grug-far").setup({
         keymaps = {
           toggleShowCommand = { n = "<localleader>m" },
         },
-      });
+      })
     end
   },
   { "catppuccin/nvim",          name = "catppuccin", priority = 1000 },
   {
     "OXY2DEV/helpview.nvim",
-    lazy = false, -- Recommended
+    ft = "help",  -- 懒加载，仅在打开帮助文件时加载
     dependencies = {
       "nvim-treesitter/nvim-treesitter"
     }
   },
   {
     "OXY2DEV/markview.nvim",
-    lazy = false
+    ft = "markdown",  -- 懒加载，仅在打开 markdown 文件时加载
   },
   {
     "nvim-telescope/telescope-file-browser.nvim",
@@ -486,6 +346,7 @@ require("lazy").setup({
   },
   {
     "NeogitOrg/neogit",
+    cmd = "Neogit",  -- 懒加载，仅在调用命令时加载
     dependencies = {
       "nvim-lua/plenary.nvim",  -- required
       "sindrets/diffview.nvim", -- optional - Diff integration
@@ -499,6 +360,7 @@ require("lazy").setup({
   },
   {
     "olimorris/codecompanion.nvim",
+    cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionToggle", "CodeCompanionActions" },  -- 懒加载
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
@@ -509,6 +371,7 @@ require("lazy").setup({
   },
   {
     "Wansmer/treesj",
+    cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },  -- 懒加载
     dependencies = { "nvim-treesitter/nvim-treesitter" }, -- if you install parsers with `nvim-treesitter`
     config = function()
       require("treesj").setup({
@@ -528,12 +391,31 @@ require("lazy").setup({
       require("plugin-config.tiny-glimmer")
     end,
   },
-  { "kevinhwang91/nvim-ufo",        dependencies = "kevinhwang91/promise-async" },
-  -- {
-  --   "pmizio/typescript-tools.nvim",
-  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  --   opts = {},
-  -- },
+  -- snacks.nvim - 多功能集成插件
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = require("plugin-config.snacks").opts,
+  },
+
+  -- oil.nvim - 以 buffer 方式编辑文件系统
+  {
+    "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("plugin-config.oil")
+    end,
+  },
+
+  -- mini.ai - 增强文本对象
+  {
+    "echasnovski/mini.ai",
+    version = "*",
+    config = function()
+      require("mini.ai").setup()
+    end,
+  },
   {
     'm-demare/hlargs.nvim',
     config = function()
@@ -555,21 +437,11 @@ require("lazy").setup({
       require("plugin-config.symbol-usage")
     end
   },
-  -- {
-  --   'stevearc/resession.nvim',
-  --   config = function()
-  --     require("plugin-config.resession")
-  --   end
-  -- },
   {
     'fei6409/log-highlight.nvim',
     opts = {},
   },
-  {
-    "dmtrKovalenko/fold-imports.nvim",
-    opts = {},
-    event = "BufRead"
-  },
+
   {
     "alex-popov-tech/store.nvim",
     dependencies = { "OXY2DEV/markview.nvim" },
@@ -599,25 +471,10 @@ require("lazy").setup({
     event = "InsertEnter",
     cmd = "CodeBuddy",
   },
-  -- {
-  --   "declancm/cinnamon.nvim",
-  --   version = "*", -- use latest release
-  --   opts = {
-  --     keymaps = {
-  --       basic = true,
-  --       extra = true,
-  --     }
-  --   }
-  -- }
-  { "andersevenrud/nvim_context_vt" },
-  -- {
-  --   "tris203/precognition.nvim",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     startVisible = true,
-  --   }
-  -- }
-  -- tailwind-tools.lua
+  {
+    "andersevenrud/nvim_context_vt",
+    event = "BufReadPost",  -- 懒加载
+  },
   {
     "luckasRanarison/tailwind-tools.nvim",
     name = "tailwind-tools",
@@ -625,13 +482,47 @@ require("lazy").setup({
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-telescope/telescope.nvim", -- optional
-      "neovim/nvim-lspconfig",         -- optional
     },
-    opts = {}                          -- your configuration
+    opts = {
+      -- 禁用内置 LSP 设置，使用 lsp/setup.lua 中的 tailwindcss 配置
+      server = {
+        override = false, -- 不覆盖 LSP 配置
+      },
+    },
   },
   {
     "gregorias/coerce.nvim",
     config = true,
   },
+  -- dropbar.nvim - 面包屑导航 (类似 VS Code)
+  {
+    "Bekaboo/dropbar.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("plugin-config.dropbar")
+    end,
+  },
+  -- jake-stewart/multicursor.nvim 更好的多光标体验
+  {
+    "jake-stewart/multicursor.nvim",
+    branch = "main",
+    event = "VeryLazy",
+    config = function()
+      require("plugin-config.multicursor")
+    end,
+  },
 
+  -- reactive.nvim - 根据编辑模式动态改变光标/cursorline样式
+  {
+    "rasulomaroff/reactive.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("plugin-config.reactive")
+    end,
+  },
+
+  {
+    "eandrju/cellular-automaton.nvim",
+    cmd = "CellularAutomaton",  -- 懒加载，仅在调用命令时加载
+  },
 })

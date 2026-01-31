@@ -26,20 +26,7 @@ autocmd("BufWritePre", {
   group = myAutoGroup,
   pattern = "*",
   callback = function(args)
-    -- vim.lsp.buf.format()
     require("conform").format({ bufnr = args.buf })
-  end,
-})
-
--- 修改lua/plugins.lua 自动更新插件
-autocmd("BufWritePost", {
-  group = myAutoGroup,
-  -- autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  callback = function()
-    if vim.fn.expand("<afile>") == "lua/plugins.lua" then
-      vim.api.nvim_command("source lua/plugins.lua")
-      vim.api.nvim_command("PackerSync")
-    end
   end,
 })
 
@@ -62,24 +49,11 @@ autocmd("BufEnter", {
       + "r" -- But do continue when pressing enter.
   end,
 })
--- autocmd("VimEnter", {
---   callback = function()
---     -- Only load the session if nvim was started with no args and without reading from stdin
---     if vim.fn.argc(-1) == 0 and not vim.g.using_stdin then
---       -- Save these to a different directory, so our manual sessions don't get polluted
---       require('resession').load(vim.fn.getcwd(), { dir = "dirsession", silence_errors = true })
---     end
---   end,
---   nested = true,
--- })
--- autocmd("VimLeavePre", {
---   callback = function()
---     require('resession').save(vim.fn.getcwd(), { dir = "dirsession", notify = false })
---   end,
--- })
+
+-- 检测标准输入（用于 auto-session）
 autocmd('StdinReadPre', {
+  group = myAutoGroup,
   callback = function()
-    -- Store this for later
     vim.g.using_stdin = true
   end,
 })

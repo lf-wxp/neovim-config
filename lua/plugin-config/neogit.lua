@@ -1,6 +1,6 @@
 local status, neogit = pcall(require, "neogit")
 if not status then
-  vim.notify("没有找到 neogi")
+  vim.notify("没有找到 neogit")
   return
 end
 

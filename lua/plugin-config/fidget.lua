@@ -82,13 +82,14 @@ fidget.setup({
       y_padding = 0,         -- Padding from bottom edge of window boundary
       align = "bottom",      -- How to align the notification window
       relative = "editor",   -- What the notification window position is relative to
+      avoid = { "NvimTree" }, -- 避开 NvimTree 窗口
     },
   },
 
   -- Options related to integrating with other plugins
   integration = {
     ["nvim-tree"] = {
-      enable = true, -- Integrate with nvim-tree/nvim-tree.lua (if installed)
+      enable = false,  -- 显式禁用 nvim-tree 集成，使用 notification.window.avoid 替代
     },
   },
 

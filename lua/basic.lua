@@ -13,21 +13,14 @@ vim.wo.cursorline = true
 vim.wo.signcolumn = "yes"
 -- 右侧参考线，超过表示代码太长了，考虑换行
 vim.wo.colorcolumn = "100"
--- 缩进2个空格等于一个Tab
-vim.o.tabstop = 2
-vim.bo.tabstop = 2
-vim.o.softtabstop = 2
-vim.o.shiftround = true
--- >> << 时移动长度
-vim.o.shiftwidth = 2
-vim.bo.shiftwidth = 2
--- 空格替代tab
-vim.o.expandtab = true
-vim.bo.expandtab = true
--- 新行对齐当前行
-vim.o.autoindent = true
-vim.bo.autoindent = true
-vim.o.smartindent = true
+-- 缩进设置（2个空格）
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.shiftround = true
+vim.opt.expandtab = true
+vim.opt.autoindent = true
+vim.opt.smartindent = true
 -- 搜索大小写不敏感，除非包含大写
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -38,8 +31,7 @@ vim.o.incsearch = true
 -- 命令行高为2，提供足够的显示空间
 vim.o.cmdheight = 2
 -- 当文件被外部程序修改时，自动加载
-vim.o.autoread = true
-vim.bo.autoread = true
+vim.opt.autoread = true
 -- 禁止折行
 vim.wo.wrap = false
 -- 光标在行首尾时<Left><Right>可以跳到下一行
@@ -64,12 +56,11 @@ vim.g.completeopt = "menu,menuone,noselect,noinsert"
 -- 样式
 vim.o.background = "dark"
 vim.o.termguicolors = true
-vim.o.cursorline = true
-vim.o.number = true
-vim.opt.termguicolors = true
 -- 不可见字符的显示，这里只把空格显示为一个点
 vim.o.list = true
-vim.o.listchars = "space:·,tab:··"
+vim.o.listchars = "space:·,tab:··,leadmultispace:· "
+-- 原生缩进线：使用 leadmultispace 显示缩进引导线
+-- 每级缩进显示为 "· "（点和空格），与 indent-blankline 类似效果
 -- 补全增强
 vim.o.wildmenu = true
 -- Dont' pass messages to |ins-completin menu|
@@ -86,15 +77,17 @@ vim.o.showmode = false
 -- vim.opt.foldtext = "v:lua.require('utils.simple_fold').simple_fold()"
 
 vim.g.rust_recommended_style = 0
--- vim.o.guifont = "FiraCode Nerd Font Mono"
 vim.o.guifont = "Maple Mono NF CN"
 
 vim.cmd.filetype("on")
 vim.cmd.filetype("plugin on")
 
-vim.api.nvim_set_hl(0, "BufferManagerModified", { fg = "#0000af" })
-
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
-
 vim.g.copilot_no_maps=1
+
+-- 禁用不需要的 provider，消除 checkhealth 警告
+vim.g.loaded_perl_provider = 0  -- 禁用 Perl provider
+vim.g.loaded_ruby_provider = 0  -- 禁用 Ruby provider
+vim.g.loaded_node_provider = 0  -- 禁用 Node provider
+vim.g.loaded_python3_provider = 0  -- 禁用 Python3 provider

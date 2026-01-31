@@ -11,18 +11,19 @@ conform.setup({
     lsp_format = "fallback",
   },
   formatters_by_ft = {
-    lua = { "stylua" },
-    -- Conform will run multiple formatters sequentially
-    python = { "isort", "black" },
-    -- You can customize some of the format options for the filetype (:help conform.format)
+    -- lua: 使用 stylua，需要安装: cargo install stylua
+    lua = { "stylua", stop_after_first = true },
+    -- python: isort 和 black（black 需要安装: pip install black）
+    python = { "isort", "black", stop_after_first = true },
+    -- rust: rustfmt
     rust = { "rustfmt", lsp_format = "fallback" },
-    -- Conform will run the first available formatter
-    javascript = { "prettierd", "prettier", "oxfmt", stop_after_first = true },
-    typescript = { "prettierd", "prettier", "oxfmt", stop_after_first = true },
-    typescriptreact = { "prettierd", "prettier", "oxfmt", stop_after_first = true },
-    vue = { "prettierd", "prettier", "oxfmt", stop_after_first = true },
-    css = { "prettierd", "prettier", "oxfmt", stop_after_first = true },
-    scss = { "prettierd", "prettier", "oxfmt", stop_after_first = true },
-    json = { "prettierd", "prettier", "oxfmt", stop_after_first = true },
+    -- JS/TS: 优先使用 prettierd，其次 prettier
+    javascript = { "prettierd", "prettier", stop_after_first = true },
+    typescript = { "prettierd", "prettier", stop_after_first = true },
+    typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+    vue = { "prettierd", "prettier", stop_after_first = true },
+    css = { "prettierd", "prettier", stop_after_first = true },
+    scss = { "prettierd", "prettier", stop_after_first = true },
+    json = { "prettierd", "prettier", stop_after_first = true },
   },
 })

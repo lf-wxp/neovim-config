@@ -18,13 +18,14 @@ treesitter.setup({
     "lua",
     "markdown",
     "markdown_inline",
-    -- "javascript",
+    "javascript",  -- snacks.image 需要
     "typescript",
     "tsx",
     "vue",
     "rust",
     "scss",
-    "vimdoc"
+    "vimdoc",
+    "regex",  -- snacks.picker 需要
   },
   -- 启用代码高亮模块
   highlight = {
@@ -135,10 +136,4 @@ treesitter.setup({
   },
 })
 
--- 开启 Folding 模块
--- zc 组合键来折叠 {} 中的内容，还可以使用 zo 组合键来打开
--- vim.opt.foldmethod = "expr"
--- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
--- 默认不要折叠
--- https://stackoverflow.com/questions/8316139/how-to-set-the-default-to-unfolded-when-you-open-a-file
--- vim.opt.foldlevel = 99
+

@@ -7,8 +7,8 @@ if not status then
   return
 end
 
-local status, mason_config = pcall(require, "mason-lspconfig")
-if not status then
+local status2, mason_config = pcall(require, "mason-lspconfig")
+if not status2 then
   vim.notify("没有找到 mason-lspconfig")
   return
 end
@@ -24,7 +24,6 @@ mason.setup({
 })
 
 mason_config.setup({
-  -- 确保安装，根据需要填写
   ensure_installed = {
     "cssls",
     "html",
@@ -40,29 +39,33 @@ mason_config.setup({
   },
 })
 
--- 安装列表
--- { key: 语言 value: 配置文件 }
--- key 必须为下列网址列出的名称
--- https://github.com/williamboman/nvim-lsp-installer#available-lsps
-local servers = {
-  vue_ls = require("lsp.config.vue"),
-  vtsls = require("lsp.config.ts"),
-  lua_ls = require("lsp.config.lua"),
-  rust_analyzer = require("lsp.config.rust"),
-  jsonls = require("lsp.config.json"),
-  cssls = require("lsp.config.css"),
-  zk = nil,
-  taplo = nil,
-  html = nil,
-  oxlint = nil,
-  tailwindcss = nil,
+-- 语言服务器配置
+-- 有自定义配置的服务器
+local servers_with_config = {
+  vue_ls = "lsp.config.vue",
+  vtsls = "lsp.config.ts",
+  lua_ls = "lsp.config.lua",
+  rust_analyzer = "lsp.config.rust",
+  jsonls = "lsp.config.json",
+  cssls = "lsp.config.css",
 }
--- 自动安装 Language Servers
-for name, config in pairs(servers) do
-  if config ~= nil then
+
+-- 使用默认配置的服务器
+local default_servers = {
+  "zk", "taplo", "html", "oxlint", "tailwindcss"
+}
+
+-- 加载自定义配置
+for name, config_path in pairs(servers_with_config) do
+  local ok, config = pcall(require, config_path)
+  if ok then
     vim.lsp.config(name, config)
   else
-    -- 使用默认参数
-    vim.lsp.enable(name)
+    vim.notify("LSP 配置加载失败: " .. config_path, vim.log.levels.WARN)
   end
+end
+
+-- 启用默认配置服务器
+for _, name in ipairs(default_servers) do
+  vim.lsp.enable(name)
 end

@@ -18,9 +18,9 @@ keymap("n", "<leader>sc", "<C-w>c", "windows close")
 keymap("n", "<leader>so", "<C-w>o", "windows close other")
 -- Alt + hjkl  窗口之间跳转
 keymap("n", "<leader>wh", "<C-w>h", "windows pop left")
-keymap("n", "<leader>wj", "<C-w>j", "windows pop up")
-keymap("n", "<leader>wk", "<C-w>k", "windows pop down")
-keymap("n", "<leader>wl", "<C-w>l", "windows pop left")
+keymap("n", "<leader>wj", "<C-w>j", "windows pop down")
+keymap("n", "<leader>wk", "<C-w>k", "windows pop up")
+keymap("n", "<leader>wl", "<C-w>l", "windows pop right")
 
 -- 左右比例控制
 keymap("n", "<leader>shh", ":vertical resize -10<cr>", "resize vertical -10")
@@ -36,14 +36,33 @@ keymap("n", "<leader>s=", "<C-w>=", "resize even")
 keymap("v", "J", ":move '>+1<cr>gv-gv", "visual move down")
 keymap("v", "K", ":move '<-2<cr>gv-gv", "visual move up")
 
--- 上下滚动浏览
-pluginKeys.neoscroll = {
-  scroll_up = "<leader>u",
-  scroll_down = "<leader>d",
-}
+-- 上下滚动浏览 (snacks.nvim scroll 模块)
+keymap("n", "<leader>u", "<C-u>zz", "scroll up half page")
+keymap("n", "<leader>d", "<C-d>zz", "scroll down half page")
+keymap("n", "<leader>b", "<C-b>zz", "scroll up full page")
 
 -- nvim-tree
 keymap("n", "<leader>tt", ":NvimTreeToggle<cr>", "tree")
+
+-- dashboard (snacks.nvim)
+keymap("n", "<leader>;", function() Snacks.dashboard() end, "dashboard")
+
+-- multicursor
+pluginKeys.multicursor = {
+  addCursorAbove = "<up>",
+  addCursorBelow = "<down>",
+  skipCursorAbove = "<leader><up>",
+  skipCursorBelow = "<leader><down>",
+  addNextMatch = "<leader>m",
+  addPrevMatch = "<leader>M",
+  skipNextMatch = "<leader>s",
+  skipPrevMatch = "<leader>S",
+  addCursorWithMouse = "<c-leftmouse>",
+  toggleCursor = "<c-q>",
+  prevCursor = "<left>",
+  nextCursor = "<right>",
+  deleteCursor = "<leader>x",
+}
 
 -- bufferline
 -- 左右Tab切换
@@ -67,7 +86,7 @@ keymap("n", "<leader><leader>f", ":Telescope find_files<cr>", "find file")
 keymap("n", "<leader><leader>t", ":Telescope live_grep_args<cr>", "search text")
 -- 全局session
 -- keymap("n", "<leader><leader>s", ":Autosession search<cr>", "find session")
--- 全局project
+-- 全局project (使用 Telescope projects)
 keymap("n", "<leader><leader>p", ":Telescope projects<cr>", "find project")
 
 keymap("n", "<leader><leader>c", ":Telescope colorscheme<cr>", "find colorscheme")
@@ -179,11 +198,12 @@ keymap({ "n", "v" }, "<leader>p", '"+p', "paste")
 keymap({ "n", "v" }, "<leader>y", '"+y', "copy")
 
 
--- goto-preview
-keymap("n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "preview definition")
-keymap("n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<cr>", "preview implementation")
-keymap("n", "gpc", "<cmd>lua require('goto-preview').close_all_win()<cr>", "preview close all")
-keymap("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<cr>", "preview references")
+-- LSP 预览 (使用 lspsaga 替代 goto-preview)
+keymap("n", "gpd", "<cmd>Lspsaga peek_definition<cr>", "preview definition")
+keymap("n", "gpi", "<cmd>Lspsaga finder imp<cr>", "preview implementation")
+keymap("n", "gpc", "<cmd>Lspsaga term_toggle<cr>", "close preview")
+keymap("n", "gpr", "<cmd>Lspsaga finder ref<cr>", "preview references")
+keymap("n", "gpt", "<cmd>Lspsaga peek_type_definition<cr>", "preview type definition")
 
 -- harpoon
 pluginKeys.harpoon = {
@@ -219,19 +239,24 @@ keymap("n", "<leader>k", ":noh<cr>", "dismiss highlight")
 keymap("n", "<leader>o", "<C-o>", "navigate backward")
 keymap("n", "<leader>i", "<C-i>", "navigate forward")
 
--- buffer_manager
-keymap("n", "<leader><leader>b", "<cmd>lua require('buffer_manager.ui').toggle_quick_menu()<cr>", "buffer manager")
+-- snacks.nvim 快捷键
+keymap("n", "<leader>bd", "<cmd>lua Snacks.bufdelete()<cr>", "delete buffer")
+keymap("n", "<leader>bo", "<cmd>lua Snacks.bufdelete.other()<cr>", "delete other buffers")
+keymap({ "n", "t" }, "<c-_>", "<cmd>lua Snacks.terminal()<cr>", "toggle terminal")
+keymap({ "n", "t" }, "<c-/>", "<cmd>lua Snacks.terminal()<cr>", "toggle terminal")
 
--- codeaction preview
-keymap({ "v", "n" }, "<leader>ca", "<cmd>lua require('actions-preview').code_actions()<cr>", "code action")
+-- Telescope buffer 快速切换
+keymap("n", "<leader><leader>b", "<cmd>Telescope buffers sort_mru=true<cr>", "switch buffer")
+keymap("n", "<Tab>", "<cmd>Telescope buffers sort_mru=true<cr>", "switch buffer (Tab)")
 
--- multiple-cursors
-keymap({ "n", "x" }, "<C-j>", "<cmd>MultipleCursorsAddDown<cr>", "add cursor and move down")
-keymap({ "n", "x" }, "<C-k>", "<cmd>MultipleCursorsAddUp<cr>", "add cursor and move up")
-keymap({ "n", "i" }, "<C-LeftMouse>", "<cmd>MultipleCursorsMouseAddDelete<cr>", "add or remove cursor")
-keymap({ "n", "x" }, "<leader>mg", "<cmd>MultipleCursorsAddMatches<cr>", "add cursor to move down")
-keymap({ "n", "x" }, "<leader>mG", "<cmd>MultipleCursorsAddMatchesV<cr>", "add cursors to cword in previous area")
-keymap({ "n", "x" }, "<leader>mm", "<cmd>MultipleCursorsAddJumpNextMatch<cr>", "add cursor and jump to next cword")
+-- oil.nvim 快捷键
+keymap("n", "-", "<cmd>Oil<cr>", "open parent directory (Oil)")
+keymap("n", "<leader>-", "<cmd>lua require('oil').toggle_float()<cr>", "oil float")
+
+-- 折叠快捷键使用 vim 原生 + fold-preview（K 键由 fold-preview 配置）
+
+-- code action (使用 lspsaga 替代 actions-preview)
+keymap({ "v", "n" }, "<leader>ca", "<cmd>Lspsaga code_action<cr>", "code action")
 
 -- neogit
 keymap({ "n" }, "<leader>gg", "<cmd>Neogit<cr>", "open neogit")
@@ -239,10 +264,8 @@ keymap({ "n" }, "<leader>gg", "<cmd>Neogit<cr>", "open neogit")
 -- treesj
 keymap({ "n" }, "<leader>e", "<cmd>lua require('treesj').toggle()<cr>", "split or join code block with autodetect")
 
---- inc rename
-vim.keymap.set("n", "<leader>rn", function()
-  return ":IncRename " .. vim.fn.expand("<cword>")
-end, { expr = true, desc = "rename" })
+-- rename (使用 lspsaga 替代 inc-rename)
+vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", { desc = "rename" })
 
 
 -- surround

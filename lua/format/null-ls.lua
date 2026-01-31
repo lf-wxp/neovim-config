@@ -9,7 +9,7 @@ null_ls.setup({
   sources = {
     -- require("typescript.extensions.null-ls.code-actions"),
     require("none-ls.diagnostics.eslint"),
-    require("none-ls.diagnostics.yamllint"),
+    -- require("none-ls.diagnostics.yamllint"), -- 需要安装: pip install yamllint
     require("none-ls.code_actions.eslint"),
     -- require("none-ls.formatting.eslint_d"),
     -- require("none-ls.formatting.rustfmt"),
