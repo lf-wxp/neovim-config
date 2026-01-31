@@ -1,4 +1,4 @@
-local keys = require("keybindings")
+local keys = require("config.keymaps")
 local status, ls = pcall(require, "luasnip")
 if not status then
   return

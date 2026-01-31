@@ -1,13 +1,13 @@
 local status, symbol_usage = pcall(require, "symbol-usage")
 if not status then
-  vim.notify("没有找到 symbol-usage")
+  vim.notify("symbol-usage not found")
   return
 end
 
 local function h(name) return vim.api.nvim_get_hl(0, { name = name }) end
 local SymbolKind = vim.lsp.protocol.SymbolKind
 
--- 高亮配置已移至 colorscheme.lua 统一管理
+-- Highlight config moved to colorscheme.lua for unified management
 
 local function text_format(symbol)
   local res = {}

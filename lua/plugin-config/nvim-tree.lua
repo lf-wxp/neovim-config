@@ -1,30 +1,30 @@
 local status, nvim_tree = pcall(require, "nvim-tree")
 if not status then
-  vim.notify("没有找到 nvim-tree")
+  vim.notify("nvim-tree not found")
   return
 end
 
 local HEIGHT_RATIO = 0.8 -- You can change this
 local WIDTH_RATIO = 0.3  -- You can change this too
 
--- 列表操作快捷键
+-- List operation keymaps
 nvim_tree.setup({
   sort = {
     sorter = "case_sensitive",
   },
-  -- 不显示 git 状态图标
+  -- Don't show git status icons
   git = {
     enable = true,
   },
-  -- 与 project.nvim 集成配置
-  -- 让 nvim-tree 同步到 project.nvim 检测的项目根目录
+  -- Integration config with project.nvim
+  -- Let nvim-tree sync to project.nvim detected project root
   sync_root_with_cwd = true,
   respect_buf_cwd = true,
   update_focused_file = {
     enable = true,
     update_root = true,
   },
-  -- 隐藏 .文件 和 node_modules 文件夹
+  -- Hide dotfiles and node_modules folder
   filters = {
     -- dotfiles = true,
     -- custom = { 'node_modules' },
@@ -32,7 +32,7 @@ nvim_tree.setup({
   view = {
     number = false,
     relativenumber = false,
-    -- 显示图标
+    -- Show icons
     signcolumn = 'yes',
     float = {
       enable = true,
@@ -62,16 +62,16 @@ nvim_tree.setup({
   },
   actions = {
     open_file = {
-      -- 首次打开大小适配
+      -- Resize window on first open
       resize_window = true,
-      -- 打开文件时关闭
+      -- Close on file open
       quit_on_open = true,
     },
   },
   -- wsl install -g wsl-open
   -- https://github.com/4U6U57/wsl-open/
   system_open = {
-    cmd = 'open', -- mac 直接设置为 open
+    cmd = 'open', -- Set to 'open' for mac
   },
   renderer = {
     indent_markers = {
@@ -86,7 +86,7 @@ nvim_tree.setup({
       webdev_colors = true,
       git_placement = "after",
     },
-    -- 隐藏根目录
+    -- Hide root directory
     root_folder_label = false,
   },
   on_attach = function(bufnr)
@@ -128,7 +128,7 @@ nvim_tree.setup({
     -- vim.keymap.set('n', '<Tab>', preview.node_under_cursor, opts 'Preview')
   end,
 })
--- 自动关闭
+-- Auto close
 -- vim.cmd([[
 --   autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 -- ]])

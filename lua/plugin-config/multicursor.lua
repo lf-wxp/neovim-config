@@ -1,42 +1,42 @@
-local keys = require("keybindings")
+local keys = require("config.keymaps")
 local mc = require("multicursor-nvim")
 
 mc.setup()
 
 local set = vim.keymap.set
+local opts = function(desc) return { noremap = true, silent = true, desc = desc } end
 
--- 添加或跳过主光标上方/下方的光标
-set({"n", "x"}, keys.multicursor.addCursorAbove, function() mc.lineAddCursor(-1) end)
-set({"n", "x"}, keys.multicursor.addCursorBelow, function() mc.lineAddCursor(1) end)
-set({"n", "x"}, keys.multicursor.skipCursorAbove, function() mc.lineSkipCursor(-1) end)
-set({"n", "x"}, keys.multicursor.skipCursorBelow, function() mc.lineSkipCursor(1) end)
+-- Add or skip cursor above/below main cursor
+set({"n", "x"}, keys.multicursor.addCursorAbove, function() mc.lineAddCursor(-1) end, opts("Add Cursor Above"))
+set({"n", "x"}, keys.multicursor.addCursorBelow, function() mc.lineAddCursor(1) end, opts("Add Cursor Below"))
+set({"n", "x"}, keys.multicursor.skipCursorAbove, function() mc.lineSkipCursor(-1) end, opts("Skip Cursor Above"))
+set({"n", "x"}, keys.multicursor.skipCursorBelow, function() mc.lineSkipCursor(1) end, opts("Skip Cursor Below"))
 
--- 通过匹配单词/选择添加或跳过添加新光标
-set({"n", "x"}, keys.multicursor.addNextMatch, function() mc.matchAddCursor(1) end)
-set({"n", "x"}, keys.multicursor.skipNextMatch, function() mc.matchSkipCursor(1) end)
-set({"n", "x"}, keys.multicursor.addPrevMatch, function() mc.matchAddCursor(-1) end)
-set({"n", "x"}, keys.multicursor.skipPrevMatch, function() mc.matchSkipCursor(-1) end)
+-- Add or skip new cursor by matching word/selection
+set({"n", "x"}, keys.multicursor.addNextMatch, function() mc.matchAddCursor(1) end, opts("Add Cursor Next Match"))
+set({"n", "x"}, keys.multicursor.skipNextMatch, function() mc.matchSkipCursor(1) end, opts("Skip Cursor Next Match"))
+set({"n", "x"}, keys.multicursor.addPrevMatch, function() mc.matchAddCursor(-1) end, opts("Add Cursor Prev Match"))
+set({"n", "x"}, keys.multicursor.skipPrevMatch, function() mc.matchSkipCursor(-1) end, opts("Skip Cursor Prev Match"))
 
--- 使用 control + 左键点击添加和移除光标
-set("n", keys.multicursor.addCursorWithMouse, mc.handleMouse)
-set("n", "<c-leftdrag>", mc.handleMouseDrag)
-set("n", "<c-leftrelease>", mc.handleMouseRelease)
+-- Use control + left click to add and remove cursors
+set("n", keys.multicursor.addCursorWithMouse, mc.handleMouse, opts("Add Cursor With Mouse"))
+set("n", "<c-leftdrag>", mc.handleMouseDrag, opts("Cursor Mouse Drag"))
+set("n", "<c-leftrelease>", mc.handleMouseRelease, opts("Cursor Mouse Release"))
 
--- 禁用和启用光标
-set({"n", "x"}, keys.multicursor.toggleCursor, mc.toggleCursor)
+-- Toggle cursor
+set({"n", "x"}, keys.multicursor.toggleCursor, mc.toggleCursor, opts("Toggle Cursor"))
 
--- 在 keymap layer 中定义的映射仅在有多个光标时生效
--- 这让你可以拥有重叠的映射
+-- Keymaps only work when there are multiple cursors
 mc.addKeymapLayer(function(layerSet)
 
-    -- 选择不同的光标作为主光标
+    -- Select different cursor as main cursor
     layerSet({"n", "x"}, keys.multicursor.prevCursor, mc.prevCursor)
     layerSet({"n", "x"}, keys.multicursor.nextCursor, mc.nextCursor)
 
-    -- 删除主光标
+    -- Delete main cursor
     layerSet({"n", "x"}, keys.multicursor.deleteCursor, mc.deleteCursor)
 
-    -- 使用 escape 键启用和清除光标
+    -- Use escape to enable and clear cursors
     layerSet("n", "<esc>", function()
         if not mc.cursorsEnabled() then
             mc.enableCursors()
@@ -46,4 +46,4 @@ mc.addKeymapLayer(function(layerSet)
     end)
 end)
 
--- 高亮配置已移至 colorscheme.lua 统一管理
+-- Highlight config moved to colorscheme.lua for unified management

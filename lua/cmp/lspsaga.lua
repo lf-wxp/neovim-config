@@ -1,6 +1,6 @@
 local status, lspsaga = pcall(require, "lspsaga")
 if not status then
-  vim.notify("没有找到 lspsaga")
+  vim.notify("lspsaga not found")
   return
 end
 
@@ -13,7 +13,7 @@ lspsaga.setup({
     border = 'solid',
     code_action = '💡',
   },
-  -- 禁用 lspsaga 的 winbar，使用原生方案
+  -- Disable lspsaga winbar, use native solution
   symbol_in_winbar = {
     enable = false,
   },
@@ -34,7 +34,7 @@ lspsaga.setup({
     width = 0.9,
     height = 0.8,
   },
-  -- rename 配置（替代 inc-rename）
+  -- Rename config (replaces inc-rename)
   rename = {
     in_select = true,
     auto_save = false,
@@ -46,7 +46,7 @@ lspsaga.setup({
       select = 'x',
     },
   },
-  -- code action 配置（替代 actions-preview）
+  -- Code action config (replaces actions-preview)
   code_action = {
     num_shortcut = true,
     show_server_name = true,
@@ -56,18 +56,18 @@ lspsaga.setup({
       exec = '<CR>',
     },
   },
-  -- lightbulb 配置
+  -- Lightbulb config
   lightbulb = {
     enable = true,
     sign = true,
     virtual_text = false,
   },
-  -- peek definition 配置（替代 goto-preview）
+  -- Peek definition config (replaces goto-preview)
   peek_definition = {
     width = 0.9,
     height = 0.8,
   },
-  -- outline 配置
+  -- Outline config
   outline = {
     win_position = 'right',
     win_width = 30,

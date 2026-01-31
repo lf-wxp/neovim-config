@@ -1,6 +1,6 @@
 local status, flash = pcall(require, "flash")
 if not status then
-  vim.notify("没有找到 flash")
+  vim.notify("flash not found")
   return
 end
 

@@ -1,10 +1,10 @@
 local status, dropbar = pcall(require, "dropbar")
 if not status then
-  vim.notify("没有找到 dropbar")
+  vim.notify("dropbar not found")
   return
 end
 
--- 美观的图标定义 (使用 Nerd Font)
+-- Icon definitions (using Nerd Font)
 local icons = {
   File = "󰈙 ",
   Module = "󰏗 ",
@@ -32,13 +32,13 @@ local icons = {
   Event = " ",
   Operator = "󰆕 ",
   TypeParameter = "󰊄 ",
-  -- 路径相关图标
+  -- Path related icons
   Folder = "󰉋 ",
 }
 
--- 高亮配置已移至 colorscheme.lua 统一管理
+-- Highlight config moved to colorscheme.lua for unified management
 
--- Dropbar 配置 - 仅展示功能
+-- Dropbar config - Display only
 dropbar.setup({
   icons = {
     kinds = {
@@ -46,7 +46,7 @@ dropbar.setup({
     },
     ui = {
       bar = {
-        separator = " 󰅂 ", -- 分隔符（使用明显的箭头图标）
+        separator = " 󰅂 ", -- Separator (using arrow icon)
         extends = "…",
       },
       menu = {
@@ -57,13 +57,13 @@ dropbar.setup({
   },
   bar = {
     enable = true,
-    -- 使用更安全的事件，避免 E36 错误
+    -- Use safer events, avoid E36 error
     attach_events = { "BufReadPost", "BufWritePost" },
     update_events = {
       buf = { "BufModifiedSet", "FileChangedShellPost", "TextChanged", "TextChangedI" },
       win = { "CursorMoved", "CursorMovedI", "WinResized" },
     },
-    hover = false, -- 禁用悬停交互
+    hover = false, -- Disable hover interaction
     sources = function(buf, _)
       local sources = require("dropbar.sources")
       local utils = require("dropbar.utils")
@@ -91,11 +91,11 @@ dropbar.setup({
       right = 1,
     },
     pick = {
-      pivots = "", -- 禁用快速选择
+      pivots = "", -- Disable quick select
     },
   },
   menu = {
-    quick_navigation = false, -- 禁用菜单导航
+    quick_navigation = false, -- Disable menu navigation
     entry = {
       padding = {
         left = 1,
@@ -112,5 +112,5 @@ dropbar.setup({
   },
 })
 
--- 注：高亮配置已由 colorscheme.lua 统一管理（VimEnter 事件自动应用）
+-- Note: Highlight config is managed by colorscheme.lua (auto-applied on VimEnter event)
 

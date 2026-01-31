@@ -1,6 +1,6 @@
 local status, telescope = pcall(require, "telescope")
 if not status then
-  vim.notify("没有找到 telescope")
+  vim.notify("telescope not found")
   return
 end
 
@@ -26,21 +26,21 @@ end
 telescope.setup({
   defaults = {
     winblend = 20,
-    -- 打开弹窗后进入的初始模式，默认为 insert，也可以是 normal
+    -- Initial mode when opening popup, default is insert, can also be normal
     initial_mode = "insert",
-    -- 窗口内快捷键
+    -- Window keymaps
     mappings = {
       n = { s = flash },
       i = {
-        -- 上下移动
+        -- Move up/down
         ["<Down>"] = "move_selection_next",
         ["<Up>"] = "move_selection_previous",
-        -- 历史记录
+        -- History navigation
         ["<C-n>"] = "cycle_history_next",
         ["<C-p>"] = "cycle_history_prev",
-        -- 关闭窗口
+        -- Close window
         ["<C-c>"] = "close",
-        -- 预览窗口上下滚动
+        -- Preview window scroll
         ["<leader>u"] = "preview_scrolling_up",
         ["<leader>d"] = "preview_scrolling_down",
 
@@ -54,9 +54,9 @@ telescope.setup({
     },
   },
   pickers = {
-    -- 内置 pickers 配置
+    -- Built-in pickers config
     find_files = {
-      -- 查找文件换皮肤，支持的参数有： dropdown, cursor, ivy
+      -- Change theme for find files, supported: dropdown, cursor, ivy
       -- theme = "ivy",
     },
     live_grep = {},
@@ -73,7 +73,7 @@ telescope.setup({
         -- even more opts
       }),
     },
-    -- 扩展插件配置
+    -- Extension plugins config
     file_browser = {
       theme = "ivy",
       -- disables netrw and use telescope-file-browser in its place

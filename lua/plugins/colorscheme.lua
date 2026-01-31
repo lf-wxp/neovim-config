@@ -1,17 +1,8 @@
--- 配色方案和统一高亮配置
-local M = {}
+-- ╭──────────────────────────────────────────────────────────╮
+-- │                      Colorscheme                          │
+-- ╰──────────────────────────────────────────────────────────╯
 
-local colorscheme = "zephyr"
--- 备选: zephyr, nord, gruvbox, kanagawa, catppuccin
-
--- 加载配色方案
-local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
-if not status_ok then
-  vim.notify("colorscheme: " .. colorscheme .. " 没有找到！")
-  return
-end
-
--- 统一的颜色获取工具函数
+-- Highlight utility functions
 local function get_hl(name)
   return vim.api.nvim_get_hl(0, { name = name })
 end
@@ -20,16 +11,13 @@ local function set_hl(name, opts)
   vim.api.nvim_set_hl(0, name, opts)
 end
 
--- =====================================================
--- 自定义高亮配置（集中管理）
--- =====================================================
-
+-- Module highlight configs
 local function setup_telescope_highlights()
   local hl_groups = {
-    TelescopePreviewNormal = { bg = '#2E323C' },
-    TelescopePreviewBorder = { bg = '#2E323C' },
-    TelescopeResultsNormal = { bg = '#23272e' },
-    TelescopeResultsBorder = { bg = '#23272e' },
+    TelescopePreviewNormal = { bg = "#2E323C" },
+    TelescopePreviewBorder = { bg = "#2E323C" },
+    TelescopeResultsNormal = { bg = "#23272e" },
+    TelescopeResultsBorder = { bg = "#23272e" },
   }
   for name, opts in pairs(hl_groups) do
     set_hl(name, opts)
@@ -37,7 +25,6 @@ local function setup_telescope_highlights()
 end
 
 local function setup_misc_highlights()
-  -- BufferManager 修改标记
   set_hl("BufferManagerModified", { fg = "#0000af" })
 end
 
@@ -57,11 +44,11 @@ local function setup_multicursor_highlights()
 end
 
 local function setup_symbol_usage_highlights()
-  local cursor_bg = get_hl('CursorLine').bg
-  local comment_fg = get_hl('Comment').fg
-  local func_fg = get_hl('Function').fg
-  local type_fg = get_hl('Type').fg
-  local keyword_fg = get_hl('@keyword').fg
+  local cursor_bg = get_hl("CursorLine").bg
+  local comment_fg = get_hl("Comment").fg
+  local func_fg = get_hl("Function").fg
+  local type_fg = get_hl("Type").fg
+  local keyword_fg = get_hl("@keyword").fg
 
   local hl_groups = {
     SymbolUsageRounding = { fg = cursor_bg, italic = true },
@@ -77,14 +64,11 @@ end
 
 local function setup_dropbar_highlights()
   local normal_hl = get_hl("Normal")
-
-  -- 优先使用 Normal 的背景色适配主题，如果是透明背景则保持透明
-  -- 不要使用 WinBar 默认的黑色背景
-  local bg = normal_hl.bg  -- 可能是 nil（透明）或具体颜色值
+  local bg = normal_hl.bg
 
   local colors = {
     normal_fg = normal_hl.fg,
-    normal_bg = bg,  -- nil 时 nvim_set_hl 会忽略 bg，保持透明
+    normal_bg = bg,
     comment_fg = get_hl("Comment").fg,
     string_fg = get_hl("String").fg,
     func_fg = get_hl("Function").fg,
@@ -95,7 +79,7 @@ local function setup_dropbar_highlights()
     separator_fg = get_hl("NonText").fg or get_hl("Comment").fg,
   }
 
-  -- Winbar 基础
+  -- Winbar base
   set_hl("WinBar", { fg = colors.normal_fg, bg = colors.normal_bg })
   set_hl("WinBarNC", { fg = colors.comment_fg, bg = colors.normal_bg })
   set_hl("DropBarCurrentContext", { fg = colors.normal_fg, bg = colors.normal_bg, bold = true })
@@ -103,13 +87,13 @@ local function setup_dropbar_highlights()
   set_hl("DropBarIconUISeparator", { fg = colors.separator_fg, bg = colors.normal_bg })
   set_hl("DropBarIconUISeparatorActive", { fg = colors.func_fg, bg = colors.normal_bg })
 
-  -- 路径
+  -- Path
   set_hl("DropBarIconKindFolder", { fg = colors.keyword_fg, bg = colors.normal_bg })
   set_hl("DropBarIconKindFile", { fg = colors.string_fg, bg = colors.normal_bg })
   set_hl("DropBarKindFolder", { fg = colors.keyword_fg, bg = colors.normal_bg })
   set_hl("DropBarKindFile", { fg = colors.string_fg, bg = colors.normal_bg })
 
-  -- 类型
+  -- Types
   local type_kinds = { "Class", "Struct", "Interface", "Enum" }
   for _, kind in ipairs(type_kinds) do
     set_hl("DropBarIconKind" .. kind, { fg = colors.type_fg, bg = colors.normal_bg })
@@ -118,21 +102,21 @@ local function setup_dropbar_highlights()
   set_hl("DropBarIconKindEnumMember", { fg = colors.constant_fg, bg = colors.normal_bg })
   set_hl("DropBarKindEnumMember", { fg = colors.constant_fg, bg = colors.normal_bg })
 
-  -- 函数/方法
+  -- Functions/Methods
   local func_kinds = { "Function", "Method", "Constructor" }
   for _, kind in ipairs(func_kinds) do
     set_hl("DropBarIconKind" .. kind, { fg = colors.func_fg, bg = colors.normal_bg })
     set_hl("DropBarKind" .. kind, { fg = colors.func_fg, bg = colors.normal_bg })
   end
 
-  -- 变量
+  -- Variables
   local var_kinds = { "Variable", "Field", "Property" }
   for _, kind in ipairs(var_kinds) do
     set_hl("DropBarIconKind" .. kind, { fg = colors.normal_fg, bg = colors.normal_bg })
     set_hl("DropBarKind" .. kind, { fg = colors.normal_fg, bg = colors.normal_bg })
   end
 
-  -- 常量
+  -- Constants
   set_hl("DropBarIconKindConstant", { fg = colors.constant_fg, bg = colors.normal_bg })
   set_hl("DropBarIconKindString", { fg = colors.string_fg, bg = colors.normal_bg })
   set_hl("DropBarIconKindNumber", { fg = colors.constant_fg, bg = colors.normal_bg })
@@ -142,7 +126,7 @@ local function setup_dropbar_highlights()
   set_hl("DropBarKindNumber", { fg = colors.constant_fg, bg = colors.normal_bg })
   set_hl("DropBarKindBoolean", { fg = colors.constant_fg, bg = colors.normal_bg })
 
-  -- 其他
+  -- Others
   local keyword_kinds = { "Module", "Namespace", "Package", "Key" }
   for _, kind in ipairs(keyword_kinds) do
     set_hl("DropBarIconKind" .. kind, { fg = colors.keyword_fg, bg = colors.normal_bg })
@@ -165,11 +149,8 @@ local function setup_dropbar_highlights()
   set_hl("DropBarKindNull", { fg = colors.comment_fg, bg = colors.normal_bg })
 end
 
--- =====================================================
--- 应用所有高亮配置
--- =====================================================
-
-function M.setup_all_highlights()
+-- Apply all highlights
+local function setup_all_highlights()
   setup_telescope_highlights()
   setup_misc_highlights()
   setup_multicursor_highlights()
@@ -177,27 +158,42 @@ function M.setup_all_highlights()
   setup_dropbar_highlights()
 end
 
--- 初始应用
-M.setup_all_highlights()
-
--- 统一的自动命令组
+-- Reapply highlights on colorscheme change
 local augroup = vim.api.nvim_create_augroup("ColorSchemeHighlights", { clear = true })
 
--- 主题切换时重新应用
 vim.api.nvim_create_autocmd("ColorScheme", {
   group = augroup,
   pattern = "*",
   callback = function()
-    vim.defer_fn(M.setup_all_highlights, 10)
+    vim.defer_fn(setup_all_highlights, 10)
   end,
 })
 
--- 启动完成后应用（只需一次延迟即可）
 vim.api.nvim_create_autocmd("VimEnter", {
   group = augroup,
   callback = function()
-    vim.defer_fn(M.setup_all_highlights, 100)
+    vim.defer_fn(setup_all_highlights, 100)
   end,
 })
 
-return M
+-- ╭──────────────────────────────────────────────────────────╮
+-- │                      Plugin Config                        │
+-- ╰──────────────────────────────────────────────────────────╯
+
+return {
+  -- Primary colorscheme
+  {
+    "glepnir/zephyr-nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme("zephyr")
+      setup_all_highlights()
+    end,
+  },
+
+  -- Alternative colorschemes
+  { "ellisonleao/gruvbox.nvim", lazy = true },
+  { "rebelot/kanagawa.nvim", lazy = true },
+  { "catppuccin/nvim", name = "catppuccin", lazy = true },
+}

@@ -18,7 +18,7 @@ local has_words_before = function()
 end
 
 cmp.setup({
-  -- 指定 snippet 引擎 luasnip
+  -- Specify snippet engine luasnip
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -37,29 +37,29 @@ cmp.setup({
       scrollbar = true,
     },
   },
-  -- 快捷键
+  -- Keymaps
   -- mapping = mapping,
   mapping = {
-    -- 出现补全
-    -- 可能是<C-i> 有bug导致在i模式tab使用有问题,所以换了快捷键
+    -- Show completion
+    -- <C-i> might have bug in insert mode with tab, so changed keymap
     ["<A-i>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-    -- 取消
+    -- Cancel
     ["<C-o>"] = cmp.mapping({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
-    -- 上一个
+    -- Previous item
     -- ["<C-k>"] = cmp.mapping.select_prev_item(),
     ["<Up>"] = cmp.mapping.select_prev_item(),
-    -- 下一个
+    -- Next item
     -- ["<C-j>"] = cmp.mapping.select_next_item(),
     ["<Down>"] = cmp.mapping.select_next_item(),
-    -- 确认
+    -- Confirm
     ["<cr>"] = cmp.mapping.confirm({
       select = true,
       behavior = cmp.ConfirmBehavior.Replace,
     }),
-    -- 如果窗口内容太多，可以滚动
+    -- Scroll docs if content is too long
     ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
     ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 
@@ -87,7 +87,7 @@ cmp.setup({
     end, { "i", "s" }),
     -- end of super Tab
   },
-  -- 来源
+  -- Sources
   sources = cmp.config.sources({
     {
       name = "luasnip",
@@ -110,7 +110,7 @@ cmp.setup({
       group_index = 2,
     },
   }),
-  -- 使用lspkind-nvim显示类型图标
+  -- Use lspkind-nvim to show type icons
   formatting = require("cmp.lspkind").formatting,
 })
 

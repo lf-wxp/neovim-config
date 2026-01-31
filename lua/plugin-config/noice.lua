@@ -1,10 +1,4 @@
-local status, noice = pcall(require, "noice")
-if not status then
-  vim.notify("没有找到 noice")
-  return
-end
-
-noice.setup({
+require("noice").setup({
   cmdline = {
     enabled = true,         -- enables the Noice cmdline UI
     view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
@@ -198,7 +192,7 @@ noice.setup({
     bottom_search = false,         -- use a classic bottom cmdline for search
     command_palette = false,       -- position the cmdline and popupmenu together
     long_message_to_split = false, -- long messages will be sent to a split
-    inc_rename = false,           -- 未安装 inc-rename.nvim，禁用此预设
+    inc_rename = false,           -- Not installed inc-rename.nvim, disable this preset
     lsp_doc_border = false,        -- add a border to hover docs and signature help
   },
   throttle = 1000 / 30,            -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.

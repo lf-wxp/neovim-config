@@ -1,6 +1,6 @@
 local status, fidget = pcall(require, "fidget")
 if not status then
-  vim.notify("没有找到 fidget")
+  vim.notify("fidget not found")
   return
 end
 
@@ -82,14 +82,14 @@ fidget.setup({
       y_padding = 0,         -- Padding from bottom edge of window boundary
       align = "bottom",      -- How to align the notification window
       relative = "editor",   -- What the notification window position is relative to
-      avoid = { "NvimTree" }, -- 避开 NvimTree 窗口
+      avoid = { "NvimTree" }, -- Avoid NvimTree window
     },
   },
 
   -- Options related to integrating with other plugins
   integration = {
     ["nvim-tree"] = {
-      enable = false,  -- 显式禁用 nvim-tree 集成，使用 notification.window.avoid 替代
+      enable = false,  -- Explicitly disable nvim-tree integration, use notification.window.avoid instead
     },
   },
 

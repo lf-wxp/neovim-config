@@ -1,15 +1,15 @@
--- snacks.nvim 配置
+-- snacks.nvim config
 local M = {}
 
 M.opts = {
-  scroll = { enabled = true },    -- 平滑滚动
-  input = { enabled = true },     -- 输入框增强
-  bigfile = { enabled = true },   -- 大文件优化
-  quickfile = { enabled = true }, -- 快速打开文件
-  words = { enabled = true },     -- 高亮当前词
-  notifier = { enabled = false }, -- 通知系统（已禁用）
-  statuscolumn = { enabled = true }, -- 行号列增强（折叠标记、git状态等）
-  -- 替代 dashboard-nvim
+  scroll = { enabled = true },    -- Smooth scrolling
+  input = { enabled = true },     -- Input enhancement
+  bigfile = { enabled = true },   -- Big file optimization
+  quickfile = { enabled = true }, -- Quick file open
+  words = { enabled = true },     -- Highlight current word
+  notifier = { enabled = false }, -- Notification system (disabled)
+  statuscolumn = { enabled = true }, -- Line number column enhancement (fold marks, git status, etc.)
+  -- Replace dashboard-nvim
   dashboard = {
     enabled = true,
     preset = {
@@ -52,14 +52,14 @@ M.opts = {
       { section = "startup" },
     },
   },
-  -- picker 基础配置（project 使用 Telescope projects）
+  -- Picker base config (project uses Telescope projects)
   picker = { enabled = true },
 }
 
--- 设置 vim.ui.input 和 vim.ui.select（在 init 中调用）
+-- Set vim.ui.input and vim.ui.select (called in init)
 M.init = function()
-  -- 这些需要在插件加载后设置，由 snacks 自动处理
-  -- 如果需要手动设置：
+  -- These need to be set after plugin loaded, handled by snacks automatically
+  -- If manual setup needed:
   -- vim.ui.input = require("snacks").input
   -- vim.ui.select = require("snacks").picker.select
 end

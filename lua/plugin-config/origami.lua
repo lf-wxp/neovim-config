@@ -1,37 +1,37 @@
 -- https://github.com/chrisgrieser/nvim-origami
--- 现代化的折叠管理插件
+-- Modern fold management plugin
 local status, origami = pcall(require, "origami")
 if not status then
-    vim.notify("没有找到 origami")
+    vim.notify("origami not found")
     return
 end
 
--- 设置折叠级别，确保文件打开时不折叠
+-- Set fold level to ensure files open unfolded
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
--- 确保折叠功能启用（设置为true才能使用折叠，但级别设为99表示默认不折叠）
+-- Ensure fold is enabled (set to true to use folds, but level 99 means default no folding)
 vim.opt.foldenable = true
--- 使用 expr 折叠方式，让 origami 管理折叠表达式
+-- Use expr fold method, let origami manage fold expression
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.require'origami'.foldexpr()"
 
 origami.setup({
-    -- 禁用 LSP folds，避免 Treesitter 自动创建折叠
+    -- Disable LSP folds to avoid Treesitter auto-creating folds
     useLspFoldsWithTreesitterFallback = {
         enabled = false,
     },
-    -- 不跨会话保持折叠状态
+    -- Do not keep folds across sessions
     keepFoldsAcrossSessions = false,
-    -- 禁用自动折叠行为（默认会折叠 comment 和 imports）
+    -- Disable auto-fold behavior (default folds comments and imports)
     autoFold = {
         enabled = false,
-        kinds = {}, -- 空数组，不自动折叠任何类型
+        kinds = {}, -- Empty array, do not auto-fold any type
     },
-    -- 禁用内置 foldtext，使用自定义函数
+    -- Disable built-in foldtext, use custom function
     foldtext = {
         enabled = false,
     },
-    -- 启用折叠快捷键
+    -- Enable fold keymaps
     foldKeymaps = {
         setup = true,
         closeOnlyOnFirstColumn = false,
@@ -39,58 +39,58 @@ origami.setup({
     },
 })
 
--- 自定义 foldtext 函数，现代风格带图标美化
+-- Custom foldtext function, modern style with icon beautification
 local function custom_foldtext()
     local foldstart = vim.v.foldstart
     local foldend = vim.v.foldend
     local foldlevel = vim.v.foldlevel
     
-    -- 获取折叠首行的内容
+    -- Get first line content of fold
     local first_line = vim.fn.getline(foldstart)
-    -- 去除前导空白
+    -- Remove leading whitespace
     first_line = first_line:match("^%s*(.-)$") or first_line
     
-    -- 计算折叠行数
+    -- Calculate folded lines count
     local folded_lines = foldend - foldstart + 1
     
-    -- 现代风格图标配置
-    local folder_icon = "󰘖"      -- 文件夹/代码块图标 nf-md-folder_table
-    local code_icon = ""         -- 代码图标 nf-fa-code
-    local lines_icon = "󰯌"        -- 行数图标 nf-md-calendar_text
-    local arrow_icon = ""        -- 箭头图标 nf-fa-caret_right
-    local separator = "│"         -- 分隔线
+    -- Modern style icon configuration
+    local folder_icon = "󰘖"      -- Folder/code block icon nf-md-folder_table
+    local code_icon = ""         -- Code icon nf-fa-code
+    local lines_icon = "󰯌"        -- Line count icon nf-md-calendar_text
+    local arrow_icon = ""        -- Arrow icon nf-fa-caret_right
+    local separator = "│"         -- Separator
     
-    -- 根据折叠层级调整缩进装饰
+    -- Adjust indent decoration based on fold level
     local indent = string.rep("  ", foldlevel - 1)
     
-    -- 构建现代风格前缀：图标 + 代码图标 + 缩进
+    -- Build modern style prefix: icon + code icon + indent
     local prefix = indent .. folder_icon .. " " .. code_icon .. " "
     
-    -- 构建现代风格后缀：分隔线 + 行数 + 箭头
+    -- Build modern style suffix: separator + line count + arrow
     local suffix = " " .. separator .. " " .. lines_icon .. " " .. folded_lines .. " " .. arrow_icon
     
-    -- 获取当前窗口宽度
+    -- Get current window width
     local win_width = vim.api.nvim_win_get_width(0)
     local prefix_len = vim.fn.strdisplaywidth(prefix)
     local suffix_len = vim.fn.strdisplaywidth(suffix)
     
-    -- 内容最大宽度限制
+    -- Max content width limit
     local max_content_width = 50
-    local fixed_spacing = 1  -- 内容和后缀之间的固定间距
+    local fixed_spacing = 1  -- Fixed spacing between content and suffix
     
-    -- 计算内容可用空间
+    -- Calculate available content space
     local content_width = math.min(max_content_width, win_width - prefix_len - suffix_len - fixed_spacing)
     if content_width < 10 then
         content_width = 10
     end
     
-    -- 截断内容
+    -- Truncate content
     local content = first_line
     if vim.fn.strdisplaywidth(content) > content_width then
         content = vim.fn.strcharpart(content, 0, content_width - 3) .. "..."
     end
     
-    -- 填充空格对齐
+    -- Pad spaces for alignment
     local content_actual_width = vim.fn.strdisplaywidth(content)
     local pad_len = content_width - content_actual_width
     if pad_len < 0 then pad_len = 0 end
@@ -99,19 +99,19 @@ local function custom_foldtext()
     return prefix .. content .. padding .. suffix
 end
 
--- 设置全局 foldtext
+-- Set global foldtext
 _G.custom_foldtext = custom_foldtext
 
--- 延迟设置 foldtext，确保在 origami 完全初始化后生效
+-- Defer foldtext setting to ensure it takes effect after origami is fully initialized
 vim.defer_fn(function()
     vim.opt.foldtext = "v:lua.custom_foldtext()"
 end, 100)
 
--- 确保每次进入缓冲区时都设置 foldtext
+-- Ensure foldtext is set on every buffer enter
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "FileType" }, {
     pattern = "*",
     callback = function()
-        -- 使用延迟确保设置生效
+        -- Use defer to ensure setting takes effect
         vim.defer_fn(function()
             vim.opt_local.foldtext = "v:lua.custom_foldtext()"
         end, 10)

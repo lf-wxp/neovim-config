@@ -1,7 +1,7 @@
-local keys = require("keybindings")
+local keys = require("config.keymaps")
 local status, toggleterm = pcall(require, "toggleterm")
 if not status then
-  vim.notify("没有找到 toggleterm")
+  vim.notify("toggleterm not found")
   return
 end
 

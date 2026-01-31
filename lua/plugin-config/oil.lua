@@ -1,11 +1,11 @@
--- oil.nvim 配置 - 以 buffer 方式编辑文件系统
+-- oil.nvim config - Edit filesystem as buffer
 local oil = require("oil")
 
 oil.setup({
-  -- 默认文件浏览器
-  default_file_explorer = false, -- 保留 nvim-tree 作为默认
+  -- Default file explorer
+  default_file_explorer = false, -- Keep nvim-tree as default
 
-  -- 列显示
+  -- Column display
   columns = {
     "icon",
     -- "permissions",
@@ -13,13 +13,13 @@ oil.setup({
     -- "mtime",
   },
 
-  -- Buffer 选项
+  -- Buffer options
   buf_options = {
     buflisted = false,
     bufhidden = "hide",
   },
 
-  -- 窗口选项
+  -- Window options
   win_options = {
     wrap = false,
     signcolumn = "no",
@@ -31,30 +31,30 @@ oil.setup({
     concealcursor = "nvic",
   },
 
-  -- 删除到回收站
+  -- Delete to trash
   delete_to_trash = true,
 
-  -- 跳过确认简单操作
+  -- Skip confirm for simple edits
   skip_confirm_for_simple_edits = true,
 
-  -- 选择文件时提示保存
+  -- Prompt save on select new entry
   prompt_save_on_select_new_entry = true,
 
-  -- 清理缓存
+  -- Cleanup cache
   cleanup_delay_ms = 2000,
 
-  -- LSP 文件操作支持
+  -- LSP file operations support
   lsp_file_methods = {
     timeout_ms = 1000,
     autosave_changes = false,
   },
 
-  -- 约束光标在文件名列
+  -- Constrain cursor to filename column
   constrain_cursor = "editable",
 
   -- watch_for_changes = false,
 
-  -- 快捷键
+  -- Keymaps
   keymaps = {
     ["g?"] = "actions.show_help",
     ["<CR>"] = "actions.select",
@@ -74,10 +74,10 @@ oil.setup({
     ["g\\"] = "actions.toggle_trash",
   },
 
-  -- 使用默认快捷键
+  -- Use default keymaps
   use_default_keymaps = true,
 
-  -- 视图选项
+  -- View options
   view_options = {
     show_hidden = true,
     is_hidden_file = function(name, bufnr)
@@ -93,7 +93,7 @@ oil.setup({
     },
   },
 
-  -- 浮动窗口配置
+  -- Float window config
   float = {
     padding = 2,
     max_width = 0,
@@ -104,7 +104,7 @@ oil.setup({
     },
   },
 
-  -- 预览窗口配置
+  -- Preview window config
   preview = {
     max_width = 0.9,
     min_width = { 40, 0.4 },
@@ -119,7 +119,7 @@ oil.setup({
     update_on_cursor_moved = true,
   },
 
-  -- 进度条配置
+  -- Progress bar config
   progress = {
     max_width = 0.9,
     min_width = { 40, 0.4 },
@@ -135,4 +135,4 @@ oil.setup({
   },
 })
 
--- 快捷键已统一收敛到 keybindings.lua 中
+-- Keymaps have been unified in keymaps.lua

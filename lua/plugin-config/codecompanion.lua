@@ -1,6 +1,6 @@
 local status, codecompanion = pcall(require, "codecompanion")
 if not status then
-  vim.notify("没有找到 codecompanion")
+  vim.notify("codecompanion not found")
   return
 end
 

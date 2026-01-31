@@ -1,13 +1,13 @@
-local keys = require("keybindings")
+local keys = require("config.keymaps")
 -- https://github.com/lewis6991/gitsigns.nvim
 local status, gitsigns = pcall(require, "gitsigns")
 if not status then
-  vim.notify("没有找到 gitsigns")
+  vim.notify("gitsigns not found")
   return
 end
 
 gitsigns.setup({
-  -- 字母图标 A 增加，C修改，D 删除
+  -- Letter icons: A for add, C for change, D for delete
   signs = {
     add = { text = "A|" },
     change = { text = "C|", },
@@ -15,9 +15,9 @@ gitsigns.setup({
     topdelete = { text = "D‾", },
     changedelete = { text = "D~", },
   },
-  -- 显示图标
+  -- Show icons
   signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
-  -- 行数高亮
+  -- Line number highlight
   numhl = true,     -- Toggle with `:Gitsigns toggle_numhl`
   word_diff = true,  -- Toggle with `:Gitsigns toggle_word_diff`
   attach_to_untracked = true,

@@ -1,20 +1,20 @@
 local status, bufferline = pcall(require, "bufferline")
 if not status then
-    vim.notify("没有找到 bufferline")
+    vim.notify("bufferline not found")
   return
 end
 
--- bufferline 配置
+-- bufferline configuration
 -- https://github.com/akinsho/bufferline.nvim#configuration
 bufferline.setup({
   options = {
-    -- 关闭 Tab 的命令，这里使用 moll/vim-bbye 的 :Bdelete 命令
+    -- Command to close Tab, using moll/vim-bbye's :Bdelete command here
     close_command = "Bdelete! %d",
     separator_style = "slant",
     numbers = "both",
     right_mouse_command = "Bdelete! %d",
-    -- 侧边栏配置
-    -- 左侧让出 nvim-tree 的位置，显示文字 File Explorer
+    -- Sidebar configuration
+    -- Leave space on the left for nvim-tree, display text File Explorer
     offsets = {
       {
         filetype = "NvimTree",
@@ -26,9 +26,9 @@ bufferline.setup({
     indicator = {
       style = "underline"
     },
-    -- 使用 nvim 内置 LSP  后续课程会配置
+    -- Use nvim built-in LSP, will be configured in subsequent lessons
     diagnostics = "nvim_lsp",
-    -- 可选，显示 LSP 报错图标
+    -- Optional, display LSP error icons
     ---@diagnostic disable-next-line: unused-local
     diagnostics_indicator = function(count, level, diagnostics_dict, context)
       local s = " "
