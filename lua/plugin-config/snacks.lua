@@ -9,6 +9,63 @@ M.opts = {
   words = { enabled = true },     -- Highlight current word
   notifier = { enabled = false }, -- Notification system (disabled)
   statuscolumn = { enabled = true }, -- Line number column enhancement (fold marks, git status, etc.)
+  indent = {
+    enabled = true,
+    -- Char for indent line
+    char = "│",
+    -- Rainbow mode: automatically cycle colors for each indent level
+    rainbow = {
+      enabled = true,
+      -- Highlight groups for rainbow colors
+      hl = {
+        "RainbowRed",
+        "RainbowYellow",
+        "RainbowBlue",
+        "RainbowOrange",
+        "RainbowGreen",
+        "RainbowViolet",
+        "RainbowCyan",
+      },
+    },
+    -- Faster animation
+    animate = {
+      enabled = true,
+      style = "out",
+      easing = "linear",
+      duration = {
+        step = 10,  -- Faster animation step (ms)
+        total = 150, -- Faster total animation time (ms)
+      },
+    },
+    -- Scope highlight (current indent level)
+    scope = {
+      enabled = true,
+      char = "│",
+      underline = false,
+      only_current = false,
+      hl = "SnacksIndentScope",
+    },
+    -- Chunk: highlight current code block (function, if, for, etc.)
+    chunk = {
+      enabled = true,
+      -- Characters for chunk borders
+      chars = {
+        corner_top = "┌",
+        corner_bottom = "└",
+        horizontal = "─",
+        vertical = "│",
+        arrow = "─",
+      },
+      -- Style: "full" | "minimal"
+      style = "full",
+      -- Highlight group for chunk
+      hl = "SnacksIndentChunk",
+    },
+    -- Filter function to disable for some filetypes/buftypes
+    filter = function(buf)
+      return vim.g.snacks_indent ~= false and vim.b[buf].snacks_indent ~= false and vim.bo[buf].buftype == ""
+    end,
+  },
   -- Replace dashboard-nvim
   dashboard = {
     enabled = true,
@@ -62,6 +119,27 @@ M.init = function()
   -- If manual setup needed:
   -- vim.ui.input = require("snacks").input
   -- vim.ui.select = require("snacks").picker.select
+
+  -- Define rainbow colors for indent lines
+  local rainbow_colors = {
+    RainbowRed = "#E06C75",
+    RainbowYellow = "#E5C07B",
+    RainbowBlue = "#61AFEF",
+    RainbowOrange = "#D19A66",
+    RainbowGreen = "#98C379",
+    RainbowViolet = "#C678DD",
+    RainbowCyan = "#56B6C2",
+  }
+
+  for name, color in pairs(rainbow_colors) do
+    vim.api.nvim_set_hl(0, name, { fg = color })
+  end
+
+  -- Define scope highlight
+  vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#61AFEF", bold = true })
+
+  -- Define chunk highlight (use a distinct bright color)
+  vim.api.nvim_set_hl(0, "SnacksIndentChunk", { fg = "#FF6B6B", bold = true })
 end
 
 return M

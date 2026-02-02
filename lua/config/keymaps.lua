@@ -49,9 +49,9 @@ map("v", "J", ":move '>+1<cr>gv-gv", "Move Selection Down")
 map("v", "K", ":move '<-2<cr>gv-gv", "Move Selection Up")
 
 -- Scroll
-map("n", "<leader>u", "<C-u>zz", "Scroll Up Half Page")
-map("n", "<leader>d", "<C-d>zz", "Scroll Down Half Page")
-map("n", "<leader>b", "<C-b>zz", "Scroll Up Full Page")
+map("n", "<leader>u", "<Cmd>normal! <C-u>zz<CR>", "Scroll Up Half Page")
+map("n", "<leader>d", "<Cmd>normal! <C-d>zz<CR>", "Scroll Down Half Page")
+map("n", "<leader>b", "<Cmd>normal! <C-b>zz<CR>", "Scroll Up Full Page")
 
 -- Clipboard
 map({ "n", "v" }, "<leader>p", '"+p', "Paste from Clipboard")

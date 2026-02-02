@@ -153,6 +153,10 @@ return {
       { "<c-/>", function() Snacks.terminal() end, mode = { "n", "t" }, desc = "Terminal" },
     },
     opts = require("plugin-config.snacks").opts,
+    config = function(_, opts)
+      require("snacks").setup(opts)
+      require("plugin-config.snacks").init()
+    end,
   },
 
   -- ╭────────────────────────────────────────────────────────╮
@@ -163,18 +167,6 @@ return {
     event = "LspAttach",
     config = function()
       require("plugin-config.fidget")
-    end,
-  },
-
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ indent-blankline - Indent Lines                        │
-  -- ╰────────────────────────────────────────────────────────╯
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "BufReadPost",
-    dependencies = "HiPhish/rainbow-delimiters.nvim",
-    config = function()
-      require("plugin-config.indent-blankline")
     end,
   },
 
