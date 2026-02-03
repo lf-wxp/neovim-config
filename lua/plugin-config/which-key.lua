@@ -23,41 +23,41 @@ which_key.setup({
       { pattern = "go right window", icon = "󰁔", color = "blue" },
       { pattern = "go up window", icon = "󰁝", color = "blue" },
       { pattern = "go down window", icon = "󰁅", color = "blue" },
-      { pattern = "window width", icon = "󰩨", color = "green" },
-      { pattern = "window height", icon = "󰩩", color = "green" },
+      { pattern = "window width", icon = "󰩨", color = "cyan" },
+      { pattern = "window height", icon = "󰩩", color = "cyan" },
       { pattern = "equal windows", icon = "󰕭", color = "green" },
-      { pattern = "windows", icon = "󰖲", color = "cyan" },
+      { pattern = "windows", icon = "󰖲", color = "blue" },
       { pattern = "split", icon = "󰘶", color = "cyan" },
-      { pattern = "window", icon = "󰖲", color = "cyan" },
+      { pattern = "window", icon = "󰖲", color = "blue" },
 
       -- ========================================
       -- Navigation
       -- ========================================
       { pattern = "file tree", icon = "󱏒", color = "green" },
       { pattern = "tree", icon = "󱏒", color = "green" },
-      { pattern = "open parent dir", icon = "󰁝", color = "cyan" },
-      { pattern = "oil float", icon = "󰉖", color = "azure" },
-      { pattern = "navigate forward", icon = "󰒭", color = "purple" },
-      { pattern = "navigate backward", icon = "󰕍", color = "purple" },
-      { pattern = "go back", icon = "󰕍", color = "purple" },
-      { pattern = "go forward", icon = "󰒭", color = "purple" },
-      { pattern = "jump", icon = "󰆾", color = "purple" },
+      { pattern = "open parent dir", icon = "󰁝", color = "blue" },
+      { pattern = "oil float", icon = "󰉖", color = "blue" },
+      { pattern = "navigate forward", icon = "󰒭", color = "blue" },
+      { pattern = "navigate backward", icon = "󰕍", color = "blue" },
+      { pattern = "go back", icon = "󰕍", color = "blue" },
+      { pattern = "go forward", icon = "󰒭", color = "blue" },
+      { pattern = "jump", icon = "󰆾", color = "blue" },
       { pattern = "scroll up", icon = "󰶣", color = "cyan" },
       { pattern = "scroll down", icon = "󰶡", color = "cyan" },
       { pattern = "page up", icon = "󰶣", color = "cyan" },
       { pattern = "page down", icon = "󰶡", color = "cyan" },
-      { pattern = "half", icon = "󰕫", color = "blue" },
-      { pattern = "full page", icon = "󱗚", color = "blue" },
+      { pattern = "half", icon = "󰕫", color = "cyan" },
+      { pattern = "full page", icon = "󱗚", color = "cyan" },
       -- Screen scroll position
-      { pattern = "cursor to top", icon = "󰁝", color = "blue" },
-      { pattern = "cursor to bottom", icon = "󰁅", color = "blue" },
-      { pattern = "cursor to center", icon = "󰡌", color = "blue" },
+      { pattern = "cursor to top", icon = "󰁝", color = "cyan" },
+      { pattern = "cursor to bottom", icon = "󰁅", color = "cyan" },
+      { pattern = "cursor to center", icon = "󰡌", color = "cyan" },
       { pattern = "scroll left", icon = "󰁍", color = "cyan" },
       { pattern = "scroll right", icon = "󰁔", color = "cyan" },
       { pattern = "dashboard", icon = "󰕮", color = "blue" },
       { pattern = "next", icon = "󰒭", color = "blue" },
       { pattern = "prev", icon = "󰒮", color = "blue" },
-      { pattern = "list", icon = "󰷐", color = "cyan" },
+      { pattern = "list", icon = "󰷐", color = "blue" },
       { pattern = "outline", icon = "󰧮", color = "purple" },
 
       -- ========================================
@@ -70,7 +70,7 @@ which_key.setup({
       -- ========================================
       -- Editing
       -- ========================================
-      { pattern = "move selection", icon = "󰜴", color = "purple" },
+      { pattern = "move selection", icon = "󰜴", color = "blue" },
       { pattern = "surround", icon = "󰅪", color = "orange" },
       { pattern = "paste from clipboard", icon = "󰆒", color = "azure" },
       { pattern = "copy to clipboard", icon = "󰆏", color = "azure" },
@@ -78,15 +78,15 @@ which_key.setup({
       { pattern = "copy", icon = "󰆏", color = "azure" },
       { pattern = "yank", icon = "󰆏", color = "azure" },
       { pattern = "clear search highlight", icon = "󰹊", color = "grey" },
-      { pattern = "highlight", icon = "󰸱", color = "azure" },
-      { pattern = "rename", icon = "󰑕", color = "green" },
+      { pattern = "highlight", icon = "󰸱", color = "yellow" },
+      { pattern = "rename", icon = "󰑕", color = "orange" },
       { pattern = "replace in file", icon = "󰛔", color = "orange" },
       { pattern = "project search replace", icon = "󰛔", color = "orange" },
       { pattern = "search word", icon = "󰗧", color = "yellow" },
       { pattern = "replace", icon = "󰲢", color = "orange" },
       { pattern = "format", icon = "󰉼", color = "green" },
       { pattern = "edit", icon = "󰔨", color = "blue" },
-      { pattern = "select", icon = "󰒆", color = "purple" },
+      { pattern = "select", icon = "󰒆", color = "blue" },
       { pattern = "toggle split/join", icon = "󰯋", color = "green" },
 
       -- ========================================
@@ -95,7 +95,7 @@ which_key.setup({
       { pattern = "inside", icon = "󰟵", color = "cyan" },
       { pattern = "around", icon = "󰟶", color = "cyan" },
       { pattern = "inner", icon = "󰟵", color = "cyan" },
-      { pattern = "text object", icon = "󰅳", color = "purple" },
+      { pattern = "text object", icon = "󰅳", color = "cyan" },
       -- Brackets
       { pattern = "%[%]", icon = "󰅪", color = "orange" },
       { pattern = "<>", icon = "󰅩", color = "cyan" },
@@ -114,9 +114,9 @@ which_key.setup({
       { pattern = "close tab", icon = "󰅖", color = "red" },
       { pattern = "prev tab", icon = "󰁍", color = "blue" },
       { pattern = "next tab", icon = "󰁔", color = "blue" },
-      { pattern = "move tab left", icon = "󰜱", color = "purple" },
-      { pattern = "move tab right", icon = "󰜴", color = "purple" },
-      { pattern = "pick tab", icon = "󰓾", color = "green" },
+      { pattern = "move tab left", icon = "󰜱", color = "blue" },
+      { pattern = "move tab right", icon = "󰜴", color = "blue" },
+      { pattern = "pick tab", icon = "󰓾", color = "blue" },
       { pattern = "buffer", icon = "󰓩", color = "blue" },
       { pattern = "buffers", icon = "󰓩", color = "blue" },
       { pattern = "tab", icon = "󰓫", color = "blue" },
@@ -127,8 +127,8 @@ which_key.setup({
       { pattern = "find files", icon = "󰈞", color = "blue" },
       { pattern = "live grep", icon = "󱎸", color = "yellow" },
       { pattern = "projects", icon = "󰉖", color = "blue" },
-      { pattern = "colorscheme", icon = "󰏘", color = "purple" },
-      { pattern = "file browser", icon = "󰉖", color = "cyan" },
+      { pattern = "colorscheme", icon = "󰏘", color = "yellow" },
+      { pattern = "file browser", icon = "󰉖", color = "blue" },
       { pattern = "keymaps", icon = "󰌌", color = "yellow" },
       { pattern = "telescope", icon = "󰭎", color = "blue" },
       { pattern = "find", icon = "󰮗", color = "blue" },
@@ -138,25 +138,25 @@ which_key.setup({
       -- ========================================
       -- Git
       -- ========================================
-      { pattern = "open neogit", icon = "󰊢", color = "orange" },
-      { pattern = "neogit", icon = "󰊢", color = "orange" },
+      { pattern = "open neogit", icon = "󰊢", color = "green" },
+      { pattern = "neogit", icon = "󰊢", color = "green" },
       { pattern = "lazygit", icon = "󰊢", color = "green" },
       { pattern = "next hunk", icon = "󰒭", color = "blue" },
       { pattern = "prev hunk", icon = "󰒮", color = "blue" },
       { pattern = "stage hunk", icon = "󰅰", color = "green" },
       { pattern = "stage buffer", icon = "󰅰", color = "green" },
-      { pattern = "undo stage", icon = "󰕌", color = "orange" },
+      { pattern = "undo stage", icon = "󰕌", color = "yellow" },
       { pattern = "reset hunk", icon = "󰜉", color = "red" },
       { pattern = "reset buffer", icon = "󰜉", color = "red" },
       { pattern = "preview hunk", icon = "󰈈", color = "yellow" },
       { pattern = "blame line", icon = "󰈀", color = "grey" },
-      { pattern = "diff this", icon = "󰦫", color = "orange" },
-      { pattern = "diff all", icon = "󰦫", color = "orange" },
+      { pattern = "diff this", icon = "󰦫", color = "cyan" },
+      { pattern = "diff all", icon = "󰦫", color = "cyan" },
       { pattern = "toggle deleted", icon = "󰔡", color = "cyan" },
       { pattern = "toggle line blame", icon = "󰔡", color = "cyan" },
-      { pattern = "select hunk", icon = "󰒆", color = "purple" },
-      { pattern = "git", icon = "󰊢", color = "purple" },
-      { pattern = "diff", icon = "󰦫", color = "orange" },
+      { pattern = "select hunk", icon = "󰒆", color = "blue" },
+      { pattern = "git", icon = "󰊢", color = "green" },
+      { pattern = "diff", icon = "󰦫", color = "cyan" },
       { pattern = "stage", icon = "󰅰", color = "green" },
       { pattern = "hunk", icon = "󰠖", color = "yellow" },
       { pattern = "blame", icon = "󰈀", color = "grey" },
@@ -166,12 +166,12 @@ which_key.setup({
       -- Harpoon
       -- ========================================
       { pattern = "harpoon add", icon = "󰐕", color = "green" },
-      { pattern = "harpoon toggler", icon = "󱋡", color = "purple" },
-      { pattern = "open harpoon", icon = "󱋡", color = "purple" },
+      { pattern = "harpoon toggler", icon = "󱋡", color = "blue" },
+      { pattern = "open harpoon", icon = "󱋡", color = "blue" },
       { pattern = "harpoon prev", icon = "󰁍", color = "blue" },
       { pattern = "harpoon next", icon = "󰁔", color = "blue" },
-      { pattern = "harpoon file", icon = "󰓾", color = "cyan" },
-      { pattern = "harpoon", icon = "󱋡", color = "purple" },
+      { pattern = "harpoon file", icon = "󰓾", color = "blue" },
+      { pattern = "harpoon", icon = "󱋡", color = "blue" },
 
       -- ========================================
       -- Terminal
@@ -179,7 +179,7 @@ which_key.setup({
       { pattern = "float terminal", icon = "󰀻", color = "green" },
       { pattern = "right terminal", icon = "󰁔", color = "green" },
       { pattern = "bottom terminal", icon = "󰘯", color = "green" },
-      { pattern = "terminal", icon = "󰆍", color = "white" },
+      { pattern = "terminal", icon = "󰆍", color = "green" },
       { pattern = "toggle", icon = "󰔠", color = "cyan" },
 
       -- ========================================
@@ -189,7 +189,7 @@ which_key.setup({
       { pattern = "hover doc", icon = "󰋽", color = "blue" },
       { pattern = "peek declaration", icon = "󰙴", color = "blue" },
       { pattern = "peek definition", icon = "󰈮", color = "blue" },
-      { pattern = "peek implementation", icon = "󰆧", color = "purple" },
+      { pattern = "peek implementation", icon = "󰆧", color = "cyan" },
       { pattern = "peek references", icon = "󰆽", color = "yellow" },
       { pattern = "peek type", icon = "󰜢", color = "cyan" },
       { pattern = "close preview", icon = "󰅖", color = "red" },
@@ -201,29 +201,29 @@ which_key.setup({
       { pattern = "diagnostic", icon = "󰁨", color = "red" },
       { pattern = "definition", icon = "󰈮", color = "blue" },
       { pattern = "reference", icon = "󰆽", color = "yellow" },
-      { pattern = "implementation", icon = "󰆧", color = "purple" },
+      { pattern = "implementation", icon = "󰆧", color = "cyan" },
       { pattern = "declaration", icon = "󰙴", color = "blue" },
       { pattern = "hover", icon = "󰋽", color = "blue" },
-      { pattern = "lsp", icon = "󰒒", color = "purple" },
+      { pattern = "lsp", icon = "󰒒", color = "blue" },
       { pattern = "preview", icon = "󰈈", color = "yellow" },
       { pattern = "actions", icon = "󰅗", color = "green" },
 
       -- ========================================
       -- Crates.nvim
       -- ========================================
-      { pattern = "crate toggle", icon = "󰔡", color = "orange" },
+      { pattern = "crate toggle", icon = "󰔡", color = "cyan" },
       { pattern = "crate reload", icon = "󰑓", color = "cyan" },
       { pattern = "crate versions", icon = "󰦨", color = "blue" },
       { pattern = "crate features", icon = "󰃥", color = "yellow" },
-      { pattern = "crate dependencies", icon = "󱃖", color = "orange" },
+      { pattern = "crate dependencies", icon = "󱃖", color = "blue" },
       { pattern = "crate update", icon = "󰚰", color = "green" },
       { pattern = "crate upgrade all", icon = "󰁝", color = "green" },
       { pattern = "crate upgrade", icon = "󰁝", color = "green" },
       { pattern = "crate homepage", icon = "󰖟", color = "blue" },
-      { pattern = "crate repository", icon = "󰳐", color = "purple" },
+      { pattern = "crate repository", icon = "󰳐", color = "blue" },
       { pattern = "crate documentation", icon = "󰈙", color = "blue" },
-      { pattern = "crate crates.io", icon = "󰆧", color = "cyan" },
-      { plugin = "crates.nvim", pattern = "crate", icon = "󰏖", color = "purple" },
+      { pattern = "crate crates.io", icon = "󰆧", color = "blue" },
+      { plugin = "crates.nvim", pattern = "crate", icon = "󰏖", color = "blue" },
 
       -- ========================================
       -- Multicursor
@@ -233,9 +233,9 @@ which_key.setup({
       { pattern = "toggle cursor", icon = "󰔡", color = "cyan" },
       { pattern = "delete cursor", icon = "󰩺", color = "red" },
       { pattern = "cursor", icon = "󰇀", color = "cyan" },
-      { pattern = "multiple", icon = "󰳽", color = "red" },
-      { pattern = "next match", icon = "󰒭", color = "green" },
-      { pattern = "prev match", icon = "󰒮", color = "green" },
+      { pattern = "multiple", icon = "󰳽", color = "cyan" },
+      { pattern = "next match", icon = "󰒭", color = "blue" },
+      { pattern = "prev match", icon = "󰒮", color = "blue" },
       { pattern = "match", icon = "󰛳", color = "yellow" },
 
       -- ========================================
@@ -252,7 +252,7 @@ which_key.setup({
       { pattern = "run", icon = "󰜎", color = "green" },
       { pattern = "test", icon = "󰔱", color = "green" },
       { pattern = "debug", icon = "󰃤", color = "red" },
-      { pattern = "build", icon = "󱃖", color = "orange" },
+      { pattern = "build", icon = "󱃖", color = "green" },
 
       -- ========================================
       -- Comments
@@ -277,7 +277,7 @@ which_key.setup({
       { pattern = "lazy", icon = "󰒲", color = "blue" },
       { pattern = "mason", icon = "󱌢", color = "yellow" },
       { pattern = "package", icon = "󰏖", color = "yellow" },
-      { pattern = "plugin", icon = "󰜪", color = "cyan" },
+      { pattern = "plugin", icon = "󰜪", color = "blue" },
       { pattern = "setting", icon = "󰢻", color = "grey" },
       { pattern = "config", icon = "󰢻", color = "grey" },
       { pattern = "help", icon = "󰋖", color = "blue" },
@@ -292,20 +292,29 @@ which_key.setup({
       { pattern = "save", icon = "󰆓", color = "green" },
       { pattern = "open", icon = "󰝋", color = "green" },
       { pattern = "quit", icon = "󰩈", color = "red" },
-      { pattern = "oil", icon = "󰈚", color = "azure" },
+      { pattern = "oil", icon = "󰈚", color = "blue" },
 
       -- ========================================
       -- Fold & View
       -- ========================================
+      -- zc/zM - fold (close fold/more fold/fold all) - use fold icon
+      { pattern = "close fold", icon = "󰁂", color = "purple" },
+      { pattern = "more fold", icon = "󰁂", color = "purple" },
+      -- zo/zr/zR - unfold (open fold/reduce fold/open all) - use unfold icon
+      { pattern = "open fold", icon = "󰁌", color = "blue" },
+      { pattern = "reduce fold", icon = "󰁌", color = "blue" },
+      -- za - toggle fold
+      { pattern = "toggle fold", icon = "󰔡", color = "cyan" },
+      -- Generic fold patterns
       { pattern = "fold", icon = "󰁂", color = "purple" },
-      { pattern = "unfold", icon = "󰁌", color = "purple" },
+      { pattern = "unfold", icon = "󰁌", color = "blue" },
 
       -- ========================================
       -- Misc
       -- ========================================
       { pattern = "color", icon = "󰏘", color = "yellow" },
       { pattern = "theme", icon = "󰏘", color = "yellow" },
-      { pattern = "copilot", icon = "󰚩", color = "azure" },
+      { pattern = "copilot", icon = "󰚩", color = "cyan" },
       { pattern = "project", icon = "󰉖", color = "blue" },
       { pattern = "dismiss", icon = "󰅖", color = "red" },
       { pattern = "notification", icon = "󰂚", color = "yellow" },
@@ -318,7 +327,7 @@ which_key.setup({
       -- Nvim Built-in Modes & Operations
       -- ========================================
       { pattern = "visual", icon = "󰒉", color = "purple" },
-      { pattern = "select", icon = "󰒆", color = "cyan" },
+      { pattern = "select", icon = "󰒆", color = "blue" },
       { pattern = "insert", icon = "󰌆", color = "green" },
       { pattern = "normal", icon = "󰆄", color = "blue" },
       { pattern = "replace", icon = "󰛔", color = "red" },
@@ -345,7 +354,7 @@ which_key.setup({
       { pattern = "lowercase", icon = "󰬶", color = "yellow" },
       { pattern = "increment", icon = "󰐊", color = "green" },
       { pattern = "decrement", icon = "󰐔", color = "red" },
-      { pattern = "pick", icon = "󰒆", color = "green" },
+      { pattern = "pick", icon = "󰒆", color = "blue" },
       { pattern = "add", icon = "󰐕", color = "green" },
       { pattern = "append", icon = "󰐕", color = "green" },
       { pattern = "reload", icon = "󰑓", color = "cyan" },
@@ -359,7 +368,8 @@ which_key.setup({
       { pattern = "accept", icon = "󰄬", color = "green" },
       { pattern = "show", icon = "󰈈", color = "yellow" },
       { pattern = "new", icon = "󰎔", color = "green" },
-      { pattern = "create", icon = "󰎔", color = "green" },    },
+      { pattern = "create", icon = "󰎔", color = "green" },
+    },
   },
 
   -- Group definitions for leader key prefixes
@@ -539,13 +549,13 @@ which_key.setup({
     -- ========================================
     -- Folding (built-in)
     -- ========================================
-    { "za", desc = "Toggle Fold", icon = { icon = "󰔡", color = "purple" } },
+    { "za", desc = "Toggle Fold", icon = { icon = "󰔡", color = "cyan" } },
     { "zo", desc = "Open Fold", icon = { icon = "󰁌", color = "blue" } },
     { "zc", desc = "Close Fold", icon = { icon = "󰁂", color = "purple" } },
-    { "zr", desc = "Reduce Folds", icon = { icon = "󰁌", color = "green" } },
-    { "zm", desc = "More Folds", icon = { icon = "󰁂", color = "red" } },
-    { "zR", desc = "Open All Folds", icon = { icon = "󰁌", color = "green" } },
-    { "zM", desc = "Close All Folds", icon = { icon = "󰁂", color = "red" } },
+    { "zr", desc = "Reduce Folds", icon = { icon = "󰁌", color = "blue" } },
+    { "zm", desc = "More Folds", icon = { icon = "󰁂", color = "purple" } },
+    { "zR", desc = "Open All Folds", icon = { icon = "󰁌", color = "blue" } },
+    { "zM", desc = "Close All Folds", icon = { icon = "󰁂", color = "purple" } },
     { "zj", desc = "Next Fold", icon = { icon = "󰒭", color = "blue" } },
     { "zk", desc = "Prev Fold", icon = { icon = "󰒮", color = "blue" } },
     { "zv", desc = "View Cursor Line", icon = { icon = "󰈈", color = "yellow" } },
