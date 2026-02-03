@@ -71,14 +71,14 @@ M.opts = {
     enabled = true,
     preset = {
       keys = {
-        { icon = " ", key = "f", desc = "Find File", action = ":Telescope find_files" },
-        { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-        { icon = " ", key = "t", desc = "Find Text", action = ":Telescope live_grep_args" },
-        { icon = " ", key = "r", desc = "Recent Files", action = ":Telescope oldfiles" },
-        { icon = " ", key = "p", desc = "Projects", action = ":Telescope projects" },
-        { icon = " ", key = "k", desc = "Keybindings", action = ":edit ~/.config/nvim/lua/keybindings.lua" },
+        { icon = "󰈞 ", key = "f", desc = "Find File", action = ":Telescope find_files" },
+        { icon = "󰝒 ", key = "n", desc = "New File", action = ":ene | startinsert" },
+        { icon = "󰍉 ", key = "t", desc = "Find Text", action = ":Telescope live_grep_args" },
+        { icon = "󰋚 ", key = "r", desc = "Recent Files", action = ":Telescope oldfiles" },
+        { icon = "󰏓 ", key = "p", desc = "Projects", action = ":Telescope projects" },
+        { icon = "󰌌 ", key = "k", desc = "Keybindings", action = ":edit ~/.config/nvim/lua/keybindings.lua" },
         { icon = "󰒲 ", key = "u", desc = "Update", action = ":Lazy sync" },
-        { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+        { icon = "󰅚 ", key = "q", desc = "Quit", action = ":qa" },
       },
       header = [[
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
