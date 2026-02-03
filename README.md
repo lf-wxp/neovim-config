@@ -188,7 +188,7 @@ Leader key: `<Space>`
 - **lualine.nvim** - Status line
 - **noice.nvim** - UI for messages, cmdline
 - **which-key.nvim** - Keymap hints
-- **snacks.nvim** - Dashboard, indent guides & utilities
+- **snacks.nvim** - Dashboard, notifications, indent guides & more
 - **dropbar.nvim** - Breadcrumb navigation
 
 ### Editor

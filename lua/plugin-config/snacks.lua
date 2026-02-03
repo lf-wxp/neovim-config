@@ -7,7 +7,49 @@ M.opts = {
   bigfile = { enabled = true },   -- Big file optimization
   quickfile = { enabled = true }, -- Quick file open
   words = { enabled = true },     -- Highlight current word
-  notifier = { enabled = false }, -- Notification system (disabled)
+  notifier = {
+    enabled = true,
+    -- Timeout for notifications (ms)
+    timeout = 3000,
+    -- Maximum number of notifications to show at once
+    max_width = 60,
+    -- Padding inside notification window
+    padding = true,
+    -- Border style: "none", "single", "double", "rounded", "solid", "shadow"
+    border = "rounded",
+    -- Sort notifications ("added" | "level")
+    sort = { "level", "added" },
+    -- Minimum notification level to show
+    level = vim.log.levels.TRACE,
+    -- Icons for different notification levels
+    icons = {
+      error = " ",
+      warn = " ",
+      info = " ",
+      debug = " ",
+      trace = "󰑐 ",
+    },
+    -- Style: "compact" | "fancy" | "minimal"
+    style = "fancy",
+    -- Top-down or bottom-up
+    top_down = true,
+    -- Animation style
+    animate = {
+      -- Animation enabled
+      enabled = true,
+      -- Animation duration (ms)
+      duration = 300,
+      -- Animation easing function
+      easing = "linear",
+      -- Animation fps
+      fps = 60,
+    },
+    -- Notification window appearance
+    -- Keep notification on screen
+    keep = function(notif)
+      return notif.level == vim.log.levels.ERROR
+    end,
+  },
   statuscolumn = { enabled = true }, -- Line number column enhancement (fold marks, git status, etc.)
   indent = {
     enabled = true,

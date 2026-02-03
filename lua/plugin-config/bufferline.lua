@@ -1,20 +1,16 @@
-local status, bufferline = pcall(require, "bufferline")
-if not status then
-    vim.notify("bufferline not found")
-  return
-end
+-- ╭──────────────────────────────────────────────────────────────🟢
+-- │ bufferline.nvim - Tab Bar Configuration                    │
+-- ╰──────────────────────────────────────────────────────────────🔴
 
--- bufferline configuration
--- https://github.com/akinsho/bufferline.nvim#configuration
-bufferline.setup({
+---@module "plugin-config.bufferline"
+local M = {}
+
+M.opts = {
   options = {
-    -- Command to close Tab, using moll/vim-bbye's :Bdelete command here
     close_command = "Bdelete! %d",
     separator_style = "slant",
     numbers = "both",
     right_mouse_command = "Bdelete! %d",
-    -- Sidebar configuration
-    -- Leave space on the left for nvim-tree, display text File Explorer
     offsets = {
       {
         filetype = "NvimTree",
@@ -23,13 +19,8 @@ bufferline.setup({
         text_align = "left",
       },
     },
-    indicator = {
-      style = "underline"
-    },
-    -- Use nvim built-in LSP, will be configured in subsequent lessons
+    indicator = { style = "underline" },
     diagnostics = "nvim_lsp",
-    -- Optional, display LSP error icons
-    ---@diagnostic disable-next-line: unused-local
     diagnostics_indicator = function(count, level, diagnostics_dict, context)
       local s = " "
       for e, n in pairs(diagnostics_dict) do
@@ -39,4 +30,6 @@ bufferline.setup({
       return s
     end,
   },
-})
+}
+
+return M

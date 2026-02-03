@@ -170,9 +170,8 @@ return {
   {
     "m-demare/hlargs.nvim",
     event = "BufReadPost",
-    opts = {
-      color = Hlargs,
-      hl_priority = 1000,
-    },
+    config = function()
+      require("hlargs").setup(require("plugin-config.hlargs").opts)
+    end,
   },
 }
