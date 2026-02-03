@@ -21,7 +21,7 @@ origami.setup({
         enabled = false,
     },
     -- Do not keep folds across sessions
-    keepFoldsAcrossSessions = false,
+    rememberFolds = false,
     -- Disable auto-fold behavior (default folds comments and imports)
     autoFold = {
         enabled = false,
