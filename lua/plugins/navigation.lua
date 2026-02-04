@@ -22,7 +22,6 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "stevearc/oil.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
       { "-", "<cmd>Oil<cr>", desc = "Open Parent Dir (Oil)" },
       { "<leader>-", function() require("oil").toggle_float() end, desc = "Oil Float" },

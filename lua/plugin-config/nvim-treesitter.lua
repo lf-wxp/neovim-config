@@ -69,10 +69,9 @@ treesitter.setup({
   --   enable = true,
   --   enable_autocmd = false,
   -- },
+  -- Note: nvim-ts-autotag is now configured separately in plugins/editor.lua
   -- https://github.com/windwp/nvim-ts-autotag
-  autotag = {
-    enable = true,
-  },
+  -- autotag = { enable = true },  -- DEPRECATED: Remove this
   -- nvim-treesitter/nvim-treesitter-refactor
   refactor = {
     highlight_definitions = {

@@ -31,7 +31,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons", "abeldekat/harpoonline" },
+    dependencies = { "abeldekat/harpoonline" },
     event = "VeryLazy",
     config = function()
       require("plugin-config.lualine")
@@ -88,7 +88,6 @@ return {
   {
     "Bekaboo/dropbar.nvim",
     event = "BufReadPost",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("plugin-config.dropbar")
     end,
@@ -107,12 +106,27 @@ return {
   },
 
   -- ╭────────────────────────────────────────────────────────╮
-  -- │ colorful-winsep - Window Separator                     │
+  -- │ smart-splits - Intelligent Window Management           │
   -- ╰────────────────────────────────────────────────────────╯
   {
-    "nvim-zh/colorful-winsep.nvim",
-    event = "WinLeave",
-    config = true,
+    "mrjones2014/smart-splits.nvim",
+    version = "v1.*", -- pin major version
+    event = "VeryLazy",
+    keys = {
+      -- Window Navigation
+      { "<leader>wh", function() require("smart-splits").move_cursor_left() end,  desc = "Go Left Window" },
+      { "<leader>wj", function() require("smart-splits").move_cursor_down() end,  desc = "Go Down Window" },
+      { "<leader>wk", function() require("smart-splits").move_cursor_up() end,    desc = "Go Up Window" },
+      { "<leader>wl", function() require("smart-splits").move_cursor_right() end, desc = "Go Right Window" },
+      -- Window Resize
+      { "<leader>shh", function() require("smart-splits").resize_left() end,  desc = "Window Width -10" },
+      { "<leader>sll", function() require("smart-splits").resize_right() end, desc = "Window Width +10" },
+      { "<leader>sjj", function() require("smart-splits").resize_down() end, desc = "Window Height +10" },
+      { "<leader>skk", function() require("smart-splits").resize_up() end,    desc = "Window Height -10" },
+    },
+    config = function()
+      require("smart-splits").setup(require("plugin-config.smart-splits").opts)
+    end,
   },
 
   -- ╭────────────────────────────────────────────────────────╮

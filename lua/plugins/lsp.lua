@@ -97,7 +97,16 @@ return {
     ft = "lua",
     opts = {
       library = {
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+        -- Full Neovim runtime API
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        -- Neovim Lua API
+        "LazyVim",
+        -- Common Neovim plugin libraries
+        { path = "snacks.nvim", words = { "Snacks" } },
+        { path = "lazy.nvim", words = { "LazyPluginSpec" } },
+        { path = "plenary.nvim" },
       },
     },
   },

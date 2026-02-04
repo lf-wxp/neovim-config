@@ -28,9 +28,10 @@ return {
       "sindrets/diffview.nvim",
       "nvim-telescope/telescope.nvim",
     },
-    config = function()
-      require("plugin-config.neogit")
-    end,
+    opts = {
+      graph_style = "unicode",
+      process_spinner = true,
+    },
   },
 
   -- ╭────────────────────────────────────────────────────────╮

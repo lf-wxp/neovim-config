@@ -13,5 +13,11 @@ require("auto-session").setup({
   pre_save_cmds = { "tabdo NvimTreeClose" },
   bypass_save_filetypes = { "alpha", "dashboard" },
   auto_restore_last_session = true,
-})
+  -- Session lens for Telescope integration
+  session_lens = {
+    load_on_setup = true,
+    theme_conf = { border = true },
+    previewer = false,
+  },
+})  -- Session lens for Telescope integration
 

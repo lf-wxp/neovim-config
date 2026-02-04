@@ -68,6 +68,21 @@ telescope.setup({
     },
   },
   extensions = {
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = "smart_case",
+    },
+    frecency = {
+      show_scores = true,
+      show_unindexed = true,
+      ignore_patterns = { "*.git/*", "*/tmp/*" },
+      disable_devicons = false,
+      workdirs = {
+        ["/Users/franciscowu/.config/nvim"] = "nvim",
+      },
+    },
     ["ui-select"] = {
       require("telescope.themes").get_dropdown({
         -- even more opts
@@ -95,7 +110,8 @@ telescope.setup({
   },
 })
 -- telescope extensions
-pcall(telescope.load_extension, "env")
+pcall(telescope.load_extension, "fzf")
+pcall(telescope.load_extension, "frecency")pcall(telescope.load_extension, "env")
 
 pcall(telescope.load_extension, "ui-select")
 
@@ -106,3 +122,5 @@ pcall(telescope.load_extension, "live_grep_args")
 pcall(telescope.load_extension, "file_browser")
 
 pcall(telescope.load_extension, "projects")
+pcall(telescope.load_extension, "session-lens")
+pcall(telescope.load_extension, "session-lens")

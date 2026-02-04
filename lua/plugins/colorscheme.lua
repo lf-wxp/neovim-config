@@ -11,6 +11,25 @@ local function set_hl(name, opts)
   vim.api.nvim_set_hl(0, name, opts)
 end
 
+-- Darken a hex color slightly (mix with black by small factor)
+local function darken_color(hex, factor)
+  if not hex or type(hex) ~= "number" then
+    return nil
+  end
+
+  -- Extract RGB components (using math operations for Lua 5.1 compatibility)
+  local r = math.floor(hex / 65536) % 256
+  local g = math.floor(hex / 256) % 256
+  local b = hex % 256
+
+  -- Darken by mixing with black
+  local dark_r = math.floor(r * (1 - factor))
+  local dark_g = math.floor(g * (1 - factor))
+  local dark_b = math.floor(b * (1 - factor))
+
+  return dark_r * 65536 + dark_g * 256 + dark_b
+end
+
 -- Module highlight configs
 local function setup_telescope_highlights()
   local hl_groups = {
@@ -26,6 +45,66 @@ end
 
 local function setup_misc_highlights()
   set_hl("BufferManagerModified", { fg = "#0000af" })
+
+  -- Window separator - transparent (hidden)
+  set_hl("WinSeparator", { fg = "NONE", bg = "NONE" })
+  set_hl("VertSplit", { fg = "NONE", bg = "NONE" })
+
+  -- Window focus highlights with subtle difference
+  -- Active window is slightly darker than inactive window
+  local normal_hl = get_hl("Normal")
+  local base_bg = normal_hl.bg or "#1a1b26"
+
+  -- Create a slightly darker background for active window (factor 0.03 for very subtle effect)
+  local active_bg = darken_color(base_bg, 0.05) or base_bg
+
+  set_hl("ActiveWindow", {
+    bg = active_bg,
+  })
+
+  set_hl("InactiveWindow", {
+    bg = base_bg,
+  })
+
+  -- Setup window focus highlights
+  setup_window_focus_highlights()
+end
+
+-- Highlight the current active window with a different background
+function setup_window_focus_highlights()
+  local augroup = vim.api.nvim_create_augroup("WindowFocusHighlight", { clear = true })
+
+  -- Current window highlight
+  local function highlight_current_window()
+    local current_win = vim.api.nvim_get_current_win()
+
+    -- Apply highlights to all windows
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      if win == current_win then
+        vim.api.nvim_win_set_option(win, "winhighlight", "Normal:ActiveWindow,NormalNC:ActiveWindow")
+      else
+        vim.api.nvim_win_set_option(win, "winhighlight", "Normal:InactiveWindow,NormalNC:InactiveWindow")
+      end
+    end
+  end
+
+  -- Apply on window enter/leave
+  vim.api.nvim_create_autocmd("WinEnter", {
+    group = augroup,
+    callback = highlight_current_window,
+  })
+
+  vim.api.nvim_create_autocmd("WinLeave", {
+    group = augroup,
+    callback = highlight_current_window,
+  })
+
+  -- Apply on VimEnter
+  vim.api.nvim_create_autocmd("VimEnter", {
+    group = augroup,
+    once = true,
+    callback = highlight_current_window,
+  })
 end
 
 local function setup_multicursor_highlights()
@@ -44,11 +123,11 @@ local function setup_multicursor_highlights()
 end
 
 local function setup_symbol_usage_highlights()
-  local cursor_bg = get_hl("CursorLine").bg
-  local comment_fg = get_hl("Comment").fg
-  local func_fg = get_hl("Function").fg
-  local type_fg = get_hl("Type").fg
-  local keyword_fg = get_hl("@keyword").fg
+  local cursor_bg = get_hl("CursorLine").bg or "#242736"
+  local comment_fg = get_hl("Comment").fg or "#565f89"
+  local func_fg = get_hl("Function").fg or "#7aa2f7"
+  local type_fg = get_hl("Type").fg or "#bb9af7"
+  local keyword_fg = get_hl("@keyword").fg or get_hl("Keyword").fg or "#9d7cd8"
 
   local hl_groups = {
     SymbolUsageRounding = { fg = cursor_bg, italic = true },
@@ -64,19 +143,19 @@ end
 
 local function setup_dropbar_highlights()
   local normal_hl = get_hl("Normal")
-  local bg = normal_hl.bg
+  local bg = normal_hl.bg or "#1a1b26"
 
   local colors = {
-    normal_fg = normal_hl.fg,
+    normal_fg = normal_hl.fg or "#c0caf5",
     normal_bg = bg,
-    comment_fg = get_hl("Comment").fg,
-    string_fg = get_hl("String").fg,
-    func_fg = get_hl("Function").fg,
-    type_fg = get_hl("Type").fg,
-    keyword_fg = get_hl("Keyword").fg,
-    constant_fg = get_hl("Constant").fg,
-    special_fg = get_hl("Special").fg,
-    separator_fg = get_hl("NonText").fg or get_hl("Comment").fg,
+    comment_fg = get_hl("Comment").fg or "#565f89",
+    string_fg = get_hl("String").fg or "#9aa5ce",
+    func_fg = get_hl("Function").fg or "#7aa2f7",
+    type_fg = get_hl("Type").fg or "#bb9af7",
+    keyword_fg = get_hl("Keyword").fg or "#9d7cd8",
+    constant_fg = get_hl("Constant").fg or "#e0af68",
+    special_fg = get_hl("Special").fg or "#7dcfff",
+    separator_fg = get_hl("NonText").fg or get_hl("Comment").fg or "#565f89",
   }
 
   -- Winbar base

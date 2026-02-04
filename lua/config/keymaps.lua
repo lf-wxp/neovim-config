@@ -27,19 +27,6 @@ map("n", "<leader>sh", ":sp<cr>", "Split Horizontal")
 map("n", "<leader>sc", "<C-w>c", "Close Window")
 map("n", "<leader>so", "<C-w>o", "Close Other Windows")
 
--- Window Navigation
-map("n", "<leader>wh", "<C-w>h", "Go Left Window")
-map("n", "<leader>wj", "<C-w>j", "Go Down Window")
-map("n", "<leader>wk", "<C-w>k", "Go Up Window")
-map("n", "<leader>wl", "<C-w>l", "Go Right Window")
-
--- Window Resize
-map("n", "<leader>shh", ":vertical resize -10<cr>", "Window Width -10")
-map("n", "<leader>sll", ":vertical resize +10<cr>", "Window Width +10")
-map("n", "<leader>sjj", ":resize +10<cr>", "Window Height +10")
-map("n", "<leader>skk", ":resize -10<cr>", "Window Height -10")
-map("n", "<leader>s=", "<C-w>=", "Equal Windows")
-
 -- ╭──────────────────────────────────────────────────────────╮
 -- │                      Edit Operations                      │
 -- ╰──────────────────────────────────────────────────────────╯

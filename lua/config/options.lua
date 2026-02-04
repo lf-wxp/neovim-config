@@ -114,3 +114,15 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_python3_provider = 0
+
+-- Window separator characters - hidden for clean look
+vim.opt.fillchars = {
+  eob = " ", -- Hide ~ at end of buffer
+  vert = " ", -- Hide vertical split lines (use space)
+  horiz = " ", -- Hide horizontal split lines (use space)
+  horizup = " ",
+  horizdown = " ",
+  vertright = " ",
+  vertleft = " ",
+  verthoriz = " ",
+}
