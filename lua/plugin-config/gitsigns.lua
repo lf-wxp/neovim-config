@@ -43,6 +43,11 @@ M.opts = {
     local gs = require("gitsigns")
     local gk = keys.gitsigns
 
+    -- Don't attach gitsigns to floating windows
+    if vim.api.nvim_win_get_config(0).relative ~= "" then
+      return
+    end
+
     local function map(mode, lhs, rhs, desc)
       vim.keymap.set(mode, lhs, rhs, { buffer = buffer, desc = desc })
     end

@@ -192,26 +192,6 @@ return {
   },
 
   -- ╭────────────────────────────────────────────────────────╮
-  -- │ ssr.nvim - Structural Search and Replace               │
-  -- ╰────────────────────────────────────────────────────────╯
-  {
-    "cshuaimin/ssr.nvim",
-    keys = {
-      { "<leader>ssr", function() require("ssr").open() end, mode = { "n", "x" }, desc = "Structural Search Replace" },
-    },
-    opts = {
-      min_width = 50,
-      min_height = 5,
-      keymaps = {
-        close = "q",
-        next_match = "n",
-        prev_match = "N",
-        replace_confirm = "<cr>",
-        replace_all = "<leader><cr>",
-      },
-    },
-  },
-  -- ╭────────────────────────────────────────────────────────╮
   -- │ yanky.nvim - Clipboard Ring History                    │
   -- │ Enhanced yank/paste with history navigation            │
   -- ╰────────────────────────────────────────────────────────╯

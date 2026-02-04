@@ -10,7 +10,15 @@ require("auto-session").setup({
   -- Auto close nvim-tree when saving session
   -- Because nvim-tree will break session saving
   -- if it's open
-  pre_save_cmds = { "tabdo NvimTreeClose" },
+  pre_save_cmds = {
+    function()
+      -- Close nvim-tree if it's open
+      local ok, api = pcall(require, "nvim-tree.api")
+      if ok then
+        api.tree.close()
+      end
+    end
+  },
   bypass_save_filetypes = { "alpha", "dashboard" },
   auto_restore_last_session = true,
   -- Session lens for Telescope integration

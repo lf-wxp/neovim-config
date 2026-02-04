@@ -189,7 +189,6 @@ Leader key: `<Space>`
 | `<leader>F` | Flash jump (line) |
 | `<leader>e` | Toggle split/join code blocks |
 | `<leader>R` | Run code snippet |
-| `<leader>ssr` | Structured search replace |
 | `gcc` | Toggle line comment |
 | `gbc` | Toggle block comment |
 | `<leader>bd` | Close buffer with snacks |
@@ -241,9 +240,7 @@ Leader key: `<Space>`
 - **sniprun** - Run code snippets
 - **nvim_context_vt** - Show code block context
 - **hlargs.nvim** - Highlight function arguments
-- **ssr.nvim** - Structured search replace
-- **highlight-undo.nvim** - Visual feedback for undo/redo
-- **nvim-ts-autotag** - Auto-close/rename HTML tags
+- **highlight-undo.nvim** - Visual feedback for undo/redo |- **nvim-ts-autotag** - Auto-close/rename HTML tags
 
 ### Navigation
 - **nvim-tree.lua** - File explorer
