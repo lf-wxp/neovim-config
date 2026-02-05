@@ -27,6 +27,11 @@ map("n", "<leader>sh", ":sp<cr>", "Split Horizontal")
 map("n", "<leader>sc", "<C-w>c", "Close Window")
 map("n", "<leader>so", "<C-w>o", "Close Other Windows")
 
+-- Equal window sizes
+map("n", "<leader>s=", "<C-w>=", "Equal Windows")
+-- Equal window sizes
+map("n", "<leader>s=", "<C-w>=", "Equal Windows")
+
 -- ╭──────────────────────────────────────────────────────────╮
 -- │                      Edit Operations                      │
 -- ╰──────────────────────────────────────────────────────────╯
@@ -68,7 +73,135 @@ map("o", "aa", "a<", "Around <>")
 -- Export keymap config for plugins
 local M = {}
 
--- multicursor
+-- ╭──────────────────────────────────────────────────────────╮
+-- │  Navigation - 文件导航相关插件                            │
+-- ╰──────────────────────────────────────────────────────────╯
+
+-- nvim-tree - 文件树
+M.nvimTree = {
+  toggle = "<leader>tt",
+}
+
+-- oil.nvim - 文件管理器
+M.oil = {
+  open = "-",
+  open_float = "<leader>-",
+}
+
+-- telescope - 模糊搜索
+M.telescope = {
+  find_files = "<leader>ff",
+  live_grep = "<leader>fg",
+  projects = "<leader>fp",
+  colorscheme = "<leader>fc",
+  file_browser = "<leader>fe",
+  keymaps = "<leader>fk",
+  buffers = "<leader>fb",
+  buffers_tab = "<Tab>",
+}
+
+-- harpoon - 快速文件切换
+M.harpoon = {
+  append = "<leader>na",
+  toggle = "<leader>nt",
+  next = "<leader>nn",
+  prev = "<leader>np",
+  n1 = "<leader>n1",
+  n2 = "<leader>n2",
+  n3 = "<leader>n3",
+  n4 = "<leader>n4",
+  n5 = "<leader>n5",
+  n6 = "<leader>n6",
+}
+
+-- grug-far - 项目搜索替换
+M.grugFar = {
+  project = "<leader>rp",
+  file = "<leader>rf",
+  word = "<leader>rw",
+}
+
+-- ╭──────────────────────────────────────────────────────────╮
+-- │  Buffer & UI - 标签页/UI相关                              │
+-- ╰──────────────────────────────────────────────────────────╯
+
+-- bufferline - 标签栏
+M.bufferline = {
+  prev_tab = "<leader>h",
+  next_tab = "<leader>l",
+  move_prev = "<leader><",
+  move_next = "<leader>>",
+  pick = "<leader>tp",
+  close = "<leader>tc",
+  close_right = "<leader>bcl",
+  close_left = "<leader>bch",
+  pick_close = "<leader>bc",
+}
+
+-- snacks.nvim - Dashboard/终端/缓冲区管理
+M.snacks = {
+  dashboard = "<leader> ;",
+  bufdelete = "<leader>bd",
+  bufdelete_other = "<leader>bo",
+  terminal = "<c-/>",
+}
+
+-- smart-splits - 智能窗口管理
+M.smartSplits = {
+  -- 窗口导航
+  move_left = "<leader>wh",
+  move_down = "<leader>wj",
+  move_up = "<leader>wk",
+  move_right = "<leader>wl",
+  -- 窗口调整大小
+  resize_left = "<leader>s<",
+  resize_right = "<leader>s>",
+  resize_down = "<leader>s-",
+  resize_up = "<leader>s+",
+  -- 窗口大小相等 (全局快捷键)
+  equal = "<leader>s=",
+}
+
+-- window - 基础窗口管理
+M.window = {
+  split_vertical = "<leader>sv",
+  split_horizontal = "<leader>sh",
+  close = "<leader>sc",
+  close_other = "<leader>so",
+}
+
+-- ╭──────────────────────────────────────────────────────────╮
+-- │  Editor - 编辑增强                                        │
+-- ╰──────────────────────────────────────────────────────────╯
+
+-- flash.nvim - 快速跳转
+M.flash = {
+  jump = "<leader>fj",
+  treesitter = "<leader>ft",
+}
+
+-- treesj - 代码分合
+M.treesj = {
+  toggle = "<leader>cj",
+}
+
+-- sniprun - 代码运行
+M.sniprun = {
+  run = "<leader>cr",
+}
+
+-- yanky - 剪贴板历史
+M.yanky = {
+  paste_after = "p",
+  paste_before = "P",
+  g_paste_after = "gp",
+  g_paste_before = "gP",
+  cycle_next = "<c-n>",
+  cycle_prev = "<c-p>",
+  yank_history = "<leader>fy",
+}
+
+-- multicursor - 多光标
 M.multicursor = {
   addCursorAbove = "<up>",
   addCursorBelow = "<down>",
@@ -85,7 +218,36 @@ M.multicursor = {
   deleteCursor = "<leader>x",
 }
 
--- LSP
+-- luasnip - 代码片段
+M.snip = {
+  expand_jumpable = "<C-l>",
+  jumpable = "<C-h>",
+  choice_active_down = "<C-j>",
+  choice_active_up = "<C-k>",
+}
+
+-- comment - 注释
+M.comment = {
+  toggler = { line = "gcc", block = "gbc" },
+  opleader = { line = "gc", block = "gb" },
+}
+
+-- ╭──────────────────────────────────────────────────────────╮
+-- │  LSP - 语言服务器协议                                     │
+-- ╰──────────────────────────────────────────────────────────╯
+
+-- lspsaga - LSP UI增强
+M.lspsaga = {
+  peek_definition = "gpd",
+  peek_implementation = "gpi",
+  peek_close = "gpc",
+  peek_references = "gpr",
+  peek_type = "gpt",
+  code_action = "<leader>ca",
+  rename = "<leader>rn",
+}
+
+-- LSP基础
 M.lsp = {
   code_action = "<leader>ca",
   go_definitiion = "gd",
@@ -101,29 +263,36 @@ M.lsp = {
   format = "==",
 }
 
--- luasnip
-M.snip = {
-  expand_jumpable = "<C-l>",
-  jumpable = "<C-h>",
-  choice_active_down = "<C-j>",
-  choice_active_up = "<C-k>",
+-- ╭──────────────────────────────────────────────────────────╮
+-- │  Language - 语言特定                                      │
+-- ╰──────────────────────────────────────────────────────────╯
+
+-- crates.nvim - Rust crates管理
+M.crates = {
+  toggle = "<leader>ct",
+  reload = "<leader>cr",
+  versions = "<leader>cv",
+  features = "<leader>cf",
+  dependencies = "<leader>cd",
+  update = "<leader>cu",
+  upgrade = "<leader>cU",
+  upgrade_all = "<leader>cA",
+  open_homepage = "<leader>cH",
+  open_repo = "<leader>cR",
+  open_doc = "<leader>cD",
+  open_crates_io = "<leader>cC",
 }
 
--- comment
-M.comment = {
-  toggler = { line = "gcc", block = "gbc" },
-  opleader = { line = "gc", block = "gb" },
+-- ╭──────────────────────────────────────────────────────────╮
+-- │  Git - 版本控制                                           │
+-- ╰──────────────────────────────────────────────────────────╯
+
+-- neogit - Git界面
+M.neogit = {
+  open = "<leader>gg",
 }
 
--- toggleterm
-M.toggleTerm = {
-  float = "<leader>tf",
-  right = "<leader>tr",
-  bottom = "<leader>td",
-  switch = "<Esc>",
-}
-
--- gitsigns
+-- gitsigns - Git标记
 M.gitsigns = {
   next_hunk = "<leader>gj",
   prev_hunk = "<leader>gk",
@@ -141,18 +310,21 @@ M.gitsigns = {
   select_hunk = "<leader>ig",
 }
 
--- harpoon
-M.harpoon = {
-  append = "<leader>na",
-  toggle = "<leader>nt",
-  next = "<leader>nn",
-  prev = "<leader>np",
-  n1 = "<leader>n1",
-  n2 = "<leader>n2",
-  n3 = "<leader>n3",
-  n4 = "<leader>n4",
-  n5 = "<leader>n5",
-  n6 = "<leader>n6",
+-- ╭──────────────────────────────────────────────────────────╮
+-- │  Tools - 工具                                             │
+-- ╰──────────────────────────────────────────────────────────╯
+
+-- conform.nvim - 代码格式化
+M.conform = {
+  format = "<leader>cf",
+}
+
+-- toggleterm - 终端管理
+M.toggleTerm = {
+  float = "<leader>tf",
+  right = "<leader>tr",
+  bottom = "<leader>td",
+  switch = "<Esc>",
 }
 
 return M

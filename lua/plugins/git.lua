@@ -14,15 +14,18 @@ return {
     end,
   },
 
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ neogit - Git Interface                                 │
-  -- ╰────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │ neogit - Git Interface                                 │
+-- ╰────────────────────────────────────────────────────────╯
   {
     "NeogitOrg/neogit",
     cmd = "Neogit",
-    keys = {
-      { "<leader>gg", "<cmd>Neogit<cr>", desc = "Open Neogit" },
-    },
+    keys = function()
+      local keys = require("config.keymaps").neogit
+      return {
+        { keys.open, "<cmd>Neogit<cr>", desc = "Open Neogit" },
+      }
+    end,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "sindrets/diffview.nvim",

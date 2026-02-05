@@ -187,12 +187,14 @@ which_key.setup({
       -- ========================================
       { pattern = "go to definition", icon = "󰈮", color = "blue" },
       { pattern = "hover doc", icon = "󰋽", color = "blue" },
+      { pattern = "hover definition", icon = "󰋽", color = "blue" },
       { pattern = "peek declaration", icon = "󰙴", color = "blue" },
       { pattern = "peek definition", icon = "󰈮", color = "blue" },
       { pattern = "peek implementation", icon = "󰆧", color = "cyan" },
       { pattern = "peek references", icon = "󰆽", color = "yellow" },
       { pattern = "peek type", icon = "󰜢", color = "cyan" },
       { pattern = "close preview", icon = "󰅖", color = "red" },
+      { pattern = "type definition", icon = "󰜢", color = "cyan" },
       { pattern = "find references", icon = "󰆽", color = "yellow" },
       { pattern = "line diagnostics", icon = "󰁨", color = "red" },
       { pattern = "next diagnostic", icon = "󰒭", color = "blue" },
@@ -243,11 +245,13 @@ which_key.setup({
       -- ========================================
       { pattern = "dashboard", icon = "󰕮", color = "blue" },
       { pattern = "snacks", icon = "󱥁", color = "yellow" },
+      { pattern = "delete other buffers", icon = "󰗨", color = "red" },
 
       -- ========================================
       -- Run & Debug
       -- ========================================
       { pattern = "run snippet", icon = "󰜎", color = "green" },
+      { pattern = "run code", icon = "󰜎", color = "green" },
       { pattern = "sniprun", icon = "󰒆", color = "green" },
       { pattern = "run", icon = "󰜎", color = "green" },
       { pattern = "test", icon = "󰔱", color = "green" },
@@ -310,10 +314,15 @@ which_key.setup({
       { pattern = "unfold", icon = "󰁌", color = "blue" },
 
       -- ========================================
-      -- Misc
+      -- Yanky
       -- ========================================
-      { pattern = "color", icon = "󰏘", color = "yellow" },
-      { pattern = "theme", icon = "󰏘", color = "yellow" },
+      { pattern = "yank history", icon = "󰋚", color = "yellow" },
+      { pattern = "clipboard history", icon = "󰋚", color = "yellow" },
+      { pattern = "next clipboard", icon = "󰒭", color = "azure" },
+      { pattern = "prev clipboard", icon = "󰒮", color = "azure" },
+      { pattern = "paste after", icon = "󰆒", color = "azure" },
+      { pattern = "paste before", icon = "󰅑", color = "azure" },
+      { pattern = "g-paste", icon = "󰆒", color = "azure" },      { pattern = "theme", icon = "󰏘", color = "yellow" },
       { pattern = "copilot", icon = "󰚩", color = "cyan" },
       { pattern = "project", icon = "󰉖", color = "blue" },
       { pattern = "dismiss", icon = "󰅖", color = "red" },

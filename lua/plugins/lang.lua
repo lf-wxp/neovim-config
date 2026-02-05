@@ -16,20 +16,23 @@ return {
     "saecki/crates.nvim",
     event = "BufRead Cargo.toml",
     dependencies = "nvim-lua/plenary.nvim",
-    keys = {
-      { "<leader>ct", function() require("crates").toggle() end, desc = "Crate Toggle" },
-      { "<leader>cr", function() require("crates").reload() end, desc = "Crate Reload" },
-      { "<leader>cv", function() require("crates").show_versions_popup() end, desc = "Crate Versions" },
-      { "<leader>cf", function() require("crates").show_features_popup() end, desc = "Crate Features" },
-      { "<leader>cd", function() require("crates").show_dependencies_popup() end, desc = "Crate Dependencies" },
-      { "<leader>cu", function() require("crates").update_crate() end, desc = "Crate Update" },
-      { "<leader>cU", function() require("crates").upgrade_crate() end, desc = "Crate Upgrade" },
-      { "<leader>cA", function() require("crates").upgrade_all_crates() end, desc = "Crate Upgrade All" },
-      { "<leader>cH", function() require("crates").open_homepage() end, desc = "Crate Homepage" },
-      { "<leader>cR", function() require("crates").open_repository() end, desc = "Crate Repository" },
-      { "<leader>cD", function() require("crates").open_documentation() end, desc = "Crate Documentation" },
-      { "<leader>cC", function() require("crates").open_crates_io() end, desc = "Crate crates.io" },
-    },
+    keys = function()
+      local keys = require("config.keymaps").crates
+      return {
+        { keys.toggle, "<cmd>lua require('config.commands').crate_toggle()<cr>", desc = "Crate Toggle" },
+        { keys.reload, "<cmd>lua require('config.commands').crate_reload()<cr>", desc = "Crate Reload" },
+        { keys.versions, "<cmd>lua require('config.commands').crate_versions()<cr>", desc = "Crate Versions" },
+        { keys.features, "<cmd>lua require('config.commands').crate_features()<cr>", desc = "Crate Features" },
+        { keys.dependencies, "<cmd>lua require('config.commands').crate_dependencies()<cr>", desc = "Crate Dependencies" },
+        { keys.update, "<cmd>lua require('config.commands').crate_update()<cr>", desc = "Crate Update" },
+        { keys.upgrade, "<cmd>lua require('config.commands').crate_upgrade()<cr>", desc = "Crate Upgrade" },
+        { keys.upgrade_all, "<cmd>lua require('config.commands').crate_upgrade_all()<cr>", desc = "Crate Upgrade All" },
+        { keys.open_homepage, "<cmd>lua require('config.commands').crate_open()<cr>", desc = "Crate Homepage" },
+        { keys.open_repo, "<cmd>lua require('config.commands').crate_repo()<cr>", desc = "Crate Repository" },
+        { keys.open_doc, "<cmd>lua require('config.commands').crate_doc()<cr>", desc = "Crate Documentation" },
+        { keys.open_crates_io, "<cmd>lua require('config.commands').crate_crates_io()<cr>", desc = "Crate crates.io" },
+      }
+    end,
     opts = {},
   },
 

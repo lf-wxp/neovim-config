@@ -58,21 +58,24 @@ return {
     },
   },
 
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ lspsaga - LSP UI Enhancement                           │
-  -- ╰────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │ lspsaga - LSP UI Enhancement                           │
+-- ╰────────────────────────────────────────────────────────╯
   {
     "nvimdev/lspsaga.nvim",
     event = "LspAttach",
-    keys = {
-      { "gpd", "<cmd>Lspsaga peek_definition<cr>", desc = "Peek Definition" },
-      { "gpi", "<cmd>Lspsaga finder imp<cr>", desc = "Peek Implementation" },
-      { "gpc", "<cmd>Lspsaga term_toggle<cr>", desc = "Close Preview" },
-      { "gpr", "<cmd>Lspsaga finder ref<cr>", desc = "Peek References" },
-      { "gpt", "<cmd>Lspsaga peek_type_definition<cr>", desc = "Peek Type Definition" },
-      { "<leader>ca", "<cmd>Lspsaga code_action<cr>", mode = { "n", "v" }, desc = "Code Action" },
-      { "<leader>rn", "<cmd>Lspsaga rename<cr>", desc = "Rename" },
-    },
+    keys = function()
+      local keys = require("config.keymaps").lspsaga
+      return {
+        { keys.peek_definition, "<cmd>Lspsaga peek_definition<cr>", desc = "Peek Definition" },
+        { keys.peek_implementation, "<cmd>Lspsaga finder imp<cr>", desc = "Peek Implementation" },
+        { keys.peek_close, "<cmd>Lspsaga term_toggle<cr>", desc = "Close Preview" },
+        { keys.peek_references, "<cmd>Lspsaga finder ref<cr>", desc = "Peek References" },
+        { keys.peek_type, "<cmd>Lspsaga peek_type_definition<cr>", desc = "Peek Type Definition" },
+        { keys.code_action, "<cmd>Lspsaga code_action<cr>", mode = { "n", "v" }, desc = "Code Action" },
+        { keys.rename, "<cmd>Lspsaga rename<cr>", desc = "Rename" },
+      }
+    end,
     config = function()
       require("cmp.lspsaga")
     end,

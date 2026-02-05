@@ -80,15 +80,18 @@ nvim
 
 Leader key: `<Space>`
 
+All keymaps are centralized in `lua/config/keymaps.lua` for easy management.
+
 ### General
 
 | Key | Description |
 |-----|-------------|
 | `<leader>k` | Clear search highlight |
 | `<leader>y` | Copy to system clipboard |
-| `<leader>p` | Open yank history picker |
+| `<leader>p` | Paste from clipboard |
 | `<leader>u` | Scroll up half page |
 | `<leader>d` | Scroll down half page |
+| `<leader>b` | Scroll up full page |
 | `<leader>o` | Go back |
 | `<leader>i` | Go forward |
 
@@ -100,19 +103,26 @@ Leader key: `<Space>`
 | `<leader>sh` | Split horizontal |
 | `<leader>sc` | Close window |
 | `<leader>so` | Close other windows |
-| `<leader>wh/j/k/l` | Navigate windows |
 | `<leader>s=` | Equal window sizes |
+| `<leader>wh/j/k/l` | Navigate windows (smart-splits) |
+| `<leader>s</>` | Resize window width |
+| `<leader>s-/+` | Resize window height |
 
 ### File Navigation
 
 | Key | Description |
 |-----|-------------|
-| `<leader>tt` | Toggle file tree |
-| `<leader><leader>f` | Find files |
-| `<leader><leader>t` | Live grep |
-| `<leader><leader>b` | List buffers |
-| `<Tab>` | List buffers |
-| `-` | Open parent directory (Oil) |
+| `<leader>tt` | Toggle file tree (nvim-tree) |
+| `-` | Open parent directory (oil) |
+| `<leader>-` | Open oil in float |
+| `<leader>ff` | Find files (telescope) |
+| `<leader>fg` | Live grep (telescope) |
+| `<leader>fp` | Projects (telescope) |
+| `<leader>fc` | Colorschemes (telescope) |
+| `<leader>fe` | File browser (telescope) |
+| `<leader>fk` | Keymaps (telescope) |
+| `<leader>fb` | Buffers (telescope) |
+| `<Tab>` | Buffers (telescope) |
 
 ### Tabs/Buffers
 
@@ -120,23 +130,37 @@ Leader key: `<Space>`
 |-----|-------------|
 | `<leader>h` | Previous tab |
 | `<leader>l` | Next tab |
-| `<leader>tc` | Close current tab |
+| `<leader><` | Move tab left |
+| `<leader>>` | Move tab right |
 | `<leader>tp` | Pick tab |
+| `<leader>tc` | Close current tab |
+| `<leader>bcl` | Close tabs to the right |
+| `<leader>bch` | Close tabs to the left |
+| `<leader>bc` | Pick and close tab |
+| `<leader>bd` | Delete buffer (snacks) |
+| `<leader>bo` | Delete other buffers (snacks) |
 
-### LSP
+### LSP & Code Actions
 
 | Key | Description |
 |-----|-------------|
 | `gd` | Go to definition |
 | `gh` | Hover documentation |
+| `gD` | Go to declaration |
 | `gi` | Find implementations |
 | `gr` | Find references |
 | `gp` | Line diagnostics |
 | `gj` | Next diagnostic |
 | `gk` | Previous diagnostic |
+| `==` | Format code |
+| `gpd` | Peek definition (lspsaga) |
+| `gpi` | Peek implementation (lspsaga) |
+| `gpr` | Peek references (lspsaga) |
+| `gpt` | Peek type definition (lspsaga) |
+| `gpc` | Close peek (lspsaga) |
 | `<leader>ca` | Code action |
 | `<leader>rn` | Rename symbol |
-| `==` | Format code |
+| `<leader>cf` | Format with conform |
 
 ### Git
 
@@ -146,11 +170,17 @@ Leader key: `<Space>`
 | `<leader>gj` | Next hunk |
 | `<leader>gk` | Previous hunk |
 | `<leader>gs` | Stage hunk |
+| `<leader>gS` | Stage buffer |
+| `<leader>gu` | Undo stage hunk |
 | `<leader>gr` | Reset hunk |
+| `<leader>gR` | Reset buffer |
 | `<leader>gp` | Preview hunk |
 | `<leader>gbl` | Blame line |
 | `<leader>gd` | Diff this |
-| `:Trouble` | Open diagnostics list |
+| `<leader>gD` | Diff all |
+| `<leader>gtd` | Toggle deleted |
+| `<leader>gtb` | Toggle line blame |
+| `<leader>ig` | Select hunk (text object) |
 
 ### Harpoon (Quick Files)
 
@@ -166,10 +196,9 @@ Leader key: `<Space>`
 
 | Key | Description |
 |-----|-------------|
-| `<leader><leader>p` | Open project |
-| `<leader>rp` | Project search & replace |
-| `<leader>rf` | Find in files |
-| `<leader>rw` | Replace in files |
+| `<leader>rp` | Project search & replace (grug-far) |
+| `<leader>rf` | Find in files (grug-far) |
+| `<leader>rw` | Replace word (grug-far) |
 
 ### Terminal
 
@@ -178,32 +207,60 @@ Leader key: `<Space>`
 | `<leader>tf` | Float terminal |
 | `<leader>tr` | Right terminal |
 | `<leader>td` | Bottom terminal |
-| `<leader>;` | Dashboard |
-| `<C-/>` | Toggle terminal |
+| `<leader> ;` | Dashboard (snacks) |
+| `<C-/>` | Toggle terminal (snacks) |
 
-### Editor
+### Editor Enhancements
 
 | Key | Description |
 |-----|-------------|
-| `<leader>f` | Flash jump (character) |
-| `<leader>F` | Flash jump (line) |
-| `<leader>e` | Toggle split/join code blocks |
-| `<leader>R` | Run code snippet |
+| `<leader>fj` | Flash jump (character) |
+| `<leader>ft` | Flash treesitter |
+| `<leader>cj` | Toggle split/join code blocks |
+| `<leader>cr` | Run code snippet (sniprun) |
 | `gcc` | Toggle line comment |
 | `gbc` | Toggle block comment |
-| `<leader>bd` | Close buffer with snacks |
-| `<leader>p` | Open yank history picker |
-| `p` / `P` | Paste from clipboard history (yanky) |
+
+### Yanky (Clipboard Ring)
+
+| Key | Description |
+|-----|-------------|
+| `p` / `P` | Paste after/before (with history) |
+| `gp` / `gP` | Paste & move after/before |
 | `<C-n>` / `<C-p>` | Cycle clipboard history |
+| `<leader>fy` | Open yank history picker |
 
 ### Multi-cursor
 
 | Key | Description |
 |-----|-------------|
 | `<Up>/<Down>` | Add cursor above/below |
+| `<leader><Up>/<Down>` | Skip cursor above/below |
 | `<leader>m` | Add next match |
+| `<leader>M` | Add previous match |
+| `<leader>s` | Skip next match |
+| `<leader>S` | Skip previous match |
 | `<C-q>` | Toggle cursor |
+| `<Left>/<Right>` | Prev/Next cursor |
+| `<leader>x` | Delete cursor |
 | `<C-LeftMouse>` | Add cursor with mouse |
+
+### Crates (Rust)
+
+| Key | Description |
+|-----|-------------|
+| `<leader>ct` | Toggle crates popup |
+| `<leader>cr` | Reload crates |
+| `<leader>cv` | Show versions |
+| `<leader>cf` | Show features |
+| `<leader>cd` | Show dependencies |
+| `<leader>cu` | Update crate |
+| `<leader>cU` | Upgrade crate |
+| `<leader>cA` | Upgrade all crates |
+| `<leader>cH` | Open homepage |
+| `<leader>cR` | Open repository |
+| `<leader>cD` | Open documentation |
+| `<leader>cC` | Open crates.io |
 
 ## 🔌 Plugin List
 

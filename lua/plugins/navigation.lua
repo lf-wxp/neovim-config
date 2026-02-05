@@ -3,37 +3,43 @@
 -- ╰──────────────────────────────────────────────────────────╯
 
 return {
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ nvim-tree - File Tree                                  │
-  -- ╰────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │ nvim-tree - File Tree                                  │
+-- ╰────────────────────────────────────────────────────────╯
   {
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons", "b0o/nvim-tree-preview.lua" },
-    keys = {
-      { "<leader>tt", "<cmd>NvimTreeToggle<cr>", desc = "File Tree" },
-    },
+    keys = function()
+      local keys = require("config.keymaps").nvimTree
+      return {
+        { keys.toggle, "<cmd>NvimTreeToggle<cr>", desc = "File Tree" },
+      }
+    end,
     config = function()
       require("plugin-config.nvim-tree")
     end,
   },
 
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ oil.nvim - Buffer-style File Manager                   │
-  -- ╰────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │ oil.nvim - Buffer-style File Manager                   │
+-- ╰────────────────────────────────────────────────────────╯
   {
     "stevearc/oil.nvim",
-    keys = {
-      { "-", "<cmd>Oil<cr>", desc = "Open Parent Dir (Oil)" },
-      { "<leader>-", function() require("oil").toggle_float() end, desc = "Oil Float" },
-    },
+    keys = function()
+      local keys = require("config.keymaps").oil
+      return {
+        { keys.open, "<cmd>Oil<cr>", desc = "Open Parent Dir (Oil)" },
+        { keys.open_float, "<cmd>lua require('config.commands').oil_float()<cr>", desc = "Oil Float" },
+      }
+    end,
     config = function()
       require("plugin-config.oil")
     end,
   },
 
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ telescope - Fuzzy Finder                               │
-  -- ╰────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │ telescope - Fuzzy Finder                               │
+-- ╰────────────────────────────────────────────────────────╯
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
@@ -44,16 +50,19 @@ return {
       "nvim-telescope/telescope-live-grep-args.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
     },
-    keys = {
-      { "<leader><leader>f", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-      { "<leader><leader>t", "<cmd>Telescope live_grep_args<cr>", desc = "Live Grep" },
-      { "<leader><leader>p", "<cmd>Telescope projects<cr>", desc = "Projects" },
-      { "<leader><leader>c", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
-      { "<leader><leader>e", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", desc = "File Browser" },
-      { "<leader><leader>k", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
-      { "<leader><leader>b", "<cmd>Telescope buffers sort_mru=true<cr>", desc = "Buffers" },
-      { "<Tab>", "<cmd>Telescope buffers sort_mru=true<cr>", desc = "Buffers" },
-    },
+    keys = function()
+      local keys = require("config.keymaps").telescope
+      return {
+        { keys.find_files, "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+        { keys.live_grep, "<cmd>Telescope live_grep_args<cr>", desc = "Live Grep" },
+        { keys.projects, "<cmd>Telescope projects<cr>", desc = "Projects" },
+        { keys.colorscheme, "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
+        { keys.file_browser, "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", desc = "File Browser" },
+        { keys.keymaps, "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
+        { keys.buffers, "<cmd>Telescope buffers sort_mru=true<cr>", desc = "Buffers" },
+        { keys.buffers_tab, "<cmd>Telescope buffers sort_mru=true<cr>", desc = "Buffers" },
+      }
+    end,
     config = function()
       require("plugin-config.telescope")
     end,
@@ -91,16 +100,19 @@ return {
     opts = {},
   },
 
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ grug-far - Project Search Replace                      │
-  -- ╰────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │ grug-far - Project Search Replace                      │
+-- ╰────────────────────────────────────────────────────────╯
   {
     "MagicDuck/grug-far.nvim",
-    keys = {
-      { "<leader>rp", "<cmd>GrugFar<cr>", desc = "Project Search Replace" },
-      { "<leader>rf", function() require("grug-far").open({ prefills = { flags = vim.fn.expand("%") } }) end, desc = "Replace in File" },
-      { "<leader>rw", function() require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } }) end, desc = "Search Word" },
-    },
+    keys = function()
+      local keys = require("config.keymaps").grugFar
+      return {
+        { keys.project, "<cmd>GrugFar<cr>", desc = "Project Search Replace" },
+        { keys.file, "<cmd>lua require('config.commands').grug_far_file()<cr>", desc = "Replace in File" },
+        { keys.word, "<cmd>lua require('config.commands').grug_far_word()<cr>", desc = "Search Word" },
+      }
+    end,
     opts = {
       keymaps = {
         toggleShowCommand = { n = "<localleader>m" },

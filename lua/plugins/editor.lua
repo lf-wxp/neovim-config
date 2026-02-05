@@ -3,16 +3,19 @@
 -- ╰──────────────────────────────────────────────────────────╯
 
 return {
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ flash.nvim - Quick Jump                                │
-  -- ╰────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │ flash.nvim - Quick Jump                                │
+-- ╰────────────────────────────────────────────────────────╯
   {
     "folke/flash.nvim",
     event = "VeryLazy",
-    keys = {
-      { "<leader>f", function() require("flash").jump() end, mode = { "n", "x", "o" }, desc = "Flash Jump" },
-      { "<leader>F", function() require("flash").treesitter_search() end, mode = { "n", "x", "o" }, desc = "Flash Treesitter" },
-    },
+    keys = function()
+      local keys = require("config.keymaps").flash
+      return {
+        { keys.jump, function() require("flash").jump() end, mode = { "n", "x", "o" }, desc = "Flash Jump" },
+        { keys.treesitter, function() require("flash").treesitter_search() end, mode = { "n", "x", "o" }, desc = "Flash Treesitter" },
+      }
+    end,
     config = function()
       require("plugin-config.flash")
     end,
@@ -92,14 +95,17 @@ return {
     opts = {},
   },
 
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ treesj - Split/Join Code Blocks                        │
-  -- ╰────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │ treesj - Split/Join Code Blocks                        │
+-- ╰────────────────────────────────────────────────────────╯
   {
     "Wansmer/treesj",
-    keys = {
-      { "<leader>e", function() require("treesj").toggle() end, desc = "Toggle Split/Join" },
-    },
+    keys = function()
+      local keys = require("config.keymaps").treesj
+      return {
+        { keys.toggle, function() require("treesj").toggle() end, desc = "Toggle Split/Join" },
+      }
+    end,
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     opts = { use_default_keymaps = false },
   },
@@ -155,15 +161,18 @@ return {
     opts = {},
   },
 
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ sniprun - Run Code Snippet                             │
-  -- ╰────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │ sniprun - Run Code Snippet                             │
+-- ╰────────────────────────────────────────────────────────╯
   {
     "michaelb/sniprun",
     build = "sh ./install.sh",
-    keys = {
-      { "<leader>R", function() require("sniprun").run("n") end, desc = "Run Snippet" },
-    },
+    keys = function()
+      local keys = require("config.keymaps").sniprun
+      return {
+        { keys.run, function() require("sniprun").run("n") end, desc = "Run Snippet" },
+      }
+    end,
     opts = {
       selected_interpreters = { "JS_TS_deno" },
       repl_enable = { "JS_TS_deno" },
@@ -191,26 +200,29 @@ return {
     },
   },
 
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ yanky.nvim - Clipboard Ring History                    │
-  -- │ Enhanced yank/paste with history navigation            │
-  -- ╰────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │ yanky.nvim - Clipboard Ring History                    │
+-- │ Enhanced yank/paste with history navigation            │
+-- ╰────────────────────────────────────────────────────────╯
   {
     "gbprod/yanky.nvim",
     dependencies = { "kkharji/sqlite.lua", "nvim-telescope/telescope.nvim" },
     event = "VeryLazy",
-    keys = {
-      -- Paste from clipboard ring
-      { "p",  "<Plug>(YankyPutAfter)",              mode = { "n", "x" }, desc = "Paste After" },
-      { "P",  "<Plug>(YankyPutBefore)",             mode = { "n", "x" }, desc = "Paste Before" },
-      { "gp", "<Plug>(YankyGPutAfter)",             mode = { "n", "x" }, desc = "G-Paste After" },
-      { "gP", "<Plug>(YankyGPutBefore)",            mode = { "n", "x" }, desc = "G-Paste Before" },
-      -- Navigate clipboard history
-      { "<c-n>", "<Plug>(YankyCycleForward)",       mode = "n",         desc = "Next Clipboard Entry" },
-      { "<c-p>", "<Plug>(YankyCycleBackward)",      mode = "n",         desc = "Prev Clipboard Entry" },
-      -- Open yank history picker with Telescope
-      { "<leader>P", function() require("telescope").extensions.yank_history.yank_history() end, mode = { "n", "x" }, desc = "Yank History" },
-    },
+    keys = function()
+      local keys = require("config.keymaps").yanky
+      return {
+        -- Paste from clipboard ring
+        { keys.paste_after,  "<Plug>(YankyPutAfter)",              mode = { "n", "x" }, desc = "Paste After" },
+        { keys.paste_before,  "<Plug>(YankyPutBefore)",             mode = { "n", "x" }, desc = "Paste Before" },
+        { keys.g_paste_after, "<Plug>(YankyGPutAfter)",             mode = { "n", "x" }, desc = "G-Paste After" },
+        { keys.g_paste_before, "<Plug>(YankyGPutBefore)",            mode = { "n", "x" }, desc = "G-Paste Before" },
+        -- Navigate clipboard history
+        { keys.cycle_next, "<Plug>(YankyCycleForward)",       mode = "n",         desc = "Next Clipboard Entry" },
+        { keys.cycle_prev, "<Plug>(YankyCycleBackward)",      mode = "n",         desc = "Prev Clipboard Entry" },
+        -- Open yank history picker with Telescope
+        { keys.yank_history, function() require("telescope").extensions.yank_history.yank_history() end, mode = { "n", "x" }, desc = "Yank History" },
+      }
+    end,
     config = function()
       require("yanky").setup(require("plugin-config.yanky").opts)
     end,

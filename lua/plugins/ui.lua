@@ -3,24 +3,27 @@
 -- ╰──────────────────────────────────────────────────────────╯
 
 return {
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ bufferline - Tab Bar                                   │
-  -- ╰────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │ bufferline - Tab Bar                                   │
+-- ╰────────────────────────────────────────────────────────╯
   {
     "akinsho/bufferline.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons", "moll/vim-bbye" },
     event = "VeryLazy",
-    keys = {
-      { "<leader>h",   "<cmd>BufferLineCyclePrev<cr>",  desc = "Prev Tab" },
-      { "<leader>l",   "<cmd>BufferLineCycleNext<cr>",  desc = "Next Tab" },
-      { "<leader><",   "<cmd>BufferLineMovePrev<cr>",   desc = "Move Tab Left" },
-      { "<leader>>",   "<cmd>BufferLineMoveNext<cr>",   desc = "Move Tab Right" },
-      { "<leader>tp",  "<cmd>BufferLinePick<cr>",       desc = "Pick Tab" },
-      { "<leader>tc",  "<cmd>Bdelete!<cr>",             desc = "Close Tab" },
-      { "<leader>bcl", "<cmd>BufferLineCloseRight<cr>", desc = "Close Right Tabs" },
-      { "<leader>bch", "<cmd>BufferLineCloseLeft<cr>",  desc = "Close Left Tabs" },
-      { "<leader>bc",  "<cmd>BufferLinePickClose<cr>",  desc = "Pick Close Tab" },
-    },
+    keys = function()
+      local keys = require("config.keymaps").bufferline
+      return {
+        { keys.prev_tab,   "<cmd>BufferLineCyclePrev<cr>",  desc = "Prev Tab" },
+        { keys.next_tab,   "<cmd>BufferLineCycleNext<cr>",  desc = "Next Tab" },
+        { keys.move_prev,   "<cmd>BufferLineMovePrev<cr>",   desc = "Move Tab Left" },
+        { keys.move_next,   "<cmd>BufferLineMoveNext<cr>",   desc = "Move Tab Right" },
+        { keys.pick,  "<cmd>BufferLinePick<cr>",       desc = "Pick Tab" },
+        { keys.close,  "<cmd>Bdelete!<cr>",             desc = "Close Tab" },
+        { keys.close_right, "<cmd>BufferLineCloseRight<cr>", desc = "Close Right Tabs" },
+        { keys.close_left, "<cmd>BufferLineCloseLeft<cr>",  desc = "Close Left Tabs" },
+        { keys.pick_close,  "<cmd>BufferLinePickClose<cr>",  desc = "Pick Close Tab" },
+      }
+    end,
     config = function()
       require("bufferline").setup(require("plugin-config.bufferline").opts)
     end,
@@ -61,20 +64,22 @@ return {
     end,
   },
 
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ snacks.nvim - Multi-purpose                            │
-  -- ╰────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │ snacks.nvim - Multi-purpose                            │
+-- ╰────────────────────────────────────────────────────────╯
   {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
-    keys = {
-      { "<leader>;",  function() Snacks.dashboard() end,       desc = "Dashboard" },
-      { "<leader>bd", function() Snacks.bufdelete() end,       desc = "Delete Buffer" },
-      { "<leader>bo", function() Snacks.bufdelete.other() end, desc = "Delete Other Buffers" },
-      { "<c-_>",      function() Snacks.terminal() end,        mode = { "n", "t" },          desc = "Terminal" },
-      { "<c-/>",      function() Snacks.terminal() end,        mode = { "n", "t" },          desc = "Terminal" },
-    },
+    keys = function()
+      local keys = require("config.keymaps").snacks
+      return {
+        { keys.dashboard, "<cmd>lua require('config.commands').dashboard()<cr>",       desc = "Dashboard" },
+        { keys.bufdelete, "<cmd>lua require('config.commands').bufdelete()<cr>",       desc = "Delete Buffer" },
+        { keys.bufdelete_other, "<cmd>lua require('config.commands').bufdelete_other()<cr>", desc = "Delete Other Buffers" },
+        { keys.terminal,      "<cmd>lua require('config.commands').terminal()<cr>",        mode = { "n", "t" },          desc = "Terminal" },
+      }
+    end,
     opts = require("plugin-config.snacks").opts,
     config = function(_, opts)
       require("snacks").setup(opts)
@@ -105,25 +110,28 @@ return {
     },
   },
 
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ smart-splits - Intelligent Window Management           │
-  -- ╰────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │ smart-splits - Intelligent Window Management           │
+-- ╰────────────────────────────────────────────────────────╯
   {
     "mrjones2014/smart-splits.nvim",
     version = "v1.*", -- pin major version
     event = "VeryLazy",
-    keys = {
-      -- Window Navigation
-      { "<leader>wh", function() require("smart-splits").move_cursor_left() end,  desc = "Go Left Window" },
-      { "<leader>wj", function() require("smart-splits").move_cursor_down() end,  desc = "Go Down Window" },
-      { "<leader>wk", function() require("smart-splits").move_cursor_up() end,    desc = "Go Up Window" },
-      { "<leader>wl", function() require("smart-splits").move_cursor_right() end, desc = "Go Right Window" },
-      -- Window Resize
-      { "<leader>shh", function() require("smart-splits").resize_left() end,  desc = "Window Width -10" },
-      { "<leader>sll", function() require("smart-splits").resize_right() end, desc = "Window Width +10" },
-      { "<leader>sjj", function() require("smart-splits").resize_down() end, desc = "Window Height +10" },
-      { "<leader>skk", function() require("smart-splits").resize_up() end,    desc = "Window Height -10" },
-    },
+    keys = function()
+      local keys = require("config.keymaps").smartSplits
+      return {
+        -- Window Navigation
+        { keys.move_left, function() require("smart-splits").move_cursor_left() end,  desc = "Go Left Window" },
+        { keys.move_down, function() require("smart-splits").move_cursor_down() end,  desc = "Go Down Window" },
+        { keys.move_up, function() require("smart-splits").move_cursor_up() end,    desc = "Go Up Window" },
+        { keys.move_right, function() require("smart-splits").move_cursor_right() end, desc = "Go Right Window" },
+        -- Window Resize
+        { keys.resize_left, function() require("smart-splits").resize_left() end,  desc = "Window Width -10" },
+        { keys.resize_right, function() require("smart-splits").resize_right() end, desc = "Window Width +10" },
+        { keys.resize_down, function() require("smart-splits").resize_down() end, desc = "Window Height +10" },
+        { keys.resize_up, function() require("smart-splits").resize_up() end,    desc = "Window Height -10" },
+      }
+    end,
     config = function()
       require("smart-splits").setup(require("plugin-config.smart-splits").opts)
     end,

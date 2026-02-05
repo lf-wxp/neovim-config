@@ -3,22 +3,25 @@
 -- ╰──────────────────────────────────────────────────────────╯
 
 return {
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ conform.nvim - Formatter                               │
-  -- ╰────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │ conform.nvim - Formatter                               │
+-- ╰────────────────────────────────────────────────────────╯
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
     cmd = "ConformInfo",
-    keys = {
-      {
-        "<leader>cf",
-        function()
-          require("conform").format({ async = true, lsp_format = "fallback" })
-        end,
-        desc = "Format",
-      },
-    },
+    keys = function()
+      local keys = require("config.keymaps").conform
+      return {
+        {
+          keys.format,
+          function()
+            require("conform").format({ async = true, lsp_format = "fallback" })
+          end,
+          desc = "Format",
+        },
+      }
+    end,
     opts = {
       format_on_save = {
         timeout_ms = 500,
