@@ -7,6 +7,12 @@ M.opts = {
   bigfile = { enabled = true },   -- Big file optimization
   quickfile = { enabled = true }, -- Quick file open
   words = { enabled = true },     -- Highlight current word
+  terminal = {
+    enabled = true,
+    win = {
+      wo = { winbar = " Terminal" },
+    },
+  },
   notifier = {
     enabled = true,
     -- Timeout for notifications (ms)
@@ -23,7 +29,7 @@ M.opts = {
     level = vim.log.levels.TRACE,
     -- Icons for different notification levels
     icons = {
-      error = " ",
+      error = "󰅚 ",
       warn = " ",
       info = " ",
       debug = " ",
@@ -161,6 +167,15 @@ M.opts = {
 
 -- Set vim.ui.input and vim.ui.select (called in init)
 M.init = function()
+  -- Set terminal keymaps in terminal mode
+  vim.api.nvim_create_autocmd("TermOpen", {
+    callback = function()
+      local opts = { buffer = 0, silent = true }
+      -- Esc to exit terminal mode
+      vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", opts)
+    end,
+  })
+
   -- These need to be set after plugin loaded, handled by snacks automatically
   -- If manual setup needed:
   -- vim.ui.input = require("snacks").input

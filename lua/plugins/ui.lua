@@ -25,7 +25,7 @@ return {
       }
     end,
     config = function()
-      require("bufferline").setup(require("plugin-config.bufferline").opts)
+      require("plugin-config.bufferline").setup()
     end,
   },
 
@@ -37,7 +37,7 @@ return {
     dependencies = { "abeldekat/harpoonline" },
     event = "VeryLazy",
     config = function()
-      require("plugin-config.lualine")
+      require("plugin-config.lualine").setup()
     end,
   },
 
@@ -46,10 +46,10 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "folke/noice.nvim",
-    event = "VeryLazy",
+    event = "CmdlineEnter",
     dependencies = { "MunifTanjim/nui.nvim" },
     config = function()
-      require("noice").setup(require("plugin-config.noice").opts)
+      require("plugin-config.noice").setup()
     end,
   },
   -- ╭────────────────────────────────────────────────────────╮
@@ -60,7 +60,7 @@ return {
     event = "VeryLazy",
     dependencies = { "echasnovski/mini.icons", version = false },
     config = function()
-      require("plugin-config.which-key")
+      require("plugin-config.which-key").setup()
     end,
   },
 
@@ -77,7 +77,10 @@ return {
         { keys.dashboard, "<cmd>lua require('config.commands').dashboard()<cr>",       desc = "Dashboard" },
         { keys.bufdelete, "<cmd>lua require('config.commands').bufdelete()<cr>",       desc = "Delete Buffer" },
         { keys.bufdelete_other, "<cmd>lua require('config.commands').bufdelete_other()<cr>", desc = "Delete Other Buffers" },
-        { keys.terminal,      "<cmd>lua require('config.commands').terminal()<cr>",        mode = { "n", "t" },          desc = "Terminal" },
+        { keys.terminal, "<cmd>lua require('config.commands').terminal()<cr>",        mode = { "n", "t" }, desc = "Terminal" },
+        { "<leader>tf", "<cmd>lua require('config.commands').terminal_float()<cr>",  mode = { "n", "t" }, desc = "Float Terminal" },
+        { "<leader>tr", "<cmd>lua require('config.commands').terminal_right()<cr>",  mode = { "n", "t" }, desc = "Right Terminal" },
+        { "<leader>td", "<cmd>lua require('config.commands').terminal_bottom()<cr>", mode = { "n", "t" }, desc = "Bottom Terminal" },
       }
     end,
     opts = require("plugin-config.snacks").opts,
@@ -94,7 +97,7 @@ return {
     "Bekaboo/dropbar.nvim",
     event = "BufReadPost",
     config = function()
-      require("plugin-config.dropbar")
+      require("plugin-config.dropbar").setup()
     end,
   },
 
@@ -145,7 +148,7 @@ return {
     event = "VeryLazy",
     priority = 10,
     config = function()
-      require("plugin-config.tiny-glimmer")
+      require("plugin-config.tiny-glimmer").setup()
     end,
   },
 
@@ -156,7 +159,7 @@ return {
     "rasulomaroff/reactive.nvim",
     event = "VeryLazy",
     config = function()
-      require("plugin-config.reactive")
+      require("plugin-config.reactive").setup()
     end,
   },
 

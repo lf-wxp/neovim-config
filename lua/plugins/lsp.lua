@@ -8,16 +8,16 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
+    cmd = "LspInfo", -- Only load when LspInfo command is called
+    event = "LspAttach", -- Also load when LSP attaches to a buffer
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
     },
     config = function()
-      require("lsp.setup")
+      require("lsp.setup").setup()
     end,
   },
-
   -- ╭────────────────────────────────────────────────────────╮
   -- │ mason.nvim - LSP/DAP/Linter Manager                    │
   -- ╰────────────────────────────────────────────────────────╯
@@ -28,9 +28,9 @@ return {
     opts = {
       ui = {
         icons = {
-          package_installed = "✓",
-          package_pending = "➜",
-          package_uninstalled = "✗",
+          package_installed = "󰄬",
+          package_pending = "󰐔",
+          package_uninstalled = "󰚌",
         },
       },
     },
@@ -77,7 +77,7 @@ return {
       }
     end,
     config = function()
-      require("cmp.lspsaga")
+      require("cmp.lspsaga").setup()
     end,
   },
 
@@ -88,7 +88,7 @@ return {
     "Wansmer/symbol-usage.nvim",
     event = "LspAttach",
     config = function()
-      require("plugin-config.symbol-usage")
+      require("plugin-config.symbol-usage").setup()
     end,
   },
 

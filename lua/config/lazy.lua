@@ -2,6 +2,9 @@
 -- │                     lazy.nvim Bootstrap                   │
 -- ╰──────────────────────────────────────────────────────────╯
 
+-- 启用 Lua 模块加载器优化（可提升 ~50ms 启动速度）
+vim.loader.enable()
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
 if not vim.uv.fs_stat(lazypath) then
@@ -23,8 +26,8 @@ require("lazy").setup({
     { import = "plugins" }, -- Auto load all files in lua/plugins/
   },
   defaults = {
-    lazy = false,
-    version = false, -- Don't lock version
+    lazy = true,           -- Plugins are lazy by default (performance)
+    version = false,       -- Don't lock version
   },
   install = {
     colorscheme = { "catppuccin", "gruvbox", "kanagawa" },

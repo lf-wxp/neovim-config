@@ -1,47 +1,18 @@
--- lua/config/commands.lua 
+-- lua/config/commands.lua
 -- User Commands Module - Exposes all plugin Lua APIs for use in keymaps via <cmd> syntax
 -- This module satisfies the requirement: "keymaps中不要出现具体插件的lua的函数调用"
+--
+-- Commands are organized by functionality:
+-- 1. File System Commands
+-- 2. Navigation Commands
+-- 3. Editor Commands
+-- 4. Git Commands
+-- 5. Language Commands
 
 local M = {}
 
 -- ╭──────────────────────────────────────────────────────────╮
--- │                      Flash Commands                       │
--- ╰──────────────────────────────────────────────────────────╯
-
-function M.flash_jump()
-  require("flash").jump()
-end
-
-function M.flash_treesitter_search()
-  require("flash").treesitter_search()
-end
-
--- ╭──────────────────────────────────────────────────────────╮
--- │                    Yanky Commands                         │
--- ╰──────────────────────────────────────────────────────────╯
-
-function M.yank_history()
-  require("telescope").extensions.yank_history.yank_history()
-end
-
--- ╭──────────────────────────────────────────────────────────╮
--- │                    Treesj Commands                        │
--- ╰──────────────────────────────────────────────────────────╯
-
-function M.treesj_toggle()
-  require("treesj").toggle()
-end
-
--- ╭──────────────────────────────────────────────────────────╮
--- │                   Sniprun Commands                        │
--- ╰──────────────────────────────────────────────────────────╯
-
-function M.sniprun()
-  require("sniprun").run("n")
-end
-
--- ╭──────────────────────────────────────────────────────────╮
--- │                     Oil Commands                          │
+-- │                File System Commands                       │
 -- ╰──────────────────────────────────────────────────────────╯
 
 function M.oil_float()
@@ -49,8 +20,50 @@ function M.oil_float()
 end
 
 -- ╭──────────────────────────────────────────────────────────╮
--- │                  Grug-far Commands                        │
+-- │                  Navigation Commands                      │
 -- ╰──────────────────────────────────────────────────────────╯
+
+function M.harpoon_add()
+  require("harpoon"):list():add()
+end
+
+function M.harpoon_toggle()
+  local harpoon = require("harpoon")
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end
+
+function M.harpoon_prev()
+  require("harpoon"):list():prev()
+end
+
+function M.harpoon_next()
+  require("harpoon"):list():next()
+end
+
+function M.harpoon_select(n)
+  require("harpoon"):list():select(n)
+end
+
+function M.harpoon_telescope()
+  local harpoon = require("harpoon")
+  local harpoon_files = harpoon:list()
+
+  local conf = require("telescope.config").values
+  local file_paths = {}
+
+  for _, item in ipairs(harpoon_files.items) do
+    table.insert(file_paths, item.value)
+  end
+
+  require("telescope.pickers").new({}, {
+    prompt_title = "Harpoon",
+    finder = require("telescope.finders").new_table({
+      results = file_paths,
+    }),
+    previewer = conf.file_previewer({}),
+    sorter = conf.generic_sorter({}),
+  }):find()
+end
 
 function M.grug_far()
   require("grug-far").open({ prefills = { flags = "" } })
@@ -65,71 +78,74 @@ function M.grug_far_word()
 end
 
 -- ╭──────────────────────────────────────────────────────────╮
--- │                   Smart-splits Commands                   │
+-- │                    Editor Commands                        │
 -- ╰──────────────────────────────────────────────────────────╯
 
-function M.win_left()
-  require("smart-splits").move_cursor_left()
+-- Terminal commands using snacks.nvim
+function M.terminal(cmd)
+  cmd = cmd or vim.o.shell
+  require("snacks").terminal.open(cmd, { count = 1 })
 end
 
-function M.win_right()
-  require("smart-splits").move_cursor_right()
+function M.terminal_float(cmd)
+  cmd = cmd or vim.o.shell
+  require("snacks").terminal.toggle(cmd, { win = { position = "float" }, count = 2 })
 end
 
-function M.win_up()
-  require("smart-splits").move_cursor_up()
+function M.terminal_right(cmd)
+  cmd = cmd or vim.o.shell
+  require("snacks").terminal.toggle(cmd, { win = { position = "right" }, count = 3 })
 end
 
-function M.win_down()
-  require("smart-splits").move_cursor_down()
-end
-
-function M.resize_left()
-  require("smart-splits").resize_left()
-end
-
-function M.resize_right()
-  require("smart-splits").resize_right()
-end
-
-function M.resize_up()
-  require("smart-splits").resize_up()
-end
-
-function M.resize_down()
-  require("smart-splits").resize_down()
+function M.terminal_bottom(cmd)
+  cmd = cmd or vim.o.shell
+  require("snacks").terminal.toggle(cmd, { win = { position = "bottom" }, count = 4 })
 end
 
 -- ╭──────────────────────────────────────────────────────────╮
--- │                    Snacks Commands                        │
--- ╰──────────────────────────────────────────────────────────╯
+
+function M.flash_jump()
+  require("flash").jump()
+end
+
+function M.flash_treesitter_search()
+  require("flash").treesitter_search()
+end
+
+function M.yank_history()
+  require("telescope").extensions.yank_history.yank_history()
+end
+
+function M.treesj_toggle()
+  require("treesj").toggle()
+end
+
+function M.sniprun()
+  require("sniprun").run("n")
+end
 
 function M.dashboard()
-  Snacks.dashboard()
+  require("snacks").dashboard()
 end
 
 function M.bufdelete()
-  Snacks.bufdelete()
+  require("snacks").bufdelete()
 end
 
 function M.bufdelete_other()
-  Snacks.bufdelete.other()
-end
-
-function M.lazygit()
-  Snacks.lazygit()
-end
-
-function M.terminal()
-  Snacks.terminal()
-end
-
-function M.toggle_terminal()
-  Snacks.terminal(nil, { cwd = vim.fn.expand("%:p:h") })
+  require("snacks").bufdelete.other()
 end
 
 -- ╭──────────────────────────────────────────────────────────╮
--- │                    Crates Commands                        │
+-- │                      Git Commands                         │
+-- ╰──────────────────────────────────────────────────────────╯
+
+function M.lazygit()
+  require("snacks").lazygit()
+end
+
+-- ╭──────────────────────────────────────────────────────────╮
+-- │                  Language Commands                        │
 -- ╰──────────────────────────────────────────────────────────╯
 
 function M.crate_toggle()
@@ -180,36 +196,54 @@ function M.crate_repo()
   require("crates").open_repository()
 end
 
--- ╭──────────────────────────────────────────────────────────╮
--- │                   Harpoon Commands                        │
--- ╰──────────────────────────────────────────────────────────╯
-
-function M.harpoon_add()
-  require("harpoon"):list():add()
-end
-
-function M.harpoon_toggle()
-  local harpoon = require("harpoon")
-  harpoon.ui:toggle_quick_menu(harpoon:list())
-end
-
-function M.harpoon_prev()
-  require("harpoon"):list():prev()
-end
-
-function M.harpoon_next()
-  require("harpoon"):list():next()
-end
-
-function M.harpoon_select(n)
-  require("harpoon"):list():select(n)
-end
 function M.crate_dependencies()
   require("crates").show_dependencies_popup()
 end
 
 function M.crate_crates_io()
   require("crates").open_crates_io()
+end
+
+-- ╭──────────────────────────────────────────────────────────╮
+-- │                    Setup Commands                         │
+-- ╰──────────────────────────────────────────────────────────╯
+
+M.setup = function()
+  -- Set option for current buffer
+  vim.api.nvim_create_user_command("SetOptionForBuf", function(opts)
+    local args = vim.split(opts.args, " ")
+    vim.opt_local[args[1]] = args[2]
+  end, {
+    nargs = "*",
+    desc = "Set option for current buffer",
+  })
+
+  -- Change directory to current file's parent
+  vim.api.nvim_create_user_command("SetCwd", function()
+    vim.cmd("cd " .. vim.fn.expand("%:p:h"))
+  end, {
+    desc = "Change directory to current file's parent",
+  })
+
+  -- Change directory to project root
+  vim.api.nvim_create_user_command("SetCwdToRoot", function()
+    local status, ok = pcall(require, "project_nvim")
+    if status then
+      local root = ok.get_project_root()
+      if root then
+        vim.cmd("cd " .. root)
+      end
+    end
+  end, {
+    desc = "Change directory to project root",
+  })
+
+  -- Change directory to current buffer
+  vim.api.nvim_create_user_command("SetCwdToBuf", function()
+    vim.cmd("cd " .. vim.fn.expand("%:p:h"))
+  end, {
+    desc = "Change directory to current buffer",
+  })
 end
 
 return M

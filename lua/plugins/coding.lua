@@ -75,7 +75,7 @@ return {
       "nvim-treesitter/nvim-treesitter-context",
     },
     config = function()
-      require("plugin-config.nvim-treesitter")
+      require("plugin-config.nvim-treesitter").setup()
     end,
   },
 }

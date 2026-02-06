@@ -1,3 +1,15 @@
+-- ╭──────────────────────────────────────────────────────────╮
+-- │                   Config Utils                            │
+-- │                                                             │
+-- │ Purpose: Common utility functions for configuration and    │
+-- │          plugins usage                                     │
+-- │ Features:                                                   │
+-- │   - safe_require(): Safely require modules                 │
+-- │   - map(): Create keymaps with description                 │
+-- │   - safe_execute(): Safely execute commands                │
+-- │   - merge_tables(): Deep merge multiple tables             │
+-- ╰──────────────────────────────────────────────────────────╯
+
 local fn = vim.fn
 local version = vim.version
 
@@ -99,6 +111,79 @@ function M.simple_fold()
   local spaces = (" "):rep(vim.o.columns - start_line:len() - end_line:len() - 7)
 
   return " " .. start_line .. "  " .. end_line .. spaces
+end
+
+-- ╭──────────────────────────────────────────────────────────╮
+-- │                 Configuration Helpers                     │
+-- ╰──────────────────────────────────────────────────────────╯
+
+--- Safely require a module with error handling and notification
+--- @param module_name string The module to require
+--- @param log_level integer|nil Log level (default: WARN)
+--- @return boolean success, any|nil module
+function M.safe_require(module_name, log_level)
+  log_level = log_level or vim.log.levels.WARN
+  local ok, module = pcall(require, module_name)
+  if not ok then
+    vim.notify(string.format("Failed to load module: %s", module_name), log_level)
+    return false, nil
+  end
+  return true, module
+end
+
+--- Helper function: create keymap with description
+--- @param mode string|table mode
+--- @param lhs string key
+--- @param rhs string|function action
+--- @param desc string description
+--- @param buffer integer|nil buffer number (optional)
+function M.map(mode, lhs, rhs, desc, buffer)
+  local opts = { noremap = true, silent = true, desc = desc }
+  if buffer then
+    opts.buffer = buffer
+  end
+  vim.keymap.set(mode, lhs, rhs, opts)
+end
+
+--- Execute command and handle errors
+--- @param cmd string|table command to execute
+--- @param on_success function|nil callback on success
+--- @param on_error function|nil callback on error
+--- @return boolean success
+function M.safe_execute(cmd, on_success, on_error)
+  local result = vim.system(cmd, { text = true }):wait()
+  if result.code == 0 then
+    if on_success then
+      on_success(result.stdout)
+    end
+    return true
+  else
+    if on_error then
+      on_error(result.stderr)
+    else
+      vim.notify(string.format("Command failed: %s\n%s", type(cmd) == "table" and table.concat(cmd, " ") or cmd, result.stderr), vim.log.levels.ERROR)
+    end
+    return false
+  end
+end
+
+--- Merge multiple tables (deep merge)
+--- @param ... table Tables to merge
+--- @return table merged
+function M.merge_tables(...)
+  local result = {}
+  for _, tbl in ipairs({ ... }) do
+    if type(tbl) == "table" then
+      for k, v in pairs(tbl) do
+        if type(v) == "table" and type(result[k]) == "table" then
+          result[k] = M.merge_tables(result[k], v)
+        else
+          result[k] = v
+        end
+      end
+    end
+  end
+  return result
 end
 
 return M

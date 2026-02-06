@@ -1,94 +1,88 @@
 -- ╭──────────────────────────────────────────────────────────╮
--- │                      Global Keymaps                       │
+-- │                    Keymaps Configuration                  │
+-- │        Centralized keymap definitions (pure export)        │
 -- ╰──────────────────────────────────────────────────────────╯
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
-local keymap = vim.keymap.set
-local opts = { noremap = true, silent = true }
-
---- Helper function: create keymap with description
----@param mode string|table mode
----@param lhs string key
----@param rhs string|function action
----@param desc string description
-local function map(mode, lhs, rhs, desc)
-  keymap(mode, lhs, rhs, vim.tbl_extend("force", opts, { desc = desc }))
-end
-
--- ╭──────────────────────────────────────────────────────────╮
--- │                      Window Management                    │
--- ╰──────────────────────────────────────────────────────────╯
-
--- Split
-map("n", "<leader>sv", ":vsp<cr>", "Split Vertical")
-map("n", "<leader>sh", ":sp<cr>", "Split Horizontal")
-map("n", "<leader>sc", "<C-w>c", "Close Window")
-map("n", "<leader>so", "<C-w>o", "Close Other Windows")
-
--- Equal window sizes
-map("n", "<leader>s=", "<C-w>=", "Equal Windows")
--- Equal window sizes
-map("n", "<leader>s=", "<C-w>=", "Equal Windows")
-
--- ╭──────────────────────────────────────────────────────────╮
--- │                      Edit Operations                      │
--- ╰──────────────────────────────────────────────────────────╯
-
--- Move selected text in Visual mode
-map("v", "J", ":move '>+1<cr>gv-gv", "Move Selection Down")
-map("v", "K", ":move '<-2<cr>gv-gv", "Move Selection Up")
-
--- Scroll
-map("n", "<leader>u", "<Cmd>normal! <C-u>zz<CR>", "Scroll Up Half Page")
-map("n", "<leader>d", "<Cmd>normal! <C-d>zz<CR>", "Scroll Down Half Page")
-map("n", "<leader>b", "<Cmd>normal! <C-b>zz<CR>", "Scroll Up Full Page")
-
--- Clipboard
-map({ "n", "v" }, "<leader>p", '"+p', "Paste from Clipboard")
-map({ "n", "v" }, "<leader>y", '"+y', "Copy to Clipboard")
-
--- Clear search highlight
-map("n", "<leader>k", ":noh<cr>", "Clear Search Highlight")
-
--- Navigation History
-map("n", "<leader>o", "<C-o>", "Go Back")
-map("n", "<leader>i", "<C-i>", "Go Forward")
-
--- ╭──────────────────────────────────────────────────────────╮
--- │                    Text Objects                           │
--- ╰──────────────────────────────────────────────────────────╯
-
--- Bracket aliases
-map("o", "ir", "i[", "Inside []")
-map("o", "ar", "a[", "Around []")
-map("o", "ia", "i<", "Inside <>")
-map("o", "aa", "a<", "Around <>")
-
--- ╭──────────────────────────────────────────────────────────╮
--- │                  Plugin Keymaps (Export)                  │
--- ╰──────────────────────────────────────────────────────────╯
+-- NOTE: Leader keys are set in init.lua BEFORE lazy.nvim loads
+-- vim.g.mapleader = " "
+-- vim.g.maplocalleader = " "
 
 -- Export keymap config for plugins
 local M = {}
 
 -- ╭──────────────────────────────────────────────────────────╮
--- │  Navigation - 文件导航相关插件                            │
+-- │         Load Global Keymaps (called by VeryLazy)          │
 -- ╰──────────────────────────────────────────────────────────╯
 
--- nvim-tree - 文件树
+M.load_global = function()
+  local km = M.global
+  local keymap = vim.keymap.set
+  local opts = { noremap = true, silent = true }
+
+  -- ╭─────────────────────────────────────────────────────╮
+  -- │              Window Management                      │
+  -- ╰─────────────────────────────────────────────────────╯
+  keymap("n", km.split_vertical, ":vsp<cr>", vim.tbl_extend("force", opts, { desc = "Split Vertical" }))
+  keymap("n", km.split_horizontal, ":sp<cr>", vim.tbl_extend("force", opts, { desc = "Split Horizontal" }))
+  keymap("n", km.close_window, "<C-w>c", vim.tbl_extend("force", opts, { desc = "Close Window" }))
+  keymap("n", km.close_other_windows, "<C-w>o", vim.tbl_extend("force", opts, { desc = "Close Other Windows" }))
+  keymap("n", km.equal_windows, "<C-w>=", vim.tbl_extend("force", opts, { desc = "Equal Windows" }))
+
+  -- ╭─────────────────────────────────────────────────────╮
+  -- │              Edit Operations                        │
+  -- ╰─────────────────────────────────────────────────────╯
+  keymap("v", km.move_selection_down, ":move '>+1<cr>gv-gv", vim.tbl_extend("force", opts, { desc = "Move Selection Down" }))
+  keymap("v", km.move_selection_up, ":move '<-2<cr>gv-gv", vim.tbl_extend("force", opts, { desc = "Move Selection Up" }))
+
+  -- ╭─────────────────────────────────────────────────────╮
+  -- │              Scroll                                 │
+  -- ╰─────────────────────────────────────────────────────╯
+  keymap("n", km.scroll_up_half, "<Cmd>normal! <C-u>zz<CR>", vim.tbl_extend("force", opts, { desc = "Scroll Up Half Page" }))
+  keymap("n", km.scroll_down_half, "<Cmd>normal! <C-d>zz<CR>", vim.tbl_extend("force", opts, { desc = "Scroll Down Half Page" }))
+  keymap("n", km.scroll_up_full, "<Cmd>normal! <C-b>zz<CR>", vim.tbl_extend("force", opts, { desc = "Scroll Up Full Page" }))
+
+  -- ╭─────────────────────────────────────────────────────╮
+  -- │              Clipboard                              │
+  -- ╰─────────────────────────────────────────────────────╯
+  keymap({ "n", "v" }, km.paste_from_clipboard, '"+p', vim.tbl_extend("force", opts, { desc = "Paste from Clipboard" }))
+  keymap({ "n", "v" }, km.copy_to_clipboard, '"+y', vim.tbl_extend("force", opts, { desc = "Copy to Clipboard" }))
+
+  -- ╭─────────────────────────────────────────────────────╮
+  -- │              Search                                 │
+  -- ╰─────────────────────────────────────────────────────╯
+  keymap("n", km.clear_search, ":noh<cr>", vim.tbl_extend("force", opts, { desc = "Clear Search Highlight" }))
+
+  -- ╭─────────────────────────────────────────────────────╮
+  -- │              Navigation History                     │
+  -- ╰─────────────────────────────────────────────────────╯
+  keymap("n", km.go_back, "<C-o>", vim.tbl_extend("force", opts, { desc = "Go Back" }))
+  keymap("n", km.go_forward, "<C-i>", vim.tbl_extend("force", opts, { desc = "Go Forward" }))
+
+  -- ╭─────────────────────────────────────────────────────╮
+  -- │              Text Objects                           │
+  -- ╰─────────────────────────────────────────────────────╯
+  keymap("o", km.inside_bracket, "i[", vim.tbl_extend("force", opts, { desc = "Inside []" }))
+  keymap("o", km.around_bracket, "a[", vim.tbl_extend("force", opts, { desc = "Around []" }))
+  keymap("o", km.inside_angle, "i<", vim.tbl_extend("force", opts, { desc = "Inside <>" }))
+  keymap("o", km.around_angle, "a<", vim.tbl_extend("force", opts, { desc = "Around <>" }))
+end
+
+-- ╭──────────────────────────────────────────────────────────╮
+-- │  Navigation - File navigation related plugins            │
+-- ╰──────────────────────────────────────────────────────────╯
+
+-- nvim-tree - File tree
 M.nvimTree = {
   toggle = "<leader>tt",
 }
 
--- oil.nvim - 文件管理器
+-- oil.nvim - File manager
 M.oil = {
   open = "-",
   open_float = "<leader>-",
 }
 
--- telescope - 模糊搜索
+-- telescope - Fuzzy search
 M.telescope = {
   find_files = "<leader>ff",
   live_grep = "<leader>fg",
@@ -100,7 +94,7 @@ M.telescope = {
   buffers_tab = "<Tab>",
 }
 
--- harpoon - 快速文件切换
+-- harpoon - Quick file switch
 M.harpoon = {
   append = "<leader>na",
   toggle = "<leader>nt",
@@ -112,9 +106,10 @@ M.harpoon = {
   n4 = "<leader>n4",
   n5 = "<leader>n5",
   n6 = "<leader>n6",
+  telescope = "<leader>ng",  -- Harpoon telescope
 }
 
--- grug-far - 项目搜索替换
+-- grug-far - Project search and replace
 M.grugFar = {
   project = "<leader>rp",
   file = "<leader>rf",
@@ -122,10 +117,10 @@ M.grugFar = {
 }
 
 -- ╭──────────────────────────────────────────────────────────╮
--- │  Buffer & UI - 标签页/UI相关                              │
+-- │  Buffer & UI - Tab/UI related                            │
 -- ╰──────────────────────────────────────────────────────────╯
 
--- bufferline - 标签栏
+-- bufferline - Tab bar
 M.bufferline = {
   prev_tab = "<leader>h",
   next_tab = "<leader>l",
@@ -138,7 +133,7 @@ M.bufferline = {
   pick_close = "<leader>bc",
 }
 
--- snacks.nvim - Dashboard/终端/缓冲区管理
+-- snacks.nvim - Dashboard/terminal/buffer management
 M.snacks = {
   dashboard = "<leader> ;",
   bufdelete = "<leader>bd",
@@ -146,23 +141,23 @@ M.snacks = {
   terminal = "<c-/>",
 }
 
--- smart-splits - 智能窗口管理
+-- smart-splits - Intelligent window management
 M.smartSplits = {
-  -- 窗口导航
+  -- Window navigation
   move_left = "<leader>wh",
   move_down = "<leader>wj",
   move_up = "<leader>wk",
   move_right = "<leader>wl",
-  -- 窗口调整大小
+  -- Window resize
   resize_left = "<leader>s<",
   resize_right = "<leader>s>",
   resize_down = "<leader>s-",
   resize_up = "<leader>s+",
-  -- 窗口大小相等 (全局快捷键)
+  -- Equal window sizes (global keymap)
   equal = "<leader>s=",
 }
 
--- window - 基础窗口管理
+-- window - Basic window management
 M.window = {
   split_vertical = "<leader>sv",
   split_horizontal = "<leader>sh",
@@ -171,26 +166,26 @@ M.window = {
 }
 
 -- ╭──────────────────────────────────────────────────────────╮
--- │  Editor - 编辑增强                                        │
+-- │  Editor - Editor enhancement                             │
 -- ╰──────────────────────────────────────────────────────────╯
 
--- flash.nvim - 快速跳转
+-- flash.nvim - Quick jump
 M.flash = {
   jump = "<leader>fj",
   treesitter = "<leader>ft",
 }
 
--- treesj - 代码分合
+-- treesj - Code split and join
 M.treesj = {
   toggle = "<leader>cj",
 }
 
--- sniprun - 代码运行
+-- sniprun - Code execution
 M.sniprun = {
   run = "<leader>cr",
 }
 
--- yanky - 剪贴板历史
+-- yanky - Clipboard history
 M.yanky = {
   paste_after = "p",
   paste_before = "P",
@@ -201,7 +196,7 @@ M.yanky = {
   yank_history = "<leader>fy",
 }
 
--- multicursor - 多光标
+-- multicursor - Multiple cursors
 M.multicursor = {
   addCursorAbove = "<up>",
   addCursorBelow = "<down>",
@@ -218,7 +213,7 @@ M.multicursor = {
   deleteCursor = "<leader>x",
 }
 
--- luasnip - 代码片段
+-- luasnip - Code snippets
 M.snip = {
   expand_jumpable = "<C-l>",
   jumpable = "<C-h>",
@@ -226,17 +221,17 @@ M.snip = {
   choice_active_up = "<C-k>",
 }
 
--- comment - 注释
+-- comment - Comment
 M.comment = {
   toggler = { line = "gcc", block = "gbc" },
   opleader = { line = "gc", block = "gb" },
 }
 
 -- ╭──────────────────────────────────────────────────────────╮
--- │  LSP - 语言服务器协议                                     │
+-- │  LSP - Language Server Protocol                          │
 -- ╰──────────────────────────────────────────────────────────╯
 
--- lspsaga - LSP UI增强
+-- lspsaga - LSP UI enhancement
 M.lspsaga = {
   peek_definition = "gpd",
   peek_implementation = "gpi",
@@ -247,7 +242,7 @@ M.lspsaga = {
   rename = "<leader>rn",
 }
 
--- LSP基础
+-- LSP basic
 M.lsp = {
   code_action = "<leader>ca",
   go_definitiion = "gd",
@@ -264,10 +259,10 @@ M.lsp = {
 }
 
 -- ╭──────────────────────────────────────────────────────────╮
--- │  Language - 语言特定                                      │
+-- │  Language - Language specific                            │
 -- ╰──────────────────────────────────────────────────────────╯
 
--- crates.nvim - Rust crates管理
+-- crates.nvim - Rust crates management
 M.crates = {
   toggle = "<leader>ct",
   reload = "<leader>cr",
@@ -284,15 +279,15 @@ M.crates = {
 }
 
 -- ╭──────────────────────────────────────────────────────────╮
--- │  Git - 版本控制                                           │
+-- │  Git - Version control                                   │
 -- ╰──────────────────────────────────────────────────────────╯
 
--- neogit - Git界面
+-- neogit - Git interface
 M.neogit = {
   open = "<leader>gg",
 }
 
--- gitsigns - Git标记
+-- gitsigns - Git signs
 M.gitsigns = {
   next_hunk = "<leader>gj",
   prev_hunk = "<leader>gk",
@@ -311,20 +306,52 @@ M.gitsigns = {
 }
 
 -- ╭──────────────────────────────────────────────────────────╮
--- │  Tools - 工具                                             │
+-- │  Tools - Tools                                            │
 -- ╰──────────────────────────────────────────────────────────╯
 
--- conform.nvim - 代码格式化
+-- conform.nvim - Code formatting
 M.conform = {
   format = "<leader>cf",
 }
 
--- toggleterm - 终端管理
-M.toggleTerm = {
-  float = "<leader>tf",
-  right = "<leader>tr",
-  bottom = "<leader>td",
-  switch = "<Esc>",
+-- ╭──────────────────────────────────────────────────────────╮
+-- │  Global - Global vim keymaps (non-plugin)                │
+-- ╰──────────────────────────────────────────────────────────╯
+
+-- Window management
+M.global = {
+  -- Split windows
+  split_vertical = "<leader>sv",
+  split_horizontal = "<leader>sh",
+  close_window = "<leader>sc",
+  close_other_windows = "<leader>so",
+  equal_windows = "<leader>s=",
+  
+  -- Move selection in visual mode
+  move_selection_down = "J",
+  move_selection_up = "K",
+  
+  -- Scroll
+  scroll_up_half = "<leader>u",
+  scroll_down_half = "<leader>d",
+  scroll_up_full = "<leader>b",
+  
+  -- Clipboard
+  paste_from_clipboard = "<leader>p",
+  copy_to_clipboard = "<leader>y",
+  
+  -- Search
+  clear_search = "<leader>k",
+  
+  -- Navigation history
+  go_back = "<leader>o",
+  go_forward = "<leader>i",
+  
+  -- Text object aliases
+  inside_bracket = "ir",
+  around_bracket = "ar",
+  inside_angle = "ia",
+  around_angle = "aa",
 }
 
 return M

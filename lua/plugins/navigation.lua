@@ -16,7 +16,7 @@ return {
       }
     end,
     config = function()
-      require("plugin-config.nvim-tree")
+      require("plugin-config.nvim-tree").setup()
     end,
   },
 
@@ -33,7 +33,7 @@ return {
       }
     end,
     config = function()
-      require("plugin-config.oil")
+      require("plugin-config.oil").setup()
     end,
   },
 
@@ -64,7 +64,7 @@ return {
       }
     end,
     config = function()
-      require("plugin-config.telescope")
+      require("plugin-config.telescope").setup()
     end,
   },
 
@@ -75,7 +75,7 @@ return {
     "ahmedkhalf/project.nvim",
     event = "VeryLazy",
     config = function()
-      require("plugin-config.project")
+      require("plugin-config.project").setup()
     end,
   },
 
@@ -86,8 +86,24 @@ return {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     event = "VeryLazy",
+    keys = function()
+      local keys = require("config.keymaps").harpoon
+      return {
+        { keys.append, "<cmd>lua require('config.commands').harpoon_add()<cr>", desc = "Harpoon Add" },
+        { keys.toggle, "<cmd>lua require('config.commands').harpoon_toggle()<cr>", desc = "Harpoon Toggle" },
+        { keys.prev, "<cmd>lua require('config.commands').harpoon_prev()<cr>", desc = "Harpoon Prev" },
+        { keys.next, "<cmd>lua require('config.commands').harpoon_next()<cr>", desc = "Harpoon Next" },
+        { keys.n1, "<cmd>lua require('config.commands').harpoon_select(1)<cr>", desc = "Harpoon File 1" },
+        { keys.n2, "<cmd>lua require('config.commands').harpoon_select(2)<cr>", desc = "Harpoon File 2" },
+        { keys.n3, "<cmd>lua require('config.commands').harpoon_select(3)<cr>", desc = "Harpoon File 3" },
+        { keys.n4, "<cmd>lua require('config.commands').harpoon_select(4)<cr>", desc = "Harpoon File 4" },
+        { keys.n5, "<cmd>lua require('config.commands').harpoon_select(5)<cr>", desc = "Harpoon File 5" },
+        { keys.n6, "<cmd>lua require('config.commands').harpoon_select(6)<cr>", desc = "Harpoon File 6" },
+        { keys.telescope, "<cmd>lua require('config.commands').harpoon_telescope()<cr>", desc = "Harpoon Telescope" },
+      }
+    end,
     config = function()
-      require("plugin-config.harpoon")
+      require("plugin-config.harpoon").setup()
     end,
   },
 
@@ -137,9 +153,9 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "rmagatti/auto-session",
-    lazy = false,
+    lazy = false,  -- 立即加载以启用自动恢复
     config = function()
-      require("plugin-config.auto-session")
+      require("plugin-config.auto-session").setup()
     end,
   },
 

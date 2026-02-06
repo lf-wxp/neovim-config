@@ -17,7 +17,7 @@ return {
       }
     end,
     config = function()
-      require("plugin-config.flash")
+      require("plugin-config.flash").setup()
     end,
   },
 
@@ -60,7 +60,7 @@ return {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     config = function()
-      require("plugin-config.nvim-autopairs")
+      require("plugin-config.nvim-autopairs").setup()
     end,
   },
 
@@ -69,10 +69,9 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "jake-stewart/multicursor.nvim",
-    branch = "main",
     event = "VeryLazy",
     config = function()
-      require("plugin-config.multicursor")
+      require("plugin-config.multicursor").setup()
     end,
   },
 
@@ -118,7 +117,7 @@ return {
     "chrisgrieser/nvim-origami",
     event = "BufReadPost",
     config = function()
-      require("plugin-config.origami")
+      require("plugin-config.origami").setup()
     end,
   },
 

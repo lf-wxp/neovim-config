@@ -7,40 +7,14 @@ local keys = require("config.keymaps")
 
 local M = {}
 
-M.opts = {
-  signs = {
-    add = { text = "A|" },
-    change = { text = "C|", },
-    delete = { text = "D_", },
-    topdelete = { text = "D‾", },
-    changedelete = { text = "D~", },
-    untracked = { text = "▎" },
-  },
-  -- Show icons
-  signcolumn = true,     -- Toggle with `:Gitsigns toggle_signs`
-  -- Line number highlight
-  numhl = false,         -- Toggle with `:Gitsigns toggle_numhl`
-  word_diff = false,     -- Toggle with `:Gitsigns toggle_word_diff`
-  attach_to_untracked = true,
-  current_line_blame = false, -- Controlled via toggle keymap
-  current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
-  current_line_blame_opts = {
-    virt_text = true,
-    virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
-    delay = 300,
-    ignore_whitespace = false,
-    use_focus = false, -- Disable focus mode to ensure blame always works
-  },
-  preview_config = {
-    -- Options passed to nvim_open_win
-    border = "solid",
-    style = "minimal",
-    relative = "cursor",
-    row = 0,
-    col = 1,
-  },
-  on_attach = function(buffer)
-    local gs = require("gitsigns")
+M.setup = function()
+  local status, gs = pcall(require, "gitsigns")
+  if not status then
+    vim.notify("gitsigns.nvim not found", vim.log.levels.ERROR)
+    return
+  end
+
+  local function on_attach(buffer)
     local gk = keys.gitsigns
 
     -- Don't attach gitsigns to floating windows
@@ -80,7 +54,42 @@ M.opts = {
 
     -- Text Object
     map({ "o", "x" }, gk.select_hunk, ":<C-U>Gitsigns select_hunk<CR>", "Select Hunk")
-  end,
-}
+  end
+
+  gs.setup({
+    signs = {
+      add = { text = "A|" },
+      change = { text = "C|", },
+      delete = { text = "D_", },
+      topdelete = { text = "D‾", },
+      changedelete = { text = "D~", },
+      untracked = { text = "▎" },
+    },
+    -- Show icons
+    signcolumn = true,     -- Toggle with `:Gitsigns toggle_signs`
+    -- Line number highlight
+    numhl = false,         -- Toggle with `:Gitsigns toggle_numhl`
+    word_diff = false,     -- Toggle with `:Gitsigns toggle_word_diff`
+    attach_to_untracked = true,
+    current_line_blame = false, -- Controlled via toggle keymap
+    current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
+    current_line_blame_opts = {
+      virt_text = true,
+      virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+      delay = 300,
+      ignore_whitespace = false,
+      use_focus = false, -- Disable focus mode to ensure blame always works
+    },
+    preview_config = {
+      -- Options passed to nvim_open_win
+      border = "solid",
+      style = "minimal",
+      relative = "cursor",
+      row = 0,
+      col = 1,
+    },
+    on_attach = on_attach,
+  })
+end
 
 return M

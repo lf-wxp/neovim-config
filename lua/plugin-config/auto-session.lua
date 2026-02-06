@@ -1,31 +1,43 @@
--- https://github.com/rmagatti/auto-session
--- Note: Removed curdir, let project.nvim manage working directory
--- So Telescope and other tools will search from project root
--- Note: Removed folds, avoid default folding issue caused by cross-session fold state
-vim.o.sessionoptions = "blank,buffers,help,tabpages,winsize,winpos,terminal,localoptions"
+-- ╭──────────────────────────────────────────────────────────╮
+-- │       auto-session - Auto Session Management Config       │
+-- │                                                             │
+-- │ 用途: 自动保存和恢复 Neovim 会话                            │
+-- │ 依赖: nvim-tree (可选)                                      │
+-- │ 功能:                                                       │
+-- │   1. 自动恢复上次打开的会话                                 │
+-- │   2. 保存前关闭 nvim-tree 窗口                              │
+-- │   3. 跳过特定文件类型的会话保存                             │
+-- │   4. 提供 Session Lens 用于选择会话                         │
+-- ╰──────────────────────────────────────────────────────────╯
 
-require("auto-session").setup({
-  -- Auto load last saved session
-  -- auto_session_enable_last_session = true,
-  -- Auto close nvim-tree when saving session
-  -- Because nvim-tree will break session saving
-  -- if it's open
-  pre_save_cmds = {
-    function()
-      -- Close nvim-tree if it's open
-      local ok, api = pcall(require, "nvim-tree.api")
-      if ok then
-        api.tree.close()
+local M = {}
+
+M.setup = function()
+  -- Session options
+  vim.o.sessionoptions = "blank,buffers,help,tabpages,winsize,winpos,terminal,localoptions"
+
+  require("auto-session").setup({
+    log_level = "info",  -- 启用日志输出以便调试
+    auto_restore_last_session = true,
+    auto_save = true,
+    auto_session_suppress_dirs = {
+      "~/", "~/Downloads", "/", "/tmp", "~/Projects"
+    },
+    pre_save_cmds = {
+      function()
+        local ok, api = pcall(require, "nvim-tree.api")
+        if ok then
+          api.tree.close()
+        end
       end
-    end
-  },
-  bypass_save_filetypes = { "alpha", "dashboard" },
-  auto_restore_last_session = true,
-  -- Session lens for Telescope integration
-  session_lens = {
-    load_on_setup = true,
-    theme_conf = { border = true },
-    previewer = false,
-  },
-})  -- Session lens for Telescope integration
+    },
+    bypass_save_filetypes = { "alpha", "dashboard" },
+    session_lens = {
+      load_on_setup = true,
+      theme_conf = { border = true },
+      previewer = false,
+    },
+  })
+end
 
+return M

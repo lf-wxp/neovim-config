@@ -1,8 +1,15 @@
-local status, which_key = pcall(require, "which-key")
-if not status then
-  vim.notify("which-key not found")
-  return
-end
+-- ╭──────────────────────────────────────────────────────────╮
+-- │                 Which-Key Configuration                  │
+-- ╰──────────────────────────────────────────────────────────╯
+
+local M = {}
+
+M.setup = function()
+  local status, which_key = pcall(require, "which-key")
+  if not status then
+    vim.notify("which-key not found", vim.log.levels.ERROR)
+    return
+  end
 
 which_key.setup({
   icons = {
@@ -611,3 +618,7 @@ which_key.setup({
     { "<leader>l", group = "Next", icon = { icon = "󰒭", color = "blue" } },
   },
 })
+
+end
+
+return M

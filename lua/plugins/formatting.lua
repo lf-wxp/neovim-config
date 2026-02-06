@@ -55,7 +55,8 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "nvimtools/none-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    cmd = "NullLsInfo", -- Only load when NullLsInfo is called
+    event = "LspAttach", -- Load when LSP attaches
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvimtools/none-ls-extras.nvim",
@@ -86,9 +87,9 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "jay-babu/mason-null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "williamboman/mason.nvim", "nvimtools/none-ls.nvim" },
-    opts = {
+    cmd = "NullLsInstall", -- Load when installing null-ls sources
+    event = "LspAttach", -- Also load when LSP attaches
+    dependencies = { "williamboman/mason.nvim", "nvimtools/none-ls.nvim" },    opts = {
       ensure_installed = { "eslint_d", "prettierd", "stylua" },
       automatic_installation = true,
     },

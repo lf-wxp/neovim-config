@@ -78,7 +78,7 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     config = function()
-      require("plugin-config.codecompanion")
+      require("plugin-config.codecompanion").setup()
     end,
   },
 

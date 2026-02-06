@@ -136,6 +136,7 @@ cmp.setup({
     },
   }),
   -- Use lspkind-nvim to show type icons
+  -- Use lspkind-nvim to show type icons
   formatting = require("cmp.lspkind").formatting,
 })
 
@@ -178,12 +179,17 @@ cmp.setup.filetype({ "markdown", "help" }, {
 })
 
 -- npm completions for package.json
-require("cmp-npm").setup({
+local status, cmp_npm = pcall(require, "cmp-npm")
+if status then
+  cmp_npm.setup({
   ignore = {},
   only = {},
   only_semantic_versions = true,
   only_latest_version = false,
-})
+  })
+else
+  vim.notify("cmp-npm not found", vim.log.levels.WARN)
+end
 
 cmp.setup.filetype("json", {
   sources = cmp.config.sources({
@@ -242,7 +248,9 @@ local kind_icons = {
 }
 -- stylua: ignore end
 
-require("cmp_git").setup({
+local status, cmp_git = pcall(require, "cmp_git")
+if status then
+  cmp_git.setup({
   filetypes = { "gitcommit", "NeogitCommitMessage" },
   remotes = { "upstream", "origin" },
   enableRemoteUrlRewrites = false,
@@ -305,10 +313,15 @@ require("cmp_git").setup({
     },
   },
 })
+else
+  vim.notify("cmp-git not found", vim.log.levels.WARN)
+end
 
 -- HTML/CSS class completions
 -- https://github.com/Jezda1337/nvim-html-css
-require("html-css").setup({
+local status, html_css = pcall(require, "html-css")
+if status then
+  html_css.setup({
   -- Enable on specific file types
   enable_on = {
     "html",
@@ -339,6 +352,9 @@ require("html-css").setup({
   -- Optional: Enable Tailwind CSS support (requires @tailwindcss/language-server)
   -- enable_tailwindcss = true,
 })
+else
+  vim.notify("html-css not found", vim.log.levels.WARN)
+end
 
 cmp.setup.filetype({ "html", "htmldjango", "typescriptreact", "javascriptreact" }, {
   sources = cmp.config.sources({
@@ -355,5 +371,7 @@ cmp.setup.filetype({ "html", "htmldjango", "typescriptreact", "javascriptreact" 
   }),
 })
 
+
 require("cmp.luasnip")
 require("cmp.lspsaga")
+

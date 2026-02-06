@@ -10,7 +10,7 @@ return {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      require("gitsigns").setup(require("plugin-config.gitsigns").opts)
+      require("plugin-config.gitsigns").setup()
     end,
   },
 
@@ -45,7 +45,7 @@ return {
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFileHistory" },
     dependencies = "nvim-lua/plenary.nvim",
     config = function()
-      require("plugin-config.diffview")
+      require("plugin-config.diffview").setup()
     end,
   },
 }
