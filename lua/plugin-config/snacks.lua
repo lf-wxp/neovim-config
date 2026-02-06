@@ -15,11 +15,10 @@ M.opts = {
         winblend = 10,
         winbar = " Terminal"
       },
-      -- Border style and padding
-      border = {
-        style = "none",
-        padding = { 2, 4 }, -- top/bottom, left/right
-      },
+      -- Border style
+      border = "none",
+      -- Padding inside terminal window (top, right, bottom, left)
+      padding = { 2, 4, 2, 4 },
     },
   },
   notifier = {
