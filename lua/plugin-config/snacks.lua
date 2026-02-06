@@ -10,7 +10,13 @@ M.opts = {
   terminal = {
     enabled = true,
     win = {
-      wo = { winbar = " Terminal" },
+      -- Padding inside terminal window
+      padding = { 2, 4, 2, 4 }, -- top, right, bottom, left
+      -- Background transparency (0-100, higher = more transparent)
+      wo = {
+        winblend = 10,
+        winbar = " Terminal"
+      },
     },
   },
   notifier = {
