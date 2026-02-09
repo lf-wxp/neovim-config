@@ -12,7 +12,7 @@ M.setup = function()
     },
     ui = {
       border = 'solid',
-      code_action = '💡',
+      code_action = '! ',
     },
     symbol_in_winbar = {
       enable = false,

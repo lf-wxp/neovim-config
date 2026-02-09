@@ -17,9 +17,9 @@ M.setup = function()
       folder_open = "󰝰",
     },
     signs = {
-      fold_closed = "",
-      fold_open = "",
-      done = "✓",
+      fold_closed = " ",
+      fold_open = " ",
+      done = "✓ ",
     },
     file_panel = {
       listing_style = "tree",

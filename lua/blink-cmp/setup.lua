@@ -84,7 +84,7 @@ blink.setup({
         -- Use treesitter for label highlighting
         treesitter = { "lsp" },
         columns = {
-          { "kind_icon" },
+          { "kind_icon", width = 2 },
           { "label", "label_description", gap = 1 },
           { "kind", "source_name", gap = 1 },
         },

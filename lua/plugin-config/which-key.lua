@@ -609,7 +609,7 @@ M.setup = function()
     { "g", group = "Go to", icon = { icon = "󰁔", color = "cyan" } },
     -- Additional groups
     { "<leader>u", group = "UI Toggle", icon = { icon = "󰔡", color = "cyan" } },
-    { "<leader>ds", desc = "Document Symbols", icon = { icon = "󰧮", color = "purple" } },
+    { "<leader>gds", desc = "Document Symbols", icon = { icon = "󰧮", color = "purple" } },
     { "<leader>ws", desc = "Workspace Symbols", icon = { icon = "󱃖", color = "blue" } },
     { "<leader>d", group = "Scroll Down", icon = { icon = "󰶡", color = "cyan" } },
     { "<leader>o", group = "Navigate", icon = { icon = "󰕍", color = "purple" } },
