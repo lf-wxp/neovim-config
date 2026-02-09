@@ -1,6 +1,6 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                      LSP Related                          │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                    LSP Related                         │
+-- ╰────────────────────────────────────────────────────────╯
 
 return {
   -- ╭────────────────────────────────────────────────────────╮
@@ -8,8 +8,8 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "neovim/nvim-lspconfig",
-    cmd = "LspInfo", -- Only load when LspInfo command is called
-    event = "LspAttach", -- Also load when LSP attaches to a buffer
+    cmd = "LspInfo",
+    event = { "BufReadPost", "BufNewFile" }, -- Load when opening files so LSP servers can attach
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
@@ -54,13 +54,16 @@ return {
         "zk",
         "oxlint",
         "tailwindcss",
+        "typos_lsp",
       },
+      -- Disable automatic_enable since setup.lua manually manages vim.lsp.enable()
+      automatic_enable = false,
     },
   },
 
--- ╭────────────────────────────────────────────────────────╮
--- │ lspsaga - LSP UI Enhancement                           │
--- ╰────────────────────────────────────────────────────────╯
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ lspsaga - LSP UI Enhancement                           │
+  -- ╰────────────────────────────────────────────────────────╯
   {
     "nvimdev/lspsaga.nvim",
     event = "LspAttach",
@@ -77,7 +80,7 @@ return {
       }
     end,
     config = function()
-      require("cmp.lspsaga").setup()
+      require("plugin-config.lspsaga").setup()
     end,
   },
 

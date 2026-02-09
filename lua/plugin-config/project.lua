@@ -1,15 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │         project.nvim - Project Root Detection Config      │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │         project.nvim - Project Root Detection Config   │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, project = pcall(require, "project_nvim")
-  if not status then
-    vim.notify("project_nvim not found", vim.log.levels.ERROR)
-    return
-  end
+  local project = require("project_nvim")
 
   -- nvim-tree support
   vim.g.nvim_tree_respect_buf_cwd = 1
@@ -40,8 +36,8 @@ M.setup = function()
   })
 
   -- Telescope extension
-  local status, telescope = pcall(require, "telescope")
-  if status then
+  local ok, telescope = pcall(require, "telescope")
+  if ok then
     pcall(telescope.load_extension, "projects")
   end
 end

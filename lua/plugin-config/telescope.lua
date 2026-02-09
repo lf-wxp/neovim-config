@@ -1,15 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                 Telescope Configuration                 │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                 Telescope Configuration                │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, telescope = pcall(require, "telescope")
-  if not status then
-    vim.notify("telescope not found", vim.log.levels.ERROR)
-    return
-  end
+  local telescope = require("telescope")
 
   local function flash(prompt_bufnr)
     require("flash").jump({

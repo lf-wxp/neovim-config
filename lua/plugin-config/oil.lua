@@ -1,15 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │           oil.nvim - Edit filesystem as buffer          │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │           oil.nvim - Edit filesystem as buffer         │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, oil = pcall(require, "oil")
-  if not status then
-    vim.notify("oil.nvim not found", vim.log.levels.ERROR)
-    return
-  end
+  local oil = require("oil")
 
   oil.setup({
     default_file_explorer = false,

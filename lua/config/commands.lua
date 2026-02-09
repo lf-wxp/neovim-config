@@ -1,6 +1,10 @@
--- lua/config/commands.lua
--- User Commands Module - Exposes all plugin Lua APIs for use in keymaps via <cmd> syntax
--- This module satisfies the requirement: "keymaps中不要出现具体插件的lua的函数调用"
+-- ╭────────────────────────────────────────────────────────╮
+-- │                   User Commands                        │
+-- │                                                        │
+-- │ Purpose: Expose plugin Lua APIs for <cmd> keymaps      │
+-- │ Requirement: Keymaps should not contain direct         │
+-- │              plugin Lua function calls                 │
+-- ╰────────────────────────────────────────────────────────╯
 --
 -- Commands are organized by functionality:
 -- 1. File System Commands
@@ -11,17 +15,17 @@
 
 local M = {}
 
--- ╭──────────────────────────────────────────────────────────╮
--- │                File System Commands                       │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │               File System Commands                     │
+-- ╰────────────────────────────────────────────────────────╯
 
 function M.oil_float()
   require("oil").toggle_float()
 end
 
--- ╭──────────────────────────────────────────────────────────╮
--- │                  Navigation Commands                      │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                Navigation Commands                     │
+-- ╰────────────────────────────────────────────────────────╯
 
 function M.harpoon_add()
   require("harpoon"):list():add()
@@ -77,9 +81,9 @@ function M.grug_far_word()
   require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } })
 end
 
--- ╭──────────────────────────────────────────────────────────╮
--- │                    Editor Commands                        │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                  Editor Commands                       │
+-- ╰────────────────────────────────────────────────────────╯
 
 -- Terminal commands using snacks.nvim
 function M.terminal(cmd)
@@ -102,7 +106,6 @@ function M.terminal_bottom(cmd)
   require("snacks").terminal.toggle(cmd, { win = { position = "bottom" }, count = 4 })
 end
 
--- ╭──────────────────────────────────────────────────────────╮
 
 function M.flash_jump()
   require("flash").jump()
@@ -136,17 +139,17 @@ function M.bufdelete_other()
   require("snacks").bufdelete.other()
 end
 
--- ╭──────────────────────────────────────────────────────────╮
--- │                      Git Commands                         │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                    Git Commands                        │
+-- ╰────────────────────────────────────────────────────────╯
 
 function M.lazygit()
   require("snacks").lazygit()
 end
 
--- ╭──────────────────────────────────────────────────────────╮
--- │                  Language Commands                        │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                 Language Commands                      │
+-- ╰────────────────────────────────────────────────────────╯
 
 function M.crate_toggle()
   require("crates").toggle()
@@ -204,9 +207,9 @@ function M.crate_crates_io()
   require("crates").open_crates_io()
 end
 
--- ╭──────────────────────────────────────────────────────────╮
--- │                    Setup Commands                         │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                  Setup Commands                        │
+-- ╰────────────────────────────────────────────────────────╯
 
 M.setup = function()
   -- Set option for current buffer

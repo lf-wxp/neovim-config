@@ -1,15 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │      codecompanion - AI Coding Assistant Config           │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │      codecompanion - AI Coding Assistant Config        │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, codecompanion = pcall(require, "codecompanion")
-  if not status then
-    vim.notify("codecompanion not found", vim.log.levels.ERROR)
-    return
-  end
+  local codecompanion = require("codecompanion")
 
   codecompanion.setup({
     adapters = {

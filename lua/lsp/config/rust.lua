@@ -1,3 +1,7 @@
+-- ╭────────────────────────────────────────────────────────╮
+-- │      rust-analyzer - Rust LSP Configuration            │
+-- ╰────────────────────────────────────────────────────────╯
+
 local opts = {
   settings = {
     -- to enable rust-analyzer settings visit:

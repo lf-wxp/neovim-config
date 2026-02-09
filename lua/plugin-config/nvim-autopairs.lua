@@ -1,15 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │           nvim-autopairs - Auto Pairs Config             │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │           nvim-autopairs - Auto Pairs Config           │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, autopairs = pcall(require, "nvim-autopairs")
-  if not status then
-    vim.notify("nvim-autopairs not found", vim.log.levels.ERROR)
-    return
-  end
+  local autopairs = require("nvim-autopairs")
 
   autopairs.setup({
     check_ts = true,
@@ -20,10 +16,13 @@ M.setup = function()
     },
   })
 
-  -- Completion integration
-  local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-  local cmp = require("cmp")
-  cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
+  -- Completion integration: try to integrate with nvim-cmp (if available)
+  -- Note: blink.cmp has built-in autopairs support, no extra config needed
+  local ok_cmp, cmp = pcall(require, "cmp")
+  if ok_cmp then
+    local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+    cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
+  end
 end
 
 return M

@@ -1,6 +1,6 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                      Auto Commands                        │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                   Auto Commands                        │
+-- ╰────────────────────────────────────────────────────────╯
 
 local augroup = vim.api.nvim_create_augroup("UserAutoCommands", { clear = true })
 local autocmd = vim.api.nvim_create_autocmd
@@ -17,19 +17,8 @@ autocmd("BufEnter", {
 })
 
 -- Enter insert mode when opening terminal
-autocmd("TermOpen", {
-  group = augroup,
-  command = "startinsert",
-})
-
--- Format on save
-autocmd("BufWritePre", {
-  group = augroup,
-  pattern = "*",
-  callback = function(args)
-    require("conform").format({ bufnr = args.buf })
-  end,
-})
+-- NOTE: Unified in snacks.lua TermOpen autocmd (Esc mapping + startinsert)
+-- Removed from here to avoid duplication with snacks terminal management
 
 -- Highlight on yank
 autocmd("TextYankPost", {

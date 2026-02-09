@@ -1,14 +1,14 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                   Config Utils                            │
--- │                                                             │
--- │ Purpose: Common utility functions for configuration and    │
--- │          plugins usage                                     │
--- │ Features:                                                   │
--- │   - safe_require(): Safely require modules                 │
--- │   - map(): Create keymaps with description                 │
--- │   - safe_execute(): Safely execute commands                │
--- │   - merge_tables(): Deep merge multiple tables             │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                    Config Utils                        │
+-- │                                                        │
+-- │ Purpose: Common utility functions for configuration    │
+-- │          and plugins usage                             │
+-- │ Features:                                              │
+-- │   - safe_require(): Safely require modules             │
+-- │   - map(): Create keymaps with description             │
+-- │   - safe_execute(): Safely execute commands            │
+-- │   - merge_tables(): Deep merge multiple tables         │
+-- ╰────────────────────────────────────────────────────────╯
 
 local fn = vim.fn
 local version = vim.version
@@ -113,9 +113,9 @@ function M.simple_fold()
   return " " .. start_line .. "  " .. end_line .. spaces
 end
 
--- ╭──────────────────────────────────────────────────────────╮
--- │                 Configuration Helpers                     │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │              Configuration Helpers                     │
+-- ╰────────────────────────────────────────────────────────╯
 
 --- Safely require a module with error handling and notification
 --- @param module_name string The module to require

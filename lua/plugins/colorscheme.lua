@@ -1,6 +1,6 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                      Colorscheme                          │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                    Colorscheme                         │
+-- ╰────────────────────────────────────────────────────────╯
 
 -- Highlight utility functions
 local function get_hl(name)
@@ -43,47 +43,24 @@ local function setup_telescope_highlights()
   end
 end
 
-local function setup_misc_highlights()
-  set_hl("BufferManagerModified", { fg = "#0000af" })
-
-  -- Window separator - transparent (hidden)
-  set_hl("WinSeparator", { fg = "NONE", bg = "NONE" })
-  set_hl("VertSplit", { fg = "NONE", bg = "NONE" })
-
-  -- Window focus highlights with subtle difference
-  -- Active window is slightly darker than inactive window
-  local normal_hl = get_hl("Normal")
-  local base_bg = normal_hl.bg or "#1a1b26"
-
-  -- Create a slightly darker background for active window (factor 0.03 for very subtle effect)
-  local active_bg = darken_color(base_bg, 0.05) or base_bg
-
-  set_hl("ActiveWindow", {
-    bg = active_bg,
-  })
-
-  set_hl("InactiveWindow", {
-    bg = base_bg,
-  })
-
-  -- Setup window focus highlights
-  setup_window_focus_highlights()
-end
-
 -- Highlight the current active window with a different background
-function setup_window_focus_highlights()
+local function setup_window_focus_highlights()
   local augroup = vim.api.nvim_create_augroup("WindowFocusHighlight", { clear = true })
 
   -- Current window highlight
   local function highlight_current_window()
     local current_win = vim.api.nvim_get_current_win()
 
-    -- Apply highlights to all windows
+    -- Apply highlights to all windows (skip floating windows to preserve their own winhighlight)
     for _, win in ipairs(vim.api.nvim_list_wins()) do
-      if win == current_win then
-        vim.api.nvim_win_set_option(win, "winhighlight", "Normal:ActiveWindow,NormalNC:ActiveWindow")
-      else
-        vim.api.nvim_win_set_option(win, "winhighlight", "Normal:InactiveWindow,NormalNC:InactiveWindow")
+      local win_config = vim.api.nvim_win_get_config(win)
+      if win_config.relative == "" then
+        -- Only apply to normal (non-floating) windows
+        if win == current_win then
+          vim.wo[win].winhighlight = "Normal:ActiveWindow,NormalNC:ActiveWindow"
+        else
+          vim.wo[win].winhighlight = "Normal:InactiveWindow,NormalNC:InactiveWindow"
+        end
       end
     end
   end
@@ -105,6 +82,37 @@ function setup_window_focus_highlights()
     once = true,
     callback = highlight_current_window,
   })
+end
+
+local function setup_misc_highlights()
+  set_hl("BufferManagerModified", { fg = "#0000af" })
+
+  -- Window separator - transparent (hidden)
+  set_hl("WinSeparator", { fg = "NONE", bg = "NONE" })
+  set_hl("VertSplit", { fg = "NONE", bg = "NONE" })
+
+  -- Window focus highlights with subtle difference
+  -- Active window is slightly darker than inactive window
+  local normal_hl = get_hl("Normal")
+  local base_bg = normal_hl.bg or "#1a1b26"
+
+  -- Floating window background consistent with editor (remove bright NormalFloat from zephyr theme)
+  set_hl("NormalFloat", { fg = normal_hl.fg, bg = base_bg })
+  set_hl("FloatBorder", { fg = base_bg, bg = base_bg })
+
+  -- Create a slightly darker background for active window (factor 0.05 for very subtle effect)
+  local active_bg = darken_color(base_bg, 0.05) or base_bg
+
+  set_hl("ActiveWindow", {
+    bg = active_bg,
+  })
+
+  set_hl("InactiveWindow", {
+    bg = base_bg,
+  })
+
+  -- Setup window focus highlights
+  setup_window_focus_highlights()
 end
 
 local function setup_multicursor_highlights()
@@ -228,6 +236,105 @@ local function setup_dropbar_highlights()
   set_hl("DropBarKindNull", { fg = colors.comment_fg, bg = colors.normal_bg })
 end
 
+local function setup_blink_highlights()
+  local normal_hl = get_hl("Normal")
+  local base_bg = normal_hl.bg or 0x1a1b26
+  local sel_bg = darken_color(base_bg, -0.1) or 0x2a2e3a
+
+  -- Derive colors from current colorscheme
+  local colors = {
+    func     = get_hl("Function").fg or 0x7aa2f7,  -- blue
+    type     = get_hl("Type").fg or 0xbb9af7,       -- purple
+    keyword  = get_hl("Keyword").fg or 0x9d7cd8,    -- violet
+    string   = get_hl("String").fg or 0x9ece6a,     -- green
+    constant = get_hl("Constant").fg or 0xe0af68,   -- orange/yellow
+    special  = get_hl("Special").fg or 0x7dcfff,    -- cyan
+    comment  = get_hl("Comment").fg or 0x565f89,    -- dim
+    error    = get_hl("DiagnosticError").fg or 0xf7768e, -- red
+    normal   = normal_hl.fg or 0xc0caf5,            -- default fg
+    info     = get_hl("DiagnosticInfo").fg or 0x7dcfff, -- info blue
+  }
+
+  -- ── Menu chrome (background consistent with editor) ──
+  set_hl("BlinkCmpMenu",          { bg = base_bg })
+  set_hl("BlinkCmpMenuBorder",    { fg = base_bg, bg = base_bg })
+  set_hl("BlinkCmpMenuSelection", { bg = sel_bg, bold = true })
+  set_hl("BlinkCmpScrollBarThumb", { bg = colors.comment })
+  set_hl("BlinkCmpScrollBarGutter", { bg = base_bg })
+
+  -- ── Label ──
+  set_hl("BlinkCmpLabel",            { fg = colors.normal, bg = "NONE" })
+  set_hl("BlinkCmpLabelMatch",       { fg = colors.func, bold = true })
+  set_hl("BlinkCmpLabelDescription", { fg = colors.comment, italic = true })
+  set_hl("BlinkCmpLabelDeprecated",  { fg = colors.comment, strikethrough = true })
+  set_hl("BlinkCmpLabelDetail",      { fg = colors.comment })
+
+  -- ── Source tag ──
+  set_hl("BlinkCmpSource", { fg = colors.comment, italic = true })
+
+  -- ── Documentation (background consistent with editor) ──
+  set_hl("BlinkCmpDoc",             { bg = base_bg })
+  set_hl("BlinkCmpDocBorder",       { fg = base_bg, bg = base_bg })
+  set_hl("BlinkCmpDocSeparator",    { fg = colors.comment, bg = base_bg })
+  set_hl("BlinkCmpDocCursorLine",   { bg = sel_bg })
+
+  -- ── Signature (borderless: background matches editor, removes visual border) ──
+  set_hl("BlinkCmpSignatureHelp",                { bg = base_bg })
+  set_hl("BlinkCmpSignatureHelpBorder",          { fg = base_bg, bg = base_bg })
+  set_hl("BlinkCmpSignatureHelpActiveParameter", { fg = colors.func, bold = true })
+
+  -- ── Kind icons: each kind gets its own semantic color ──
+  -- Default kind
+  set_hl("BlinkCmpKind", { fg = colors.special })
+
+  -- Functions / Methods — blue
+  set_hl("BlinkCmpKindFunction",    { fg = colors.func })
+  set_hl("BlinkCmpKindMethod",      { fg = colors.func })
+  set_hl("BlinkCmpKindConstructor", { fg = colors.func })
+
+  -- Types / Classes — purple
+  set_hl("BlinkCmpKindClass",         { fg = colors.type })
+  set_hl("BlinkCmpKindInterface",     { fg = colors.type })
+  set_hl("BlinkCmpKindStruct",        { fg = colors.type })
+  set_hl("BlinkCmpKindEnum",          { fg = colors.type })
+  set_hl("BlinkCmpKindTypeParameter", { fg = colors.type })
+
+  -- Variables / Fields — cyan
+  set_hl("BlinkCmpKindVariable", { fg = colors.special })
+  set_hl("BlinkCmpKindField",    { fg = colors.special })
+  set_hl("BlinkCmpKindProperty", { fg = colors.special })
+
+  -- Constants / Values — orange/yellow
+  set_hl("BlinkCmpKindConstant",   { fg = colors.constant })
+  set_hl("BlinkCmpKindValue",      { fg = colors.constant })
+  set_hl("BlinkCmpKindEnumMember", { fg = colors.constant })
+  set_hl("BlinkCmpKindUnit",       { fg = colors.constant })
+
+  -- Keywords / Modules — violet
+  set_hl("BlinkCmpKindKeyword",   { fg = colors.keyword })
+  set_hl("BlinkCmpKindModule",    { fg = colors.keyword })
+  set_hl("BlinkCmpKindNamespace", { fg = colors.keyword })
+
+  -- Strings / Text — green
+  set_hl("BlinkCmpKindText",    { fg = colors.string })
+  set_hl("BlinkCmpKindSnippet", { fg = colors.string })
+
+  -- Files / Paths — info blue
+  set_hl("BlinkCmpKindFile",      { fg = colors.info })
+  set_hl("BlinkCmpKindFolder",    { fg = colors.info })
+  set_hl("BlinkCmpKindReference", { fg = colors.info })
+
+  -- Events / Operators — red/pink
+  set_hl("BlinkCmpKindEvent",    { fg = colors.error })
+  set_hl("BlinkCmpKindOperator", { fg = colors.error })
+
+  -- Colors
+  set_hl("BlinkCmpKindColor", { fg = colors.constant })
+
+  -- Ghost text
+  set_hl("BlinkCmpGhostText", { fg = colors.comment, italic = true })
+end
+
 -- Apply all highlights
 local function setup_all_highlights()
   setup_telescope_highlights()
@@ -235,6 +342,7 @@ local function setup_all_highlights()
   setup_multicursor_highlights()
   setup_symbol_usage_highlights()
   setup_dropbar_highlights()
+  setup_blink_highlights()
 end
 
 -- Reapply highlights on colorscheme change
@@ -255,9 +363,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
--- ╭──────────────────────────────────────────────────────────╮
--- │                      Plugin Config                        │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                    Plugin Config                       │
+-- ╰────────────────────────────────────────────────────────╯
 
 return {
   -- Primary colorscheme

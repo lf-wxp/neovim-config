@@ -1,11 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                      Navigation Plugins                   │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                  Navigation Plugins                    │
+-- ╰────────────────────────────────────────────────────────╯
 
 return {
--- ╭────────────────────────────────────────────────────────╮
--- │ nvim-tree - File Tree                                  │
--- ╰────────────────────────────────────────────────────────╯
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ nvim-tree - File Tree                                  │
+  -- ╰────────────────────────────────────────────────────────╯
   {
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons", "b0o/nvim-tree-preview.lua" },
@@ -20,9 +20,9 @@ return {
     end,
   },
 
--- ╭────────────────────────────────────────────────────────╮
--- │ oil.nvim - Buffer-style File Manager                   │
--- ╰────────────────────────────────────────────────────────╯
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ oil.nvim - Buffer-style File Manager                   │
+  -- ╰────────────────────────────────────────────────────────╯
   {
     "stevearc/oil.nvim",
     keys = function()
@@ -37,9 +37,9 @@ return {
     end,
   },
 
--- ╭────────────────────────────────────────────────────────╮
--- │ telescope - Fuzzy Finder                               │
--- ╰────────────────────────────────────────────────────────╯
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ telescope - Fuzzy Finder                               │
+  -- ╰────────────────────────────────────────────────────────╯
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
@@ -113,12 +113,23 @@ return {
   {
     "folke/trouble.nvim",
     cmd = "Trouble",
+    keys = function()
+      local keys = require("config.keymaps").trouble
+      return {
+        { keys.toggle, "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+        { keys.diagnostics, "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics" },
+        { keys.symbols, "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols (Trouble)" },
+        { keys.lsp_references, "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", desc = "LSP References" },
+        { keys.loclist, "<cmd>Trouble loclist toggle<cr>", desc = "Location List" },
+        { keys.quickfix, "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List" },
+      }
+    end,
     opts = {},
   },
 
--- ╭────────────────────────────────────────────────────────╮
--- │ grug-far - Project Search Replace                      │
--- ╰────────────────────────────────────────────────────────╯
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ grug-far - Project Search Replace                      │
+  -- ╰────────────────────────────────────────────────────────╯
   {
     "MagicDuck/grug-far.nvim",
     keys = function()
@@ -142,6 +153,12 @@ return {
   {
     "SmiteshP/nvim-navbuddy",
     dependencies = { "MunifTanjim/nui.nvim", "SmiteshP/nvim-navic" },
+    keys = function()
+      local keys = require("config.keymaps").navbuddy
+      return {
+        { keys.toggle, "<cmd>Navbuddy<cr>", desc = "Symbol Navigation (Navbuddy)" },
+      }
+    end,
     opts = {
       lsp = { auto_attach = true },
       window = { border = "none" },
@@ -153,7 +170,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "rmagatti/auto-session",
-    lazy = false,  -- 立即加载以启用自动恢复
+    lazy = false,  -- Load immediately to enable auto-restore
     config = function()
       require("plugin-config.auto-session").setup()
     end,

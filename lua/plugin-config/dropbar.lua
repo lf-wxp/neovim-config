@@ -1,15 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │         dropbar.nvim - Breadcrumb Navigation Config       │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │         dropbar.nvim - Breadcrumb Navigation Config    │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, dropbar = pcall(require, "dropbar")
-  if not status then
-    vim.notify("dropbar not found", vim.log.levels.ERROR)
-    return
-  end
+  local dropbar = require("dropbar")
 
   local icons = {
     File = "󰈙 ",
@@ -17,7 +13,7 @@ M.setup = function()
     Namespace = "󰌗 ",
     Package = "󰏖 ",
     Class = "󰠱 ",
-    Method = "� ",
+    Method = "󰆧 ",
     Property = "󰜢 ",
     Field = "󰜢 ",
     Constructor = "󰒓 ",

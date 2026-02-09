@@ -1,17 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                flash.nvim - Quick Jump Config            │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                flash.nvim - Quick Jump Config          │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, flash = pcall(require, "flash")
-  if not status then
-    vim.notify("flash not found", vim.log.levels.ERROR)
-    return
-  end
-
-  flash.setup({
+  require("flash").setup({
     labels = "asdfghjklqwertyuiopzxcvbnm",
     search = {
       multi_window = true,

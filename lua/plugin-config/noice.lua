@@ -1,20 +1,11 @@
--- ╭──────────────────────────────────────────────────────────────🟢
--- │ noice.nvim - Cmdline/Notify/Search UI Configuration        │
--- ╰──────────────────────────────────────────────────────────────🔴
-
----@module "plugin-config.noice"
----@diagnostic disable: undefined-global Hlargs
+-- ╭────────────────────────────────────────────────────────╮
+-- │    noice.nvim - Cmdline/Notify/Search UI Configuration │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, noice = pcall(require, "noice")
-  if not status then
-    vim.notify("noice not found", vim.log.levels.ERROR)
-    return
-  end
-
-  noice.setup({
+  require("noice").setup({
     -- Command line UI
     cmdline = {
       enabled = true,
@@ -47,6 +38,7 @@ M.setup = function()
     -- Popup menu configuration
     popupmenu = {
       enabled = true,
+      ---@type 'nui'|'cmp'
       backend = "nui",
       kind_icons = {
         File = "󰈙 ",
@@ -103,10 +95,11 @@ M.setup = function()
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
         ["vim.lsp.util.stylize_markdown"] = true,
-        ["cmp.entry.get_documentation"] = true,
+        -- blink.cmp does not need this override
+        -- ["cmp.entry.get_documentation"] = true,
       },
       hover = { enabled = true, silent = true, view = "hover" },
-      signature = { enabled = true, auto_open = true },
+      signature = { enabled = false },
       message = { enabled = true, view = "notify" },
     },
 

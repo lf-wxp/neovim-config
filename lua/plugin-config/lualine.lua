@@ -1,15 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                    Lualine Configuration                 │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                    Lualine Configuration               │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, Harpoonline = pcall(require, "harpoonline")
-  if not status then
-    vim.notify("harpoonline not found", vim.log.levels.ERROR)
-    return
-  end
+  local Harpoonline = require("harpoonline")
 
   Harpoonline.setup({
     on_update = function() require("lualine").refresh() end,

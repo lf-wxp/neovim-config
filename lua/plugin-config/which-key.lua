@@ -1,23 +1,19 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                 Which-Key Configuration                  │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                 Which-Key Configuration                │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, which_key = pcall(require, "which-key")
-  if not status then
-    vim.notify("which-key not found", vim.log.levels.ERROR)
-    return
-  end
+  local which_key = require("which-key")
 
-which_key.setup({
+  which_key.setup({
   icons = {
-    -- 禁用图标装饰（如下划线）
+    -- Disable icon decorations (e.g. underline)
     separator = "",
-    -- 设置图标基础样式
+    -- Set base icon style
     group = "",
-    -- 规则配置
+    -- Rule configuration
     rules = {
       -- ========================================
       -- Window & Split
@@ -207,6 +203,13 @@ which_key.setup({
       { pattern = "next diagnostic", icon = "󰒭", color = "blue" },
       { pattern = "prev diagnostic", icon = "󰒮", color = "blue" },
       { pattern = "code action", icon = "󰅗", color = "green" },
+      { pattern = "toggle inlay hints", icon = "󰊠", color = "cyan" },
+      { pattern = "inlay hint", icon = "󰊠", color = "cyan" },
+      { pattern = "codelens run", icon = "󰜎", color = "green" },
+      { pattern = "codelens", icon = "󰜎", color = "green" },
+      { pattern = "document symbols", icon = "󰧮", color = "purple" },
+      { pattern = "workspace symbols", icon = "󱃖", color = "blue" },
+      { pattern = "signature help", icon = "󰋽", color = "yellow" },
       { pattern = "diagnostic", icon = "󰁨", color = "red" },
       { pattern = "definition", icon = "󰈮", color = "blue" },
       { pattern = "reference", icon = "󰆽", color = "yellow" },
@@ -605,7 +608,9 @@ which_key.setup({
     { "gp", group = "LSP Peek", icon = { icon = "󰈈", color = "yellow" } },
     { "g", group = "Go to", icon = { icon = "󰁔", color = "cyan" } },
     -- Additional groups
-    { "<leader>u", group = "Scroll Up", icon = { icon = "󰶣", color = "cyan" } },
+    { "<leader>u", group = "UI Toggle", icon = { icon = "󰔡", color = "cyan" } },
+    { "<leader>ds", desc = "Document Symbols", icon = { icon = "󰧮", color = "purple" } },
+    { "<leader>ws", desc = "Workspace Symbols", icon = { icon = "󱃖", color = "blue" } },
     { "<leader>d", group = "Scroll Down", icon = { icon = "󰶡", color = "cyan" } },
     { "<leader>o", group = "Navigate", icon = { icon = "󰕍", color = "purple" } },
     { "<leader>i", group = "Navigate", icon = { icon = "󰒭", color = "purple" } },

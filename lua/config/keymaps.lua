@@ -1,18 +1,14 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                    Keymaps Configuration                  │
--- │        Centralized keymap definitions (pure export)        │
--- ╰──────────────────────────────────────────────────────────╯
-
--- NOTE: Leader keys are set in init.lua BEFORE lazy.nvim loads
--- vim.g.mapleader = " "
--- vim.g.maplocalleader = " "
+-- ╭────────────────────────────────────────────────────────╮
+-- │               Keymaps Configuration                    │
+-- │      Centralized keymap definitions (pure export)      │
+-- ╰────────────────────────────────────────────────────────╯
 
 -- Export keymap config for plugins
 local M = {}
 
--- ╭──────────────────────────────────────────────────────────╮
--- │         Load Global Keymaps (called by VeryLazy)          │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │      Load Global Keymaps (called by VeryLazy)          │
+-- ╰────────────────────────────────────────────────────────╯
 
 M.load_global = function()
   local km = M.global
@@ -67,9 +63,9 @@ M.load_global = function()
   keymap("o", km.around_angle, "a<", vim.tbl_extend("force", opts, { desc = "Around <>" }))
 end
 
--- ╭──────────────────────────────────────────────────────────╮
--- │  Navigation - File navigation related plugins            │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │  Navigation - File navigation related plugins          │
+-- ╰────────────────────────────────────────────────────────╯
 
 -- nvim-tree - File tree
 M.nvimTree = {
@@ -116,9 +112,24 @@ M.grugFar = {
   word = "<leader>rw",
 }
 
--- ╭──────────────────────────────────────────────────────────╮
--- │  Buffer & UI - Tab/UI related                            │
--- ╰──────────────────────────────────────────────────────────╯
+-- trouble - Diagnostics list
+M.trouble = {
+  toggle = "<leader>xx",
+  diagnostics = "<leader>xd",
+  symbols = "<leader>xs",
+  lsp_references = "<leader>xr",
+  loclist = "<leader>xl",
+  quickfix = "<leader>xq",
+}
+
+-- nvim-navbuddy - Symbol navigation
+M.navbuddy = {
+  toggle = "<leader>nb",
+}
+
+-- ╭────────────────────────────────────────────────────────╮
+-- │  Buffer & UI - Tab/UI related                          │
+-- ╰────────────────────────────────────────────────────────╯
 
 -- bufferline - Tab bar
 M.bufferline = {
@@ -165,9 +176,9 @@ M.window = {
   close_other = "<leader>so",
 }
 
--- ╭──────────────────────────────────────────────────────────╮
--- │  Editor - Editor enhancement                             │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │  Editor - Editor enhancement                           │
+-- ╰────────────────────────────────────────────────────────╯
 
 -- flash.nvim - Quick jump
 M.flash = {
@@ -204,13 +215,13 @@ M.multicursor = {
   skipCursorBelow = "<leader><down>",
   addNextMatch = "<leader>m",
   addPrevMatch = "<leader>M",
-  skipNextMatch = "<leader>s",
-  skipPrevMatch = "<leader>S",
+  skipNextMatch = "<leader>ms",
+  skipPrevMatch = "<leader>mS",
   addCursorWithMouse = "<c-leftmouse>",
   toggleCursor = "<c-q>",
   prevCursor = "<left>",
   nextCursor = "<right>",
-  deleteCursor = "<leader>x",
+  deleteCursor = "<leader>mx",
 }
 
 -- luasnip - Code snippets
@@ -227,9 +238,17 @@ M.comment = {
   opleader = { line = "gc", block = "gb" },
 }
 
--- ╭──────────────────────────────────────────────────────────╮
--- │  LSP - Language Server Protocol                          │
--- ╰──────────────────────────────────────────────────────────╯
+-- todo-comments - TODO Comment Highlight & Navigation
+M.todoComments = {
+  next = "]t",
+  prev = "[t",
+  search = "<leader>st",
+  search_fixme = "<leader>sT",
+}
+
+-- ╭────────────────────────────────────────────────────────╮
+-- │  LSP - Language Server Protocol                        │
+-- ╰────────────────────────────────────────────────────────╯
 
 -- lspsaga - LSP UI enhancement
 M.lspsaga = {
@@ -252,15 +271,21 @@ M.lsp = {
   go_declaration = "gD",
   go_implementation = "gi",
   references = "gr",
+  type_definition = "gy",
+  signature_help = "gs",
   line_diagnostics = "gp",
   next_diagnostics = "gj",
   prev_diagnostics = "gk",
+  document_symbols = "<leader>ds",
+  workspace_symbols = "<leader>ws",
+  toggle_inlay_hints = "<leader>uh",
+  codelens_run = "<leader>cl",
   format = "==",
 }
 
--- ╭──────────────────────────────────────────────────────────╮
--- │  Language - Language specific                            │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │  Language - Language specific                          │
+-- ╰────────────────────────────────────────────────────────╯
 
 -- crates.nvim - Rust crates management
 M.crates = {
@@ -278,9 +303,9 @@ M.crates = {
   open_crates_io = "<leader>cC",
 }
 
--- ╭──────────────────────────────────────────────────────────╮
--- │  Git - Version control                                   │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │  Git - Version control                                 │
+-- ╰────────────────────────────────────────────────────────╯
 
 -- neogit - Git interface
 M.neogit = {
@@ -305,18 +330,18 @@ M.gitsigns = {
   select_hunk = "<leader>ig",
 }
 
--- ╭──────────────────────────────────────────────────────────╮
--- │  Tools - Tools                                            │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │  Tools - Tools                                         │
+-- ╰────────────────────────────────────────────────────────╯
 
 -- conform.nvim - Code formatting
 M.conform = {
   format = "<leader>cf",
 }
 
--- ╭──────────────────────────────────────────────────────────╮
--- │  Global - Global vim keymaps (non-plugin)                │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │  Global - Global vim keymaps (non-plugin)              │
+-- ╰────────────────────────────────────────────────────────╯
 
 -- Window management
 M.global = {

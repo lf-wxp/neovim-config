@@ -1,17 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │        lspsaga.nvim - LSP UI Enhancement Config          │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │        lspsaga.nvim - LSP UI Enhancement Config        │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, lspsaga = pcall(require, "lspsaga")
-  if not status then
-    vim.notify("lspsaga not found", vim.log.levels.ERROR)
-    return
-  end
-
-  lspsaga.setup({
+  require("lspsaga").setup({
     scroll_preview = {
       scroll_down = 'sd',
       scroll_up = 'su',

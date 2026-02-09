@@ -1,3 +1,7 @@
+-- ╭────────────────────────────────────────────────────────╮
+-- │     vue-language-server - Vue LSP Configuration        │
+-- ╰────────────────────────────────────────────────────────╯
+
 local opts = {
   on_init = function(client)
     client.handlers['tsserver/request'] = function(_, result, context)

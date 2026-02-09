@@ -1,11 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                    Formatting and Lint                    │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                  Formatting and Lint                   │
+-- ╰────────────────────────────────────────────────────────╯
 
 return {
--- ╭────────────────────────────────────────────────────────╮
--- │ conform.nvim - Formatter                               │
--- ╰────────────────────────────────────────────────────────╯
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ conform.nvim - Formatter                               │
+  -- ╰────────────────────────────────────────────────────────╯
   {
     "stevearc/conform.nvim",
     event = "BufWritePre",
@@ -23,22 +23,35 @@ return {
       }
     end,
     opts = {
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_format = "fallback",
-      },
+      format_on_save = function(bufnr)
+        -- Skip formatting for large files (> 200KB)
+        local buf_name = vim.api.nvim_buf_get_name(bufnr)
+        local file_size = vim.fn.getfsize(buf_name)
+        if file_size > 200 * 1024 then
+          return
+        end
+        -- Skip formatting for certain filetypes
+        local ignore_filetypes = { "sql", "java" }
+        if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
+          return
+        end
+        return {
+          timeout_ms = 500,
+          lsp_format = "fallback",
+        }
+      end,
       formatters_by_ft = {
         -- lua: use stylua, install: cargo install stylua
         lua = { "stylua", stop_after_first = true },
-        -- python: isort and black
-        python = { "isort", "black", stop_after_first = true },
+        -- python: isort (sort imports) + black (format), run sequentially
+        python = { "isort", "black" },
         -- rust: rustfmt
         rust = { "rustfmt", lsp_format = "fallback" },
-        -- JS/TS: prefer prettierd, fallback prettier
-        javascript = { "prettierd", "prettier", stop_after_first = true },
-        typescript = { "prettierd", "prettier", stop_after_first = true },
-        typescriptreact = { "prettierd", "prettier", stop_after_first = true },
-        vue = { "prettierd", "prettier", stop_after_first = true },
+        -- JS/TS: prefer oxfmt, fallback prettierd/prettier
+        javascript = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+        typescript = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+        typescriptreact = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+        vue = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
         css = { "prettierd", "prettier", stop_after_first = true },
         scss = { "prettierd", "prettier", stop_after_first = true },
         json = { "prettierd", "prettier", stop_after_first = true },
@@ -50,48 +63,34 @@ return {
   },
 
   -- ╭────────────────────────────────────────────────────────╮
-  -- │ none-ls (null-ls) - Diagnostics and Code Actions       │
-  -- │ Kept for: eslint diagnostics/actions and cspell        │
+  -- │ nvim-lint - Async Linting                              │
+  -- │ Note: oxlint runs as LSP server, no need here          │
+  -- │ Add non-LSP linters here (e.g. markdownlint,shellcheck)│
   -- ╰────────────────────────────────────────────────────────╯
   {
-    "nvimtools/none-ls.nvim",
-    cmd = "NullLsInfo", -- Only load when NullLsInfo is called
-    event = "LspAttach", -- Load when LSP attaches
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvimtools/none-ls-extras.nvim",
-      "davidmh/cspell.nvim",
-    },
+    "mfussenegger/nvim-lint",
+    enabled = false, -- Disabled: linters_by_ft is empty, no actual linter config; enable and add linters when needed
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
-      local null_ls = require("null-ls")
-      null_ls.setup({
-        debug = false,
-        sources = {
-          -- ESLint diagnostics and code actions
-          require("none-ls.diagnostics.eslint"),
-          require("none-ls.code_actions.eslint"),
-          -- cspell spell checking
-          require("cspell.diagnostics"),
-          require("cspell.code_actions"),
-        },
-        diagnostics_format = "[#{s}] #{m}",
-        on_attach = function(_)
-          vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format()']])
+      local lint = require("lint")
+
+      lint.linters_by_ft = {
+        -- oxlint diagnostics are provided by oxlint LSP server
+        -- Add non-LSP linters below:
+        -- markdown = { "markdownlint" },
+        -- sh = { "shellcheck" },
+      }
+
+      -- Auto-lint on save, read and leaving insert mode
+      vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
+        group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
+        callback = function()
+          -- Only lint if buffer is modifiable (skip readonly/special buffers)
+          if vim.opt_local.modifiable:get() then
+            lint.try_lint()
+          end
         end,
       })
     end,
-  },
-
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ mason-null-ls - Mason & null-ls Bridge                 │
-  -- ╰────────────────────────────────────────────────────────╯
-  {
-    "jay-babu/mason-null-ls.nvim",
-    cmd = "NullLsInstall", -- Load when installing null-ls sources
-    event = "LspAttach", -- Also load when LSP attaches
-    dependencies = { "williamboman/mason.nvim", "nvimtools/none-ls.nvim" },    opts = {
-      ensure_installed = { "eslint_d", "prettierd", "stylua" },
-      automatic_installation = true,
-    },
   },
 }

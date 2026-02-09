@@ -1,18 +1,12 @@
--- ╭──────────────────────────────────────────────────────────────🟢
--- │ gitsigns.nvim - Git Signs Configuration                    │
--- ╰──────────────────────────────────────────────────────────────🔴
-
----@module "plugin-config.gitsigns"
-local keys = require("config.keymaps")
+-- ╭────────────────────────────────────────────────────────╮
+-- │       gitsigns.nvim - Git Signs Configuration          │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, gs = pcall(require, "gitsigns")
-  if not status then
-    vim.notify("gitsigns.nvim not found", vim.log.levels.ERROR)
-    return
-  end
+  local keys = require("config.keymaps")
+  local gs = require("gitsigns")
 
   local function on_attach(buffer)
     local gk = keys.gitsigns
@@ -58,12 +52,12 @@ M.setup = function()
 
   gs.setup({
     signs = {
-      add = { text = "A|" },
-      change = { text = "C|", },
-      delete = { text = "D_", },
-      topdelete = { text = "D‾", },
-      changedelete = { text = "D~", },
-      untracked = { text = "▎" },
+      add = { text = "+" },
+      change = { text = "~", },
+      delete = { text = "-", },
+      topdelete = { text = "↑", },
+      changedelete = { text = "~", },
+      untracked = { text = "?" },
     },
     -- Show icons
     signcolumn = true,     -- Toggle with `:Gitsigns toggle_signs`

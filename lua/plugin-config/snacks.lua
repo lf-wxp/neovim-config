@@ -1,4 +1,7 @@
--- snacks.nvim config
+-- ╭────────────────────────────────────────────────────────╮
+-- │          snacks.nvim - Multi-purpose Plugin Config     │
+-- ╰────────────────────────────────────────────────────────╯
+
 local M = {}
 
 M.opts = {
@@ -7,18 +10,48 @@ M.opts = {
   bigfile = { enabled = true },   -- Big file optimization
   quickfile = { enabled = true }, -- Quick file open
   words = { enabled = true },     -- Highlight current word
-  terminal = {
-    enabled = true,
-    win = {
-      -- Background transparency (0-100, higher = more transparent)
+  styles = {
+    notification = {
+      border = "solid",
+      wo = {
+        winblend = 10,
+      },
+    },
+    notification_history = {
+      border = "solid",
+      wo = {
+        winblend = 10,
+      },
+    },
+    terminal = {
       wo = {
         winblend = 10,
         winbar = " Terminal"
       },
-      -- Border style
-      border = "none",
-      -- Padding inside terminal window (top, right, bottom, left)
-      padding = { 2, 4, 2, 4 },
+      border = "solid",
+    }
+  },
+  terminal = {
+    enabled = true,
+  },
+  toggle = {
+    enabled = true,
+    map = vim.keymap.set, -- keymap.set function to use
+    which_key = true,   -- integrate with which-key to show enabled/disabled icons and colors
+    notify = true,      -- show a notification when toggling
+    -- icons for enabled/disabled states
+    icon = {
+      enabled = " ",
+      disabled = " ",
+    },
+    -- colors for enabled/disabled states
+    color = {
+      enabled = "green",
+      disabled = "yellow",
+    },
+    wk_desc = {
+      enabled = "Disable",
+      disabled = "Enable",
     },
   },
   notifier = {
@@ -29,8 +62,6 @@ M.opts = {
     max_width = 60,
     -- Padding inside notification window
     padding = true,
-    -- Border style: "none", "single", "double", "rounded", "solid", "shadow"
-    border = "rounded",
     -- Sort notifications ("added" | "level")
     sort = { "level", "added" },
     -- Minimum notification level to show
@@ -89,7 +120,7 @@ M.opts = {
       style = "out",
       easing = "linear",
       duration = {
-        step = 10,  -- Faster animation step (ms)
+        step = 10,   -- Faster animation step (ms)
         total = 150, -- Faster total animation time (ms)
       },
     },
@@ -169,18 +200,20 @@ M.opts = {
       { section = "startup" },
     },
   },
-  -- Picker base config (project uses Telescope projects)
-  picker = { enabled = true },
+  -- Picker disabled: project uses Telescope as primary picker
+  picker = { enabled = false },
 }
 
--- Set vim.ui.input and vim.ui.select (called in init)
-M.init = function()
+-- Set terminal keymaps and define highlight colors (called in init)
+M.setup_init = function()
   -- Set terminal keymaps in terminal mode
   vim.api.nvim_create_autocmd("TermOpen", {
     callback = function()
       local opts = { buffer = 0, silent = true }
       -- Esc to exit terminal mode
       vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", opts)
+      -- Auto enter insert mode
+      vim.cmd("startinsert")
     end,
   })
 
@@ -217,7 +250,8 @@ M.init = function()
     ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
     callback = function(ev)
       local client = vim.lsp.get_client_by_id(ev.data.client_id)
-      local value = ev.data.params.value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
+      local value = ev.data.params
+      .value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
       if not client or type(value) ~= "table" then
         return
       end
@@ -249,7 +283,7 @@ M.init = function()
         title = client.name,
         opts = function(notif)
           notif.icon = #progress[client.id] == 0 and " "
-            or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+              or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
         end,
       })
     end,

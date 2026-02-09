@@ -1,15 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │        nvim-treesitter - Syntax Highlight Config          │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │        nvim-treesitter - Syntax Highlight Config       │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, treesitter = pcall(require, "nvim-treesitter.configs")
-  if not status then
-    vim.notify("nvim-treesitter not found", vim.log.levels.ERROR)
-    return
-  end
+  local treesitter = require("nvim-treesitter.configs")
 
   require("nvim-treesitter.install").prefer_git = true
 
@@ -50,26 +46,6 @@ M.setup = function()
     },
     indent = {
       enable = true,
-    },
-    rainbow = {
-      enable = true,
-      extended_mode = true,
-      max_file_lines = 1000,
-      colors = {
-        "#95ca60",
-        "#ee6985",
-        "#D6A760",
-        "#7794f4",
-        "#b38bf5",
-        "#7cc7fe",
-      },
-    },
-    refactor = {
-      highlight_definitions = {
-        enable = true,
-        clear_on_cursor_move = true,
-      },
-      highlight_current_scope = { enable = true },
     },
     textobjects = {
       select = {

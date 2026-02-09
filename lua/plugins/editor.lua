@@ -1,11 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                      Editor Enhancement                   │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                 Editor Enhancement                     │
+-- ╰────────────────────────────────────────────────────────╯
 
 return {
--- ╭────────────────────────────────────────────────────────╮
--- │ flash.nvim - Quick Jump                                │
--- ╰────────────────────────────────────────────────────────╯
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ flash.nvim - Quick Jump                                │
+  -- ╰────────────────────────────────────────────────────────╯
   {
     "folke/flash.nvim",
     event = "VeryLazy",
@@ -85,6 +85,36 @@ return {
   },
 
   -- ╭────────────────────────────────────────────────────────╮
+  -- │ todo-comments.nvim-TODO Comment Highlight & Navigation │
+  -- ╰────────────────────────────────────────────────────────╯  
+  {
+    "folke/todo-comments.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = { "nvim-lua/plenary.nvim" },
+    keys = function()
+      local keys = require("config.keymaps").todoComments
+      return {
+        { keys.next, function() require("todo-comments").jump_next() end, desc = "Next TODO Comment" },
+        { keys.prev, function() require("todo-comments").jump_prev() end, desc = "Prev TODO Comment" },
+        { keys.search, "<cmd>TodoTelescope<cr>", desc = "Search TODO Comments" },
+        { keys.search_fixme, "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Search TODO/FIXME" },
+      }
+    end,
+    opts = {
+      signs = true,
+      keywords = {
+        FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+        TODO = { icon = " ", color = "info" },
+        HACK = { icon = " ", color = "warning" },
+        WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+        PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+        NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+        TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+      },
+    },
+  },
+
+  -- ╭────────────────────────────────────────────────────────╮
   -- │ mini.ai - Enhanced Text Objects                        │
   -- ╰────────────────────────────────────────────────────────╯
   {
@@ -94,9 +124,9 @@ return {
     opts = {},
   },
 
--- ╭────────────────────────────────────────────────────────╮
--- │ treesj - Split/Join Code Blocks                        │
--- ╰────────────────────────────────────────────────────────╯
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ treesj - Split/Join Code Blocks                        │
+  -- ╰────────────────────────────────────────────────────────╯
   {
     "Wansmer/treesj",
     keys = function()
@@ -160,9 +190,9 @@ return {
     opts = {},
   },
 
--- ╭────────────────────────────────────────────────────────╮
--- │ sniprun - Run Code Snippet                             │
--- ╰────────────────────────────────────────────────────────╯
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ sniprun - Run Code Snippet                             │
+  -- ╰────────────────────────────────────────────────────────╯
   {
     "michaelb/sniprun",
     build = "sh ./install.sh",
@@ -194,15 +224,14 @@ return {
     "m-demare/hlargs.nvim",
     event = "BufReadPost",
     opts = {
-      color = Hlargs,
       hl_priority = 1000,
     },
   },
 
--- ╭────────────────────────────────────────────────────────╮
--- │ yanky.nvim - Clipboard Ring History                    │
--- │ Enhanced yank/paste with history navigation            │
--- ╰────────────────────────────────────────────────────────╯
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ yanky.nvim - Clipboard Ring History                    │
+  -- │ Enhanced yank/paste with history navigation            │
+  -- ╰────────────────────────────────────────────────────────╯
   {
     "gbprod/yanky.nvim",
     dependencies = { "kkharji/sqlite.lua", "nvim-telescope/telescope.nvim" },
@@ -223,7 +252,7 @@ return {
       }
     end,
     config = function()
-      require("yanky").setup(require("plugin-config.yanky").opts)
+      require("plugin-config.yanky").setup()
     end,
   },
 

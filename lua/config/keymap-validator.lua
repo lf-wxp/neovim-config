@@ -1,9 +1,9 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                 Keymap Conflict Validator                │
--- │                                                             │
--- │ Purpose: Detect and report keymap conflicts             │
--- │ Usage: Called during startup or manually                │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │              Keymap Conflict Validator                 │
+-- │                                                        │
+-- │ Purpose: Detect and report keymap conflicts            │
+-- │ Usage: Called during startup or manually               │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 

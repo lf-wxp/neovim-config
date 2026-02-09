@@ -16,6 +16,7 @@ require("config.lazy")      -- plugin manager (auto-load lua/plugins/)
 -- Delay load non-essential configs for faster startup
 vim.schedule(function()
   require("config.autocmds")                  -- auto commands
+  require("config.commands").setup()           -- user commands
   require("config.keymap-validator").setup()  -- keymap conflict detection
 end)
 

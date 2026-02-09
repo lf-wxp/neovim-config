@@ -1,15 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │        symbol-usage - Symbol Reference Count Config      │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │        symbol-usage - Symbol Reference Count Config    │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, symbol_usage = pcall(require, "symbol-usage")
-  if not status then
-    vim.notify("symbol-usage not found", vim.log.levels.ERROR)
-    return
-  end
+  local symbol_usage = require("symbol-usage")
 
   local SymbolKind = vim.lsp.protocol.SymbolKind
 

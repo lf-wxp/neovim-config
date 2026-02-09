@@ -1,15 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                 nvim-tree - File Tree Config             │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                 nvim-tree - File Tree Config           │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, nvim_tree = pcall(require, "nvim-tree")
-  if not status then
-    vim.notify("nvim-tree not found", vim.log.levels.ERROR)
-    return
-  end
+  local nvim_tree = require("nvim-tree")
 
   local HEIGHT_RATIO = 0.8
   local WIDTH_RATIO = 0.3

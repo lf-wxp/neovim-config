@@ -1,21 +1,12 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │          diffview.nvim - Git Diff View Config            │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │          diffview.nvim - Git Diff View Config          │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, diffview = pcall(require, "diffview")
-  if not status then
-    vim.notify("diffview not found", vim.log.levels.ERROR)
-    return
-  end
-
-  local status, actions = pcall(require, "diffview.actions")
-  if not status then
-    vim.notify("diffview.actions not found", vim.log.levels.ERROR)
-    return
-  end
+  local diffview = require("diffview")
+  local actions = require("diffview.actions")
 
   diffview.setup({
     diff_binaries = false,

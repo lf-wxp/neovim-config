@@ -1,16 +1,12 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │          multicursor.nvim - Multi Cursor Config          │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │          multicursor.nvim - Multi Cursor Config        │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
   local keys = require("config.keymaps")
-  local status, mc = pcall(require, "multicursor-nvim")
-  if not status then
-    vim.notify("multicursor-nvim not found", vim.log.levels.ERROR)
-    return
-  end
+  local mc = require("multicursor-nvim")
 
   local set = vim.keymap.set
   local opts = function(desc) return { noremap = true, silent = true, desc = desc } end

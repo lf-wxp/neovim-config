@@ -1,8 +1,8 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                     lazy.nvim Bootstrap                   │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                lazy.nvim Bootstrap                     │
+-- ╰────────────────────────────────────────────────────────╯
 
--- 启用 Lua 模块加载器优化（可提升 ~50ms 启动速度）
+-- Enable Lua module loader optimization (~50ms startup improvement)
 vim.loader.enable()
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

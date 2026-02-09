@@ -1,15 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │          nvim-origami - Smart Code Folding Config        │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │          nvim-origami - Smart Code Folding Config      │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
 M.setup = function()
-  local status, origami = pcall(require, "origami")
-  if not status then
-    vim.notify("origami not found", vim.log.levels.ERROR)
-    return
-  end
+  local origami = require("origami")
 
   -- Set fold level to ensure files open unfolded
   vim.opt.foldlevel = 99

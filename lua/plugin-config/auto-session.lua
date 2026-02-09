@@ -1,14 +1,14 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │       auto-session - Auto Session Management Config       │
--- │                                                             │
--- │ 用途: 自动保存和恢复 Neovim 会话                            │
--- │ 依赖: nvim-tree (可选)                                      │
--- │ 功能:                                                       │
--- │   1. 自动恢复上次打开的会话                                 │
--- │   2. 保存前关闭 nvim-tree 窗口                              │
--- │   3. 跳过特定文件类型的会话保存                             │
--- │   4. 提供 Session Lens 用于选择会话                         │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │    auto-session - Auto Session Management Config       │
+-- │                                                        │
+-- │ Purpose: Auto-save and restore Neovim sessions         │
+-- │ Dependency: nvim-tree (optional)                       │
+-- │ Features:                                              │
+-- │   1. Auto-restore last opened session                  │
+-- │   2. Close nvim-tree window before saving              │
+-- │   3. Skip session save for certain filetypes           │
+-- │   4. Provide Session Lens for session selection        │
+-- ╰────────────────────────────────────────────────────────╯
 
 local M = {}
 
@@ -17,7 +17,7 @@ M.setup = function()
   vim.o.sessionoptions = "blank,buffers,help,tabpages,winsize,winpos,terminal,localoptions"
 
   require("auto-session").setup({
-    log_level = "info",  -- 启用日志输出以便调试
+    log_level = "info",  -- Enable log output for debugging
     auto_restore_last_session = true,
     auto_save = true,
     auto_session_suppress_dirs = {

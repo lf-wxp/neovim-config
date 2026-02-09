@@ -1,11 +1,11 @@
--- ╭──────────────────────────────────────────────────────────╮
--- │                      UI Components                        │
--- ╰──────────────────────────────────────────────────────────╯
+-- ╭────────────────────────────────────────────────────────╮
+-- │                   UI Components                        │
+-- ╰────────────────────────────────────────────────────────╯
 
 return {
--- ╭────────────────────────────────────────────────────────╮
--- │ bufferline - Tab Bar                                   │
--- ╰────────────────────────────────────────────────────────╯
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ bufferline - Tab Bar                                   │
+  -- ╰────────────────────────────────────────────────────────╯
   {
     "akinsho/bufferline.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons", "moll/vim-bbye" },
@@ -64,9 +64,9 @@ return {
     end,
   },
 
--- ╭────────────────────────────────────────────────────────╮
--- │ snacks.nvim - Multi-purpose                            │
--- ╰────────────────────────────────────────────────────────╯
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ snacks.nvim - Multi-purpose                            │
+  -- ╰────────────────────────────────────────────────────────╯
   {
     "folke/snacks.nvim",
     priority = 1000,
@@ -86,7 +86,7 @@ return {
     opts = require("plugin-config.snacks").opts,
     config = function(_, opts)
       require("snacks").setup(opts)
-      require("plugin-config.snacks").init()
+      require("plugin-config.snacks").setup_init()
     end,
   },
 
@@ -113,9 +113,9 @@ return {
     },
   },
 
--- ╭────────────────────────────────────────────────────────╮
--- │ smart-splits - Intelligent Window Management           │
--- ╰────────────────────────────────────────────────────────╯
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ smart-splits - Intelligent Window Management           │
+  -- ╰────────────────────────────────────────────────────────╯
   {
     "mrjones2014/smart-splits.nvim",
     version = "v1.*", -- pin major version
@@ -136,7 +136,7 @@ return {
       }
     end,
     config = function()
-      require("smart-splits").setup(require("plugin-config.smart-splits").opts)
+      require("plugin-config.smart-splits").setup()
     end,
   },
 
@@ -174,6 +174,12 @@ return {
   {
     "OXY2DEV/markview.nvim",
     ft = "markdown",
+    init = function()
+      -- Disable markview's nvim-cmp integration to avoid conflicts with blink.compat's fake cmp module
+      -- (blink.compat sets package.loaded["cmp"].setup to boolean, causing
+      --  markview to error when calling cmp.setup.filetype())
+      vim.g.markview_cmp_loaded = true
+    end,
   },
 
   -- ╭────────────────────────────────────────────────────────╮
