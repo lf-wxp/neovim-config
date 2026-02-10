@@ -78,6 +78,84 @@ blink.setup({
       winblend = 0,
       winhighlight = "Normal:BlinkCmpMenu,NormalFloat:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
       scrolloff = 2,
+      -- 自定义 cmdline 位置：利用 noice API 让补全框出现在 cmdline popup 下方
+      cmdline_position = function()
+        -- 通过 noice API 获取 cmdline 位置和窗口信息
+        local noice_ok, noice_api = pcall(require, "noice.api")
+        local cmdline_pos = noice_ok and noice_api.get_cmdline_position() or nil
+
+        if cmdline_pos and cmdline_pos.win and vim.api.nvim_win_is_valid(cmdline_pos.win) then
+          local win = cmdline_pos.win
+          local conf = vim.api.nvim_win_get_config(win)
+
+          -- nui content window 的屏幕位置和尺寸
+          local content_pos = vim.api.nvim_win_get_position(win) -- (0-indexed)
+          local content_height = vim.api.nvim_win_get_height(win)
+          local content_width = vim.api.nvim_win_get_width(win)
+
+          -- nui 的 content window 是 relative="win"，conf.row/col 即为 padding
+          local pad_top = (conf.relative == "win" and type(conf.row) == "number") and conf.row or 0
+          local pad_left = (conf.relative == "win" and type(conf.col) == "number") and conf.col or 0
+
+          -- 通过 border window 获取精确的整体尺寸
+          local total_width = content_width + pad_left * 2
+          local pad_bottom = pad_top
+          if conf.relative == "win" and conf.win then
+            local b_h_ok, border_height = pcall(vim.api.nvim_win_get_height, conf.win)
+            local b_w_ok, border_width = pcall(vim.api.nvim_win_get_width, conf.win)
+            if b_h_ok and b_w_ok then
+              total_width = border_width
+              pad_bottom = border_height - content_height - pad_top
+            end
+          end
+
+          -- 窗口底部 = content 底部 + bottom padding
+          -- local win_bottom = content_pos[1] + content_height + pad_bottom
+          local win_bottom = content_pos[1] + content_height
+          -- 窗口左边缘 = content 左边 - left padding
+          local win_left = content_pos[2] - pad_left
+
+          -- 动态修改 blink.cmp menu 的宽度与 cmdline popup 一致
+          vim.g._blink_cmdline_width = total_width
+          local menu_ok, menu_mod = pcall(require, "blink.cmp.completion.windows.menu")
+          if menu_ok and menu_mod.win then
+            local menu_border_size = menu_mod.win:get_border_size()
+            local scrollbar_width = 0
+            if menu_mod.win.scrollbar and menu_mod.win.scrollbar:is_visible() then
+              scrollbar_width = 1
+            end
+            local target_content_width = total_width - menu_border_size.horizontal - scrollbar_width
+            if target_content_width > 0 then
+              menu_mod.win.config.min_width = target_content_width
+              if menu_mod.win:is_open() then
+                vim.api.nvim_win_set_width(menu_mod.win:get_win(), target_content_width)
+              end
+            end
+          end
+
+          -- 预补偿 blink.cmp 内部的 start_col - alignment_start_col 偏移
+          local col_offset = 0
+          if menu_ok and menu_mod.context and menu_mod.renderer then
+            local start_col = menu_mod.context.bounds.start_col or 0
+            local align_col_ok, align_col = pcall(function()
+              return menu_mod.renderer:get_alignment_start_col()
+            end)
+            local alignment_start_col = (align_col_ok and align_col) or 0
+            col_offset = start_col - alignment_start_col
+          end
+
+          return { win_bottom, win_left - col_offset }
+        end
+
+        -- 回退：使用 vim.g.ui_cmdline_pos（noice 不可用时）
+        if vim.g.ui_cmdline_pos ~= nil then
+          local pos = vim.g.ui_cmdline_pos
+          return { pos[1] - 1, pos[2] }
+        end
+
+        local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
+        return { vim.o.lines - height, 0 }
+      end,
       draw = {
         -- Padding between columns
         padding = { 1, 1 },
@@ -394,3 +472,48 @@ if html_ok then
     style_sheets = {},
   })
 end
+
+-- ╭────────────────────────────────────────────────────────╮
+-- │ Cmdline 补全框宽度对齐 noice cmdline popup             │
+-- ╰────────────────────────────────────────────────────────╯
+-- 补全菜单位置更新后，确保宽度与 cmdline popup 一致（双重保障）
+vim.api.nvim_create_autocmd("User", {
+  pattern = { "BlinkCmpMenuOpen", "BlinkCmpMenuPositionUpdate" },
+  callback = function()
+    if vim.api.nvim_get_mode().mode ~= "c" then
+      return
+    end
+
+    local cmdline_width = vim.g._blink_cmdline_width
+    if not cmdline_width then
+      return
+    end
+
+    local menu_ok, menu = pcall(require, "blink.cmp.completion.windows.menu")
+    if not menu_ok or not menu.win or not menu.win:is_open() then
+      return
+    end
+
+    local border_size = menu.win:get_border_size()
+    -- 滚动条在 padded border 下额外占 1 列宽度
+    local scrollbar_width = 0
+    if menu.win.scrollbar and menu.win.scrollbar:is_visible() then
+      scrollbar_width = 1
+    end
+    local target_width = cmdline_width - border_size.horizontal - scrollbar_width
+    if target_width > 0 then
+      vim.api.nvim_win_set_width(menu.win:get_win(), target_width)
+    end
+  end,
+})
+
+-- 退出 cmdline 模式时恢复默认 min_width
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+  callback = function()
+    vim.g._blink_cmdline_width = nil
+    local menu_ok, menu = pcall(require, "blink.cmp.completion.windows.menu")
+    if menu_ok and menu.win then
+      menu.win.config.min_width = 15 -- blink.cmp 默认值
+    end
+  end,
+})
