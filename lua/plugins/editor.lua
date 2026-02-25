@@ -27,20 +27,7 @@ return {
   {
     "kylechui/nvim-surround",
     event = "VeryLazy",
-    opts = {
-      keymaps = {
-        normal = "ys",
-        normal_line = "yS",
-        normal_cur = "yss",
-        normal_cur_line = "ySS",
-        delete = "ds",
-        change = "cs",
-        insert = "<C-g>s",
-        insert_line = "<C-g>S",
-        visual = "s",
-        visual_line = "gs",
-      },
-    },
+    opts = {},
   },
 
   -- ╭────────────────────────────────────────────────────────╮
