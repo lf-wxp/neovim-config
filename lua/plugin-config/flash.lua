@@ -18,6 +18,10 @@ M.setup = function()
         "cmp_menu",
         "noice",
         "flash_prompt",
+        -- blink.cmp 浮动窗口（补全菜单、文档、签名等）
+        "blink-cmp-menu",
+        "blink-cmp-documentation",
+        "blink-cmp-signature",
         function(win)
           return not vim.api.nvim_win_get_config(win).focusable
         end,
