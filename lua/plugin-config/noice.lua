@@ -12,7 +12,8 @@ M.setup = function()
       view = "cmdline_popup",
       opts = {
         win_options = { winblend = 20 },
-        border = { style = "none", padding = { 1, 2 } },
+        border = { style = { " ", " ", " ", " ", " ", " ", " ", " " }, padding = { 0, 0 } },
+        -- border = { style = "none", padding = { 1, 2 } },
       },
       format = {
         cmdline = { pattern = "^:", icon = "󰘳 ", lang = "vim" },
@@ -140,6 +141,11 @@ M.setup = function()
 
     -- Views configuration
     views = {
+      confirm = {
+        win_options = { winblend = 15 },
+        border = { style = { " ", " ", " ", " ", " ", " ", " ", " " }, padding = { 0, 0 }, text = {} },
+        -- border = { style = "none", padding = { 1, 2 }, text = {} },
+      },
       cmdline_popup = {
         filter_options = {},
         win_options = { winblend = 15 },
