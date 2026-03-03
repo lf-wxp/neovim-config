@@ -53,6 +53,16 @@ M.setup = function()
       find_files = {},
       live_grep = {},
       marks = {},
+      buffers = {
+        mappings = {
+          n = {
+            ["dd"] = require("telescope.actions").delete_buffer,
+          },
+          i = {
+            ["<C-d>"] = require("telescope.actions").delete_buffer,
+          },
+        },
+      },
       borderchars = {
         prompt = { " ", " ", " ", " ", " ", " ", " ", " " },
         results = { " ", " ", " ", " ", " ", " ", " ", " " },
