@@ -13,14 +13,14 @@ return {
     keys = function()
       local keys = require("config.keymaps").bufferline
       return {
-        { keys.prev_tab,   "<cmd>BufferLineCyclePrev<cr>",  desc = "Prev Tab" },
-        { keys.next_tab,   "<cmd>BufferLineCycleNext<cr>",  desc = "Next Tab" },
+        { keys.prev_tab,    "<cmd>BufferLineCyclePrev<cr>",  desc = "Prev Tab" },
+        { keys.next_tab,    "<cmd>BufferLineCycleNext<cr>",  desc = "Next Tab" },
         { keys.move_prev,   "<cmd>BufferLineMovePrev<cr>",   desc = "Move Tab Left" },
         { keys.move_next,   "<cmd>BufferLineMoveNext<cr>",   desc = "Move Tab Right" },
-        { keys.pick,  "<cmd>BufferLinePick<cr>",       desc = "Pick Tab" },
-        { keys.close,  "<cmd>Bdelete!<cr>",             desc = "Close Tab" },
+        { keys.pick,        "<cmd>BufferLinePick<cr>",       desc = "Pick Tab" },
+        { keys.close,       "<cmd>Bdelete!<cr>",             desc = "Close Tab" },
         { keys.close_right, "<cmd>BufferLineCloseRight<cr>", desc = "Close Right Tabs" },
-        { keys.close_left, "<cmd>BufferLineCloseLeft<cr>",  desc = "Close Left Tabs" },
+        { keys.close_left,  "<cmd>BufferLineCloseLeft<cr>",  desc = "Close Left Tabs" },
         { keys.pick_close,  "<cmd>BufferLinePickClose<cr>",  desc = "Pick Close Tab" },
       }
     end,
@@ -74,13 +74,13 @@ return {
     keys = function()
       local keys = require("config.keymaps").snacks
       return {
-        { keys.dashboard, "<cmd>lua require('config.commands').dashboard()<cr>",       desc = "Dashboard" },
-        { keys.bufdelete, "<cmd>lua require('config.commands').bufdelete()<cr>",       desc = "Delete Buffer" },
+        { keys.dashboard,       "<cmd>lua require('config.commands').dashboard()<cr>",       desc = "Dashboard" },
+        { keys.bufdelete,       "<cmd>lua require('config.commands').bufdelete()<cr>",       desc = "Delete Buffer" },
         { keys.bufdelete_other, "<cmd>lua require('config.commands').bufdelete_other()<cr>", desc = "Delete Other Buffers" },
-        { keys.terminal, "<cmd>lua require('config.commands').terminal()<cr>",        mode = { "n", "t" }, desc = "Terminal" },
-        { "<leader>tf", "<cmd>lua require('config.commands').terminal_float()<cr>",  mode = { "n", "t" }, desc = "Float Terminal" },
-        { "<leader>tr", "<cmd>lua require('config.commands').terminal_right()<cr>",  mode = { "n", "t" }, desc = "Right Terminal" },
-        { "<leader>td", "<cmd>lua require('config.commands').terminal_bottom()<cr>", mode = { "n", "t" }, desc = "Bottom Terminal" },
+        { keys.terminal,        "<cmd>lua require('config.commands').terminal()<cr>",        mode = { "n", "t" },          desc = "Terminal" },
+        { "<leader>tf",         "<cmd>lua require('config.commands').terminal_float()<cr>",  mode = { "n", "t" },          desc = "Float Terminal" },
+        { "<leader>tr",         "<cmd>lua require('config.commands').terminal_right()<cr>",  mode = { "n", "t" },          desc = "Right Terminal" },
+        { "<leader>td",         "<cmd>lua require('config.commands').terminal_bottom()<cr>", mode = { "n", "t" },          desc = "Bottom Terminal" },
       }
     end,
     opts = require("plugin-config.snacks").opts,
@@ -124,15 +124,15 @@ return {
       local keys = require("config.keymaps").smartSplits
       return {
         -- Window Navigation
-        { keys.move_left, function() require("smart-splits").move_cursor_left() end,  desc = "Go Left Window" },
-        { keys.move_down, function() require("smart-splits").move_cursor_down() end,  desc = "Go Down Window" },
-        { keys.move_up, function() require("smart-splits").move_cursor_up() end,    desc = "Go Up Window" },
-        { keys.move_right, function() require("smart-splits").move_cursor_right() end, desc = "Go Right Window" },
+        { keys.move_left,    function() require("smart-splits").move_cursor_left() end,  desc = "Go Left Window" },
+        { keys.move_down,    function() require("smart-splits").move_cursor_down() end,  desc = "Go Down Window" },
+        { keys.move_up,      function() require("smart-splits").move_cursor_up() end,    desc = "Go Up Window" },
+        { keys.move_right,   function() require("smart-splits").move_cursor_right() end, desc = "Go Right Window" },
         -- Window Resize
-        { keys.resize_left, function() require("smart-splits").resize_left() end,  desc = "Window Width -10" },
-        { keys.resize_right, function() require("smart-splits").resize_right() end, desc = "Window Width +10" },
-        { keys.resize_down, function() require("smart-splits").resize_down() end, desc = "Window Height +10" },
-        { keys.resize_up, function() require("smart-splits").resize_up() end,    desc = "Window Height -10" },
+        { keys.resize_left,  function() require("smart-splits").resize_left() end,       desc = "Window Width -10" },
+        { keys.resize_right, function() require("smart-splits").resize_right() end,      desc = "Window Width +10" },
+        { keys.resize_down,  function() require("smart-splits").resize_down() end,       desc = "Window Height +10" },
+        { keys.resize_up,    function() require("smart-splits").resize_up() end,         desc = "Window Height -10" },
       }
     end,
     config = function()
@@ -198,4 +198,13 @@ return {
     "eandrju/cellular-automaton.nvim",
     cmd = "CellularAutomaton",
   },
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ wrapped - Fun Plugin                        │
+  -- ╰────────────────────────────────────────────────────────╯
+  {
+    "aikhe/wrapped.nvim",
+    dependencies = { "nvzone/volt" },
+    cmd = { "WrappedNvim" },
+    opts = {},
+  }
 }

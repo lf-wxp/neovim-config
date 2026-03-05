@@ -12,7 +12,7 @@ return {
     keys = function()
       local keys = require("config.keymaps").flash
       return {
-        { keys.jump, function() require("flash").jump() end, mode = { "n", "x", "o" }, desc = "Flash Jump" },
+        { keys.jump,       function() require("flash").jump() end,              mode = { "n", "x", "o" }, desc = "Flash Jump" },
         { keys.treesitter, function() require("flash").treesitter_search() end, mode = { "n", "x", "o" }, desc = "Flash Treesitter" },
       }
     end,
@@ -73,7 +73,7 @@ return {
 
   -- ╭────────────────────────────────────────────────────────╮
   -- │ todo-comments.nvim-TODO Comment Highlight & Navigation │
-  -- ╰────────────────────────────────────────────────────────╯  
+  -- ╰────────────────────────────────────────────────────────╯
   {
     "folke/todo-comments.nvim",
     event = { "BufReadPost", "BufNewFile" },
@@ -81,10 +81,10 @@ return {
     keys = function()
       local keys = require("config.keymaps").todoComments
       return {
-        { keys.next, function() require("todo-comments").jump_next() end, desc = "Next TODO Comment" },
-        { keys.prev, function() require("todo-comments").jump_prev() end, desc = "Prev TODO Comment" },
-        { keys.search, "<cmd>TodoTelescope<cr>", desc = "Search TODO Comments" },
-        { keys.search_fixme, "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Search TODO/FIXME" },
+        { keys.next,         function() require("todo-comments").jump_next() end, desc = "Next TODO Comment" },
+        { keys.prev,         function() require("todo-comments").jump_prev() end, desc = "Prev TODO Comment" },
+        { keys.search,       "<cmd>TodoTelescope<cr>",                            desc = "Search TODO Comments" },
+        { keys.search_fixme, "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>",    desc = "Search TODO/FIXME" },
       }
     end,
     opts = {
@@ -226,14 +226,10 @@ return {
     keys = function()
       local keys = require("config.keymaps").yanky
       return {
-        -- Paste from clipboard ring
-        { keys.paste_after,  "<Plug>(YankyPutAfter)",              mode = { "n", "x" }, desc = "Paste After" },
-        { keys.paste_before,  "<Plug>(YankyPutBefore)",             mode = { "n", "x" }, desc = "Paste Before" },
-        { keys.g_paste_after, "<Plug>(YankyGPutAfter)",             mode = { "n", "x" }, desc = "G-Paste After" },
-        { keys.g_paste_before, "<Plug>(YankyGPutBefore)",            mode = { "n", "x" }, desc = "G-Paste Before" },
+        -- p/P/gp/gP 由 smart-paste.nvim 接管，此处不再映射
         -- Navigate clipboard history
-        { keys.cycle_next, "<Plug>(YankyCycleForward)",       mode = "n",         desc = "Next Clipboard Entry" },
-        { keys.cycle_prev, "<Plug>(YankyCycleBackward)",      mode = "n",         desc = "Prev Clipboard Entry" },
+        { keys.cycle_next,   "<Plug>(YankyCycleForward)",                                                mode = "n",          desc = "Next Clipboard Entry" },
+        { keys.cycle_prev,   "<Plug>(YankyCycleBackward)",                                               mode = "n",          desc = "Prev Clipboard Entry" },
         -- Open yank history picker with Telescope
         { keys.yank_history, function() require("telescope").extensions.yank_history.yank_history() end, mode = { "n", "x" }, desc = "Yank History" },
       }
@@ -280,4 +276,19 @@ return {
       })
     end,
   },
+  -- ╭──────────────────────────────────────────────────────────────────────────────────────╮
+  -- │ smart-pasted.nvim - Pasted code automatically lands at the correct indentation level.│
+  -- ╰──────────────────────────────────────────────────────────────────────────────────────╯
+  {
+    "nemanjamalesija/smart-paste.nvim",
+    event = "VeryLazy",
+    config = true,
+  },
+  -- ╭──────────────────────╮
+  -- │ smart-backspace.nvim │
+  -- ╰──────────────────────╯
+  {
+    "qwavies/smart-backspace.nvim",
+    event = { "InsertEnter", "CmdlineEnter" }
+  }
 }

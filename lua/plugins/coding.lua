@@ -16,6 +16,8 @@ return {
       "rafamadriz/friendly-snippets",
       -- Compatibility layer: bridge nvim-cmp sources to blink.cmp
       "saghen/blink.compat",
+      -- Colorful completion menu labels
+      "xzbdmw/colorful-menu.nvim",
       -- Native blink community sources
       "moyiz/blink-emoji.nvim",
       "Kaiser-Yang/blink-cmp-git",

@@ -9,6 +9,7 @@ M.setup = function()
 
   autopairs.setup({
     check_ts = true,
+    map_bs = false,
     ts_config = {
       lua = { "string" },
       javascript = { "template_string" },

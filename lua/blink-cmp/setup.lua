@@ -6,6 +6,31 @@
 local blink = require("blink.cmp")
 
 -- ╭────────────────────────────────────────────────────────╮
+-- │ colorful-menu.nvim - Semantic Highlighted Labels       │
+-- ╰────────────────────────────────────────────────────────╯
+require("colorful-menu").setup({
+  ls = {
+    -- 对所有 LSP 服务器启用语义高亮
+    ["lua_ls"] = {
+      arguments_hl = "@comment",
+    },
+    ["ts_ls"] = {
+      extra_info_hl = "@comment",
+    },
+    ["vtsls"] = {
+      extra_info_hl = "@comment",
+    },
+    -- 默认配置，适用于所有未单独配置的 LSP
+    ["_"] = {
+      arguments_hl = "@comment",
+      extra_info_hl = "@comment",
+    },
+  },
+  fallback_highlight = "@variable",
+  max_width = 60,
+})
+
+-- ╭────────────────────────────────────────────────────────╮
 -- │ Kind Icons (consistent with lspkind config)            │
 -- ╰────────────────────────────────────────────────────────╯
 -- stylua: ignore start
@@ -159,11 +184,12 @@ blink.setup({
       draw = {
         -- Padding between columns
         padding = { 1, 1 },
-        -- Use treesitter for label highlighting
-        treesitter = { "lsp" },
+        -- colorful-menu.nvim 负责 label 的语义高亮，不再需要 treesitter
+        -- treesitter = { "lsp" },
         columns = {
-          { "kind_icon", width = 2 },
-          { "label", "label_description", gap = 1 },
+          { "kind_icon" },
+          -- colorful-menu 已将 label_description 合并进 label，无需单独列出
+          { "label", gap = 1 },
           { "kind", "source_name", gap = 1 },
         },
         components = {
@@ -174,6 +200,15 @@ blink.setup({
             -- Dynamically color icon based on CompletionItemKind
             highlight = function(ctx)
               return "BlinkCmpKind" .. ctx.kind
+            end,
+          },
+          label = {
+            width = { fill = true, max = 60 },
+            text = function(ctx)
+              return require("colorful-menu").blink_components_text(ctx)
+            end,
+            highlight = function(ctx)
+              return require("colorful-menu").blink_components_highlight(ctx)
             end,
           },
           kind = {
