@@ -11,12 +11,12 @@ M.setup = function()
   vim.opt.foldlevel = 99
   vim.opt.foldlevelstart = 99
   vim.opt.foldenable = true
-  vim.opt.foldmethod = "expr"
-  vim.opt.foldexpr = "v:lua.require'origami'.foldexpr()"
+  -- foldmethod 和 foldexpr 由 origami 自动管理（LSP > treesitter > indent）
 
   origami.setup({
     useLspFoldsWithTreesitterFallback = {
-      enabled = false,
+      enabled = true,
+      foldmethodIfNeitherIsAvailable = "indent",
     },
     rememberFolds = false,
     autoFold = {
