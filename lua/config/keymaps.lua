@@ -339,6 +339,13 @@ M.conform = {
   format = "<leader>cf",
 }
 
+-- ccc.nvim - Color picker
+M.ccc = {
+  pick = "<leader>cp",
+  convert = "<leader>cc",
+  highlighter = "<leader>ch",
+}
+
 -- ╭────────────────────────────────────────────────────────╮
 -- │  Global - Global vim keymaps (non-plugin)              │
 -- ╰────────────────────────────────────────────────────────╯

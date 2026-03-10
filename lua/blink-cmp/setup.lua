@@ -101,7 +101,8 @@ blink.setup({
     menu = {
       border = "padded",
       winblend = 0,
-      winhighlight = "Normal:BlinkCmpMenu,NormalFloat:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
+      winhighlight =
+      "Normal:BlinkCmpMenu,NormalFloat:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
       scrolloff = 2,
       -- 自定义 cmdline 位置：利用 noice API 让补全框出现在 cmdline popup 下方
       cmdline_position = function()
@@ -189,17 +190,34 @@ blink.setup({
         columns = {
           { "kind_icon" },
           -- colorful-menu 已将 label_description 合并进 label，无需单独列出
-          { "label", gap = 1 },
-          { "kind", "source_name", gap = 1 },
+          { "label",    gap = 1 },
+          { "kind",     "source_name", gap = 1 },
         },
         components = {
           kind_icon = {
             text = function(ctx)
-              return ctx.kind_icon .. " "
+              -- default kind icon
+              local icon = ctx.kind_icon
+              -- if LSP source, check for color derived from documentation
+              if ctx.item.source_name == "LSP" then
+                local color_item = require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
+                if color_item and color_item.abbr ~= "" then
+                  icon = color_item.abbr
+                end
+              end
+              return icon .. ctx.icon_gap
             end,
-            -- Dynamically color icon based on CompletionItemKind
             highlight = function(ctx)
-              return "BlinkCmpKind" .. ctx.kind
+              -- default highlight group
+              local highlight = "BlinkCmpKind" .. ctx.kind
+              -- if LSP source, check for color derived from documentation
+              if ctx.item.source_name == "LSP" then
+                local color_item = require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
+                if color_item and color_item.abbr_hl_group then
+                  highlight = color_item.abbr_hl_group
+                end
+              end
+              return highlight
             end,
           },
           label = {
@@ -257,7 +275,8 @@ blink.setup({
     window = {
       border = "padded",
       winblend = 0,
-      winhighlight = "Normal:BlinkCmpSignatureHelp,NormalFloat:BlinkCmpSignatureHelp,FloatBorder:BlinkCmpSignatureHelpBorder",
+      winhighlight =
+      "Normal:BlinkCmpSignatureHelp,NormalFloat:BlinkCmpSignatureHelp,FloatBorder:BlinkCmpSignatureHelpBorder",
       scrollbar = false,
     },
   },

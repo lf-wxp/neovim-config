@@ -114,6 +114,31 @@ return {
   },
 
   -- ╭────────────────────────────────────────────────────────╮
+  -- │ ccc.nvim - Color Picker & Highlighter                  │
+  -- ╰────────────────────────────────────────────────────────╯
+  {
+    "uga-rosa/ccc.nvim",
+    cmd = { "CccPick", "CccConvert", "CccHighlighterToggle" },
+    keys = function()
+      local keys = require("config.keymaps").ccc
+      return {
+        { keys.pick, "<cmd>CccPick<cr>", desc = "Color Picker" },
+        { keys.convert, "<cmd>CccConvert<cr>", desc = "Convert Color Format" },
+        { keys.highlighter, "<cmd>CccHighlighterToggle<cr>", desc = "Toggle Color Highlight" },
+      }
+    end,
+    opts = {
+      highlighter = {
+        auto_enable = false,  -- 已有 nvim-highlight-colors，不自动开启
+      },
+      default_color = "#000000",
+      bar_char = "█",
+      point_char = "◇",
+      bar_len = 30,
+    },
+  },
+
+  -- ╭────────────────────────────────────────────────────────╮
   -- │ smart-splits - Intelligent Window Management           │
   -- ╰────────────────────────────────────────────────────────╯
   {
