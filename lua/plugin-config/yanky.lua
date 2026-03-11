@@ -7,7 +7,8 @@ local M = {}
 M.opts = {
   ring = {
     history_length = 100,
-    storage = "shada",
+    storage = "sqlite",
+    storage_path = vim.fn.stdpath("data") .. "/databases/yanky.db",
     sync_with_numbered_registers = true,
     cancel_event = "update",
     ignore_registers = { "_", "-", "+", "=" },
