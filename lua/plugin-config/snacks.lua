@@ -5,7 +5,18 @@
 local M = {}
 
 M.opts = {
-  scroll = { enabled = true },    -- Smooth scrolling
+  scroll = {
+    enabled = true,
+    animate = {
+      duration = { step = 10, total = 150 },
+      easing = "linear",
+    },
+    animate_repeat = {
+      delay = 100,
+      duration = { step = 5, total = 50 },
+      easing = "linear",
+    },
+  },
   input = { enabled = true },     -- Input enhancement
   bigfile = { enabled = true },   -- Big file optimization
   quickfile = { enabled = true }, -- Quick file open

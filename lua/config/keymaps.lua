@@ -33,9 +33,9 @@ M.load_global = function()
   -- ╭─────────────────────────────────────────────────────╮
   -- │              Scroll                                 │
   -- ╰─────────────────────────────────────────────────────╯
-  keymap("n", km.scroll_up_half, "<Cmd>normal! <C-u>zz<CR>", vim.tbl_extend("force", opts, { desc = "Scroll Up Half Page" }))
-  keymap("n", km.scroll_down_half, "<Cmd>normal! <C-d>zz<CR>", vim.tbl_extend("force", opts, { desc = "Scroll Down Half Page" }))
-  keymap("n", km.scroll_up_full, "<Cmd>normal! <C-b>zz<CR>", vim.tbl_extend("force", opts, { desc = "Scroll Up Full Page" }))
+  keymap("n", km.scroll_up_half, "<C-u>", vim.tbl_extend("force", opts, { desc = "Scroll Up Half Page" }))
+  keymap("n", km.scroll_down_half, "<C-d>", vim.tbl_extend("force", opts, { desc = "Scroll Down Half Page" }))
+  keymap("n", km.scroll_up_full, "<C-b>", vim.tbl_extend("force", opts, { desc = "Scroll Up Full Page" }))
 
   -- ╭─────────────────────────────────────────────────────╮
   -- │              Clipboard                              │
@@ -278,7 +278,7 @@ M.lsp = {
   prev_diagnostics = "gk",
   document_symbols = "<leader>gds",
   workspace_symbols = "<leader>ws",
-  toggle_inlay_hints = "<leader>uh",
+  toggle_inlay_hints = "<leader>gh",
   codelens_run = "<leader>cl",
   format = "==",
 }
