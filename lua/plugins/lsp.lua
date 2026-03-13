@@ -62,6 +62,57 @@ return {
   },
 
   -- ╭────────────────────────────────────────────────────────╮
+  -- │ mason-tool-installer - Auto Install Formatters/Linters │
+  -- ╰────────────────────────────────────────────────────────╯
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    cmd = { "MasonToolsInstall", "MasonToolsUpdate", "MasonToolsClean" },
+    event = "VeryLazy",
+    opts = {
+      ensure_installed = {
+        -- Formatters
+        "oxfmt",
+        { "prettierd", auto_update = true }, -- Auto-update prettierd to keep prettier peer dep in sync
+        "stylua",
+        "isort",
+        "black",
+      },
+      auto_update = false,
+      run_on_start = true,
+      integrations = {
+        ["mason-lspconfig"] = false, -- LSP servers managed separately by mason-lspconfig
+      },
+    },
+    config = function(_, opts)
+      require("mason-tool-installer").setup(opts)
+
+      -- Ensure prettierd has prettier peer dependency after installation
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "MasonToolsUpdateCompleted",
+        once = true, -- Only need to check once per session
+        callback = function()
+          local prettierd_dir = vim.fn.stdpath("data") .. "/mason/packages/prettierd"
+          local prettier_dir = prettierd_dir .. "/node_modules/prettier"
+          if vim.fn.isdirectory(prettierd_dir) == 1 and vim.fn.isdirectory(prettier_dir) == 0 then
+            vim.fn.jobstart({ "npm", "install", "prettier" }, {
+              cwd = prettierd_dir,
+              on_exit = function(_, code)
+                local msg = code == 0 and "prettier installed for prettierd"
+                  or "Failed to install prettier for prettierd"
+                local level = code == 0 and vim.log.levels.INFO or vim.log.levels.ERROR
+                vim.schedule(function()
+                  vim.notify(msg, level)
+                end)
+              end,
+            })
+          end
+        end,
+      })
+    end,
+  },
+
+  -- ╭────────────────────────────────────────────────────────╮
   -- │ lspsaga - LSP UI Enhancement                           │
   -- ╰────────────────────────────────────────────────────────╯
   {
