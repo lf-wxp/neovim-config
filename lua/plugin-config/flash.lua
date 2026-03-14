@@ -18,7 +18,7 @@ M.setup = function()
         "cmp_menu",
         "noice",
         "flash_prompt",
-        -- blink.cmp 浮动窗口（补全菜单、文档、签名等）
+        -- blink.cmp floating windows (completion menu, docs, signature)
         "blink-cmp-menu",
         "blink-cmp-documentation",
         "blink-cmp-signature",

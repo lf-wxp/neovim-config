@@ -2,13 +2,13 @@
 -- │                   Editor Options                       │
 -- ╰────────────────────────────────────────────────────────╯
 
--- Encoding
-vim.g.encoding = "UTF-8"
-vim.o.fileencoding = "utf-8"
-
 -- Scroll margin
 vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 8
+
+-- Smooth scrolling (Neovim 0.10+, 与 snacks.scroll 动画互补)
+-- 确保 <C-d>/<C-u> 滚动时不会跳过屏幕外的换行行
+vim.opt.smoothscroll = true
 
 -- Line numbers
 vim.opt.number = true
@@ -35,8 +35,7 @@ vim.opt.smartindent = true
 -- Search settings
 vim.opt.ignorecase = true -- Case insensitive
 vim.opt.smartcase = true  -- Unless contains uppercase
-vim.opt.hlsearch = true   -- Highlight search results
-vim.opt.incsearch = true  -- Incremental search
+-- hlsearch / incsearch 是 Neovim 默认值，无需显式设置
 
 -- Command line height (0: hidden after noice takes over, saves space)
 vim.opt.cmdheight = 0
@@ -49,9 +48,6 @@ vim.opt.wrap = false
 
 -- Allow cross-line movement
 vim.opt.whichwrap = "<,>,[,]"
-
--- Allow hidden modified buffers
-vim.opt.hidden = true
 
 -- Mouse support
 vim.opt.mouse = "a"
@@ -77,7 +73,7 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- Completion settings
-vim.g.completeopt = "menu,menuone,noselect,noinsert"
+vim.o.completeopt = "menu,menuone,noselect,noinsert"
 
 -- Theme style
 vim.opt.background = "dark"
@@ -88,8 +84,9 @@ vim.opt.list = true
 vim.opt.listchars = "space:·,tab:··,leadmultispace:· "
 
 -- Completion menu
-vim.opt.wildmenu = true
-vim.opt.shortmess = vim.opt.shortmess + "c"
+-- wildmenu 是 Neovim 默认值，无需显式设置
+-- c: 补全消息, I: intro 消息, W: 写入消息, s: 搜索越界消息
+vim.opt.shortmess = vim.opt.shortmess + "cIWs"
 vim.opt.pumheight = 10
 -- Always show tabline
 vim.opt.showtabline = 2
@@ -103,21 +100,16 @@ vim.g.rust_recommended_style = 0
 -- Font
 vim.opt.guifont = "Maple Mono NF CN"
 
--- Filetype detection
-vim.cmd.filetype("on")
-vim.cmd.filetype("plugin on")
-
 -- Format expression
 vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
 
--- Copilot config
+-- Copilot config (disable default mappings, handled by CodeBuddy)
 vim.g.copilot_no_maps = 1
 
--- Disable unused providers (suppress checkhealth warnings)
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_ruby_provider = 0
-vim.g.loaded_node_provider = 0
-vim.g.loaded_python3_provider = 0
+-- Disable unused providers (suppress checkhealth warnings, improve startup)
+for _, provider in ipairs({ "perl", "ruby", "node", "python3" }) do
+  vim.g["loaded_" .. provider .. "_provider"] = 0
+end
 
 -- Window separator characters - hidden for clean look
 vim.opt.fillchars = {

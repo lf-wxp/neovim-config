@@ -10,7 +10,7 @@ end
 vim.g.neovide_opacity = 1
 vim.g.neovide_normal_opacity = 1
 vim.g.neovide_remember_window_size = true
-vim.g.neovide_no_idle = true
+vim.g.neovide_no_idle = false
 vim.g.neovide_window_blurred = true
 
 -- Cursor effects

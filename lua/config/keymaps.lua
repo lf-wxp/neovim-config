@@ -15,52 +15,57 @@ M.load_global = function()
   local keymap = vim.keymap.set
   local opts = { noremap = true, silent = true }
 
+  --- Helper: set keymap with desc merged into opts
+  local function map(mode, lhs, rhs, desc)
+    keymap(mode, lhs, rhs, vim.tbl_extend("force", opts, { desc = desc }))
+  end
+
   -- ╭─────────────────────────────────────────────────────╮
   -- │              Window Management                      │
   -- ╰─────────────────────────────────────────────────────╯
-  keymap("n", km.split_vertical, ":vsp<cr>", vim.tbl_extend("force", opts, { desc = "Split Vertical" }))
-  keymap("n", km.split_horizontal, ":sp<cr>", vim.tbl_extend("force", opts, { desc = "Split Horizontal" }))
-  keymap("n", km.close_window, "<C-w>c", vim.tbl_extend("force", opts, { desc = "Close Window" }))
-  keymap("n", km.close_other_windows, "<C-w>o", vim.tbl_extend("force", opts, { desc = "Close Other Windows" }))
-  keymap("n", km.equal_windows, "<C-w>=", vim.tbl_extend("force", opts, { desc = "Equal Windows" }))
+  map("n", km.split_vertical, ":vsp<cr>", "Split Vertical")
+  map("n", km.split_horizontal, ":sp<cr>", "Split Horizontal")
+  map("n", km.close_window, "<C-w>c", "Close Window")
+  map("n", km.close_other_windows, "<C-w>o", "Close Other Windows")
+  map("n", km.equal_windows, "<C-w>=", "Equal Windows")
 
   -- ╭─────────────────────────────────────────────────────╮
   -- │              Edit Operations                        │
   -- ╰─────────────────────────────────────────────────────╯
-  keymap("v", km.move_selection_down, ":move '>+1<cr>gv-gv", vim.tbl_extend("force", opts, { desc = "Move Selection Down" }))
-  keymap("v", km.move_selection_up, ":move '<-2<cr>gv-gv", vim.tbl_extend("force", opts, { desc = "Move Selection Up" }))
+  map("v", km.move_selection_down, ":move '>+1<cr>gv-gv", "Move Selection Down")
+  map("v", km.move_selection_up, ":move '<-2<cr>gv-gv", "Move Selection Up")
 
   -- ╭─────────────────────────────────────────────────────╮
   -- │              Scroll                                 │
   -- ╰─────────────────────────────────────────────────────╯
-  keymap("n", km.scroll_up_half, "<C-u>", vim.tbl_extend("force", opts, { desc = "Scroll Up Half Page" }))
-  keymap("n", km.scroll_down_half, "<C-d>", vim.tbl_extend("force", opts, { desc = "Scroll Down Half Page" }))
-  keymap("n", km.scroll_up_full, "<C-b>", vim.tbl_extend("force", opts, { desc = "Scroll Up Full Page" }))
+  map("n", km.scroll_up_half, "<C-u>", "Scroll Up Half Page")
+  map("n", km.scroll_down_half, "<C-d>", "Scroll Down Half Page")
+  map("n", km.scroll_up_full, "<C-b>", "Scroll Up Full Page")
 
   -- ╭─────────────────────────────────────────────────────╮
   -- │              Clipboard                              │
   -- ╰─────────────────────────────────────────────────────╯
-  keymap({ "n", "v" }, km.paste_from_clipboard, '"+p', vim.tbl_extend("force", opts, { desc = "Paste from Clipboard" }))
-  keymap({ "n", "v" }, km.copy_to_clipboard, '"+y', vim.tbl_extend("force", opts, { desc = "Copy to Clipboard" }))
+  map({ "n", "v" }, km.paste_from_clipboard, '"+p', "Paste from Clipboard")
+  map({ "n", "v" }, km.copy_to_clipboard, '"+y', "Copy to Clipboard")
 
   -- ╭─────────────────────────────────────────────────────╮
   -- │              Search                                 │
   -- ╰─────────────────────────────────────────────────────╯
-  keymap("n", km.clear_search, ":noh<cr>", vim.tbl_extend("force", opts, { desc = "Clear Search Highlight" }))
+  map("n", km.clear_search, ":noh<cr>", "Clear Search Highlight")
 
   -- ╭─────────────────────────────────────────────────────╮
   -- │              Navigation History                     │
   -- ╰─────────────────────────────────────────────────────╯
-  keymap("n", km.go_back, "<C-o>", vim.tbl_extend("force", opts, { desc = "Go Back" }))
-  keymap("n", km.go_forward, "<C-i>", vim.tbl_extend("force", opts, { desc = "Go Forward" }))
+  map("n", km.go_back, "<C-o>", "Go Back")
+  map("n", km.go_forward, "<C-i>", "Go Forward")
 
   -- ╭─────────────────────────────────────────────────────╮
   -- │              Text Objects                           │
   -- ╰─────────────────────────────────────────────────────╯
-  keymap("o", km.inside_bracket, "i[", vim.tbl_extend("force", opts, { desc = "Inside []" }))
-  keymap("o", km.around_bracket, "a[", vim.tbl_extend("force", opts, { desc = "Around []" }))
-  keymap("o", km.inside_angle, "i<", vim.tbl_extend("force", opts, { desc = "Inside <>" }))
-  keymap("o", km.around_angle, "a<", vim.tbl_extend("force", opts, { desc = "Around <>" }))
+  map("o", km.inside_bracket, "i[", "Inside []")
+  map("o", km.around_bracket, "a[", "Around []")
+  map("o", km.inside_angle, "i<", "Inside <>")
+  map("o", km.around_angle, "a<", "Around <>")
 end
 
 -- ╭────────────────────────────────────────────────────────╮
@@ -122,9 +127,10 @@ M.trouble = {
   quickfix = "<leader>xq",
 }
 
--- nvim-navbuddy - Symbol navigation
-M.navbuddy = {
-  toggle = "<leader>nb",
+-- nvim-navbuddy -> aerial.nvim - Symbol navigation
+M.aerial = {
+  nav_toggle = "<leader>nb", -- Float breadcrumb navigation (like navbuddy)
+  toggle = "<leader>no",     -- Symbol outline sidebar
 }
 
 -- ╭────────────────────────────────────────────────────────╮
@@ -146,10 +152,13 @@ M.bufferline = {
 
 -- snacks.nvim - Dashboard/terminal/buffer management
 M.snacks = {
-  dashboard = "<leader> ;",
+  dashboard = "<leader>;",
   bufdelete = "<leader>bd",
   bufdelete_other = "<leader>bo",
   terminal = "<c-/>",
+  terminal_float = "<leader>tf",
+  terminal_right = "<leader>tr",
+  terminal_bottom = "<leader>td",
 }
 
 -- smart-splits - Intelligent window management
@@ -164,16 +173,6 @@ M.smartSplits = {
   resize_right = "<leader>s>",
   resize_down = "<leader>s-",
   resize_up = "<leader>s+",
-  -- Equal window sizes (global keymap)
-  equal = "<leader>s=",
-}
-
--- window - Basic window management
-M.window = {
-  split_vertical = "<leader>sv",
-  split_horizontal = "<leader>sh",
-  close = "<leader>sc",
-  close_other = "<leader>so",
 }
 
 -- ╭────────────────────────────────────────────────────────╮
@@ -183,7 +182,7 @@ M.window = {
 -- flash.nvim - Quick jump
 M.flash = {
   jump = "<leader>fj",
-  treesitter = "<leader>ft",
+  treesitter = "<leader>fS",
 }
 
 -- treesj - Code split and join
@@ -193,7 +192,7 @@ M.treesj = {
 
 -- sniprun - Code execution
 M.sniprun = {
-  run = "<leader>cr",
+  run = "<leader>cs",
 }
 
 -- yanky - Clipboard history
@@ -242,8 +241,8 @@ M.comment = {
 M.todoComments = {
   next = "]t",
   prev = "[t",
-  search = "<leader>st",
-  search_fixme = "<leader>sT",
+  search = "<leader>ft",
+  search_fixme = "<leader>fT",
 }
 
 -- ╭────────────────────────────────────────────────────────╮
@@ -254,26 +253,23 @@ M.todoComments = {
 M.lspsaga = {
   peek_definition = "gpd",
   peek_implementation = "gpi",
-  peek_close = "gpc",
   peek_references = "gpr",
   peek_type = "gpt",
   code_action = "<leader>ca",
   rename = "<leader>rn",
+  hover_scroll_up = "su",
+  hover_scroll_down = "sd",
 }
 
--- LSP basic
+-- LSP basic (code_action handled by lspsaga)
 M.lsp = {
-  code_action = "<leader>ca",
-  go_definitiion = "gd",
+  go_definition = "gd",
   hover_doc = "gh",
-  hover_definition_scroll_up = "su",
-  hover_definition_scroll_down = "sd",
   go_declaration = "gD",
   go_implementation = "gi",
-  references = "gr",
   type_definition = "gy",
   signature_help = "gs",
-  line_diagnostics = "gp",
+  line_diagnostics = "gl",
   next_diagnostics = "gj",
   prev_diagnostics = "gk",
   document_symbols = "<leader>gds",
@@ -286,6 +282,11 @@ M.lsp = {
 -- ╭────────────────────────────────────────────────────────╮
 -- │  Language - Language specific                          │
 -- ╰────────────────────────────────────────────────────────╯
+
+-- CodeBuddy - AI Copilot
+M.codeBuddy = {
+  copilot_accept = "<Right>",
+}
 
 -- crates.nvim - Rust crates management
 M.crates = {
@@ -334,16 +335,16 @@ M.gitsigns = {
 -- │  Tools - Tools                                         │
 -- ╰────────────────────────────────────────────────────────╯
 
--- conform.nvim - Code formatting
-M.conform = {
-  format = "<leader>cf",
+-- treesitter-textobjects - Swap parameters
+M.treesitterSwap = {
+  swap_next = "<leader>a",
+  swap_prev = "<leader>A",
 }
 
--- ccc.nvim - Color picker
+-- ccc.nvim - Color picker (highlighter 功能由 nvim-highlight-colors 统一处理)
 M.ccc = {
   pick = "<leader>cp",
-  convert = "<leader>cc",
-  highlighter = "<leader>ch",
+  convert = "<leader>coc",
 }
 
 -- ╭────────────────────────────────────────────────────────╮

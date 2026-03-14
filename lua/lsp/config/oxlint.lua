@@ -1,13 +1,13 @@
 -- ╭────────────────────────────────────────────────────────╮
 -- │         oxlint - Fast JavaScript/TypeScript Linter     │
 -- │                                                        │
--- │ oxlint v1.x 内置 --lsp 模式，兼容 ESLint 配置         │
--- │ 支持 .oxlintrc.json 和 eslint.config.* 配置文件       │
+-- │ oxlint v1.x has built-in --lsp mode, ESLint-compatible  │
+-- │ Supports .oxlintrc.json and eslint.config.* config files │
 -- ╰────────────────────────────────────────────────────────╯
 
 local opts = {
-  -- oxlint v1.x 使用 `oxlint --lsp` 启动内置 language server
-  -- (旧版使用独立的 oxc_language_server 二进制文件，已废弃)
+  -- oxlint v1.x uses `oxlint --lsp` to start the built-in language server
+  -- (legacy version used standalone oxc_language_server binary, now deprecated)
   cmd = { "oxlint", "--lsp" },
   filetypes = {
     "javascript",
@@ -19,10 +19,10 @@ local opts = {
     "astro",
   },
   root_markers = {
-    -- oxlint 原生配置
+    -- oxlint native config
     ".oxlintrc.json",
     "oxlint.json",
-    -- ESLint 兼容配置 (oxlint 会自动读取)
+    -- ESLint-compatible config (oxlint reads automatically)
     "eslint.config.js",
     "eslint.config.mjs",
     "eslint.config.cjs",
@@ -31,7 +31,7 @@ local opts = {
     ".eslintrc.json",
     ".eslintrc.js",
     ".eslintrc.cjs",
-    -- 通用项目标记
+    -- Common project markers
     "package.json",
     ".git",
   },

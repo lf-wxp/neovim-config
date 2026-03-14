@@ -1,32 +1,34 @@
 -- ╭────────────────────────────────────────────────────────╮
 -- │     lua-language-server - Lua LSP Configuration        │
+-- │                                                        │
+-- │ Note: Workspace library is handled by lazydev.nvim     │
+-- │       which provides superior Neovim API completion    │
 -- ╰────────────────────────────────────────────────────────╯
 
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
-local runtime_path = vim.split(package.path, ";")
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
 local opts = {
   settings = {
     Lua = {
       runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        -- LuaJIT for Neovim
         version = "LuaJIT",
-        -- Setup your lua path
-        path = runtime_path,
       },
       diagnostics = {
-        -- Get the language server to recognize the `vim` global
+        -- Recognize the `vim` global
         globals = { "vim" },
       },
       workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
+        -- Let lazydev.nvim handle workspace library for better performance
+        -- (avoids scanning entire Neovim runtime on every startup)
         checkThirdParty = false,
       },
-      -- Do not send telemetry data containing a randomized but unique identifier
+      -- Disable telemetry
       telemetry = {
         enable = false,
+      },
+      -- Enable inlay hints for Lua
+      hint = {
+        enable = true,
+        setType = true,
       },
     },
   },

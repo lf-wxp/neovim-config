@@ -5,10 +5,17 @@
 local M = {}
 
 M.setup = function()
+  local keys = require("config.keymaps").lspsaga
+
   require("lspsaga").setup({
     scroll_preview = {
-      scroll_down = 'sd',
-      scroll_up = 'su',
+      scroll_down = keys.hover_scroll_down,
+      scroll_up = keys.hover_scroll_up,
+    },
+    hover = {
+      open_cmd = "!" .. (vim.fn.has("mac") == 1 and "open" or "xdg-open"),
+      scroll_down = keys.hover_scroll_down,
+      scroll_up = keys.hover_scroll_up,
     },
     ui = {
       border = 'solid',
@@ -20,7 +27,7 @@ M.setup = function()
     finder = {
       keys = {
         vsplit = 'v',
-        shuttle = '<leader>ww'
+        shuttle = '[w'
       },
       max_height = 0.7,
       left_width = 0.3,
@@ -29,7 +36,7 @@ M.setup = function()
     definition = {
       keys = {
         vsplit = 'v',
-        shuttle = '<leader>ww'
+        shuttle = '[w'
       },
       width = 0.9,
       height = 0.8,

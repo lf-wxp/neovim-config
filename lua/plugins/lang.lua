@@ -18,18 +18,18 @@ return {
     keys = function()
       local keys = require("config.keymaps").crates
       return {
-        { keys.toggle, "<cmd>lua require('config.commands').crate_toggle()<cr>", desc = "Crate Toggle" },
-        { keys.reload, "<cmd>lua require('config.commands').crate_reload()<cr>", desc = "Crate Reload" },
-        { keys.versions, "<cmd>lua require('config.commands').crate_versions()<cr>", desc = "Crate Versions" },
-        { keys.features, "<cmd>lua require('config.commands').crate_features()<cr>", desc = "Crate Features" },
-        { keys.dependencies, "<cmd>lua require('config.commands').crate_dependencies()<cr>", desc = "Crate Dependencies" },
-        { keys.update, "<cmd>lua require('config.commands').crate_update()<cr>", desc = "Crate Update" },
-        { keys.upgrade, "<cmd>lua require('config.commands').crate_upgrade()<cr>", desc = "Crate Upgrade" },
-        { keys.upgrade_all, "<cmd>lua require('config.commands').crate_upgrade_all()<cr>", desc = "Crate Upgrade All" },
-        { keys.open_homepage, "<cmd>lua require('config.commands').crate_open()<cr>", desc = "Crate Homepage" },
-        { keys.open_repo, "<cmd>lua require('config.commands').crate_repo()<cr>", desc = "Crate Repository" },
-        { keys.open_doc, "<cmd>lua require('config.commands').crate_doc()<cr>", desc = "Crate Documentation" },
-        { keys.open_crates_io, "<cmd>lua require('config.commands').crate_crates_io()<cr>", desc = "Crate crates.io" },
+        { keys.toggle, function() require("crates").toggle() end, ft = "toml", desc = "Crate Toggle" },
+        { keys.reload, function() require("crates").reload() end, ft = "toml", desc = "Crate Reload" },
+        { keys.versions, function() require("crates").show_versions_popup() end, ft = "toml", desc = "Crate Versions" },
+        { keys.features, function() require("crates").show_features_popup() end, ft = "toml", desc = "Crate Features" },
+        { keys.dependencies, function() require("crates").show_dependencies_popup() end, ft = "toml", desc = "Crate Dependencies" },
+        { keys.update, function() require("crates").update_crate() end, ft = "toml", desc = "Crate Update" },
+        { keys.upgrade, function() require("crates").upgrade_crate() end, ft = "toml", desc = "Crate Upgrade" },
+        { keys.upgrade_all, function() require("crates").upgrade_all_crates() end, ft = "toml", desc = "Crate Upgrade All" },
+        { keys.open_homepage, function() require("crates").open_crate_homepage() end, ft = "toml", desc = "Crate Homepage" },
+        { keys.open_repo, function() require("crates").open_repository() end, ft = "toml", desc = "Crate Repository" },
+        { keys.open_doc, function() require("crates").open_documentation() end, ft = "toml", desc = "Crate Documentation" },
+        { keys.open_crates_io, function() require("crates").open_crates_io() end, ft = "toml", desc = "Crate crates.io" },
       }
     end,
     opts = {},
@@ -41,7 +41,6 @@ return {
     opts = {
       keymap = "<leader><leader>r",
       float_win = {
-        border = "none",
         auto_focus = false,
       },
     },
@@ -87,12 +86,12 @@ return {
   {
     name = "CodeBuddy",
     url = "git@git.woa.com:felikszhou/gongfeng-operation-platform.git",
-    lazy = true,
-    event = "InsertEnter",
+    event = "InsertEnter",  -- Load on InsertEnter for Copilot completion
     cmd = "CodeBuddy",
     init = function()
-      -- Copilot keymap
-      vim.api.nvim_set_keymap("i", "<Right>", "copilot#Accept()", { silent = true, noremap = true, expr = true })
+      -- Copilot accept keymap (init runs before plugin loads)
+      local keys = require("config.keymaps").codeBuddy
+      vim.keymap.set("i", keys.copilot_accept, "copilot#Accept()", { silent = true, noremap = true, expr = true })
     end,
   },
 }

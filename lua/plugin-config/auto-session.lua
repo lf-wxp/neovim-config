@@ -14,7 +14,8 @@ local M = {}
 
 M.setup = function()
   -- Session options
-  vim.o.sessionoptions = "blank,buffers,help,tabpages,winsize,winpos,terminal,localoptions"
+  -- 移除 help：bypass_save_filetypes 已包含 help，sessionoptions 中不再保存 help 窗口
+  vim.o.sessionoptions = "blank,buffers,tabpages,winsize,winpos,terminal,localoptions"
 
   require("auto-session").setup({
     log_level = "info",  -- Enable log output for debugging
@@ -31,7 +32,12 @@ M.setup = function()
         end
       end
     },
-    bypass_save_filetypes = { "alpha", "dashboard" },
+    bypass_save_filetypes = {
+      "alpha", "dashboard", "snacks_dashboard",
+      "NvimTree", "neo-tree", "Trouble",
+      "neogit", "DiffviewFiles", "lazy",
+      "mason", "qf", "help",
+    },
     session_lens = {
       load_on_setup = true,
       theme_conf = { border = true },

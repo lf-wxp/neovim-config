@@ -50,9 +50,6 @@ M.setup = function()
       },
     },
     pickers = {
-      find_files = {},
-      live_grep = {},
-      marks = {},
       buffers = {
         mappings = {
           n = {
@@ -63,11 +60,6 @@ M.setup = function()
           },
         },
       },
-      borderchars = {
-        prompt = { " ", " ", " ", " ", " ", " ", " ", " " },
-        results = { " ", " ", " ", " ", " ", " ", " ", " " },
-        preview = { " ", " ", " ", " ", " ", " ", " ", " " },
-      },
     },
     extensions = {
       fzf = {
@@ -76,15 +68,7 @@ M.setup = function()
         override_file_sorter = true,
         case_mode = "smart_case",
       },
-      frecency = {
-        show_scores = true,
-        show_unindexed = true,
-        ignore_patterns = { "*.git/*", "*/tmp/*" },
-        disable_devicons = false,
-        workdirs = {
-          ["/Users/franciscowu/.config/nvim"] = "nvim",
-        },
-      },
+
       ["ui-select"] = {
         require("telescope.themes").get_dropdown({}),
       },
@@ -104,14 +88,13 @@ M.setup = function()
   -- Load extensions safely
   local extensions = {
     "fzf",
-    "frecency",
     "env",
     "ui-select",
     "symbols",
     "live_grep_args",
     "file_browser",
     "projects",
-    "session-lens",
+    "yank_history",   -- yanky.nvim 剪贴板历史 telescope 集成
   }
 
   for _, ext in ipairs(extensions) do

@@ -70,7 +70,7 @@ return {
     config = function()
       local rainbow = require("rainbow-delimiters")
       ---@type rainbow_delimiters.config
-      vim.g.rainbow_delimiters = {
+      require("rainbow-delimiters.setup").setup({
         strategy = {
           [""] = rainbow.strategy["global"],
           vim = rainbow.strategy["local"],
@@ -92,7 +92,7 @@ return {
           "RainbowDelimiterViolet",
           "RainbowDelimiterCyan",
         },
-      }
+      })
     end,
   },
 
@@ -104,12 +104,25 @@ return {
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
-      "windwp/nvim-ts-autotag",
       "nvim-treesitter/nvim-treesitter-textobjects",
-      "nvim-treesitter/nvim-treesitter-context",
     },
     config = function()
       require("plugin-config.nvim-treesitter").setup()
     end,
+  },
+
+  -- ╭─────────────────────────────────────────────────────╮
+  -- │ treesitter-context - Sticky Code Context Header     │
+  -- ╰─────────────────────────────────────────────────────╯
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    opts = {
+      max_lines = 3,            -- Show at most 3 context lines at top
+      multiline_threshold = 20, -- Collapse multiline nodes (e.g. long function signatures)
+      trim_scope = "outer",     -- Prefer outermost scope when trimming
+      mode = "cursor",          -- Show context based on cursor position
+    },
   },
 }

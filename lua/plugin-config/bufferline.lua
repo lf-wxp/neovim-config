@@ -21,13 +21,21 @@ M.setup = function()
       },
       indicator = { style = "underline" },
       diagnostics = "nvim_lsp",
-      diagnostics_indicator = function(count, level, diagnostics_dict, context)
-        local s = " "
-        for e, n in pairs(diagnostics_dict) do
-          local sym = e == "error" and " 󰅘 " or (e == "warning" and " 󰀪 " or " 󰋽 ")
-          s = s .. n .. sym
+      ---@param diagnostics_dict table<string, integer>
+      ---@param context {buffer: integer}
+      diagnostics_indicator = function(_, _, diagnostics_dict, context)
+        -- 非当前 buffer 只显示 error 级别，减少视觉干扰
+        if context.buffer:current() then
+          local s = " "
+          for e, n in pairs(diagnostics_dict) do
+            local sym = e == "error" and " 󰅘 " or (e == "warning" and " 󰀪 " or " 󰋽 ")
+            s = s .. n .. sym
+          end
+          return s
         end
-        return s
+        -- 非当前 buffer：仅显示 error
+        local errors = diagnostics_dict["error"]
+        return errors and (" " .. errors .. " 󰅘 ") or ""
       end,
     },
   })

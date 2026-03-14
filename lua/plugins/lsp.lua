@@ -5,11 +5,13 @@
 return {
   -- ╭────────────────────────────────────────────────────────╮
   -- │ nvim-lspconfig - LSP Core                              │
+  -- │ Entry point: loads lsp/setup.lua which handles all     │
+  -- │ server configuration, keymaps, and UI                  │
   -- ╰────────────────────────────────────────────────────────╯
   {
     "neovim/nvim-lspconfig",
     cmd = "LspInfo",
-    event = { "BufReadPost", "BufNewFile" }, -- Load when opening files so LSP servers can attach
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
@@ -117,13 +119,12 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "nvimdev/lspsaga.nvim",
-    event = "LspAttach",
+    -- Removed redundant event = "LspAttach": keys definition drives lazy-loading on demand
     keys = function()
       local keys = require("config.keymaps").lspsaga
       return {
         { keys.peek_definition, "<cmd>Lspsaga peek_definition<cr>", desc = "Peek Definition" },
         { keys.peek_implementation, "<cmd>Lspsaga finder imp<cr>", desc = "Peek Implementation" },
-        { keys.peek_close, "<cmd>Lspsaga term_toggle<cr>", desc = "Close Preview" },
         { keys.peek_references, "<cmd>Lspsaga finder ref<cr>", desc = "Peek References" },
         { keys.peek_type, "<cmd>Lspsaga peek_type_definition<cr>", desc = "Peek Type Definition" },
         { keys.code_action, "<cmd>Lspsaga code_action<cr>", mode = { "n", "v" }, desc = "Code Action" },
@@ -148,6 +149,7 @@ return {
 
   -- ╭────────────────────────────────────────────────────────╮
   -- │ lazydev - Lua Development Enhancement                  │
+  -- │ Provides Neovim Lua API completion and type info       │
   -- ╰────────────────────────────────────────────────────────╯
   {
     "folke/lazydev.nvim",
@@ -156,11 +158,8 @@ return {
       library = {
         -- Load luvit types when the `vim.uv` word is found
         { path = "luvit-meta/library", words = { "vim%.uv" } },
-        -- Full Neovim runtime API
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-        -- Neovim Lua API
-        "LazyVim",
-        -- Common Neovim plugin libraries
+        -- Common plugin libraries for type completion
         { path = "snacks.nvim", words = { "Snacks" } },
         { path = "lazy.nvim", words = { "LazyPluginSpec" } },
         { path = "plenary.nvim" },

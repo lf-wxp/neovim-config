@@ -13,7 +13,6 @@ M.setup = function()
       opts = {
         win_options = { winblend = 20 },
         border = { style = { " ", " ", " ", " ", " ", " ", " ", " " }, padding = { 0, 0 } },
-        -- border = { style = "none", padding = { 1, 2 } },
       },
       format = {
         cmdline = { pattern = "^:", icon = "󰘳 ", lang = "vim" },
@@ -41,47 +40,8 @@ M.setup = function()
       enabled = true,
       ---@type 'nui'|'cmp'
       backend = "nui",
-      kind_icons = {
-        File = "󰈙 ",
-        Module = "󰏗 ",
-        Namespace = "󰌗 ",
-        Package = "󰏖 ",
-        Class = "󰠱 ",
-        Method = "󰆧 ",
-        Property = "󰜢 ",
-        Field = "󰜢 ",
-        Constructor = "󰒓 ",
-        Enum = "󰕘 ",
-        Interface = "󰕘 ",
-        Function = "󰊕 ",
-        Variable = "󰀫 ",
-        Constant = "󰏿 ",
-        String = "󰀬 ",
-        Number = "󰎠 ",
-        Boolean = "󰨙 ",
-        Array = "󰅪 ",
-        Object = "󰅩 ",
-        Key = "󰌋 ",
-        Null = "󰟢 ",
-        EnumMember = "󰕘 ",
-        Struct = "󰙅 ",
-        Event = "󰉒 ",
-        Operator = "󰆕 ",
-        TypeParameter = "󰊄 ",
-        Folder = "󰉋 ",
-        Unit = "󰑭 ",
-        Value = "󰎠 ",
-        Text = "󰉿 ",
-        Reference = "󰈇 ",
-        Keyword = "󰌋 ",
-        Snippet = "󰒕 ",
-        Color = "󰏘 ",
-        Calendar = "󰃭 ",
-        Watch = "󰥔 ",
-        Copilot = "󰚩 ",
-        Codeium = "󰘦 ",
-        TabNine = "󰚩 ",
-      },
+      -- Shared kind_icons from config/icons.lua (with trailing space for display)
+      kind_icons = require("config.icons").kind_icons_spaced(),
     },
 
     -- LSP integration
@@ -115,8 +75,7 @@ M.setup = function()
 
     -- Message routing rules
     routes = {
-      -- Hide written messages
-      { filter = { event = "msg_show", kind = "", find = "written" }, opts = { skip = true } },
+      -- written 消息已由 shortmess+=W 抑制，无需重复过滤
       -- Hide undo/redo messages
       { filter = { event = "msg_show", find = "^%d+ fewer lines" }, opts = { skip = true } },
       { filter = { event = "msg_show", find = "^%d+ more lines" }, opts = { skip = true } },
@@ -124,8 +83,7 @@ M.setup = function()
       -- Hide yank/paste messages
       { filter = { event = "msg_show", find = "^%d+ line[s]? yanked" }, opts = { skip = true } },
       { filter = { event = "msg_show", find = "^%d+ line[s]? >ed" }, opts = { skip = true } },
-      -- Hide search wrap messages
-      { filter = { event = "msg_show", find = "search hit %a* continuing at %a*" }, opts = { skip = true } },
+      -- search wrap 消息已由 shortmess+=s 抑制，无需重复过滤
       -- Hide change replace messages
       { filter = { event = "msg_show", find = "%d+ change[s]?;" }, opts = { skip = true } },
       -- Hide "Already at newest/oldest change" messages
@@ -144,7 +102,6 @@ M.setup = function()
       confirm = {
         win_options = { winblend = 15 },
         border = { style = { " ", " ", " ", " ", " ", " ", " ", " " }, padding = { 0, 0 }, text = {} },
-        -- border = { style = "none", padding = { 1, 2 }, text = {} },
       },
       cmdline_popup = {
         filter_options = {},

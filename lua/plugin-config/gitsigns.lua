@@ -16,22 +16,23 @@ M.setup = function()
       return
     end
 
-    local function map(mode, lhs, rhs, desc)
-      vim.keymap.set(mode, lhs, rhs, { buffer = buffer, desc = desc })
+    local function map(mode, lhs, rhs, desc, extra_opts)
+      local map_opts = vim.tbl_extend("force", { buffer = buffer, desc = desc }, extra_opts or {})
+      vim.keymap.set(mode, lhs, rhs, map_opts)
     end
 
-    -- Navigation
+    -- Navigation (expr = true required: callback returns string keys)
     map("n", gk.next_hunk, function()
       if vim.wo.diff then return "]c" end
       vim.schedule(function() gs.next_hunk() end)
       return "<Ignore>"
-    end, "Next Hunk")
+    end, "Next Hunk", { expr = true })
 
     map("n", gk.prev_hunk, function()
       if vim.wo.diff then return "[c" end
       vim.schedule(function() gs.prev_hunk() end)
       return "<Ignore>"
-    end, "Prev Hunk")
+    end, "Prev Hunk", { expr = true })
 
     -- Actions
     map("n", gk.stage_hunk, gs.stage_hunk, "Stage Hunk")

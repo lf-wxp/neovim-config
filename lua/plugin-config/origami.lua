@@ -11,7 +11,7 @@ M.setup = function()
   vim.opt.foldlevel = 99
   vim.opt.foldlevelstart = 99
   vim.opt.foldenable = true
-  -- foldmethod 和 foldexpr 由 origami 自动管理（LSP > treesitter > indent）
+  -- foldmethod and foldexpr are auto-managed by origami (LSP > treesitter > indent)
 
   origami.setup({
     useLspFoldsWithTreesitterFallback = {

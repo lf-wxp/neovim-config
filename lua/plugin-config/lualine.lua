@@ -38,12 +38,9 @@ M.setup = function()
       lualine_c = {
         { Harpoonline.format, color = "Operator" },
         { "filename", path = 1, file_status = true, color = "Boolean" },
-        {
-          "lsp_progress",
-          spinner_symbols = { " ", " ", " ", " ", " ", " " },
-        },
-        { require("recorder").displaySlots, color = "Todo" },
-        { require("recorder").recordingStatus, color = "Tag" },
+        -- recorder 使用惰性函数包裹，避免破坏 VeryLazy 懒加载语义
+        { function() return require("recorder").displaySlots() end, color = "Todo" },
+        { function() return require("recorder").recordingStatus() end, color = "Tag" },
       },
       lualine_x = {
         { "filesize", color = "Operator" },

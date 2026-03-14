@@ -8,7 +8,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "lewis6991/gitsigns.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("plugin-config.gitsigns").setup()
     end,

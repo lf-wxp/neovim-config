@@ -1,18 +1,19 @@
 # Neovim Configuration
 
-A modular, performance-optimized Lua-based Neovim IDE configuration built on **lazy.nvim** with 80+ plugins.
+A modular, performance-optimized Lua-based Neovim IDE configuration built on **lazy.nvim** with 75+ plugins.
 
 ## ✨ Features
 
-- **80+ Plugins** organized into 9 functional categories
-- **Lazy Loading** via lazy.nvim for optimal startup performance (<50ms)
+- **75+ Plugins** organized into 9 functional categories
+- **Lazy Loading** via lazy.nvim for optimal startup performance (~30ms)
 - **Unified Module Pattern** — all configs follow the `M.setup()` convention
 - **LSP Support** for JavaScript/TypeScript, Rust, Lua, Python, Vue, CSS, HTML, JSON, TOML
 - **Modern Completion** powered by blink.cmp (replaces nvim-cmp)
 - **Minimal UI** with borderless floating windows and clean aesthetics
-- **Git Integration** via Gitsigns, Diffview, and Fugitive
-- **Smart Navigation** with Telescope, Harpoon, Oil.nvim, and Flash
+- **Git Integration** via Gitsigns, Neogit, and Diffview
+- **Smart Navigation** with Telescope, Harpoon, Oil.nvim, Flash, and Aerial
 - **AI Coding** with Copilot and CodeCompanion
+- **Smart Formatting** with oxfmt / prettierd auto-detection
 - **Centralized Keymaps** — all bindings defined in `keymaps.lua`, no hardcoding in plugins
 
 ## 📁 Project Structure
@@ -83,6 +84,7 @@ A modular, performance-optimized Lua-based Neovim IDE configuration built on **l
 │           ├── css.lua               # cssls
 │           ├── json.lua              # jsonls + SchemaStore
 │           ├── lua.lua               # lua_ls
+│           ├── oxlint.lua            # oxlint (JS/TS linter)
 │           ├── rust.lua              # rust_analyzer
 │           ├── ts.lua                # vtsls (TypeScript)
 │           ├── typos.lua             # typos_lsp
@@ -129,16 +131,19 @@ return M
 
 ```
 init.lua
-  → config/lazy.lua (bootstrap lazy.nvim)
-  → config/options.lua (vim options)
-  → vim.schedule:
-      → config/keymaps.lua
-      → config/commands.lua
-      → config/autocmds.lua
-  → plugins/*.lua (lazy.nvim specs)
-      → plugin-config/*.lua (M.setup() on demand)
-      → lsp/setup.lua (on LspAttach)
-      → blink-cmp/setup.lua (on InsertEnter)
+  ├─ config/options.lua       (vim options, providers, fillchars)
+  ├─ config/neovide.lua       (Neovide GUI settings, no-op in terminal)
+  ├─ config/lazy.lua          (bootstrap lazy.nvim, load plugin specs)
+  │   └─ plugins/*.lua        (lazy.nvim specs, all lazy by default)
+  │       ├─ plugin-config/*.lua  (M.setup() on demand)
+  │       ├─ lsp/setup.lua       (on BufReadPost/BufNewFile)
+  │       └─ blink-cmp/setup.lua (on InsertEnter)
+  └─ vim.schedule:
+      ├─ config/autocmds.lua      (editor autocommands)
+      ├─ config/commands.lua      (user commands)
+      └─ config/keymap-validator.lua (dev tool)
+  └─ VeryLazy event:
+      └─ config/keymaps.lua       (global keymaps)
 ```
 
 ## 🗂️ Plugin Categories
@@ -170,12 +175,14 @@ init.lua
 - **treesj** — Code split/join
 - **origami** — Folding
 - **tiny-glimmer** — Yank highlight animation
+- **nvim-surround** — Surround operations with surround-ui visualization
 
 ### Navigation (`navigation.lua`)
 - **telescope.nvim** — Fuzzy finder
 - **harpoon** — Quick file navigation
 - **oil.nvim** — File explorer (buffer-based)
 - **nvim-tree** — File tree sidebar
+- **aerial.nvim** — Symbol navigation (float window + outline sidebar)
 - **grug-far** — Search and replace
 - **project.nvim** — Project detection
 - **auto-session** — Session management
@@ -189,20 +196,24 @@ init.lua
 - **SchemaStore** — JSON schema support
 
 ### Git (`git.lua`)
-- **vim-fugitive** — Git commands
 - **gitsigns** — Git signs in gutter
+- **neogit** — Git interface (Magit-inspired)
 - **diffview** — Diff viewer
 
 ### Formatting (`formatting.lua`)
 - **conform.nvim** — Code formatter (Prettier, Stylua, Black, rustfmt)
-- **nvim-lint** — Async linting (configurable)
+- Linting provided by **oxlint** LSP server (no standalone nvim-lint needed)
 
 ### Colorscheme (`colorscheme.lua`)
-- **tokyonight** — Color scheme with extensive highlight overrides
+- **zephyr** — Primary color scheme with extensive highlight overrides
+- **gruvbox / kanagawa / catppuccin** — Alternative colorschemes
 
 ### Language (`lang.lua`)
+- **rustaceanvim** — Rust development enhancement
 - **crates.nvim** — Rust crates management
+- **tailwind-tools** — Tailwind CSS utilities
 - **CodeCompanion** — AI coding assistant
+- **CodeBuddy** — Internal AI plugin
 
 ## ⌨️ Key Bindings
 
@@ -222,6 +233,8 @@ Leader key: `<Space>`
 | `gr` | Show references | Normal |
 | `<leader>ca` | Code actions | Normal |
 | `<leader>fj` | Flash jump | Normal |
+| `<leader>nb` | Symbol navigation (Aerial float) | Normal |
+| `<leader>no` | Symbol outline (Aerial sidebar) | Normal |
 | `<S-h>` / `<S-l>` | Previous/next buffer | Normal |
 | `<C-h/j/k/l>` | Window navigation | Normal |
 
@@ -249,10 +262,11 @@ Automatically installed via Mason:
 ### Prerequisites
 
 - **Neovim 0.11+** (required for `vim.lsp.config`, `winborder`, etc.)
-- **Nerd Font** — set as terminal font
+- **Nerd Font** — set as terminal font (recommended: Maple Mono NF)
 - **Node.js & npm** — for formatters and some LSPs
-- **Rust toolchain** — for rust-analyzer
+- **Rust toolchain** — for rust-analyzer and stylua
 - **ripgrep** — for Telescope live grep
+- **fd** — for Telescope find files (optional, faster than `find`)
 
 ### Setup
 
@@ -275,12 +289,18 @@ nvim  # Plugins install automatically on first launch
 
 ## 🚀 Performance
 
-- **Startup target**: <50ms
+- **Startup time**: ~30ms (measured with `--startuptime`)
 - `vim.loader.enable()` for Lua module caching
 - All plugins lazy by default via lazy.nvim
-- LSP loads on `LspAttach`, completion on `InsertEnter`
+- Disabled built-in plugins: gzip, netrw, matchit, tar, tohtml, tutor, zip
+- Key-driven lazy loading: plugins like smart-splits, yanky, lspsaga, aerial load only on first keypress
+- Optimized autocmds: `FileType` over `BufEnter`, no `CursorHoldI` for checktime
+- Reduced animation overhead: notification fps capped at 30
+- Neovide idle rendering disabled to save CPU/GPU
+- LSP loads on `BufReadPost/BufNewFile`, completion on `InsertEnter`
 - Keymaps and autocmds deferred via `vim.schedule`
 - Disabled unused providers (perl, ruby, node, python3)
+- Large file protection: skip treesitter highlight (>10000 lines), skip formatting (>200KB)
 
 ## 📝 Adding a New Plugin
 
@@ -292,3 +312,45 @@ nvim  # Plugins install automatically on first launch
 ## 📄 License
 
 This configuration is provided as-is for personal use.
+
+## 🔍 Troubleshooting
+
+### Startup Issues
+
+| Issue | Solution |
+|-------|----------|
+| Plugins not loading | `:Lazy sync` to install/update all plugins |
+| LSP not starting | `:LspInfo` to check server status, `:Mason` to verify installation |
+| Icons missing | Install a Nerd Font and set it as your terminal font |
+| Slow startup | `:Lazy profile` to identify bottlenecks |
+| Treesitter errors | `:TSUpdate` to update parsers |
+| Keybinding conflicts | `:KeymapValidate` to detect conflicts |
+| Formatter not working | `:ConformInfo` to check formatter availability |
+| prettierd errors | Run `:MasonToolsUpdate` to reinstall with prettier dep |
+
+### Common Errors
+
+**"module 'xxx' not found"**
+- Plugin not installed: run `:Lazy sync`
+- Module path wrong: check `lua/` directory structure
+
+**"LSP server xxx not installed"**
+- Run `:Mason` and install the missing server
+- Or add to `ensure_installed` in `lsp.lua`
+
+**"Formatter 'oxfmt' error"**
+- oxfmt requires `.oxfmtrc.json` in project root
+- Projects without oxfmt config will fallback to prettierd
+
+**"Cannot find module 'prettier'"**
+- Run `:MasonToolsUpdate` which auto-installs prettier for prettierd
+- Or manually: `cd ~/.local/share/nvim/mason/packages/prettierd && npm install prettier`
+
+### Health Check
+
+```vim
+:checkhealth             " Full health check
+:checkhealth lazy        " Check lazy.nvim
+:checkhealth mason       " Check Mason
+:checkhealth lspconfig   " Check LSP configs
+```

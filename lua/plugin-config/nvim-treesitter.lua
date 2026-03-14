@@ -4,9 +4,10 @@
 
 local M = {}
 
--- 需要确保安装的语言列表
+-- Languages to ensure installed
 local ensure_installed = {
   "json",
+  "jsonc",
   "html",
   "css",
   "vim",
@@ -21,15 +22,24 @@ local ensure_installed = {
   "scss",
   "vimdoc",
   "regex",
+  -- 补充常用语言（rust 生态需要 toml，配置文件需要 yaml/bash 等）
+  "python",
+  "toml",
+  "yaml",
+  "bash",
+  "gitcommit",
+  "diff",
+  "dockerfile",
+  "graphql",
 }
 
 M.setup = function()
-  -- ── Treesitter 基础配置 ──
-  -- 新版 nvim-treesitter 的 setup 仅接受 install_dir 等基础选项
-  -- highlight / indent 已内置于 Neovim 核心，无需额外配置
+  -- ── Treesitter Base Config ──
+  -- New nvim-treesitter setup only accepts basic options like install_dir
+  -- highlight / indent are built into Neovim core, no extra config needed
   require("nvim-treesitter").setup()
 
-  -- ── 确保语言已安装 ──
+  -- ── Ensure Languages Installed ──
   local installed = require("nvim-treesitter.config").get_installed()
   local missing = vim.tbl_filter(function(lang)
     return not vim.list_contains(installed, lang)
@@ -39,28 +49,28 @@ M.setup = function()
     require("nvim-treesitter.install").install(missing)
   end
 
-  -- ── 高亮配置 ──
-  -- 为所有有 treesitter parser 的文件自动启用高亮
-  -- （Neovim 0.11 内置 ftplugin 只对 lua/help/query 启用，其他语言需手动启用）
+  -- ── Highlight Config ──
+  -- Auto-enable treesitter highlighting for all files with a parser
+  -- (Neovim 0.11 built-in ftplugin only enables for lua/help/query, others need manual enabling)
   vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("treesitter_highlight", { clear = true }),
     callback = function(args)
       local bufnr = args.buf
-      -- 超大文件不启用 treesitter 高亮
+      -- Skip treesitter highlighting for very large files
       local line_count = vim.api.nvim_buf_line_count(bufnr)
       if line_count > 10000 then
         return
       end
-      -- 尝试启用 treesitter 高亮，如果没有对应 parser 则静默失败
+      -- Try enabling treesitter highlighting, silently fail if no parser available
       local ok = pcall(vim.treesitter.start, bufnr)
       if ok then
-        -- 同时启用 treesitter 缩进
+        -- Also enable treesitter indentation
         vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end
     end,
   })
 
-  -- ── Textobjects 配置 ──
+  -- ── Textobjects Config ──
   require("nvim-treesitter-textobjects").setup({
     select = {
       lookahead = true,
@@ -70,7 +80,7 @@ M.setup = function()
     },
   })
 
-  -- ── Textobjects 选择映射 ──
+  -- ── Textobjects Select Mappings ──
   local select_textobject = require("nvim-treesitter-textobjects.select").select_textobject
   local select_keymaps = {
     ["af"] = "@function.outer",
@@ -90,16 +100,17 @@ M.setup = function()
     end, { desc = "Textobject: " .. query })
   end
 
-  -- ── Textobjects 交换映射 ──
+  -- ── Textobjects Swap Mappings ──
   local swap = require("nvim-treesitter-textobjects.swap")
-  vim.keymap.set("n", "<leader>a", function()
+  local swap_keys = require("config.keymaps").treesitterSwap
+  vim.keymap.set("n", swap_keys.swap_next, function()
     swap.swap_next("@parameter.inner")
   end, { desc = "Swap next parameter" })
-  vim.keymap.set("n", "<leader>A", function()
+  vim.keymap.set("n", swap_keys.swap_prev, function()
     swap.swap_previous("@parameter.inner")
   end, { desc = "Swap previous parameter" })
 
-  -- ── Textobjects 移动映射 ──
+  -- ── Textobjects Move Mappings ──
   local move = require("nvim-treesitter-textobjects.move")
   local move_keymaps = {
     { "]m", move.goto_next_start, "@function.outer", "Next function start" },
@@ -117,11 +128,24 @@ M.setup = function()
     end, { desc = map[4] })
   end
 
-  -- ── 增量选择（基于 treesitter 节点） ──
+  -- ── Incremental Selection (treesitter node-based) ──
   local current_node = nil
 
-  -- 初始化/扩大选择
+  -- 不应覆盖 <CR> 的特殊 buffer 类型
+  local cr_excluded_ft = {
+    "qf", "help", "man", "lspinfo", "spectre_panel", "NvimTree",
+    "TelescopePrompt", "TelescopeResults", "Trouble", "toggleterm",
+    "DressingSelect", "lazy", "mason", "noice", "notify",
+  }
+
+  -- Initialize / expand selection
   vim.keymap.set({ "n", "x" }, "<CR>", function()
+    -- 在特殊窗口中，保留 <CR> 原生行为
+    local ft = vim.bo.filetype
+    if vim.tbl_contains(cr_excluded_ft, ft) or vim.bo.buftype ~= "" then
+      return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "n", false)
+    end
+
     local node = current_node
     if not node then
       node = vim.treesitter.get_node()
@@ -133,20 +157,20 @@ M.setup = function()
     end
     current_node = node
     local sr, sc, er, ec = node:range()
-    -- 进入可视模式并选中节点范围
+    -- Enter visual mode and select node range
     vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
     vim.cmd("normal! v")
     vim.api.nvim_win_set_cursor(0, { er + 1, math.max(0, ec - 1) })
   end, { desc = "Incremental selection (expand)" })
 
-  -- 缩小选择
+  -- Shrink selection
   vim.keymap.set("x", "<BS>", function()
     if current_node then
       local child = current_node:child(0)
       if child then
         current_node = child
       else
-        -- 没有子节点，回到当前节点光标位置的节点
+        -- No child node, go back to node at cursor position
         current_node = vim.treesitter.get_node()
       end
     else
@@ -161,7 +185,7 @@ M.setup = function()
     vim.api.nvim_win_set_cursor(0, { er + 1, math.max(0, ec - 1) })
   end, { desc = "Incremental selection (shrink)" })
 
-  -- 离开可视模式时重置状态
+  -- Reset state when leaving visual mode
   vim.api.nvim_create_autocmd("ModeChanged", {
     group = vim.api.nvim_create_augroup("treesitter_incremental_selection", { clear = true }),
     pattern = "[vV\x16]*:n",

@@ -46,7 +46,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "folke/noice.nvim",
-    event = "CmdlineEnter",
+    event = "VeryLazy",  -- Load on VeryLazy to capture all cmdline/message events
     dependencies = { "MunifTanjim/nui.nvim" },
     config = function()
       require("plugin-config.noice").setup()
@@ -73,14 +73,15 @@ return {
     lazy = false,
     keys = function()
       local keys = require("config.keymaps").snacks
+      local cmds = require("config.commands")
       return {
-        { keys.dashboard,       "<cmd>lua require('config.commands').dashboard()<cr>",       desc = "Dashboard" },
-        { keys.bufdelete,       "<cmd>lua require('config.commands').bufdelete()<cr>",       desc = "Delete Buffer" },
-        { keys.bufdelete_other, "<cmd>lua require('config.commands').bufdelete_other()<cr>", desc = "Delete Other Buffers" },
-        { keys.terminal,        "<cmd>lua require('config.commands').terminal()<cr>",        mode = { "n", "t" },          desc = "Terminal" },
-        { "<leader>tf",         "<cmd>lua require('config.commands').terminal_float()<cr>",  mode = { "n", "t" },          desc = "Float Terminal" },
-        { "<leader>tr",         "<cmd>lua require('config.commands').terminal_right()<cr>",  mode = { "n", "t" },          desc = "Right Terminal" },
-        { "<leader>td",         "<cmd>lua require('config.commands').terminal_bottom()<cr>", mode = { "n", "t" },          desc = "Bottom Terminal" },
+        { keys.dashboard,       function() cmds.dashboard() end,       desc = "Dashboard" },
+        { keys.bufdelete,       function() cmds.bufdelete() end,       desc = "Delete Buffer" },
+        { keys.bufdelete_other, function() cmds.bufdelete_other() end, desc = "Delete Other Buffers" },
+        { keys.terminal,        function() cmds.terminal() end,        mode = { "n", "t" }, desc = "Terminal" },
+        { keys.terminal_float,  function() cmds.terminal_float() end,  mode = { "n", "t" }, desc = "Float Terminal" },
+        { keys.terminal_right,  function() cmds.terminal_right() end,  mode = { "n", "t" }, desc = "Right Terminal" },
+        { keys.terminal_bottom, function() cmds.terminal_bottom() end, mode = { "n", "t" }, desc = "Bottom Terminal" },
       }
     end,
     opts = require("plugin-config.snacks").opts,
@@ -118,19 +119,16 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "uga-rosa/ccc.nvim",
-    cmd = { "CccPick", "CccConvert", "CccHighlighterToggle" },
+    cmd = { "CccPick", "CccConvert" },
     keys = function()
       local keys = require("config.keymaps").ccc
       return {
         { keys.pick, "<cmd>CccPick<cr>", desc = "Color Picker" },
         { keys.convert, "<cmd>CccConvert<cr>", desc = "Convert Color Format" },
-        { keys.highlighter, "<cmd>CccHighlighterToggle<cr>", desc = "Toggle Color Highlight" },
       }
     end,
     opts = {
-      highlighter = {
-        auto_enable = false,  -- 已有 nvim-highlight-colors，不自动开启
-      },
+      -- highlighter 功能由 nvim-highlight-colors 统一处理，ccc 仅负责拾取/转换
       default_color = "#000000",
       bar_char = "█",
       point_char = "◇",
@@ -143,8 +141,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "mrjones2014/smart-splits.nvim",
-    version = "v1.*", -- pin major version
-    event = "VeryLazy",
+    -- 移除冗余的 event = "VeryLazy"：已有 keys 定义，按键触发时才加载，延迟到真正使用
     keys = function()
       local keys = require("config.keymaps").smartSplits
       return {
@@ -224,12 +221,12 @@ return {
     cmd = "CellularAutomaton",
   },
   -- ╭────────────────────────────────────────────────────────╮
-  -- │ wrapped - Fun Plugin                        │
+  -- │ wrapped - Neovim Usage Statistics (fun plugin)         │
   -- ╰────────────────────────────────────────────────────────╯
   {
     "aikhe/wrapped.nvim",
     dependencies = { "nvzone/volt" },
     cmd = { "WrappedNvim" },
     opts = {},
-  }
+  },
 }

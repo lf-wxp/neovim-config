@@ -27,18 +27,15 @@ return {
   {
     "kylechui/nvim-surround",
     event = "VeryLazy",
-    opts = {},
+    dependencies = { "roobert/surround-ui.nvim" },
+    config = function()
+      require("nvim-surround").setup({})
+      -- Load surround-ui after nvim-surround is ready
+      require("surround-ui").setup({ root_key = "S" })
+    end,
   },
 
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ surround-ui - Surround Visualization                   │
-  -- ╰────────────────────────────────────────────────────────╯
-  {
-    "roobert/surround-ui.nvim",
-    event = "VeryLazy",
-    dependencies = "kylechui/nvim-surround",
-    opts = { root_key = "S" },
-  },
+  -- surround-ui.nvim: loaded via nvim-surround's dependencies, no standalone spec needed
 
   -- ╭────────────────────────────────────────────────────────╮
   -- │ nvim-autopairs - Auto Pairs                            │
@@ -153,7 +150,7 @@ return {
   {
     "gregorias/coerce.nvim",
     event = "VeryLazy",
-    config = true,
+    opts = {},
   },
 
   -- ╭────────────────────────────────────────────────────────╮
@@ -164,7 +161,7 @@ return {
     event = "BufReadPost",
     opts = {
       builtin_marks = { ".", "<", ">", "^" },
-      excluded_filetypes = { "LspsagaHover", "LspsagaCodeAction", "LspsagaHoverDoc" },
+      excluded_filetypes = { "sagahover", "sagacodeaction", "sagafinder", "sagarename" },
     },
   },
 
@@ -196,24 +193,11 @@ return {
     },
   },
 
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ nvim-context_vt - Context Virtual Text                 │
-  -- ╰────────────────────────────────────────────────────────╯
-  {
-    "andersevenrud/nvim_context_vt",
-    event = "BufReadPost",
-  },
+  -- nvim-context_vt removed: default disabled + treesitter-context already provides
+  -- code block context at the top. This plugin was never actively used.
 
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ hlargs - Argument Highlight                            │
-  -- ╰────────────────────────────────────────────────────────╯
-  {
-    "m-demare/hlargs.nvim",
-    event = "BufReadPost",
-    opts = {
-      hl_priority = 1000,
-    },
-  },
+  -- hlargs.nvim removed: LSP semantic tokens (@lsp.type.parameter) already
+  -- provides argument highlighting with better coverage and zero overhead.
 
   -- ╭────────────────────────────────────────────────────────╮
   -- │ yanky.nvim - Clipboard Ring History                    │
@@ -222,16 +206,19 @@ return {
   {
     "gbprod/yanky.nvim",
     dependencies = { "kkharji/sqlite.lua", "nvim-telescope/telescope.nvim" },
-    event = "VeryLazy",
     keys = function()
       local keys = require("config.keymaps").yanky
       return {
-        -- p/P/gp/gP 由 smart-paste.nvim 接管，此处不再映射
-        -- Navigate clipboard history
-        { keys.cycle_next,   "<Plug>(YankyCycleForward)",                                                mode = "n",          desc = "Next Clipboard Entry" },
-        { keys.cycle_prev,   "<Plug>(YankyCycleBackward)",                                               mode = "n",          desc = "Prev Clipboard Entry" },
+        -- Paste via yanky with auto-indent (== filter after paste)
+        { keys.paste_after,    "<Plug>(YankyPutAfterFilter)",    mode = { "n", "x" }, desc = "Paste After (auto-indent)" },
+        { keys.paste_before,   "<Plug>(YankyPutBeforeFilter)",   mode = { "n", "x" }, desc = "Paste Before (auto-indent)" },
+        { keys.g_paste_after,  "<Plug>(YankyGPutAfterFilter)",   mode = { "n", "x" }, desc = "G-Paste After (auto-indent)" },
+        { keys.g_paste_before, "<Plug>(YankyGPutBeforeFilter)",  mode = { "n", "x" }, desc = "G-Paste Before (auto-indent)" },
+        -- Navigate clipboard history (only works after a yanky paste)
+        { keys.cycle_next,     "<Plug>(YankyCycleForward)",                                                mode = "n",          desc = "Next Clipboard Entry" },
+        { keys.cycle_prev,     "<Plug>(YankyCycleBackward)",                                               mode = "n",          desc = "Prev Clipboard Entry" },
         -- Open yank history picker with Telescope
-        { keys.yank_history, function() require("telescope").extensions.yank_history.yank_history() end, mode = { "n", "x" }, desc = "Yank History" },
+        { keys.yank_history,   function() require("telescope").extensions.yank_history.yank_history() end, mode = { "n", "x" }, desc = "Yank History" },
       }
     end,
     config = function()
@@ -239,20 +226,8 @@ return {
     end,
   },
 
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ highlight-undo.nvim - Visual Undo/Redo Feedback        │
-  -- │ Highlights the text that was changed by undo/redo      │
-  -- ╰────────────────────────────────────────────────────────╯
-  {
-    "tzachar/highlight-undo.nvim",
-    event = "VeryLazy",
-    opts = {
-      duration = 300,
-      undo = { hlgroup = "HighlightUndo", mode = "n", lhs = "u", map = "undo", opts = {} },
-      redo = { hlgroup = "HighlightRedo", mode = "n", lhs = "<C-r>", map = "redo", opts = {} },
-      highlight_for_count = true,
-    },
-  },
+  -- highlight-undo.nvim removed: tiny-glimmer.nvim already provides
+  -- undo/redo visual feedback (see ui.lua → tiny-glimmer overwrite.undo/redo)
 
   -- ╭────────────────────────────────────────────────────────╮
   -- │ nvim-ts-autotag - Auto Close/Rename HTML Tags          │
@@ -260,35 +235,29 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "windwp/nvim-ts-autotag",
-    event = "VeryLazy",
-    config = function()
-      require("nvim-ts-autotag").setup({
-        opts = {
+    ft = { "html", "xml", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "svelte", "astro" },
+    opts = {
+      opts = {
+        enable_close = true,
+        enable_rename = true,
+        enable_close_on_slash = false,
+      },
+      per_filetype = {
+        ["html"] = {
           enable_close = true,
-          enable_rename = true,
-          enable_close_on_slash = false,
         },
-        per_filetype = {
-          ["html"] = {
-            enable_close = true,
-          },
-        },
-      })
-    end,
+      },
+    },
   },
-  -- ╭──────────────────────────────────────────────────────────────────────────────────────╮
-  -- │ smart-pasted.nvim - Pasted code automatically lands at the correct indentation level.│
-  -- ╰──────────────────────────────────────────────────────────────────────────────────────╯
-  {
-    "nemanjamalesija/smart-paste.nvim",
-    event = "VeryLazy",
-    config = true,
-  },
-  -- ╭──────────────────────╮
-  -- │ smart-backspace.nvim │
-  -- ╰──────────────────────╯
+  -- smart-paste.nvim 不再需要：
+  -- yanky.nvim 的 <Plug>(Yanky*Filter) 映射在粘贴后自动执行 == (auto-indent)，
+  -- 效果等同于 smart-paste 的智能缩进，且完全兼容 yanky 的 cycle 历史功能。
+  -- ╭──────────────────────────────────────────────────────────╮
+  -- │ smart-backspace.nvim - Intelligent Backspace Behavior    │
+  -- ╰──────────────────────────────────────────────────────────╯
   {
     "qwavies/smart-backspace.nvim",
-    event = { "InsertEnter", "CmdlineEnter" }
-  }
+    event = { "InsertEnter", "CmdlineEnter" },
+    opts = {},
+  },
 }

@@ -1,6 +1,8 @@
 -- ╭────────────────────────────────────────────────────────╮
 -- │           yanky.nvim - Clipboard Ring Config           │
 -- ╰────────────────────────────────────────────────────────╯
+-- Auto-indent on paste is handled by <Plug>(Yanky*Filter)
+-- mappings in keymaps.lua (executes == after put).
 
 local M = {}
 
@@ -12,6 +14,7 @@ M.opts = {
     sync_with_numbered_registers = true,
     cancel_event = "update",
     ignore_registers = { "_", "-", "+", "=" },
+    permanent_wrapper = nil,
   },
   picker = {
     select = {

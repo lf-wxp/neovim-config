@@ -6,7 +6,7 @@
 -- │ Features:                                              │
 -- │   1. Buffer keymaps on LspAttach                       │
 -- │   2. Global LSP capabilities and config                │
--- │   3. Document highlight with LspDetach cleanup         │
+-- │   3. Document highlight → delegated to snacks.words    │
 -- │   4. Inlay hints toggle                                │
 -- │   5. CodeLens auto-refresh and run                     │
 -- ╰────────────────────────────────────────────────────────╯
@@ -29,10 +29,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- ╭─────────────────────────────────────────────────────╮
     -- │              Navigation Keymaps                     │
     -- ╰─────────────────────────────────────────────────────╯
-    map("n", keys.lsp.go_definitiion, "<cmd>Lspsaga goto_definition<cr>", "Go to Definition")
+    map("n", keys.lsp.go_definition, "<cmd>Lspsaga goto_definition<cr>", "Go to Definition")
     map("n", keys.lsp.hover_doc, "<cmd>Lspsaga hover_doc<cr>", "Hover Doc")
-    map("n", keys.lsp.go_declaration, "<cmd>Lspsaga peek_definition<cr>", "Peek Declaration")
-    map("n", keys.lsp.go_implementation, "<cmd>Lspsaga finder<cr>", "Find References")
+    map("n", keys.lsp.go_declaration, vim.lsp.buf.declaration, "Go to Declaration")
+    map("n", keys.lsp.go_implementation, "<cmd>Lspsaga finder imp<cr>", "Find Implementations")
     map("n", keys.lsp.type_definition, "<cmd>Lspsaga goto_type_definition<cr>", "Type Definition")
     map("n", keys.lsp.signature_help, vim.lsp.buf.signature_help, "Signature Help")
 
@@ -52,7 +52,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- ╭─────────────────────────────────────────────────────╮
     -- │              Format Keymaps                         │
     -- ╰─────────────────────────────────────────────────────╯
-    map("n", keys.lsp.format, "<cmd>lua require('conform').format()<cr>", "Format")
+    map("n", keys.lsp.format, function()
+      require("conform").format({ async = true, lsp_format = "fallback" })
+    end, "Format")
 
     -- ╭─────────────────────────────────────────────────────╮
     -- │              Inlay Hints (Neovim 0.10+)             │
@@ -90,23 +92,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- ╭─────────────────────────────────────────────────────╮
     -- │              Document Highlight                     │
     -- ╰─────────────────────────────────────────────────────╯
-    if client.supports_method("textDocument/documentHighlight") then
-      local highlight_gid = vim.api.nvim_create_augroup("lsp_document_highlight_" .. bufnr, { clear = true })
-      vim.api.nvim_create_autocmd("CursorHold", {
-        group = highlight_gid,
-        buffer = bufnr,
-        callback = function()
-          vim.lsp.buf.document_highlight()
-        end,
-      })
-      vim.api.nvim_create_autocmd("CursorMoved", {
-        group = highlight_gid,
-        buffer = bufnr,
-        callback = function()
-          vim.lsp.buf.clear_references()
-        end,
-      })
-    end
+    -- 已由 snacks.words 统一处理（支持自动节流 + ]] / [[ 跳转）
+    -- 无需手动创建 CursorHold/CursorMoved autocmd，避免双倍 LSP 请求
   end,
   nested = true,
   desc = "Configure buffer keymap and behavior based on LSP",
@@ -119,8 +106,6 @@ vim.api.nvim_create_autocmd("LspDetach", {
   group = vim.api.nvim_create_augroup("lsp_buf_detach", { clear = true }),
   callback = function(event_context)
     local bufnr = event_context.buf
-    -- Clean up document highlight augroup
-    pcall(vim.api.nvim_del_augroup_by_name, "lsp_document_highlight_" .. bufnr)
     -- Clean up codelens augroup
     pcall(vim.api.nvim_del_augroup_by_name, "lsp_codelens_" .. bufnr)
     -- Clear references
@@ -136,7 +121,4 @@ local capabilities = require("lsp.utils").get_default_capabilities()
 
 vim.lsp.config("*", {
   capabilities = capabilities,
-  flags = {
-    debounce_text_changes = 150, -- Neovim default; 500ms was too slow for responsive diagnostics
-  },
 })

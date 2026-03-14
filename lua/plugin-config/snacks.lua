@@ -97,8 +97,8 @@ M.opts = {
       duration = 300,
       -- Animation easing function
       easing = "linear",
-      -- Animation fps
-      fps = 60,
+      -- Animation fps (30 is smooth enough for notifications)
+      fps = 30,
     },
     -- Notification window appearance
     -- Keep notification on screen
@@ -233,67 +233,30 @@ M.setup_init = function()
   -- vim.ui.input = require("snacks").input
   -- vim.ui.select = require("snacks").picker.select
 
-  -- Define rainbow colors for indent lines
-  local rainbow_colors = {
-    RainbowRed = "#E06C75",
-    RainbowYellow = "#E5C07B",
-    RainbowBlue = "#61AFEF",
-    RainbowOrange = "#D19A66",
-    RainbowGreen = "#98C379",
-    RainbowViolet = "#C678DD",
-    RainbowCyan = "#56B6C2",
-  }
+  -- Rainbow/scope/chunk highlight 颜色由 highlights.lua 统一管理（M.setup 中已调用）
 
-  for name, color in pairs(rainbow_colors) do
-    vim.api.nvim_set_hl(0, name, { fg = color })
-  end
-
-  -- Define scope highlight
-  vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#61AFEF", bold = true })
-
-  -- Define chunk highlight (use a distinct bright color)
-  vim.api.nvim_set_hl(0, "SnacksIndentChunk", { fg = "#FF6B6B", bold = true })
-
-  -- LSP Progress notifications using snacks notifier
-  ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
-  local progress = vim.defaulttable()
+  -- LSP Progress notifications using snacks notifier (simplified)
   vim.api.nvim_create_autocmd("LspProgress", {
     ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
     callback = function(ev)
       local client = vim.lsp.get_client_by_id(ev.data.client_id)
-      local value = ev.data.params
-      .value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
+      local value = ev.data.params.value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin"|"report"|"end"}]]
       if not client or type(value) ~= "table" then
         return
       end
-      local p = progress[client.id]
 
-      for i = 1, #p + 1 do
-        if i == #p + 1 or p[i].token == ev.data.params.token then
-          p[i] = {
-            token = ev.data.params.token,
-            msg = ("[%3d%%] %s%s"):format(
-              value.kind == "end" and 100 or value.percentage or 100,
-              value.title or "",
-              value.message and (" **%s**"):format(value.message) or ""
-            ),
-            done = value.kind == "end",
-          }
-          break
-        end
+      local pct = value.kind == "end" and 100 or value.percentage or 0
+      local msg = ("[%3d%%] %s"):format(pct, value.title or "")
+      if value.message then
+        msg = msg .. " " .. value.message
       end
 
-      local msg = {} ---@type string[]
-      progress[client.id] = vim.tbl_filter(function(v)
-        return table.insert(msg, v.msg) or not v.done
-      end, p)
-
       local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-      vim.notify(table.concat(msg, "\n"), "info", {
-        id = "lsp_progress",
+      vim.notify(msg, value.kind == "end" and "info" or "info", {
+        id = "lsp_progress_" .. client.id,
         title = client.name,
         opts = function(notif)
-          notif.icon = #progress[client.id] == 0 and " "
+          notif.icon = value.kind == "end" and " "
               or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
         end,
       })

@@ -10,7 +10,7 @@ local blink = require("blink.cmp")
 -- ╰────────────────────────────────────────────────────────╯
 require("colorful-menu").setup({
   ls = {
-    -- 对所有 LSP 服务器启用语义高亮
+    -- Enable semantic highlighting for all LSP servers
     ["lua_ls"] = {
       arguments_hl = "@comment",
     },
@@ -20,7 +20,7 @@ require("colorful-menu").setup({
     ["vtsls"] = {
       extra_info_hl = "@comment",
     },
-    -- 默认配置，适用于所有未单独配置的 LSP
+    -- Default config for all LSP servers without specific overrides
     ["_"] = {
       arguments_hl = "@comment",
       extra_info_hl = "@comment",
@@ -31,52 +31,9 @@ require("colorful-menu").setup({
 })
 
 -- ╭────────────────────────────────────────────────────────╮
--- │ Kind Icons (consistent with lspkind config)            │
+-- │ Kind Icons (shared definition from config/icons.lua)   │
 -- ╰────────────────────────────────────────────────────────╯
--- stylua: ignore start
-local kind_icons = {
-  Text          = "󰉿",
-  Method        = "󰆧",
-  Function      = "󰆧",
-  Constructor   = "󰒓",
-  Field         = "󰜢",
-  Variable      = "󰀫",
-  Class         = "󰠱",
-  Interface     = "󰕘",
-  Module        = "󰏓",
-  Property      = "󰜢",
-  Unit          = "󰑭",
-  Value         = "󰎠",
-  Enum          = "󰕘",
-  Keyword       = "󰌋",
-  Snippet       = "󰒕",
-  Color         = "󰏘",
-  File          = "󰈚",
-  Reference     = "󰈇",
-  Folder        = "󰉋",
-  EnumMember    = "󰕘",
-  Constant      = "󰏿",
-  Struct        = "󰙅",
-  Event         = "󰉒",
-  Operator      = "󰆕",
-  TypeParameter = "󰊄",
-  Namespace     = "󰌗",
-  Table         = "󰓫",
-  Object        = "󰕰",
-  Tag           = "󰓹",
-  Array         = "󰅪",
-  Boolean       = "󰨈",
-  Number        = "󰎠",
-  Null          = "󰟢",
-  String        = "󰉿",
-  Calendar      = "󰃭",
-  Watch         = "󰥔",
-  Package       = "󰆦",
-  Copilot       = "󰚩",
-  Codeium       = "󰘦",
-  TabNine       = "󰚩",
-}
--- stylua: ignore end
+local kind_icons = require("config.icons").kind_icons
 
 blink.setup({
   -- ╭────────────────────────────────────────────────────────╮
@@ -104,9 +61,9 @@ blink.setup({
       winhighlight =
       "Normal:BlinkCmpMenu,NormalFloat:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
       scrolloff = 2,
-      -- 自定义 cmdline 位置：利用 noice API 让补全框出现在 cmdline popup 下方
+      -- Custom cmdline position: use noice API to place completion menu below cmdline popup
       cmdline_position = function()
-        -- 通过 noice API 获取 cmdline 位置和窗口信息
+        -- Get cmdline position and window info via noice API
         local noice_ok, noice_api = pcall(require, "noice.api")
         local cmdline_pos = noice_ok and noice_api.get_cmdline_position() or nil
 
@@ -114,16 +71,16 @@ blink.setup({
           local win = cmdline_pos.win
           local conf = vim.api.nvim_win_get_config(win)
 
-          -- nui content window 的屏幕位置和尺寸
+          -- nui content window screen position and dimensions
           local content_pos = vim.api.nvim_win_get_position(win) -- (0-indexed)
           local content_height = vim.api.nvim_win_get_height(win)
           local content_width = vim.api.nvim_win_get_width(win)
 
-          -- nui 的 content window 是 relative="win"，conf.row/col 即为 padding
+          -- nui content window uses relative="win", conf.row/col represent padding
           local pad_top = (conf.relative == "win" and type(conf.row) == "number") and conf.row or 0
           local pad_left = (conf.relative == "win" and type(conf.col) == "number") and conf.col or 0
 
-          -- 通过 border window 获取精确的整体尺寸
+          -- Get precise overall dimensions via border window
           local total_width = content_width + pad_left * 2
           local pad_bottom = pad_top
           if conf.relative == "win" and conf.win then
@@ -135,13 +92,13 @@ blink.setup({
             end
           end
 
-          -- 窗口底部 = content 底部 + bottom padding
+          -- Window bottom = content bottom + bottom padding
           -- local win_bottom = content_pos[1] + content_height + pad_bottom
           local win_bottom = content_pos[1] + content_height
-          -- 窗口左边缘 = content 左边 - left padding
+          -- Window left edge = content left - left padding
           local win_left = content_pos[2] - pad_left
 
-          -- 动态修改 blink.cmp menu 的宽度与 cmdline popup 一致
+          -- Dynamically adjust blink.cmp menu width to match cmdline popup
           vim.g._blink_cmdline_width = total_width
           local menu_ok, menu_mod = pcall(require, "blink.cmp.completion.windows.menu")
           if menu_ok and menu_mod.win then
@@ -159,7 +116,7 @@ blink.setup({
             end
           end
 
-          -- 预补偿 blink.cmp 内部的 start_col - alignment_start_col 偏移
+          -- Pre-compensate for blink.cmp internal start_col - alignment_start_col offset
           local col_offset = 0
           if menu_ok and menu_mod.context and menu_mod.renderer then
             local start_col = menu_mod.context.bounds.start_col or 0
@@ -173,7 +130,7 @@ blink.setup({
           return { win_bottom, win_left - col_offset }
         end
 
-        -- 回退：使用 vim.g.ui_cmdline_pos（noice 不可用时）
+        -- Fallback: use vim.g.ui_cmdline_pos (when noice is unavailable)
         if vim.g.ui_cmdline_pos ~= nil then
           local pos = vim.g.ui_cmdline_pos
           return { pos[1] - 1, pos[2] }
@@ -185,11 +142,11 @@ blink.setup({
       draw = {
         -- Padding between columns
         padding = { 1, 1 },
-        -- colorful-menu.nvim 负责 label 的语义高亮，不再需要 treesitter
+        -- colorful-menu.nvim handles label semantic highlighting, treesitter not needed
         -- treesitter = { "lsp" },
         columns = {
           { "kind_icon" },
-          -- colorful-menu 已将 label_description 合并进 label，无需单独列出
+          -- colorful-menu merges label_description into label, no need to list separately
           { "label",    gap = 1 },
           { "kind",     "source_name", gap = 1 },
         },
@@ -494,6 +451,7 @@ blink.setup({
       htmldjango = { "html-css", "lsp", "snippets", "treesitter", "buffer", "path", "calc", "emoji" },
       typescriptreact = { "html-css", "lsp", "snippets", "treesitter", "buffer", "path", "calc", "emoji" },
       javascriptreact = { "html-css", "lsp", "snippets", "treesitter", "buffer", "path", "calc", "emoji" },
+      vue = { "html-css", "lsp", "snippets", "treesitter", "buffer", "path", "calc", "emoji" },
     },
   },
 })
@@ -528,9 +486,9 @@ if html_ok then
 end
 
 -- ╭────────────────────────────────────────────────────────╮
--- │ Cmdline 补全框宽度对齐 noice cmdline popup             │
+-- │ Cmdline Menu Width Alignment with Noice Popup         │
 -- ╰────────────────────────────────────────────────────────╯
--- 补全菜单位置更新后，确保宽度与 cmdline popup 一致（双重保障）
+-- After menu position update, ensure width matches cmdline popup (double guarantee)
 vim.api.nvim_create_autocmd("User", {
   pattern = { "BlinkCmpMenuOpen", "BlinkCmpMenuPositionUpdate" },
   callback = function()
@@ -549,7 +507,7 @@ vim.api.nvim_create_autocmd("User", {
     end
 
     local border_size = menu.win:get_border_size()
-    -- 滚动条在 padded border 下额外占 1 列宽度
+    -- Scrollbar takes an extra column width under padded border
     local scrollbar_width = 0
     if menu.win.scrollbar and menu.win.scrollbar:is_visible() then
       scrollbar_width = 1
@@ -561,13 +519,13 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
--- 退出 cmdline 模式时恢复默认 min_width
+-- Reset min_width to default when leaving cmdline mode
 vim.api.nvim_create_autocmd("CmdlineLeave", {
   callback = function()
     vim.g._blink_cmdline_width = nil
     local menu_ok, menu = pcall(require, "blink.cmp.completion.windows.menu")
     if menu_ok and menu.win then
-      menu.win.config.min_width = 15 -- blink.cmp 默认值
+      menu.win.config.min_width = 15 -- blink.cmp default
     end
   end,
 })
