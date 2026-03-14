@@ -40,6 +40,9 @@ M.setup = function()
       { pattern = "tree", icon = "󱏒", color = "green" },
       { pattern = "open parent dir", icon = "󰁝", color = "blue" },
       { pattern = "oil float", icon = "󰉖", color = "blue" },
+      { pattern = "symbol navigation", icon = "󰧮", color = "purple" },
+      { pattern = "symbol outline", icon = "󰧮", color = "purple" },
+      { pattern = "aerial", icon = "󰯈", color = "purple" },
       { pattern = "navigate forward", icon = "󰒭", color = "blue" },
       { pattern = "navigate backward", icon = "󰕍", color = "blue" },
       { pattern = "go back", icon = "󰕍", color = "blue" },
@@ -91,6 +94,10 @@ M.setup = function()
       { pattern = "edit", icon = "󰔨", color = "blue" },
       { pattern = "select", icon = "󰒆", color = "blue" },
       { pattern = "toggle split/join", icon = "󰯋", color = "green" },
+      { pattern = "swap next", icon = "󰓡", color = "blue" },
+      { pattern = "swap prev", icon = "󰓢", color = "blue" },
+      { pattern = "swap parameter", icon = "󰓡", color = "blue" },
+      { pattern = "swap", icon = "󰓡", color = "blue" },
 
       -- ========================================
       -- Text Objects
@@ -220,6 +227,12 @@ M.setup = function()
       { pattern = "actions", icon = "󰅗", color = "green" },
 
       -- ========================================
+      -- Color Picker (ccc.nvim)
+      -- ========================================
+      { pattern = "color pick", icon = "󰏘", color = "yellow" },
+      { pattern = "color convert", icon = "󰴓", color = "yellow" },
+
+      -- ========================================
       -- Crates.nvim
       -- ========================================
       { pattern = "crate toggle", icon = "󰔡", color = "cyan" },
@@ -277,6 +290,9 @@ M.setup = function()
       -- ========================================
       -- Session & History
       -- ========================================
+      { pattern = "restore session", icon = "󰦛", color = "blue" },
+      { pattern = "save session", icon = "󰆓", color = "green" },
+      { pattern = "delete session", icon = "󰩺", color = "red" },
       { pattern = "session", icon = "󰖲", color = "blue" },
       { pattern = "undo", icon = "󰕌", color = "yellow" },
       { pattern = "redo", icon = "󰑑", color = "orange" },
@@ -333,7 +349,10 @@ M.setup = function()
       { pattern = "paste before", icon = "󰅑", color = "azure" },
       { pattern = "g-paste", icon = "󰆒", color = "azure" },
       { pattern = "theme", icon = "󰏘", color = "yellow" },
+      { pattern = "notes", icon = "󰎞", color = "yellow" },
+      { pattern = "store", icon = "󰎞", color = "yellow" },
       { pattern = "copilot", icon = "󰚩", color = "cyan" },
+      { pattern = "ai", icon = "󱙺", color = "purple" },
       { pattern = "project", icon = "󰉖", color = "blue" },
       { pattern = "dismiss", icon = "󰅖", color = "red" },
       { pattern = "notification", icon = "󰂚", color = "yellow" },
@@ -607,13 +626,39 @@ M.setup = function()
     { "<leader>r", group = "Replace/Rename", icon = { icon = "󰛔", color = "orange" } },
     { "<leader>c", group = "Code/Crates", icon = { icon = "󰏖", color = "yellow" } },
     { "<leader>co", group = "Color", icon = { icon = "󰏘", color = "yellow" } },
-    { "<leader>n", group = "Harpoon", icon = { icon = "󱋡", color = "purple" } },
+    { "<leader>n", group = "Harpoon/Navigation", icon = { icon = "󱋡", color = "purple" } },
+    { "<leader>nb", desc = "Symbol Navigation (Aerial Float)", icon = { icon = "󰧮", color = "purple" } },
+    { "<leader>no", desc = "Symbol Outline (Aerial)", icon = { icon = "󰯈", color = "purple" } },
     { "<leader>m", group = "Multicursor", icon = { icon = "󰇀", color = "cyan" } },
+    { "<leader>a", desc = "Swap Next Parameter", icon = { icon = "󰓡", color = "blue" } },
+    { "<leader>A", desc = "Swap Prev Parameter", icon = { icon = "󰓢", color = "blue" } },
+    { "-", desc = "Open Parent Dir (Oil)", icon = { icon = "󰉖", color = "blue" } },
+    { "<leader>-", desc = "Oil Float", icon = { icon = "󰉖", color = "blue" } },
+    { "<leader>;", desc = "Dashboard", icon = { icon = "󰕮", color = "blue" } },
     { "<leader><leader>", group = "Telescope", icon = { icon = "󰭎", color = "blue" } },
     { "gp", group = "LSP Peek", icon = { icon = "󰈈", color = "yellow" } },
+    { "gpd", desc = "Peek Definition", icon = { icon = "󰈮", color = "blue" } },
+    { "gpi", desc = "Peek Implementation", icon = { icon = "󰆧", color = "cyan" } },
+    { "gpr", desc = "Peek References", icon = { icon = "󰆽", color = "yellow" } },
+    { "gpt", desc = "Peek Type Definition", icon = { icon = "󰜢", color = "cyan" } },
     { "g", group = "Go to", icon = { icon = "󰁔", color = "cyan" } },
+    { "gd", desc = "Go to Definition", icon = { icon = "󰈮", color = "blue" } },
+    { "gh", desc = "Hover Doc", icon = { icon = "󰋽", color = "blue" } },
+    { "gy", desc = "Type Definition", icon = { icon = "󰜢", color = "cyan" } },
+    { "gs", desc = "Signature Help", icon = { icon = "󰋽", color = "yellow" } },
+    { "gj", desc = "Next Diagnostic", icon = { icon = "󰒭", color = "blue" } },
+    { "gk", desc = "Prev Diagnostic", icon = { icon = "󰒮", color = "blue" } },
     -- Additional groups
     { "<leader>u", group = "UI Toggle", icon = { icon = "󰔡", color = "cyan" } },
+    { "<leader>cp", desc = "Color Pick", icon = { icon = "󰏘", color = "yellow" } },
+    { "<leader>cj", desc = "Toggle Split/Join", icon = { icon = "󰯋", color = "green" } },
+    { "<leader>cs", desc = "Run Snippet", icon = { icon = "󰜎", color = "green" } },
+    { "<leader>cl", desc = "CodeLens Run", icon = { icon = "󰜎", color = "green" } },
+    { "<leader>ca", desc = "Code Action", icon = { icon = "󰅗", color = "green" } },
+    { "<leader>rn", desc = "Rename Symbol", icon = { icon = "󰑕", color = "orange" } },
+    { "<leader>rp", desc = "Project Search Replace", icon = { icon = "󰛔", color = "orange" } },
+    { "<leader>rf", desc = "Replace in File", icon = { icon = "󰛔", color = "orange" } },
+    { "<leader>rw", desc = "Search Word Replace", icon = { icon = "󰗧", color = "orange" } },
     { "<leader>gds", desc = "Document Symbols", icon = { icon = "󰧮", color = "purple" } },
     { "<leader>ws", desc = "Workspace Symbols", icon = { icon = "󱃖", color = "blue" } },
     { "<leader>d", group = "Document/Scroll", icon = { icon = "󰧮", color = "purple" } },
@@ -626,6 +671,88 @@ M.setup = function()
     { "<leader>f", group = "Find", icon = { icon = "󰭎", color = "blue" } },
     { "<leader>h", desc = "Prev Tab", icon = { icon = "󰒮", color = "blue" } },
     { "<leader>l", desc = "Next Tab", icon = { icon = "󰒭", color = "blue" } },
+
+    -- ========================================
+    -- Telescope find keys
+    -- ========================================
+    { "<leader>ff", desc = "Find Files", icon = { icon = "󰈞", color = "blue" } },
+    { "<leader>fg", desc = "Live Grep", icon = { icon = "󱎸", color = "yellow" } },
+    { "<leader>fp", desc = "Projects", icon = { icon = "󰉖", color = "blue" } },
+    { "<leader>fc", desc = "Colorscheme", icon = { icon = "󰏘", color = "yellow" } },
+    { "<leader>fe", desc = "File Browser", icon = { icon = "󰉖", color = "blue" } },
+    { "<leader>fk", desc = "Keymaps", icon = { icon = "󰌌", color = "yellow" } },
+    { "<leader>fb", desc = "Buffers", icon = { icon = "󰓩", color = "blue" } },
+    { "<leader>fj", desc = "Flash Jump", icon = { icon = "󱐋", color = "yellow" } },
+    { "<leader>fS", desc = "Flash Treesitter", icon = { icon = "󰐅", color = "green" } },
+    { "<leader>fy", desc = "Yank History", icon = { icon = "󰋚", color = "yellow" } },
+    { "<leader>ft", desc = "Search TODOs", icon = { icon = "󰸞", color = "yellow" } },
+    { "<leader>fT", desc = "Search FIXMEs", icon = { icon = "󰅚", color = "red" } },
+
+    -- ========================================
+    -- Terminal keys
+    -- ========================================
+    { "<leader>tf", desc = "Float Terminal", icon = { icon = "󰀻", color = "green" } },
+    { "<leader>tr", desc = "Right Terminal", icon = { icon = "󰁔", color = "green" } },
+    { "<leader>td", desc = "Bottom Terminal", icon = { icon = "󰘯", color = "green" } },
+    { "<leader>tp", desc = "Pick Tab", icon = { icon = "�", color = "blue" } },
+    { "<leader>tc", desc = "Close Tab", icon = { icon = "󰅖", color = "red" } },
+    { "<leader>tt", desc = "File Tree", icon = { icon = "󱏒", color = "green" } },
+
+    -- ========================================
+    -- Git keys
+    -- ========================================
+    { "<leader>gg", desc = "Open Neogit", icon = { icon = "󰊢", color = "green" } },
+    { "<leader>gj", desc = "Next Hunk", icon = { icon = "�󰒭", color = "blue" } },
+    { "<leader>gk", desc = "Prev Hunk", icon = { icon = "󰒮", color = "blue" } },
+    { "<leader>gs", desc = "Stage Hunk", icon = { icon = "󰅰", color = "green" } },
+    { "<leader>gS", desc = "Stage Buffer", icon = { icon = "󰅰", color = "green" } },
+    { "<leader>gu", desc = "Undo Stage Hunk", icon = { icon = "󰕌", color = "yellow" } },
+    { "<leader>gr", desc = "Reset Hunk", icon = { icon = "󰜉", color = "red" } },
+    { "<leader>gR", desc = "Reset Buffer", icon = { icon = "󰜉", color = "red" } },
+    { "<leader>gp", desc = "Preview Hunk", icon = { icon = "󰈈", color = "yellow" } },
+    { "<leader>gd", desc = "Diff This", icon = { icon = "󰦫", color = "cyan" } },
+    { "<leader>gD", desc = "Diff All", icon = { icon = "󰦫", color = "cyan" } },
+
+    -- ========================================
+    -- Buffer keys
+    -- ========================================
+    { "<leader>bd", desc = "Delete Buffer", icon = { icon = "󰅖", color = "red" } },
+    { "<leader>bo", desc = "Delete Other Buffers", icon = { icon = "󰗨", color = "red" } },
+    { "<leader>bc", desc = "Pick Close Tab", icon = { icon = "󰓾", color = "red" } },
+
+    -- ========================================
+    -- Trouble keys
+    -- ========================================
+    { "<leader>xx", desc = "Trouble Toggle", icon = { icon = "󰁨", color = "red" } },
+    { "<leader>xd", desc = "Diagnostics", icon = { icon = "󰁨", color = "red" } },
+    { "<leader>xs", desc = "Document Symbols", icon = { icon = "󰧮", color = "purple" } },
+    { "<leader>xr", desc = "LSP References", icon = { icon = "󰆽", color = "yellow" } },
+    { "<leader>xl", desc = "Location List", icon = { icon = "󰷐", color = "blue" } },
+    { "<leader>xq", desc = "Quickfix", icon = { icon = "󰷐", color = "blue" } },
+
+    -- ========================================
+    -- Harpoon keys
+    -- ========================================
+    { "<leader>na", desc = "Harpoon Add", icon = { icon = "󰐕", color = "green" } },
+    { "<leader>nt", desc = "Harpoon Toggler", icon = { icon = "󱋡", color = "blue" } },
+    { "<leader>nn", desc = "Harpoon Next", icon = { icon = "󰁔", color = "blue" } },
+    { "<leader>np", desc = "Harpoon Prev", icon = { icon = "󰁍", color = "blue" } },
+    { "<leader>ng", desc = "Harpoon Telescope", icon = { icon = "󰭎", color = "blue" } },
+    { "<leader>n1", desc = "Harpoon File 1", icon = { icon = "󰓾", color = "blue" } },
+    { "<leader>n2", desc = "Harpoon File 2", icon = { icon = "󰓾", color = "blue" } },
+    { "<leader>n3", desc = "Harpoon File 3", icon = { icon = "󰓾", color = "blue" } },
+    { "<leader>n4", desc = "Harpoon File 4", icon = { icon = "󰓾", color = "blue" } },
+    { "<leader>n5", desc = "Harpoon File 5", icon = { icon = "󰓾", color = "blue" } },
+    { "<leader>n6", desc = "Harpoon File 6", icon = { icon = "󰓾", color = "blue" } },
+
+    -- ========================================
+    -- Window/Split keys
+    -- ========================================
+    { "<leader>sv", desc = "Split Vertical", icon = { icon = "󰤼", color = "cyan" } },
+    { "<leader>sh", desc = "Split Horizontal", icon = { icon = "󰤻", color = "cyan" } },
+    { "<leader>sc", desc = "Close Window", icon = { icon = "󰖭", color = "red" } },
+    { "<leader>so", desc = "Close Other Windows", icon = { icon = "󰗨", color = "red" } },
+    { "<leader>s=", desc = "Equal Windows", icon = { icon = "󰕭", color = "green" } },
   },
 })
 
