@@ -6,8 +6,8 @@
 vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 8
 
--- Smooth scrolling (Neovim 0.10+, 与 snacks.scroll 动画互补)
--- 确保 <C-d>/<C-u> 滚动时不会跳过屏幕外的换行行
+-- Smooth scrolling (Neovim 0.10+, complements snacks.scroll animation)
+-- Ensures <C-d>/<C-u> scrolling does not skip off-screen wrapped lines
 vim.opt.smoothscroll = true
 
 -- Line numbers
@@ -35,7 +35,7 @@ vim.opt.smartindent = true
 -- Search settings
 vim.opt.ignorecase = true -- Case insensitive
 vim.opt.smartcase = true  -- Unless contains uppercase
--- hlsearch / incsearch 是 Neovim 默认值，无需显式设置
+-- hlsearch / incsearch are Neovim defaults, no need to set explicitly
 
 -- Command line height (0: hidden after noice takes over, saves space)
 vim.opt.cmdheight = 0
@@ -84,8 +84,8 @@ vim.opt.list = true
 vim.opt.listchars = "space:·,tab:··,leadmultispace:· "
 
 -- Completion menu
--- wildmenu 是 Neovim 默认值，无需显式设置
--- c: 补全消息, I: intro 消息, W: 写入消息, s: 搜索越界消息
+-- wildmenu is a Neovim default, no need to set explicitly
+-- c: completion messages, I: intro message, W: written message, s: search wrap message
 vim.opt.shortmess = vim.opt.shortmess + "cIWs"
 vim.opt.pumheight = 10
 -- Always show tabline

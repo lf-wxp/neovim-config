@@ -14,7 +14,7 @@ return {
     priority = 1000,
     config = function()
       local highlights = require("plugin-config.highlights")
-      -- 注册 autocmd 以在切换 colorscheme 时重新应用 highlights
+      -- Register autocmd to re-apply highlights when colorscheme changes
       highlights.register_autocmds()
       vim.cmd.colorscheme("zephyr")
       highlights.setup()

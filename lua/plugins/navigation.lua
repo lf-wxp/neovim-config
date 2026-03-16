@@ -49,7 +49,7 @@ return {
       "nvim-telescope/telescope-symbols.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
-      -- fzf-native 提供高性能原生 fzf 排序器，显著加速模糊搜索
+      -- fzf-native provides a high-performance native fzf sorter, significantly speeds up fuzzy search
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
     keys = function()
@@ -172,7 +172,7 @@ return {
         border = "none",
         relative = "win",
         override = function(conf, source_winid)
-          -- 四周 padding：左右各 2 列，上下各 2 行
+          -- Padding on all sides: 2 columns left/right, 2 rows top/bottom
           conf.col = 2
           conf.row = 2
           conf.width = conf.width and (conf.width - 4) or nil
@@ -184,12 +184,12 @@ return {
         border = "none",
         preview = true,
         win_opts = {
-          -- signcolumn 作为左侧 padding
+          -- Use signcolumn as left-side padding
           signcolumn = "yes",
           cursorline = true,
         },
         override = function(conf)
-          -- 上下各留 2 行 padding
+          -- 2 rows padding on top and bottom
           conf.row = conf.row and (conf.row + 2) or 2
           conf.height = conf.height and (conf.height - 4) or nil
           return conf

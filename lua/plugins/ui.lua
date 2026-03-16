@@ -128,7 +128,7 @@ return {
       }
     end,
     opts = {
-      -- highlighter 功能由 nvim-highlight-colors 统一处理，ccc 仅负责拾取/转换
+      -- Highlighting is handled by nvim-highlight-colors; ccc only handles picking/converting
       default_color = "#000000",
       bar_char = "█",
       point_char = "◇",
@@ -141,7 +141,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "mrjones2014/smart-splits.nvim",
-    -- 移除冗余的 event = "VeryLazy"：已有 keys 定义，按键触发时才加载，延迟到真正使用
+    -- Removed redundant event = "VeryLazy": keys definition drives lazy-loading on demand
     keys = function()
       local keys = require("config.keymaps").smartSplits
       return {
@@ -220,6 +220,17 @@ return {
     "eandrju/cellular-automaton.nvim",
     cmd = "CellularAutomaton",
   },
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ vim-startuptime - Startup Time Profiler                │
+  -- ╰────────────────────────────────────────────────────────╯
+  {
+    "dstein64/vim-startuptime",
+    cmd = "StartupTime",
+    init = function()
+      vim.g.startuptime_tries = 10 -- Multiple samples for more accurate average results
+    end,
+  },
+
   -- ╭────────────────────────────────────────────────────────╮
   -- │ wrapped - Neovim Usage Statistics (fun plugin)         │
   -- ╰────────────────────────────────────────────────────────╯

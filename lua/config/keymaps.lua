@@ -341,7 +341,7 @@ M.treesitterSwap = {
   swap_prev = "<leader>A",
 }
 
--- ccc.nvim - Color picker (highlighter 功能由 nvim-highlight-colors 统一处理)
+-- ccc.nvim - Color picker (highlighter handled by nvim-highlight-colors)
 M.ccc = {
   pick = "<leader>cp",
   convert = "<leader>coc",

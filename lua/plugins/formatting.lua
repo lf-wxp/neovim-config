@@ -34,7 +34,7 @@ return {
       -- oxfmt config file patterns
       local oxfmt_config_files = { ".oxfmtrc.json", ".oxfmtrc.jsonc" }
 
-      -- buffer-local 缓存，避免每次 format_on_save 时重复做 fs_root + fs_stat
+      -- Buffer-local cache to avoid repeated fs_root + fs_stat on every format_on_save
       ---@type table<integer, string|false> bufnr -> config_path or false (not found)
       local oxfmt_config_cache = {}
 
@@ -69,7 +69,7 @@ return {
         return nil
       end
 
-      -- buffer 被删除时清除缓存条目
+      -- Clear cache entry when buffer is deleted
       vim.api.nvim_create_autocmd("BufDelete", {
         callback = function(args)
           oxfmt_config_cache[args.buf] = nil

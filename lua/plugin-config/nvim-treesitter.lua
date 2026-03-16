@@ -22,7 +22,7 @@ local ensure_installed = {
   "scss",
   "vimdoc",
   "regex",
-  -- 补充常用语言（rust 生态需要 toml，配置文件需要 yaml/bash 等）
+  -- Additional common languages (toml for Rust ecosystem, yaml/bash for config files, etc.)
   "python",
   "toml",
   "yaml",
@@ -131,7 +131,7 @@ M.setup = function()
   -- ── Incremental Selection (treesitter node-based) ──
   local current_node = nil
 
-  -- 不应覆盖 <CR> 的特殊 buffer 类型
+  -- Special buffer types where <CR> should not be overridden
   local cr_excluded_ft = {
     "qf", "help", "man", "lspinfo", "spectre_panel", "NvimTree",
     "TelescopePrompt", "TelescopeResults", "Trouble", "toggleterm",

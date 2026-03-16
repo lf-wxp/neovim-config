@@ -57,12 +57,17 @@ require("lazy").setup({
       disabled_plugins = {
         "gzip",
         "matchit",       -- Replaced by nvim-treesitter matchup / flash.nvim
-        "matchparen",    -- Replaced by rainbow-delimiters.nvim（彩色括号匹配）
+        "matchparen",    -- Replaced by rainbow-delimiters.nvim (colorful bracket matching)
         "netrwPlugin",   -- Replaced by oil.nvim / nvim-tree
+        "netrw",         -- netrw core module, same as above
         "tarPlugin",
         "tohtml",
         "tutor",
         "zipPlugin",
+        "rplugin",       -- Not using remote plugins
+        "spellfile",     -- Not using built-in spell file download
+        "editorconfig",  -- Built-in since Neovim 0.9+, replaced by vim-sleuth
+        "osc52",         -- OSC52 clipboard protocol, not needed in terminal environment
       },
     },
   },

@@ -85,21 +85,24 @@ M.setup = function()
     },
   })
 
-  -- Load extensions safely
-  local extensions = {
-    "fzf",
-    "env",
-    "ui-select",
-    "symbols",
-    "live_grep_args",
-    "file_browser",
-    "projects",
-    "yank_history",   -- yanky.nvim 剪贴板历史 telescope 集成
-  }
+  -- Core extensions: load immediately (affect global behavior)
+  telescope.load_extension("fzf")       -- High-performance sorter
+  telescope.load_extension("ui-select") -- Global vim.ui.select replacement
 
-  for _, ext in ipairs(extensions) do
-    pcall(telescope.load_extension, ext)
-  end
+  -- Non-core extensions: deferred loading (reduce telescope init time ~10ms)
+  vim.schedule(function()
+    local deferred_extensions = {
+      "env",
+      "symbols",
+      "live_grep_args",
+      "file_browser",
+      "projects",
+      "yank_history",   -- yanky.nvim clipboard history telescope integration
+    }
+    for _, ext in ipairs(deferred_extensions) do
+      pcall(telescope.load_extension, ext)
+    end
+  end)
 end
 
 return M

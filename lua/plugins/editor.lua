@@ -249,9 +249,9 @@ return {
       },
     },
   },
-  -- smart-paste.nvim 不再需要：
-  -- yanky.nvim 的 <Plug>(Yanky*Filter) 映射在粘贴后自动执行 == (auto-indent)，
-  -- 效果等同于 smart-paste 的智能缩进，且完全兼容 yanky 的 cycle 历史功能。
+  -- smart-paste.nvim no longer needed:
+  -- yanky.nvim's <Plug>(Yanky*Filter) mappings auto-execute == (auto-indent) after paste,
+  -- equivalent to smart-paste's intelligent indentation, fully compatible with yanky's cycle history.
   -- ╭──────────────────────────────────────────────────────────╮
   -- │ smart-backspace.nvim - Intelligent Backspace Behavior    │
   -- ╰──────────────────────────────────────────────────────────╯

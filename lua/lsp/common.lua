@@ -21,6 +21,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
       return
     end
 
+    -- Lazily merge blink.cmp capabilities (avoid loading blink.cmp at startup ~50ms)
+    -- Only merge after blink.cmp is loaded; subsequent LspAttach events auto-apply after first InsertEnter
+    require("lsp.utils").merge_blink_capabilities(client)
+
     local bufnr = event_context.buf
     local function map(mode, lhs, rhs, desc)
       vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, buffer = bufnr, desc = desc })
@@ -92,8 +96,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- ╭─────────────────────────────────────────────────────╮
     -- │              Document Highlight                     │
     -- ╰─────────────────────────────────────────────────────╯
-    -- 已由 snacks.words 统一处理（支持自动节流 + ]] / [[ 跳转）
-    -- 无需手动创建 CursorHold/CursorMoved autocmd，避免双倍 LSP 请求
+    -- Handled by snacks.words (supports auto-throttling + ]] / [[ navigation)
+    -- No need to manually create CursorHold/CursorMoved autocmd, avoids duplicate LSP requests
   end,
   nested = true,
   desc = "Configure buffer keymap and behavior based on LSP",
@@ -117,6 +121,8 @@ vim.api.nvim_create_autocmd("LspDetach", {
 -- ╭────────────────────────────────────────────────────────╮
 -- │                 Global LSP Config                      │
 -- ╰────────────────────────────────────────────────────────╯
+-- Base capabilities (without blink.cmp, to avoid loading blink at startup)
+-- blink.cmp capabilities are lazily merged via merge_blink_capabilities on LspAttach
 local capabilities = require("lsp.utils").get_default_capabilities()
 
 vim.lsp.config("*", {

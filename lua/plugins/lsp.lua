@@ -119,16 +119,20 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "nvimdev/lspsaga.nvim",
-    -- Removed redundant event = "LspAttach": keys definition drives lazy-loading on demand
+    -- Load on LspAttach event to ensure lspsaga is ready before common.lua's LspAttach callback runs.
+    -- Buffer-local mappings in common.lua take priority over lazy keys' global mappings;
+    -- using keys-based lazy-loading would cause buffer-local mappings to bypass the lazy trigger, resulting in E492
+    event = "LspAttach",
     keys = function()
-      local keys = require("config.keymaps").lspsaga
+      local saga = require("config.keymaps").lspsaga
       return {
-        { keys.peek_definition, "<cmd>Lspsaga peek_definition<cr>", desc = "Peek Definition" },
-        { keys.peek_implementation, "<cmd>Lspsaga finder imp<cr>", desc = "Peek Implementation" },
-        { keys.peek_references, "<cmd>Lspsaga finder ref<cr>", desc = "Peek References" },
-        { keys.peek_type, "<cmd>Lspsaga peek_type_definition<cr>", desc = "Peek Type Definition" },
-        { keys.code_action, "<cmd>Lspsaga code_action<cr>", mode = { "n", "v" }, desc = "Code Action" },
-        { keys.rename, "<cmd>Lspsaga rename<cr>", desc = "Rename" },
+        -- Only keep lspsaga-specific peek/action keybindings (no duplicates with common.lua)
+        { saga.peek_definition, "<cmd>Lspsaga peek_definition<cr>", desc = "Peek Definition" },
+        { saga.peek_implementation, "<cmd>Lspsaga finder imp<cr>", desc = "Peek Implementation" },
+        { saga.peek_references, "<cmd>Lspsaga finder ref<cr>", desc = "Peek References" },
+        { saga.peek_type, "<cmd>Lspsaga peek_type_definition<cr>", desc = "Peek Type Definition" },
+        { saga.code_action, "<cmd>Lspsaga code_action<cr>", mode = { "n", "v" }, desc = "Code Action" },
+        { saga.rename, "<cmd>Lspsaga rename<cr>", desc = "Rename" },
       }
     end,
     config = function()

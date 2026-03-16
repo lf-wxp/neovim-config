@@ -75,7 +75,7 @@ M.setup = function()
 
     -- Message routing rules
     routes = {
-      -- written 消息已由 shortmess+=W 抑制，无需重复过滤
+      -- "written" messages already suppressed by shortmess+=W, no need to filter again
       -- Hide undo/redo messages
       { filter = { event = "msg_show", find = "^%d+ fewer lines" }, opts = { skip = true } },
       { filter = { event = "msg_show", find = "^%d+ more lines" }, opts = { skip = true } },
@@ -83,7 +83,7 @@ M.setup = function()
       -- Hide yank/paste messages
       { filter = { event = "msg_show", find = "^%d+ line[s]? yanked" }, opts = { skip = true } },
       { filter = { event = "msg_show", find = "^%d+ line[s]? >ed" }, opts = { skip = true } },
-      -- search wrap 消息已由 shortmess+=s 抑制，无需重复过滤
+      -- search wrap messages already suppressed by shortmess+=s, no need to filter again
       -- Hide change replace messages
       { filter = { event = "msg_show", find = "%d+ change[s]?;" }, opts = { skip = true } },
       -- Hide "Already at newest/oldest change" messages

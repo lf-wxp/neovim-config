@@ -10,14 +10,14 @@ local augroup = vim.api.nvim_create_augroup("UserAutoCommands", { clear = true }
 local autocmd = vim.api.nvim_create_autocmd
 
 -- Auto close nvim-tree: quit when only nvim-tree window remains
--- 兼容 sidebar 和 float 两种模式：
--- - sidebar 模式下检查非 float 窗口是否只剩 NvimTree
--- - float 模式下 nvim-tree 的 quit_on_open 已自动关闭，这里处理边缘情况
+-- Compatible with both sidebar and float modes:
+-- - In sidebar mode, check if only NvimTree remains among non-float windows
+-- - In float mode, nvim-tree's quit_on_open handles auto-close; this covers edge cases
 autocmd("BufEnter", {
   nested = true,
   group = augroup,
   callback = function()
-    -- 分离 float 和非 float 窗口
+    -- Separate float and non-float windows
     local non_float_wins = {}
     for _, win in ipairs(vim.api.nvim_list_wins()) do
       if vim.api.nvim_win_get_config(win).relative == "" then
@@ -25,7 +25,7 @@ autocmd("BufEnter", {
       end
     end
 
-    -- 当仅剩一个非 float 窗口且为 NvimTree 时退出
+    -- Quit when only one non-float window remains and it's NvimTree
     if #non_float_wins == 1 then
       local buf = vim.api.nvim_win_get_buf(non_float_wins[1])
       if vim.bo[buf].filetype == "NvimTree" then
@@ -41,7 +41,7 @@ autocmd("BufEnter", {
 -- flash feedback with configurable timer (see plugin-config/yanky.lua)
 
 -- Don't continue comments on new line with o/O
--- 使用 FileType 事件：每个 buffer 仅在 filetype 检测时触发一次，比 BufEnter 更高效
+-- Use FileType event: fires only once per buffer on filetype detection, more efficient than BufEnter
 autocmd("FileType", {
   group = augroup,
   callback = function()
@@ -74,7 +74,7 @@ autocmd("VimResized", {
 
 -- Detect external file changes and auto-reload
 -- Triggers on focus gain, buffer enter, and cursor idle
--- 移除 CursorHoldI：插入模式空闲时不需要检测外部文件变更，减少不必要的 I/O
+-- Removed CursorHoldI: no need to check external file changes during insert-mode idle, reduces unnecessary I/O
 autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
   group = augroup,
   callback = function()
@@ -108,12 +108,12 @@ autocmd("BufReadPost", {
 })
 
 -- Big file protection (fallback for snacks.bigfile)
--- snacks.bigfile 做主力处理（禁用 treesitter/LSP 等重量级功能）
--- 这里作为轻量级兜底，仅禁用 swap/undo 等基础设置，不清空 syntax/filetype
+-- snacks.bigfile handles the heavy lifting (disabling treesitter/LSP etc.)
+-- This serves as a lightweight fallback: only disables swap/undo basics, keeps syntax/filetype intact
 autocmd("BufReadPre", {
   group = augroup,
   callback = function(args)
-    -- 如果 snacks.bigfile 已经处理过，跳过
+    -- Skip if snacks.bigfile has already handled this buffer
     if vim.b[args.buf] and vim.b[args.buf].bigfile then
       return
     end
@@ -126,8 +126,8 @@ autocmd("BufReadPre", {
       vim.opt_local.undolevels = -1
       vim.opt_local.undoreload = 0
       vim.opt_local.list = false
-      -- 注意：不清空 syntax/filetype，避免禁用所有插件检测
-      -- snacks.bigfile 会负责禁用 treesitter highlight 等重量级功能
+      -- Note: don't clear syntax/filetype to avoid disabling all plugin detection
+      -- snacks.bigfile is responsible for disabling treesitter highlight and other heavy features
       vim.notify("Big file detected: swap/undo/list disabled", vim.log.levels.WARN)
     end
   end,
