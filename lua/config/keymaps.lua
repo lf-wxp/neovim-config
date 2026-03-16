@@ -285,7 +285,7 @@ M.lsp = {
 
 -- CodeBuddy - AI Copilot
 M.codeBuddy = {
-  copilot_accept = "<Right>",
+  copilot_accept = "<Tab>",
 }
 
 -- crates.nvim - Rust crates management

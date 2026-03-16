@@ -89,9 +89,10 @@ return {
     event = "InsertEnter",  -- Load on InsertEnter for Copilot completion
     cmd = "CodeBuddy",
     init = function()
-      -- Copilot accept keymap (init runs before plugin loads)
-      local keys = require("config.keymaps").codeBuddy
-      vim.keymap.set("i", keys.copilot_accept, "copilot#Accept()", { silent = true, noremap = true, expr = true })
+      -- Disable default tab mapping and let us handle accept key
+      vim.g.copilot_no_tab_map = true
+      vim.g.copilot_assume_mapped = true
+      -- Copilot accept is handled by blink.cmp's Super Tab in blink-cmp/setup.lua
     end,
   },
 }

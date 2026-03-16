@@ -262,12 +262,26 @@ blink.setup({
     -- Scroll documentation
     ["<C-u>"] = { "scroll_documentation_up", "fallback" },
     ["<C-d>"] = { "scroll_documentation_down", "fallback" },
-    -- Super Tab
+    -- Super Tab: Copilot accept > Completion select > LuaSnip jump > fallback
     ["<Tab>"] = {
       function(cmp)
+        -- Priority 1: Accept Copilot suggestion if visible
+        if vim.fn.exists("*copilot#GetDisplayedSuggestion") == 1 then
+          local suggestion = vim.fn["copilot#GetDisplayedSuggestion"]()
+          if suggestion and suggestion.text and suggestion.text ~= "" then
+            local accept_result = vim.fn["copilot#Accept"]("")
+            if accept_result ~= "" then
+              vim.api.nvim_feedkeys(accept_result, "n", true)
+              return true
+            end
+          end
+        end
+        -- Priority 2: Select next completion item
         if cmp.is_visible() then
           return cmp.select_next()
-        elseif require("luasnip").expand_or_jumpable() then
+        end
+        -- Priority 3: LuaSnip expand or jump
+        if require("luasnip").expand_or_jumpable() then
           require("luasnip").expand_or_jump()
           return true
         end
