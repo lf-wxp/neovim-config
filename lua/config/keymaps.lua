@@ -38,9 +38,9 @@ M.load_global = function()
   -- ╭─────────────────────────────────────────────────────╮
   -- │              Scroll                                 │
   -- ╰─────────────────────────────────────────────────────╯
-  map("n", km.scroll_up_half, "<C-u>", "Scroll Up Half Page")
-  map("n", km.scroll_down_half, "<C-d>", "Scroll Down Half Page")
-  map("n", km.scroll_up_full, "<C-b>", "Scroll Up Full Page")
+  map({"n", "v"}, km.scroll_up_half, "<C-u>", "Scroll Up Half Page")
+  map({"n", "v"}, km.scroll_down_half, "<C-d>", "Scroll Down Half Page")
+  map({"n", "v"}, km.scroll_up_full, "<C-b>", "Scroll Up Full Page")
 
   -- ╭─────────────────────────────────────────────────────╮
   -- │              Clipboard                              │
