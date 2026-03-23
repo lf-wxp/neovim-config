@@ -1,10 +1,10 @@
 # Neovim Configuration
 
-A modular, performance-optimized Lua-based Neovim IDE configuration built on **lazy.nvim** with 75+ plugins.
+A modular, performance-optimized Lua-based Neovim IDE configuration built on **lazy.nvim** with 77+ plugins.
 
 ## ✨ Features
 
-- **75+ Plugins** organized into 9 functional categories
+- **77+ Plugins** organized into 9 functional categories
 - **Lazy Loading** via lazy.nvim for optimal startup performance (~30ms)
 - **Unified Module Pattern** — all configs follow the `M.setup()` convention
 - **LSP Support** for JavaScript/TypeScript, Rust, Lua, Python, Vue, CSS, HTML, JSON, TOML
@@ -47,6 +47,8 @@ A modular, performance-optimized Lua-based Neovim IDE configuration built on **l
 │   │   ├── auto-session.lua          # Session management
 │   │   ├── bufferline.lua            # Tab bar
 │   │   ├── codecompanion.lua         # AI coding assistant
+│   │   ├── comment.lua               # Smart comment toggling
+│   │   ├── dial.lua                  # Enhanced increment/decrement
 │   │   ├── diffview.lua              # Git diff viewer
 │   │   ├── dropbar.lua               # Breadcrumb navigation
 │   │   ├── flash.lua                 # Quick motion
@@ -171,6 +173,8 @@ init.lua
 - **multicursor.nvim** — Multiple cursors
 - **yanky.nvim** — Clipboard history
 - **nvim-autopairs** — Auto bracket pairing
+- **Comment.nvim** — Smart comment toggling with line/block support
+- **dial.nvim** — Enhanced increment/decrement for dates, booleans, semver, etc.
 - **todo-comments** — TODO comment highlighting
 - **treesj** — Code split/join
 - **origami** — Folding

@@ -69,6 +69,54 @@ return {
   },
 
   -- ╭────────────────────────────────────────────────────────╮
+  -- │ Comment.nvim - Smart Commenting                        │
+  -- │ Enhanced comment toggling with line/block support      │
+  -- ╰────────────────────────────────────────────────────────╯
+  {
+    "numToStr/Comment.nvim",
+    event = "VeryLazy",
+    keys = function()
+      local keys = require("config.keymaps").comment
+      return {
+        { keys.toggler.line,        nil, mode = { "n" },          desc = "Comment Toggle Line" },
+        { keys.toggler.block,       nil, mode = { "n" },          desc = "Comment Toggle Block" },
+        { keys.opleader.line,       nil, mode = { "n", "x" },     desc = "Comment Line" },
+        { keys.opleader.block,      nil, mode = { "n", "x" },     desc = "Comment Block" },
+        { keys.extra.below,         nil, mode = { "n" },          desc = "Comment Below" },
+        { keys.extra.above,         nil, mode = { "n" },          desc = "Comment Above" },
+        { keys.extra.eol,           nil, mode = { "n" },          desc = "Comment End of Line" },
+      }
+    end,
+    config = function()
+      require("plugin-config.comment").setup()
+    end,
+  },
+
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ dial.nvim - Enhanced Increment/Decrement               │
+  -- │ Smart value cycling for dates, booleans, semver, etc.  │
+  -- ╰────────────────────────────────────────────────────────╯
+  {
+    "monaqa/dial.nvim",
+    keys = function()
+      local keys = require("config.keymaps").dial
+      return {
+        { keys.increment,         function() require("dial.map").manipulate("increment", "normal") end,  mode = "n", desc = "Dial Increment" },
+        { keys.decrement,         function() require("dial.map").manipulate("decrement", "normal") end,  mode = "n", desc = "Dial Decrement" },
+        { keys.increment_global,  function() require("dial.map").manipulate("increment", "gnormal") end, mode = "n", desc = "Dial Increment (global)" },
+        { keys.decrement_global,  function() require("dial.map").manipulate("decrement", "gnormal") end, mode = "n", desc = "Dial Decrement (global)" },
+        { keys.increment_visual,  function() require("dial.map").manipulate("increment", "visual") end,  mode = "x", desc = "Dial Increment" },
+        { keys.decrement_visual,  function() require("dial.map").manipulate("decrement", "visual") end,  mode = "x", desc = "Dial Decrement" },
+        { keys.increment_gvisual, function() require("dial.map").manipulate("increment", "gvisual") end, mode = "x", desc = "Dial Increment (global)" },
+        { keys.decrement_gvisual, function() require("dial.map").manipulate("decrement", "gvisual") end, mode = "x", desc = "Dial Decrement (global)" },
+      }
+    end,
+    config = function()
+      require("plugin-config.dial").setup()
+    end,
+  },
+
+  -- ╭────────────────────────────────────────────────────────╮
   -- │ todo-comments.nvim-TODO Comment Highlight & Navigation │
   -- ╰────────────────────────────────────────────────────────╯
   {

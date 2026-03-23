@@ -753,6 +753,15 @@ M.setup = function()
     { "<leader>sc", desc = "Close Window", icon = { icon = "󰖭", color = "red" } },
     { "<leader>so", desc = "Close Other Windows", icon = { icon = "󰗨", color = "red" } },
     { "<leader>s=", desc = "Equal Windows", icon = { icon = "󰕭", color = "green" } },
+
+    -- ========================================
+    -- Dial (Value increment/decrement)
+    -- ========================================
+    { "<leader>v", group = "Value (Dial)", icon = { icon = "󰐊", color = "green" } },
+    { "<leader>va", desc = "Dial Increment", icon = { icon = "󰐊", color = "green" } },
+    { "<leader>vx", desc = "Dial Decrement", icon = { icon = "󰐔", color = "red" } },
+    { "<leader>vA", desc = "Dial Increment (global)", icon = { icon = "󰐊", color = "green" } },
+    { "<leader>vX", desc = "Dial Decrement (global)", icon = { icon = "󰐔", color = "red" } },
   },
 })
 

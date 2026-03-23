@@ -235,6 +235,19 @@ M.snip = {
 M.comment = {
   toggler = { line = "gcc", block = "gbc" },
   opleader = { line = "gc", block = "gb" },
+  extra = { below = "gco", above = "gcO", eol = "gcA" },
+}
+
+-- dial - Enhanced increment/decrement
+M.dial = {
+  increment = "<leader>va",
+  decrement = "<leader>vx",
+  increment_global = "<leader>vA",
+  decrement_global = "<leader>vX",
+  increment_visual = "<leader>va",
+  decrement_visual = "<leader>vx",
+  increment_gvisual = "<leader>vA",
+  decrement_gvisual = "<leader>vX",
 }
 
 -- todo-comments - TODO Comment Highlight & Navigation
