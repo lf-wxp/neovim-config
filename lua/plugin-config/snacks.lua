@@ -233,7 +233,7 @@ M.setup_init = function()
   -- vim.ui.input = require("snacks").input
   -- vim.ui.select = require("snacks").picker.select
 
-  -- Rainbow/scope/chunk highlight 颜色由 highlights.lua 统一管理（M.setup 中已调用）
+  -- Rainbow/scope/chunk highlight colors are managed by highlights.lua (called in M.setup)
 
   -- LSP Progress notifications using snacks notifier (simplified)
   vim.api.nvim_create_autocmd("LspProgress", {

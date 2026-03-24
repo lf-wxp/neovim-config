@@ -24,7 +24,7 @@ M.setup = function()
       ---@param diagnostics_dict table<string, integer>
       ---@param context {buffer: integer}
       diagnostics_indicator = function(_, _, diagnostics_dict, context)
-        -- 非当前 buffer 只显示 error 级别，减少视觉干扰
+        -- Non-current buffer: show only error level to reduce visual noise
         if context.buffer:current() then
           local s = " "
           for e, n in pairs(diagnostics_dict) do
@@ -33,7 +33,7 @@ M.setup = function()
           end
           return s
         end
-        -- 非当前 buffer：仅显示 error
+        -- Non-current buffer: show errors only
         local errors = diagnostics_dict["error"]
         return errors and (" " .. errors .. " 󰅘 ") or ""
       end,

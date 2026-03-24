@@ -38,7 +38,7 @@ M.setup = function()
       lualine_c = {
         { Harpoonline.format, color = "Operator" },
         { "filename", path = 1, file_status = true, color = "Boolean" },
-        -- recorder 使用惰性函数包裹，避免破坏 VeryLazy 懒加载语义
+        -- recorder wrapped in lazy function to preserve VeryLazy semantics
         { function() return require("recorder").displaySlots() end, color = "Todo" },
         { function() return require("recorder").recordingStatus() end, color = "Tag" },
       },

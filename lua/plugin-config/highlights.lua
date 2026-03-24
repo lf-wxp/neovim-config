@@ -374,11 +374,36 @@ function M.setup()
   setup_dropbar_highlights()
   setup_blink_highlights()
   M.setup_snacks_indent_highlights()
+  M.setup_git_conflict_highlights()
 end
 
---- Setup snacks indent/rainbow/scope/chunk highlights (动态获取颜色)
+--- Setup git-conflict highlights (hardcoded high-contrast colors)
+--- Plugin's highlights config references *Source groups to get background values,
+--- then plugin's set_highlights() creates final GitConflictCurrent etc. groups.
+--- We also set final groups directly (without default) to override plugin defaults.
+function M.setup_git_conflict_highlights()
+  local current_bg  = "#2e4057"  -- Dark blue background (ours/current)
+  local incoming_bg = "#2e4a3e"  -- Dark green background (theirs/incoming)
+  local ancestor_bg = "#4a2e3a"  -- Dark magenta background (ancestor)
+  local text_fg     = "#d4d4d4"  -- Bright light gray foreground for readability
+
+  -- Source highlight groups: for plugin's set_highlights() to read background values
+  set_hl("GitConflictCurrentSource", { bg = current_bg, fg = text_fg })
+  set_hl("GitConflictIncomingSource", { bg = incoming_bg, fg = text_fg })
+  set_hl("GitConflictAncestorSource", { bg = ancestor_bg, fg = text_fg })
+
+  -- Set final highlight groups directly (no default flag, force override plugin's default=true)
+  set_hl("GitConflictCurrent", { bg = current_bg, fg = text_fg, bold = true })
+  set_hl("GitConflictIncoming", { bg = incoming_bg, fg = text_fg, bold = true })
+  set_hl("GitConflictAncestor", { bg = ancestor_bg, fg = text_fg, bold = true })
+  set_hl("GitConflictCurrentLabel", { bg = current_bg, fg = text_fg, bold = true })
+  set_hl("GitConflictIncomingLabel", { bg = incoming_bg, fg = text_fg, bold = true })
+  set_hl("GitConflictAncestorLabel", { bg = ancestor_bg, fg = text_fg, bold = true })
+end
+
+--- Setup snacks indent/rainbow/scope/chunk highlights (dynamically get colors)
 function M.setup_snacks_indent_highlights()
-  -- 从当前 colorscheme 中获取语义颜色
+  -- Get semantic colors from current colorscheme
   local error_fg = get_hl("DiagnosticError").fg or 0xE06C75
   local warn_fg = get_hl("DiagnosticWarn").fg or 0xE5C07B
   local info_fg = get_hl("DiagnosticInfo").fg or 0x61AFEF
@@ -388,7 +413,7 @@ function M.setup_snacks_indent_highlights()
   local constant_fg = get_hl("Constant").fg or 0xD19A66
   local special_fg = get_hl("Special").fg or 0x56B6C2
 
-  -- Rainbow colors: 从 diagnostic/syntax highlight 中派生
+  -- Rainbow colors: derived from diagnostic/syntax highlights
   local rainbow_hl = {
     RainbowRed    = { fg = error_fg },
     RainbowYellow = { fg = warn_fg },
@@ -402,9 +427,9 @@ function M.setup_snacks_indent_highlights()
     set_hl(name, opts)
   end
 
-  -- Scope: 使用 Function 色以保持视觉一致性
+  -- Scope: use Function color for visual consistency
   set_hl("SnacksIndentScope", { fg = func_fg, bold = true })
-  -- Chunk: 使用 Error 色以保持醒目
+  -- Chunk: use Error color for prominence
   set_hl("SnacksIndentChunk", { fg = error_fg, bold = true })
 end
 

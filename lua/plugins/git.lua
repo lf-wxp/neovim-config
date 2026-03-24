@@ -48,4 +48,29 @@ return {
       require("plugin-config.diffview").setup()
     end,
   },
+
+  -- ╭────────────────────────────────────────────────────────╮
+  -- │ git-conflict - Git Conflict Resolution                 │
+  -- │ Lazy load only during git merge/rebase conflicts       │
+  -- ╰────────────────────────────────────────────────────────╯
+  {
+    "akinsho/git-conflict.nvim",
+    version = "*",
+    cmd = {
+      "GitConflictChooseOurs",
+      "GitConflictChooseTheirs",
+      "GitConflictChooseBoth",
+      "GitConflictChooseNone",
+      "GitConflictNextConflict",
+      "GitConflictPrevConflict",
+      "GitConflictListQf",
+      "GitConflictRefresh",
+    },
+    init = function()
+      require("plugin-config.git-conflict").init()
+    end,
+    config = function()
+      require("plugin-config.git-conflict").setup()
+    end,
+  },
 }

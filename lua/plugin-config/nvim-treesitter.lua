@@ -140,7 +140,7 @@ M.setup = function()
 
   -- Initialize / expand selection
   vim.keymap.set({ "n", "x" }, "<CR>", function()
-    -- 在特殊窗口中，保留 <CR> 原生行为
+    -- In special windows, preserve native <CR> behavior
     local ft = vim.bo.filetype
     if vim.tbl_contains(cr_excluded_ft, ft) or vim.bo.buftype ~= "" then
       return vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "n", false)

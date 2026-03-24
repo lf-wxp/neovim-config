@@ -344,6 +344,17 @@ M.gitsigns = {
   select_hunk = "<leader>ig",
 }
 
+-- git-conflict - Git conflict resolution
+M.gitConflict = {
+  choose_ours = "<leader>gco",
+  choose_theirs = "<leader>gct",
+  choose_both = "<leader>gcb",
+  choose_none = "<leader>gc0",
+  next_conflict = "]x",
+  prev_conflict = "[x",
+  list_conflicts = "<leader>gcl",
+}
+
 -- ╭────────────────────────────────────────────────────────╮
 -- │  Tools - Tools                                         │
 -- ╰────────────────────────────────────────────────────────╯

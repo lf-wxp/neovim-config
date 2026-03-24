@@ -14,7 +14,7 @@ local M = {}
 
 M.setup = function()
   -- Session options
-  -- 移除 help：bypass_save_filetypes 已包含 help，sessionoptions 中不再保存 help 窗口
+  -- Remove help: bypass_save_filetypes already includes help, sessionoptions no longer saves help windows
   vim.o.sessionoptions = "blank,buffers,tabpages,winsize,winpos,terminal,localoptions"
 
   require("auto-session").setup({

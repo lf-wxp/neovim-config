@@ -10,7 +10,7 @@ A modular, performance-optimized Lua-based Neovim IDE configuration built on **l
 - **LSP Support** for JavaScript/TypeScript, Rust, Lua, Python, Vue, CSS, HTML, JSON, TOML
 - **Modern Completion** powered by blink.cmp (replaces nvim-cmp)
 - **Minimal UI** with borderless floating windows and clean aesthetics
-- **Git Integration** via Gitsigns, Neogit, and Diffview
+- **Git Integration** via Gitsigns, Neogit, Diffview, and Git-Conflict
 - **Smart Navigation** with Telescope, Harpoon, Oil.nvim, Flash, and Aerial
 - **AI Coding** with Copilot and CodeCompanion
 - **Smart Formatting** with oxfmt / prettierd auto-detection
@@ -52,6 +52,7 @@ A modular, performance-optimized Lua-based Neovim IDE configuration built on **l
 │   │   ├── diffview.lua              # Git diff viewer
 │   │   ├── dropbar.lua               # Breadcrumb navigation
 │   │   ├── flash.lua                 # Quick motion
+│   │   ├── git-conflict.lua           # Git conflict resolution
 │   │   ├── gitsigns.lua              # Git signs in gutter
 │   │   ├── harpoon.lua               # Quick file navigation
 │   │   ├── lspsaga.lua               # LSP UI enhancement
@@ -203,6 +204,7 @@ init.lua
 - **gitsigns** — Git signs in gutter
 - **neogit** — Git interface (Magit-inspired)
 - **diffview** — Diff viewer
+- **git-conflict** — Git conflict resolution (inline ours/theirs/both/none)
 
 ### Formatting (`formatting.lua`)
 - **conform.nvim** — Code formatter (Prettier, Stylua, Black, rustfmt)
