@@ -107,14 +107,32 @@ M.opts = {
     end,
   },
   statuscolumn = { enabled = true }, -- Line number column enhancement (fold marks, git status, etc.)
+  -- Indent module configuration (note: nested structure required by snacks.nvim)
   indent = {
-    enabled = true,
-    -- Char for indent line
-    char = "│",
-    -- Rainbow mode: automatically cycle colors for each indent level
-    rainbow = {
+    -- Indent guides config (config.indent in source)
+    indent = {
       enabled = true,
-      -- Highlight groups for rainbow colors
+      -- Char for indent line
+      char = "│",
+      -- Rainbow mode: set hl to array for multi-color indent guides
+      hl = "SnacksIndent",
+    },
+    -- Faster animation for indent guides (config.animate in source)
+    animate = {
+      enabled = true,
+      style = "out",
+      easing = "linear",
+      duration = {
+        step = 10,   -- Faster animation step (ms)
+        total = 150, -- Faster total animation time (ms)
+      },
+    },
+    -- Scope highlight (current indent level, rainbow colors per level)
+    -- only_current = true: only highlight the scope where cursor is located
+    scope = {
+      enabled = true,
+      char = "│",
+      only_current = true,
       hl = {
         "RainbowRed",
         "RainbowYellow",
@@ -125,39 +143,19 @@ M.opts = {
         "RainbowCyan",
       },
     },
-    -- Faster animation
-    animate = {
-      enabled = true,
-      style = "out",
-      easing = "linear",
-      duration = {
-        step = 10,   -- Faster animation step (ms)
-        total = 150, -- Faster total animation time (ms)
-      },
-    },
-    -- Scope highlight (current indent level)
-    scope = {
-      enabled = true,
-      char = "│",
-      underline = false,
-      only_current = false,
-      hl = "SnacksIndentScope",
-    },
     -- Chunk: highlight current code block (function, if, for, etc.)
     chunk = {
       enabled = true,
-      -- Characters for chunk borders
-      chars = {
-        corner_top = "┌",
-        corner_bottom = "└",
-        horizontal = "─",
-        vertical = "│",
-        arrow = "─",
+      -- Highlight groups for chunk (rainbow colors per indent level)
+      hl = {
+        "RainbowRed",
+        "RainbowYellow",
+        "RainbowBlue",
+        "RainbowOrange",
+        "RainbowGreen",
+        "RainbowViolet",
+        "RainbowCyan",
       },
-      -- Style: "full" | "minimal"
-      style = "full",
-      -- Highlight group for chunk
-      hl = "SnacksIndentChunk",
     },
     -- Filter function to disable for some filetypes/buftypes
     filter = function(buf)
@@ -233,7 +231,7 @@ M.setup_init = function()
   -- vim.ui.input = require("snacks").input
   -- vim.ui.select = require("snacks").picker.select
 
-  -- Rainbow/scope/chunk highlight colors are managed by highlights.lua (called in M.setup)
+  -- Rainbow/scope/chunk highlight colors are managed by highlights.lua
 
   -- LSP Progress notifications using snacks notifier (simplified)
   vim.api.nvim_create_autocmd("LspProgress", {

@@ -401,7 +401,8 @@ function M.setup_git_conflict_highlights()
   set_hl("GitConflictAncestorLabel", { bg = ancestor_bg, fg = text_fg, bold = true })
 end
 
---- Setup snacks indent/rainbow/scope/chunk highlights (dynamically get colors)
+--- Setup snacks indent/scope/chunk highlights (dynamically get colors)
+--- Rainbow colors are used by indent hl array, scope and chunk (all support multi-color arrays)
 function M.setup_snacks_indent_highlights()
   -- Get semantic colors from current colorscheme
   local error_fg = get_hl("DiagnosticError").fg or 0xE06C75
@@ -414,6 +415,7 @@ function M.setup_snacks_indent_highlights()
   local special_fg = get_hl("Special").fg or 0x56B6C2
 
   -- Rainbow colors: derived from diagnostic/syntax highlights
+  -- Used by indent hl array, scope and chunk (all support multi-color arrays)
   local rainbow_hl = {
     RainbowRed    = { fg = error_fg },
     RainbowYellow = { fg = warn_fg },
@@ -429,8 +431,6 @@ function M.setup_snacks_indent_highlights()
 
   -- Scope: use Function color for visual consistency
   set_hl("SnacksIndentScope", { fg = func_fg, bold = true })
-  -- Chunk: use Error color for prominence
-  set_hl("SnacksIndentChunk", { fg = error_fg, bold = true })
 end
 
 --- Register autocmds to reapply highlights on colorscheme change
