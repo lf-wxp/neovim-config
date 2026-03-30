@@ -2,12 +2,15 @@
 -- │                  Navigation Plugins                    │
 -- ╰────────────────────────────────────────────────────────╯
 
+local toggle = require("config.plugin-toggle")
+
 return {
   -- ╭────────────────────────────────────────────────────────╮
   -- │ nvim-tree - File Tree                                  │
   -- ╰────────────────────────────────────────────────────────╯
   {
     "nvim-tree/nvim-tree.lua",
+    enabled = toggle.is_enabled("nvim-tree"),
     dependencies = { "nvim-tree/nvim-web-devicons", "b0o/nvim-tree-preview.lua" },
     keys = function()
       local keys = require("config.keymaps").nvimTree
@@ -25,6 +28,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "stevearc/oil.nvim",
+    enabled = toggle.is_enabled("oil.nvim"),
     keys = function()
       local keys = require("config.keymaps").oil
       return {
@@ -42,6 +46,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "nvim-telescope/telescope.nvim",
+    enabled = toggle.is_enabled("telescope"),
     dependencies = {
       "nvim-lua/plenary.nvim",
       "LinArcX/telescope-env.nvim",
@@ -75,6 +80,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "ahmedkhalf/project.nvim",
+    enabled = toggle.is_enabled("project.nvim"),
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("plugin-config.project").setup()
@@ -86,6 +92,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "ThePrimeagen/harpoon",
+    enabled = toggle.is_enabled("harpoon"),
     branch = "harpoon2",
     keys = function()
       local keys = require("config.keymaps").harpoon
@@ -113,6 +120,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "folke/trouble.nvim",
+    enabled = toggle.is_enabled("trouble"),
     cmd = "Trouble",
     keys = function()
       local keys = require("config.keymaps").trouble
@@ -133,6 +141,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "MagicDuck/grug-far.nvim",
+    enabled = toggle.is_enabled("grug-far"),
     keys = function()
       local keys = require("config.keymaps").grugFar
       return {
@@ -154,6 +163,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "stevearc/aerial.nvim",
+    enabled = toggle.is_enabled("aerial"),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     keys = function()
       local keys = require("config.keymaps").aerial
@@ -205,6 +215,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "rmagatti/auto-session",
+    enabled = toggle.is_enabled("auto-session"),
     lazy = false,  -- Load immediately to enable auto-restore
     config = function()
       require("plugin-config.auto-session").setup()
@@ -216,6 +227,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "alex-popov-tech/store.nvim",
+    enabled = toggle.is_enabled("store.nvim"),
     cmd = "Store",
   },
 }

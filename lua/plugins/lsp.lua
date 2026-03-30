@@ -2,6 +2,8 @@
 -- │                    LSP Related                         │
 -- ╰────────────────────────────────────────────────────────╯
 
+local toggle = require("config.plugin-toggle")
+
 return {
   -- ╭────────────────────────────────────────────────────────╮
   -- │ nvim-lspconfig - LSP Core                              │
@@ -10,6 +12,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "neovim/nvim-lspconfig",
+    enabled = toggle.is_enabled("nvim-lspconfig"),
     cmd = "LspInfo",
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
@@ -25,6 +28,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "williamboman/mason.nvim",
+    enabled = toggle.is_enabled("mason.nvim"),
     cmd = "Mason",
     build = ":MasonUpdate",
     opts = {
@@ -43,6 +47,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "williamboman/mason-lspconfig.nvim",
+    enabled = toggle.is_enabled("mason-lspconfig"),
     opts = {
       ensure_installed = {
         "cssls",
@@ -68,6 +73,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    enabled = toggle.is_enabled("mason-tool-installer"),
     dependencies = { "williamboman/mason.nvim" },
     cmd = { "MasonToolsInstall", "MasonToolsUpdate", "MasonToolsClean" },
     event = "VeryLazy",
@@ -119,6 +125,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "nvimdev/lspsaga.nvim",
+    enabled = toggle.is_enabled("lspsaga"),
     -- Load on LspAttach event to ensure lspsaga is ready before common.lua's LspAttach callback runs.
     -- Buffer-local mappings in common.lua take priority over lazy keys' global mappings;
     -- using keys-based lazy-loading would cause buffer-local mappings to bypass the lazy trigger, resulting in E492
@@ -145,6 +152,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "Wansmer/symbol-usage.nvim",
+    enabled = toggle.is_enabled("symbol-usage"),
     event = "LspAttach",
     config = function()
       require("plugin-config.symbol-usage").setup()
@@ -157,6 +165,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "folke/lazydev.nvim",
+    enabled = toggle.is_enabled("lazydev"),
     ft = "lua",
     opts = {
       library = {
@@ -176,6 +185,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "b0o/schemastore.nvim",
+    enabled = toggle.is_enabled("schemastore"),
     ft = { "json", "jsonc", "yaml" },
   },
 }

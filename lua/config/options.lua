@@ -97,8 +97,8 @@ vim.opt.showmode = false
 -- Rust config
 vim.g.rust_recommended_style = 0
 
--- Font
-vim.opt.guifont = "Maple Mono NF CN"
+-- Font (spaces in font name must be escaped with backslash for guifont)
+vim.opt.guifont = "Maple Mono NF CN:h14"
 
 -- Format expression
 vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"

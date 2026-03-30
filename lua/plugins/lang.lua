@@ -2,17 +2,21 @@
 -- │              Language Specific Extensions              │
 -- ╰────────────────────────────────────────────────────────╯
 
+local toggle = require("config.plugin-toggle")
+
 return {
   -- ╭────────────────────────────────────────────────────────╮
   -- │ Rust Enhancement                                       │
   -- ╰────────────────────────────────────────────────────────╯
   {
     "mrcjkb/rustaceanvim",
+    enabled = toggle.is_enabled("rustaceanvim"),
     ft = "rust",
   },
 
   {
     "saecki/crates.nvim",
+    enabled = toggle.is_enabled("crates.nvim"),
     event = "BufRead Cargo.toml",
     dependencies = "nvim-lua/plenary.nvim",
     keys = function()
@@ -37,6 +41,7 @@ return {
 
   {
     "alexpasmantier/krust.nvim",
+    enabled = toggle.is_enabled("krust"),
     ft = "rust",
     opts = {
       keymap = "<leader><leader>r",
@@ -51,6 +56,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "luckasRanarison/tailwind-tools.nvim",
+    enabled = toggle.is_enabled("tailwind-tools"),
     name = "tailwind-tools",
     ft = { "html", "css", "scss", "javascript", "typescript", "typescriptreact", "vue" },
     build = ":UpdateRemotePlugins",
@@ -70,6 +76,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "olimorris/codecompanion.nvim",
+    enabled = toggle.is_enabled("codecompanion"),
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionToggle", "CodeCompanionActions" },
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -85,6 +92,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     name = "CodeBuddy",
+    enabled = toggle.is_enabled("CodeBuddy"),
     url = "git@git.woa.com:felikszhou/gongfeng-operation-platform.git",
     event = "InsertEnter",  -- Load on InsertEnter for Copilot completion
     cmd = "CodeBuddy",

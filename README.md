@@ -1,10 +1,11 @@
 # Neovim Configuration
 
-A modular, performance-optimized Lua-based Neovim IDE configuration built on **lazy.nvim** with 77+ plugins.
+A modular, performance-optimized Lua-based Neovim IDE configuration built on **lazy.nvim** with 75+ plugins.
 
 ## ✨ Features
 
-- **77+ Plugins** organized into 9 functional categories
+- **75+ Plugins** organized into 9 functional categories
+- **Centralized Plugin Toggle** — enable/disable any plugin from a single config file
 - **Lazy Loading** via lazy.nvim for optimal startup performance (~30ms)
 - **Unified Module Pattern** — all configs follow the `M.setup()` convention
 - **LSP Support** for JavaScript/TypeScript, Rust, Lua, Python, Vue, CSS, HTML, JSON, TOML
@@ -30,6 +31,7 @@ A modular, performance-optimized Lua-based Neovim IDE configuration built on **l
 │   │   ├── lazy.lua                  # lazy.nvim bootstrap
 │   │   ├── neovide.lua               # Neovide GUI config
 │   │   ├── options.lua               # Vim options
+│   │   ├── plugin-toggle.lua         # Centralized plugin enable/disable
 │   │   └── utils.lua                 # Utility functions
 │   │
 │   ├── plugins/                      # Plugin specs (lazy.nvim declarations)
@@ -123,6 +125,7 @@ return M
 
 | Layer | Directory | Responsibility |
 |-------|-----------|---------------|
+| **Plugin Toggle** | `lua/config/plugin-toggle.lua` | Centralized plugin enable/disable switch |
 | **Plugin Specs** | `lua/plugins/` | lazy.nvim declarations (what to load, when) |
 | **Plugin Config** | `lua/plugin-config/` | Implementation details (`M.setup()`) |
 | **Keybindings** | `lua/config/keymaps.lua` | All keymaps centralized |
@@ -308,12 +311,33 @@ nvim  # Plugins install automatically on first launch
 - Disabled unused providers (perl, ruby, node, python3)
 - Large file protection: skip treesitter highlight (>10000 lines), skip formatting (>200KB)
 
+## 🔌 Plugin Toggle
+
+All 75 plugins can be individually enabled/disabled from a single file: `lua/config/plugin-toggle.lua`.
+
+To disable a plugin, set its value to `false`:
+
+```lua
+-- lua/config/plugin-toggle.lua
+M.plugins = {
+  ["codecompanion"] = false,    -- Disable AI assistant
+  ["cellular-automaton"] = false, -- Disable fun plugin
+  -- ...
+}
+```
+
+After editing, run `:Lazy sync` to apply changes.
+
+Plugins not listed in the toggle table are enabled by default, so newly added plugins work without extra configuration.
+
 ## 📝 Adding a New Plugin
 
 1. Add plugin spec to the appropriate file in `lua/plugins/`
-2. Create `lua/plugin-config/<name>.lua` following the `M.setup()` pattern
-3. Add keymaps to `lua/config/keymaps.lua`
-4. Add commands to `lua/config/commands.lua` if needed
+2. Add `enabled = toggle.is_enabled("plugin-name")` to the spec
+3. Register the plugin in `lua/config/plugin-toggle.lua` (optional, defaults to enabled)
+4. Create `lua/plugin-config/<name>.lua` following the `M.setup()` pattern
+5. Add keymaps to `lua/config/keymaps.lua`
+6. Add commands to `lua/config/commands.lua` if needed
 
 ## 📄 License
 

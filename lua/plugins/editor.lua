@@ -2,12 +2,15 @@
 -- │                 Editor Enhancement                     │
 -- ╰────────────────────────────────────────────────────────╯
 
+local toggle = require("config.plugin-toggle")
+
 return {
   -- ╭────────────────────────────────────────────────────────╮
   -- │ flash.nvim - Quick Jump                                │
   -- ╰────────────────────────────────────────────────────────╯
   {
     "folke/flash.nvim",
+    enabled = toggle.is_enabled("flash.nvim"),
     event = "VeryLazy",
     keys = function()
       local keys = require("config.keymaps").flash
@@ -26,6 +29,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "kylechui/nvim-surround",
+    enabled = toggle.is_enabled("nvim-surround"),
     event = "VeryLazy",
     dependencies = { "roobert/surround-ui.nvim" },
     config = function()
@@ -42,6 +46,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "windwp/nvim-autopairs",
+    enabled = toggle.is_enabled("nvim-autopairs"),
     event = "InsertEnter",
     config = function()
       require("plugin-config.nvim-autopairs").setup()
@@ -53,6 +58,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "jake-stewart/multicursor.nvim",
+    enabled = toggle.is_enabled("multicursor"),
     event = "VeryLazy",
     config = function()
       require("plugin-config.multicursor").setup()
@@ -64,6 +70,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "folke/ts-comments.nvim",
+    enabled = toggle.is_enabled("ts-comments"),
     event = "VeryLazy",
     opts = {},
   },
@@ -74,6 +81,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "numToStr/Comment.nvim",
+    enabled = toggle.is_enabled("Comment.nvim"),
     event = "VeryLazy",
     keys = function()
       local keys = require("config.keymaps").comment
@@ -98,6 +106,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "monaqa/dial.nvim",
+    enabled = toggle.is_enabled("dial.nvim"),
     keys = function()
       local keys = require("config.keymaps").dial
       return {
@@ -121,6 +130,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "folke/todo-comments.nvim",
+    enabled = toggle.is_enabled("todo-comments"),
     event = { "BufReadPost", "BufNewFile" },
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = function()
@@ -151,6 +161,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "echasnovski/mini.ai",
+    enabled = toggle.is_enabled("mini.ai"),
     version = "*",
     event = "VeryLazy",
     opts = {},
@@ -161,6 +172,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "Wansmer/treesj",
+    enabled = toggle.is_enabled("treesj"),
     keys = function()
       local keys = require("config.keymaps").treesj
       return {
@@ -177,6 +189,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "chrisgrieser/nvim-origami",
+    enabled = toggle.is_enabled("nvim-origami"),
     event = "BufReadPost",
     config = function()
       require("plugin-config.origami").setup()
@@ -188,6 +201,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "chrisgrieser/nvim-recorder",
+    enabled = toggle.is_enabled("nvim-recorder"),
     event = "VeryLazy",
     opts = {},
   },
@@ -197,6 +211,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "gregorias/coerce.nvim",
+    enabled = toggle.is_enabled("coerce"),
     event = "VeryLazy",
     opts = {},
   },
@@ -206,6 +221,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "chentoast/marks.nvim",
+    enabled = toggle.is_enabled("marks.nvim"),
     event = "BufReadPost",
     opts = {
       builtin_marks = { ".", "<", ">", "^" },
@@ -218,6 +234,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "XXiaoA/atone.nvim",
+    enabled = toggle.is_enabled("atone"),
     cmd = "Atone",
     opts = {},
   },
@@ -227,6 +244,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "michaelb/sniprun",
+    enabled = toggle.is_enabled("sniprun"),
     build = "sh ./install.sh",
     keys = function()
       local keys = require("config.keymaps").sniprun
@@ -253,6 +271,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "gbprod/yanky.nvim",
+    enabled = toggle.is_enabled("yanky.nvim"),
     dependencies = { "kkharji/sqlite.lua", "nvim-telescope/telescope.nvim" },
     keys = function()
       local keys = require("config.keymaps").yanky
@@ -283,6 +302,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "windwp/nvim-ts-autotag",
+    enabled = toggle.is_enabled("nvim-ts-autotag"),
     ft = { "html", "xml", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "svelte", "astro" },
     opts = {
       opts = {
@@ -305,6 +325,7 @@ return {
   -- ╰──────────────────────────────────────────────────────────╯
   {
     "qwavies/smart-backspace.nvim",
+    enabled = toggle.is_enabled("smart-backspace"),
     event = { "InsertEnter", "CmdlineEnter" },
     opts = {},
   },

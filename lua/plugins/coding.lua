@@ -2,12 +2,15 @@
 -- │ Completion and Snippets                                │
 -- ╰────────────────────────────────────────────────────────╯
 
+local toggle = require("config.plugin-toggle")
+
 return {
   -- ╭─────────────────────────────────────────────────────╮
   -- │ blink.cmp - Completion Engine (replaces nvim-cmp)   │
   -- ╰─────────────────────────────────────────────────────╯
   {
     "saghen/blink.cmp",
+    enabled = toggle.is_enabled("blink.cmp"),
     version = "1.*",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
@@ -44,6 +47,7 @@ return {
   -- ╰─────────────────────────────────────────────────────╯
   {
     "saghen/blink.compat",
+    enabled = toggle.is_enabled("blink.compat"),
     version = "2.*",
     lazy = true,
     opts = {},
@@ -54,6 +58,7 @@ return {
   -- ╰─────────────────────────────────────────────────────╯
   {
     "L3MON4D3/LuaSnip",
+    enabled = toggle.is_enabled("LuaSnip"),
     build = "make install_jsregexp",
     dependencies = { "rafamadriz/friendly-snippets" },
     config = function()
@@ -66,6 +71,7 @@ return {
   -- ╰─────────────────────────────────────────────────────╯
   {
     "HiPhish/rainbow-delimiters.nvim",
+    enabled = toggle.is_enabled("rainbow-delimiters"),
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       local rainbow = require("rainbow-delimiters")
@@ -101,6 +107,7 @@ return {
   -- ╰─────────────────────────────────────────────────────╯
   {
     "nvim-treesitter/nvim-treesitter",
+    enabled = toggle.is_enabled("nvim-treesitter"),
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
@@ -116,6 +123,7 @@ return {
   -- ╰─────────────────────────────────────────────────────╯
   {
     "nvim-treesitter/nvim-treesitter-context",
+    enabled = toggle.is_enabled("treesitter-context"),
     event = { "BufReadPost", "BufNewFile" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     opts = {

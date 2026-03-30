@@ -22,12 +22,15 @@ local js_ts_filetypes = {
 -- Filetypes that use prettierd/prettier as formatter
 local prettier_filetypes = { "css", "scss", "json", "html", "yaml", "markdown" }
 
+local toggle = require("config.plugin-toggle")
+
 return {
   -- ╭────────────────────────────────────────────────────────╮
   -- │ conform.nvim - Formatter                               │
   -- ╰────────────────────────────────────────────────────────╯
   {
     "stevearc/conform.nvim",
+    enabled = toggle.is_enabled("conform.nvim"),
     event = "BufWritePre",
     cmd = "ConformInfo",
     opts = function()

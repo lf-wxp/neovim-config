@@ -2,12 +2,15 @@
 -- │                   UI Components                        │
 -- ╰────────────────────────────────────────────────────────╯
 
+local toggle = require("config.plugin-toggle")
+
 return {
   -- ╭────────────────────────────────────────────────────────╮
   -- │ bufferline - Tab Bar                                   │
   -- ╰────────────────────────────────────────────────────────╯
   {
     "akinsho/bufferline.nvim",
+    enabled = toggle.is_enabled("bufferline"),
     dependencies = { "nvim-tree/nvim-web-devicons", "moll/vim-bbye" },
     event = "VeryLazy",
     keys = function()
@@ -34,6 +37,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "nvim-lualine/lualine.nvim",
+    enabled = toggle.is_enabled("lualine"),
     dependencies = { "abeldekat/harpoonline" },
     event = "VeryLazy",
     config = function()
@@ -46,6 +50,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "folke/noice.nvim",
+    enabled = toggle.is_enabled("noice"),
     event = "VeryLazy",  -- Load on VeryLazy to capture all cmdline/message events
     dependencies = { "MunifTanjim/nui.nvim" },
     config = function()
@@ -57,6 +62,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "folke/which-key.nvim",
+    enabled = toggle.is_enabled("which-key"),
     event = "VeryLazy",
     dependencies = { "echasnovski/mini.icons", version = false },
     config = function()
@@ -69,6 +75,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "folke/snacks.nvim",
+    enabled = toggle.is_enabled("snacks.nvim"),
     priority = 1000,
     lazy = false,
     keys = function()
@@ -96,6 +103,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "Bekaboo/dropbar.nvim",
+    enabled = toggle.is_enabled("dropbar"),
     event = "BufReadPost",
     config = function()
       require("plugin-config.dropbar").setup()
@@ -107,6 +115,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "brenoprata10/nvim-highlight-colors",
+    enabled = toggle.is_enabled("nvim-highlight-colors"),
     event = "BufReadPost",
     opts = {
       render = "virtual",
@@ -119,6 +128,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "uga-rosa/ccc.nvim",
+    enabled = toggle.is_enabled("ccc.nvim"),
     cmd = { "CccPick", "CccConvert" },
     keys = function()
       local keys = require("config.keymaps").ccc
@@ -141,6 +151,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "mrjones2014/smart-splits.nvim",
+    enabled = toggle.is_enabled("smart-splits"),
     -- Removed redundant event = "VeryLazy": keys definition drives lazy-loading on demand
     keys = function()
       local keys = require("config.keymaps").smartSplits
@@ -167,6 +178,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "rachartier/tiny-glimmer.nvim",
+    enabled = toggle.is_enabled("tiny-glimmer"),
     event = "VeryLazy",
     priority = 10,
     config = function()
@@ -179,6 +191,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "rasulomaroff/reactive.nvim",
+    enabled = toggle.is_enabled("reactive"),
     event = "VeryLazy",
     config = function()
       require("plugin-config.reactive").setup()
@@ -190,11 +203,13 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "OXY2DEV/helpview.nvim",
+    enabled = toggle.is_enabled("helpview"),
     ft = "help",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
   {
     "OXY2DEV/markview.nvim",
+    enabled = toggle.is_enabled("markview"),
     ft = "markdown",
     init = function()
       -- Disable markview's nvim-cmp integration to avoid conflicts with blink.compat's fake cmp module
@@ -209,6 +224,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "fei6409/log-highlight.nvim",
+    enabled = toggle.is_enabled("log-highlight"),
     ft = "log",
     opts = {},
   },
@@ -218,6 +234,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "eandrju/cellular-automaton.nvim",
+    enabled = toggle.is_enabled("cellular-automaton"),
     cmd = "CellularAutomaton",
   },
   -- ╭────────────────────────────────────────────────────────╮
@@ -225,6 +242,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "dstein64/vim-startuptime",
+    enabled = toggle.is_enabled("vim-startuptime"),
     cmd = "StartupTime",
     init = function()
       vim.g.startuptime_tries = 10 -- Multiple samples for more accurate average results
@@ -236,6 +254,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "aikhe/wrapped.nvim",
+    enabled = toggle.is_enabled("wrapped"),
     dependencies = { "nvzone/volt" },
     cmd = { "WrappedNvim" },
     opts = {},

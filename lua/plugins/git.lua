@@ -2,12 +2,15 @@
 -- │                    Git Related                         │
 -- ╰────────────────────────────────────────────────────────╯
 
+local toggle = require("config.plugin-toggle")
+
 return {
   -- ╭────────────────────────────────────────────────────────╮
   -- │ gitsigns - Git Signs                                   │
   -- ╰────────────────────────────────────────────────────────╯
   {
     "lewis6991/gitsigns.nvim",
+    enabled = toggle.is_enabled("gitsigns"),
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("plugin-config.gitsigns").setup()
@@ -19,6 +22,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "NeogitOrg/neogit",
+    enabled = toggle.is_enabled("neogit"),
     cmd = "Neogit",
     keys = function()
       local keys = require("config.keymaps").neogit
@@ -42,6 +46,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "sindrets/diffview.nvim",
+    enabled = toggle.is_enabled("diffview"),
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFileHistory" },
     dependencies = "nvim-lua/plenary.nvim",
     config = function()
@@ -55,6 +60,7 @@ return {
   -- ╰────────────────────────────────────────────────────────╯
   {
     "akinsho/git-conflict.nvim",
+    enabled = toggle.is_enabled("git-conflict"),
     version = "*",
     cmd = {
       "GitConflictChooseOurs",
