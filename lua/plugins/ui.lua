@@ -78,6 +78,7 @@ return {
     enabled = toggle.is_enabled("snacks.nvim"),
     priority = 1000,
     lazy = false,
+    dependencies = { "amansingh-afk/milli.nvim" },
     keys = function()
       local keys = require("config.keymaps").snacks
       local cmds = require("config.commands")
@@ -91,10 +92,28 @@ return {
         { keys.terminal_bottom, function() cmds.terminal_bottom() end, mode = { "n", "t" }, desc = "Bottom Terminal" },
       }
     end,
-    opts = require("plugin-config.snacks").opts,
+    opts = function()
+      local opts = require("plugin-config.snacks").opts
+      -- milli.nvim: inject dashboard header at load time
+      local ok, milli = pcall(require, "milli")
+      if ok then
+        local load_ok, splash = pcall(milli.load, { splash = "shadertwo" })
+        if load_ok and splash and splash.frames and splash.frames[1] then
+          opts.dashboard = opts.dashboard or {}
+          opts.dashboard.preset = opts.dashboard.preset or {}
+          opts.dashboard.preset.header = table.concat(splash.frames[1], "\n")
+        end
+      end
+      return opts
+    end,
     config = function(_, opts)
       require("snacks").setup(opts)
       require("plugin-config.snacks").setup_init()
+      -- milli.nvim: start dashboard animation
+      local ok, milli = pcall(require, "milli")
+      if ok then
+        pcall(milli.snacks, { splash = "shadertwo", loop = true })
+      end
     end,
   },
 
