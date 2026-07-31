@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- ╭─────────────────────────────────────────────────────╮
     -- │              Inlay Hints (Neovim 0.10+)             │
     -- ╰─────────────────────────────────────────────────────╯
-    if client.supports_method("textDocument/inlayHint") then
+    if client:supports_method("textDocument/inlayHint", bufnr) then
       -- Enable inlay hints by default
       vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 
@@ -77,19 +77,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- ╭─────────────────────────────────────────────────────╮
     -- │              CodeLens                               │
     -- ╰─────────────────────────────────────────────────────╯
-    if client.supports_method("textDocument/codeLens") then
-      -- Auto refresh codelens
-      local codelens_gid = vim.api.nvim_create_augroup("lsp_codelens_" .. bufnr, { clear = true })
-      vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "BufWritePost" }, {
-        group = codelens_gid,
-        buffer = bufnr,
-        callback = function()
-          vim.lsp.codelens.refresh({ bufnr = bufnr })
-        end,
-      })
-      -- Initial refresh
-      vim.lsp.codelens.refresh({ bufnr = bufnr })
-
+    if client:supports_method("textDocument/codeLens", bufnr) then
+      -- Neovim 0.12+ manages refresh internally; the old
+      -- vim.lsp.codelens.refresh() + manual autocmd is deprecated.
+      vim.lsp.codelens.enable(true, { bufnr = bufnr })
       map("n", keys.lsp.codelens_run, vim.lsp.codelens.run, "CodeLens Run")
     end
 
@@ -110,8 +101,8 @@ vim.api.nvim_create_autocmd("LspDetach", {
   group = vim.api.nvim_create_augroup("lsp_buf_detach", { clear = true }),
   callback = function(event_context)
     local bufnr = event_context.buf
-    -- Clean up codelens augroup
-    pcall(vim.api.nvim_del_augroup_by_name, "lsp_codelens_" .. bufnr)
+    -- Disable codelens for this buffer (managed by vim.lsp.codelens internally)
+    pcall(vim.lsp.codelens.enable, false, { bufnr = bufnr })
     -- Clear references
     vim.lsp.buf.clear_references()
   end,

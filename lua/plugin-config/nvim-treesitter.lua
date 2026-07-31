@@ -7,7 +7,6 @@ local M = {}
 -- Languages to ensure installed
 local ensure_installed = {
   "json",
-  "jsonc",
   "html",
   "css",
   "vim",
@@ -110,6 +109,10 @@ M.setup = function()
   -- New nvim-treesitter setup only accepts basic options like install_dir
   -- highlight / indent are built into Neovim core, no extra config needed
   require("nvim-treesitter").setup()
+
+  -- jsonc has no dedicated parser; reuse the json parser for jsonc filetype.
+  -- (Avoids the "skipping unsupported language: jsonc" warning on startup.)
+  vim.treesitter.language.register("json", "jsonc")
 
   -- ── Ensure Missing Parsers Installed ──
   -- Skip when the tree-sitter CLI is unavailable (auto-install runs async;

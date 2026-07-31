@@ -11,7 +11,10 @@ M.setup = function()
   vim.g.nvim_tree_respect_buf_cwd = 1
 
   project.setup({
-    detection_methods = { "lsp", "pattern" },
+    -- Only use pattern-based detection. The "lsp" method calls the deprecated
+    -- vim.lsp.buf_get_clients() (project.nvim upstream), producing a warning on
+    -- every startup. Our pattern list below is comprehensive and more predictable.
+    detection_methods = { "pattern" },
     patterns = {
       "README.md",
       "Cargo.toml",
