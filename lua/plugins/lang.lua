@@ -12,6 +12,21 @@ return {
     "mrcjkb/rustaceanvim",
     enabled = toggle.is_enabled("rustaceanvim"),
     ft = "rust",
+    init = function()
+      -- rustaceanvim reads its config from vim.g.rustaceanvim.
+      -- rust-analyzer settings previously lived in lsp/config/rust.lua;
+      -- they are moved here since rustaceanvim now owns the rust LSP.
+      vim.g.rustaceanvim = {
+        server = {
+          default_settings = {
+            ["rust-analyzer"] = {
+              -- Run clippy instead of check on save
+              checkOnSave = { command = "clippy" },
+            },
+          },
+        },
+      }
+    end,
   },
 
   {

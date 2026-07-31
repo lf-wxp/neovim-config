@@ -65,6 +65,12 @@ M.setup = function()
     definition = { enabled = true },
     implementation = { enabled = true },
     vt_priority = 1000,
+    -- Anchor virtual text at the symbol's start position.
+    -- With the default 'end', Rust attribute macros (e.g. `#[tokio::main]`)
+    -- and the function below them resolve to different lines, so the same
+    -- function ends up rendered twice (duplicate usage/defs/impls).
+    -- Using 'start' makes them share a line and get de-duplicated.
+    symbol_request_pos = "start",
     kinds = { SymbolKind.Function, SymbolKind.Method, SymbolKind.Class, SymbolKind.Variable, SymbolKind.Struct, SymbolKind.Constant },
   })
 end

@@ -13,12 +13,14 @@
 local M = {}
 
 --- Servers with dedicated config files in lsp/config/
+--- NOTE: rust_analyzer is intentionally NOT here — Rust is managed by
+--- rustaceanvim (see lua/plugins/lang.lua), which starts its own
+--- rust-analyzer client. Enabling it here too would spawn a duplicate.
 ---@type table<string, string>
 local servers_with_config = {
   vue_ls = "lsp.config.vue",
   vtsls = "lsp.config.ts",
   lua_ls = "lsp.config.lua",
-  rust_analyzer = "lsp.config.rust",
   jsonls = "lsp.config.json",
   cssls = "lsp.config.css",
   typos_lsp = "lsp.config.typos",
