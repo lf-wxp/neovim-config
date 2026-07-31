@@ -274,8 +274,27 @@ Automatically installed via Mason:
 - **Nerd Font** — set as terminal font (recommended: Maple Mono NF)
 - **Node.js & npm** — for formatters and some LSPs
 - **Rust toolchain** — for rust-analyzer and stylua
+- **tree-sitter CLI** — required to compile Treesitter parsers (see below)
 - **ripgrep** — for Telescope live grep
 - **fd** — for Telescope find files (optional, faster than `find`)
+
+> **⚠️ tree-sitter CLI**
+> This config uses the **`main` branch** of nvim-treesitter, which compiles
+> parsers with the standalone **`tree-sitter` CLI** instead of a C compiler.
+> Note that Homebrew's `tree-sitter` formula only ships the C library, **not**
+> the CLI. Install the CLI via one of:
+>
+> ```bash
+> cargo install tree-sitter-cli      # recommended (full-featured)
+> npm install -g tree-sitter-cli     # alternative
+> brew install tree-sitter-cli       # alternative
+> ```
+>
+> The config auto-detects a missing CLI on startup and attempts to install it
+> (cargo → npm → brew). After installation, run `:TSInstallEnsure` or restart
+> Neovim to compile parsers. If you launch from a GUI (e.g. Neovide) and the
+> CLI still isn't found, ensure your installer's bin dir (e.g. `~/.cargo/bin`)
+> is on Neovim's `PATH`.
 
 ### Setup
 
@@ -295,6 +314,7 @@ nvim  # Plugins install automatically on first launch
 | `:KeymapValidate` | Check keymap conflicts |
 | `:KeymapValidate!` | Keymap statistics |
 | `:ConformInfo` | Formatter status |
+| `:TSInstallEnsure` | Compile any missing Treesitter parsers (needs tree-sitter CLI) |
 
 ## 🚀 Performance
 
@@ -353,7 +373,7 @@ This configuration is provided as-is for personal use.
 | LSP not starting | `:LspInfo` to check server status, `:Mason` to verify installation |
 | Icons missing | Install a Nerd Font and set it as your terminal font |
 | Slow startup | `:Lazy profile` to identify bottlenecks |
-| Treesitter errors | `:TSUpdate` to update parsers |
+| Treesitter errors | `:TSInstallEnsure` to compile missing parsers |
 | Keybinding conflicts | `:KeymapValidate` to detect conflicts |
 | Formatter not working | `:ConformInfo` to check formatter availability |
 | prettierd errors | Run `:MasonToolsUpdate` to reinstall with prettier dep |
@@ -375,6 +395,15 @@ This configuration is provided as-is for personal use.
 **"Cannot find module 'prettier'"**
 - Run `:MasonToolsUpdate` which auto-installs prettier for prettierd
 - Or manually: `cd ~/.local/share/nvim/mason/packages/prettierd && npm install prettier`
+
+**"Error during 'tree-sitter build': ... ENOENT ... (cmd): 'tree-sitter'"**
+- The `tree-sitter` CLI is missing from `PATH`. Install it:
+  `cargo install tree-sitter-cli` (or `npm install -g tree-sitter-cli`)
+- Homebrew's `tree-sitter` formula does **not** provide the CLI — it only
+  ships the C library. Use cargo/npm instead.
+- After installing, run `:TSInstallEnsure` or restart Neovim.
+- If launched from a GUI (Neovide) and still failing, add the installer's bin
+  dir (e.g. `~/.cargo/bin`) to Neovim's `PATH`.
 
 ### Health Check
 

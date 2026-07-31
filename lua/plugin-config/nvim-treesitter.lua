@@ -33,21 +33,114 @@ local ensure_installed = {
   "graphql",
 }
 
+-- ── tree-sitter CLI Check & Auto-Install ──
+-- The `main` branch of nvim-treesitter compiles parsers via the standalone
+-- `tree-sitter` CLI (NOT a C compiler). If the CLI is missing, parser
+-- installation fails with:
+--   Error during "tree-sitter build": ... ENOENT ... (cmd): 'tree-sitter'
+--
+-- NOTE: Homebrew's `tree-sitter` formula only ships the C library, not the
+-- CLI. The CLI is provided by the `tree-sitter-cli` crate (cargo) or the
+-- `tree-sitter-cli` npm package.
+--
+-- Returns true if the CLI is available (already present or just installed).
+local ensure_tree_sitter_cli = function()
+  if vim.fn.executable("tree-sitter") == 1 then
+    return true
+  end
+
+  local notify = function(msg, level)
+    vim.schedule(function()
+      vim.notify(msg, level, { title = "nvim-treesitter" })
+    end)
+  end
+
+  -- Pick an available installer, preferring cargo (most complete CLI).
+  local installers = {
+    { exe = "cargo", cmd = { "cargo", "install", "tree-sitter-cli" } },
+    { exe = "npm", cmd = { "npm", "install", "-g", "tree-sitter-cli" } },
+    { exe = "brew", cmd = { "brew", "install", "tree-sitter-cli" } },
+  }
+
+  local chosen
+  for _, item in ipairs(installers) do
+    if vim.fn.executable(item.exe) == 1 then
+      chosen = item
+      break
+    end
+  end
+
+  if not chosen then
+    notify(
+      "'tree-sitter' CLI not found and no installer (cargo/npm/brew) available.\n"
+        .. "Install it manually, e.g.: cargo install tree-sitter-cli",
+      vim.log.levels.ERROR
+    )
+    return false
+  end
+
+  notify(
+    "'tree-sitter' CLI not found. Installing via `" .. table.concat(chosen.cmd, " ") .. "`...",
+    vim.log.levels.WARN
+  )
+
+  -- Run the install asynchronously so startup is not blocked.
+  vim.system(chosen.cmd, { text = true }, function(result)
+    if result.code == 0 and vim.fn.executable("tree-sitter") == 1 then
+      notify(
+        "'tree-sitter' CLI installed successfully. Run :TSInstallEnsure to compile parsers.",
+        vim.log.levels.INFO
+      )
+    else
+      notify(
+        "Failed to install 'tree-sitter' CLI (exit " .. tostring(result.code) .. ").\n"
+          .. (result.stderr or "")
+          .. "\nInstall manually: cargo install tree-sitter-cli",
+        vim.log.levels.ERROR
+      )
+    end
+  end)
+
+  -- Not available synchronously yet; parser install will be retried later.
+  return false
+end
+
 M.setup = function()
   -- ── Treesitter Base Config ──
   -- New nvim-treesitter setup only accepts basic options like install_dir
   -- highlight / indent are built into Neovim core, no extra config needed
   require("nvim-treesitter").setup()
 
-  -- ── Ensure Languages Installed ──
-  local installed = require("nvim-treesitter.config").get_installed()
-  local missing = vim.tbl_filter(function(lang)
-    return not vim.list_contains(installed, lang)
-  end, ensure_installed)
+  -- ── Ensure Missing Parsers Installed ──
+  -- Skip when the tree-sitter CLI is unavailable (auto-install runs async;
+  -- once done, run :TSInstallEnsure or restart to compile parsers).
+  M.install_missing = function()
+    local installed = require("nvim-treesitter.config").get_installed()
+    local missing = vim.tbl_filter(function(lang)
+      return not vim.list_contains(installed, lang)
+    end, ensure_installed)
 
-  if #missing > 0 then
-    require("nvim-treesitter.install").install(missing)
+    if #missing > 0 then
+      require("nvim-treesitter.install").install(missing)
+    end
   end
+
+  if ensure_tree_sitter_cli() then
+    M.install_missing()
+  end
+
+  -- Manual command to (re)compile missing parsers once the CLI is ready.
+  vim.api.nvim_create_user_command("TSInstallEnsure", function()
+    if vim.fn.executable("tree-sitter") == 1 then
+      M.install_missing()
+    else
+      vim.notify(
+        "'tree-sitter' CLI still not found in PATH. Install: cargo install tree-sitter-cli",
+        vim.log.levels.ERROR,
+        { title = "nvim-treesitter" }
+      )
+    end
+  end, { desc = "Install any missing treesitter parsers (requires tree-sitter CLI)" })
 
   -- ── Highlight Config ──
   -- Auto-enable treesitter highlighting for all files with a parser
