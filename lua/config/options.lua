@@ -103,9 +103,6 @@ vim.opt.guifont = "Maple Mono NF CN:h14"
 -- Format expression
 vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
 
--- Copilot config (disable default mappings, handled by CodeBuddy)
-vim.g.copilot_no_maps = 1
-
 -- Disable unused providers (suppress checkhealth warnings, improve startup)
 for _, provider in ipairs({ "perl", "ruby", "node", "python3" }) do
   vim.g["loaded_" .. provider .. "_provider"] = 0

@@ -86,21 +86,4 @@ return {
       require("plugin-config.codecompanion").setup()
     end,
   },
-
-  -- ╭────────────────────────────────────────────────────────╮
-  -- │ CodeBuddy - Internal AI Plugin                         │
-  -- ╰────────────────────────────────────────────────────────╯
-  {
-    name = "CodeBuddy",
-    enabled = toggle.is_enabled("CodeBuddy"),
-    url = "git@git.woa.com:felikszhou/gongfeng-operation-platform.git",
-    event = "InsertEnter",  -- Load on InsertEnter for Copilot completion
-    cmd = "CodeBuddy",
-    init = function()
-      -- Disable default tab mapping and let us handle accept key
-      vim.g.copilot_no_tab_map = true
-      vim.g.copilot_assume_mapped = true
-      -- Copilot accept is handled by blink.cmp's Super Tab in blink-cmp/setup.lua
-    end,
-  },
 }

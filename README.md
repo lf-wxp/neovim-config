@@ -222,7 +222,6 @@ init.lua
 - **crates.nvim** — Rust crates management
 - **tailwind-tools** — Tailwind CSS utilities
 - **CodeCompanion** — AI coding assistant
-- **CodeBuddy** — Internal AI plugin
 
 ## ⌨️ Key Bindings
 

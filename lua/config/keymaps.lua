@@ -296,11 +296,6 @@ M.lsp = {
 -- │  Language - Language specific                          │
 -- ╰────────────────────────────────────────────────────────╯
 
--- CodeBuddy - AI Copilot
-M.codeBuddy = {
-  copilot_accept = "<Tab>",
-}
-
 -- crates.nvim - Rust crates management
 M.crates = {
   toggle = "<leader>ct",

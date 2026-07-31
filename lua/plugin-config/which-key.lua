@@ -351,7 +351,6 @@ M.setup = function()
       { pattern = "theme", icon = "󰏘", color = "yellow" },
       { pattern = "notes", icon = "󰎞", color = "yellow" },
       { pattern = "store", icon = "󰎞", color = "yellow" },
-      { pattern = "copilot", icon = "󰚩", color = "cyan" },
       { pattern = "ai", icon = "󱙺", color = "purple" },
       { pattern = "project", icon = "󰉖", color = "blue" },
       { pattern = "dismiss", icon = "󰅖", color = "red" },
