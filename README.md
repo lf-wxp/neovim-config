@@ -309,7 +309,7 @@ nvim  # Plugins install automatically on first launch
 | `:Lazy` | Plugin manager dashboard |
 | `:Lazy profile` | Startup time analysis |
 | `:Mason` | LSP/tool installer |
-| `:LspInfo` | Active LSP servers |
+| `:checkhealth vim.lsp` | LSP status (active clients, root dirs, capabilities). The current buffer's LSP servers are also shown in the lualine statusline |
 | `:KeymapValidate` | Check keymap conflicts |
 | `:KeymapValidate!` | Keymap statistics |
 | `:ConformInfo` | Formatter status |
@@ -369,7 +369,7 @@ This configuration is provided as-is for personal use.
 | Issue | Solution |
 |-------|----------|
 | Plugins not loading | `:Lazy sync` to install/update all plugins |
-| LSP not starting | `:LspInfo` to check server status, `:Mason` to verify installation |
+| LSP not starting | `:checkhealth vim.lsp` to check status, `:Mason` to verify installation. Current buffer's LSP servers show in the statusline |
 | Icons missing | Install a Nerd Font and set it as your terminal font |
 | Slow startup | `:Lazy profile` to identify bottlenecks |
 | Treesitter errors | `:TSInstallEnsure` to compile missing parsers |
@@ -410,5 +410,6 @@ This configuration is provided as-is for personal use.
 :checkhealth             " Full health check
 :checkhealth lazy        " Check lazy.nvim
 :checkhealth mason       " Check Mason
+:checkhealth vim.lsp     " Check active LSP clients (native)
 :checkhealth lspconfig   " Check LSP configs
 ```

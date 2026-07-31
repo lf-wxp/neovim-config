@@ -11,6 +11,22 @@ M.setup = function()
     on_update = function() require("lualine").refresh() end,
   })
 
+  -- LSP clients attached to the current buffer.
+  -- Replaces the missing :LspInfo — shows which servers are active at a glance.
+  local function lsp_clients()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+    if vim.tbl_isempty(clients) then
+      return ""
+    end
+    local names = {}
+    for _, client in ipairs(clients) do
+      names[client.name] = true
+    end
+    local unique = vim.tbl_keys(names)
+    table.sort(unique)
+    return "󰒋 " .. table.concat(unique, ", ")
+  end
+
   require("lualine").setup({
     options = {
       theme = "auto",
@@ -43,6 +59,7 @@ M.setup = function()
         { function() return require("recorder").recordingStatus() end, color = "Tag" },
       },
       lualine_x = {
+        { lsp_clients, color = "Function" },
         { "filesize", color = "Operator" },
         {
           "fileformat",
