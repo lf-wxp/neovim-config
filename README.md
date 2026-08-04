@@ -376,6 +376,7 @@ This configuration is provided as-is for personal use.
 | Keybinding conflicts | `:KeymapValidate` to detect conflicts |
 | Formatter not working | `:ConformInfo` to check formatter availability |
 | prettierd errors | Run `:MasonToolsUpdate` to reinstall with prettier dep |
+| Oil changes not applied | oil stages edits in the buffer — save with `:w` to write them to disk (creates/copies/deletes/renames only take effect on save) |
 
 ### Common Errors
 

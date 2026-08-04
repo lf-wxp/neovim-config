@@ -1,6 +1,25 @@
 -- ╭────────────────────────────────────────────────────────╮
 -- │           oil.nvim - Edit filesystem as buffer         │
 -- ╰────────────────────────────────────────────────────────╯
+--
+-- HOW CHANGES ARE APPLIED (important!):
+--   oil edits the filesystem *as a buffer*. Creating / copying / deleting /
+--   renaming an entry only stages the change in the buffer — it is NOT written
+--   to disk until you SAVE the buffer with `:w` (or `:wq`, `ZZ`, etc.).
+--
+--   On `:w`, oil takes over via its own `BufWriteCmd` autocommand and calls
+--   `oil.save()`, which applies the staged CREATE/COPY/DELETE/MOVE actions to
+--   the real filesystem (showing a confirmation prompt for non-trivial edits).
+--   This is oil's built-in behavior, defined in the plugin itself
+--   (~/.local/share/nvim/lazy/oil.nvim/lua/oil/init.lua: BufWriteCmd + M.save),
+--   NOT in this config.
+--
+--   Quick reference (inside an oil buffer, then `:w`):
+--     - New file : type a new line `name.ext`
+--     - New dir  : type a new line ending with `/`  e.g. `dir/`
+--     - Copy     : `yy` the line, `p`, then rename the pasted line
+--     - Delete   : `dd` the line (goes to trash — delete_to_trash = true)
+--     - Rename   : edit the filename text in place
 
 local M = {}
 
