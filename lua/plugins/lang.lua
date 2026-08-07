@@ -20,8 +20,13 @@ return {
         server = {
           default_settings = {
             ["rust-analyzer"] = {
-              -- Run clippy instead of check on save
-              checkOnSave = { command = "clippy" },
+              -- Newer rust-analyzer schema: checkOnSave is a boolean, and the
+              -- command lives under `check.command` (the old
+              -- `checkOnSave = { command = ... }` map is rejected).
+              checkOnSave = true,
+              check = {
+                command = "clippy",
+              },
             },
           },
         },
