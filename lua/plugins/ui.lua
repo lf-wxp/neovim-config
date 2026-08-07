@@ -94,7 +94,9 @@ return {
     end,
     opts = function()
       local opts = require("plugin-config.snacks").opts
-      -- milli.nvim: inject dashboard header at load time
+      -- milli.nvim: inject dashboard header (static first frame) at load time.
+      -- If the splash isn't installed yet, this silently skips; the config()
+      -- step below will install it and start the (animated) header instead.
       local ok, milli = pcall(require, "milli")
       if ok then
         local load_ok, splash = pcall(milli.load, { splash = "shadertwo" })
@@ -109,11 +111,43 @@ return {
     config = function(_, opts)
       require("snacks").setup(opts)
       require("plugin-config.snacks").setup_init()
-      -- milli.nvim: start dashboard animation
+
+      -- milli.nvim: start dashboard animation.
+      -- "shadertwo" is a community-registry splash (not bundled), so it may not
+      -- be installed on a fresh machine. Auto-detect and install it if missing,
+      -- then start the animation onceready.
+      local SPLASH = "shadertwo"
       local ok, milli = pcall(require, "milli")
-      if ok then
-        pcall(milli.snacks, { splash = "shadertwo", loop = true })
+      if not ok then
+        return
       end
+
+      local function start_animation()
+        pcall(milli.snacks, { splash = SPLASH, loop = true })
+      end
+
+      -- If the splash loads, it's available → animate now.
+      if (pcall(milli.load, { splash = SPLASH })) then
+        start_animation()
+        return
+      end
+
+      -- Otherwise install it asynchronously from the milli registry, then animate.
+      local reg_ok, registry = pcall(require, "milli.registry")
+      if not reg_ok then
+        return
+      end
+      vim.notify("milli: installing splash '" .. SPLASH .. "'...", vim.log.levels.INFO, { title = "milli" })
+      registry.install(SPLASH, function(install_ok, msg)
+        vim.schedule(function()
+          if install_ok then
+            vim.notify("milli: splash '" .. SPLASH .. "' installed.", vim.log.levels.INFO, { title = "milli" })
+            start_animation()
+          else
+            vim.notify("milli: failed to install '" .. SPLASH .. "': " .. tostring(msg), vim.log.levels.WARN, { title = "milli" })
+          end
+        end)
+      end)
     end,
   },
 
