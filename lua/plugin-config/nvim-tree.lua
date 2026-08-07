@@ -64,9 +64,6 @@ M.setup = function()
         quit_on_open = true,
       },
     },
-    system_open = {
-      cmd = 'open',
-    },
     renderer = {
       indent_markers = {
         enable = false,
