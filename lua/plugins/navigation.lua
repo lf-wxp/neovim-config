@@ -49,7 +49,7 @@ return {
     enabled = toggle.is_enabled("telescope"),
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "LinArcX/telescope-env.nvim",
+      "sbulav/telescope-env.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
       "nvim-telescope/telescope-symbols.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
