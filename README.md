@@ -42,6 +42,8 @@ A modular, performance-optimized Lua-based Neovim IDE built on **lazy.nvim**.
 ```
 ~/.config/nvim/
 ├── init.lua                     # Entry point
+├── neovide/
+│   └── config.toml              # Neovide CLI config (source of truth, symlinked out)
 ├── lazy-lock.json               # Plugin version lock
 └── lua/
     ├── config/                  # ── Core configuration ──
@@ -312,6 +314,17 @@ Managed via Mason and enabled through native `vim.lsp.enable`:
 git clone <your-repo-url> ~/.config/nvim
 nvim   # plugins install automatically on first launch
 ```
+
+If you use **Neovide**, link its CLI config to the copy in this repo:
+
+```bash
+ln -sfn ../nvim/neovide/config.toml                ~/.config/neovide/config.toml
+ln -sfn ../../../.config/nvim/neovide/config.toml  "$HOME/Library/Application Support/neovide/config.toml"  # macOS
+```
+
+`startup-message-capture = false` in that file matters for noice: Neovide's
+temporary startup-message UI advertises `ext_cmdline` / `ext_messages`, which
+makes noice disable its own cmdline handler permanently.
 
 ###🌳 tree-sitter CLI
 
